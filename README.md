@@ -7,5 +7,5 @@
 
 
 ## 项目结构
-- 该开源项目采用组件化方式,使用MVVM + AndoidX + jetpack组件为基本架构进行开发
+- 该开源项目采用组件化方式,使用MVVM + AndroidX + jetpack组件为基本架构进行开发
 - 项目采用VERSION_CATALOG方式统一依赖
