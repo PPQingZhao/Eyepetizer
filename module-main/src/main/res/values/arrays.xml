@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="string_array_home_tab">
+        <item>@string/main_tab_pager</item>
+        <item>@string/main_tab_community</item>
+        <item>@string/main_tab_notification</item>
+        <item>@string/main_tab_mine</item>
+    </string-array>
+</resources>
