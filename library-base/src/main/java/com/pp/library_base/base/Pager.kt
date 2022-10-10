@@ -14,8 +14,8 @@ open class Pager(private val size: Int, private val factory: FragmentFactory) {
     /**
      * create fragment
      */
-    fun getFragment(positin: Int): Fragment {
-        return factory.create(positin)
+    fun getFragment(position: Int): Fragment {
+        return factory.create(position)
     }
 
     /**

@@ -5,14 +5,14 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
 class TabPager(
-    var size: Int,
-    var factory: FragmentFactory
+    size: Int,
+    factory: FragmentFactory
 ) : Pager(size, factory) {
     private val mTabs by lazy { mutableListOf<Tab>() }
 
     fun initTabs(create: (Int) -> Tab): Unit {
         mTabs.clear()
-        IntRange(1, size).forEachIndexed { index, i ->
+        IntRange(1, size()).forEachIndexed { index, i ->
             mTabs.add(create(index))
         }
     }

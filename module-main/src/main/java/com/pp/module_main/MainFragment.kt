@@ -17,7 +17,35 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
         return mBinding.mainTabLayout
     }
 
-    override fun getPager(): TabPager {
+    override fun getViewPager(): ViewPager2 {
+        mBinding.mainViewpager.isUserInputEnabled = false
+        return mBinding.mainViewpager
+    }
+
+    override fun getLayoutRes(): Int {
+        return R.layout.fragment_main
+    }
+
+    override fun getModelClazz(): Class<MainViewModel> {
+        return MainViewModel::class.java
+    }
+
+    override fun onFirstResume() {
+        mHelper.attach(getPager(), object: TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                getViewPager().setCurrentItem(tab?.position?:0,false)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        })
+    }
+
+    fun getPager(): TabPager {
         val factory = object : Pager.FragmentFactory {
             override fun create(position: Int): Fragment {
                 return when (position) {
@@ -53,16 +81,4 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
         return tabPager
     }
 
-    override fun getViewPager(): ViewPager2 {
-        mBinding.mainViewpager.isUserInputEnabled = false
-        return mBinding.mainViewpager
-    }
-
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_main
-    }
-
-    override fun getModelClazz(): Class<MainViewModel> {
-        return MainViewModel::class.java
-    }
 }

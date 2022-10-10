@@ -1,5 +1,6 @@
-package com.pp.library_network.eyepetizer.api
+package com.pp.library_network.eyepetizer
 
+import com.pp.library_network.eyepetizer.api.EyepetizerApi
 import com.pp.library_network.utils.RetrofitUtil
 
 object EyeRetrofit {

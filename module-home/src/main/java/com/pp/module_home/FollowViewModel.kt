@@ -2,18 +2,18 @@ package com.pp.module_home
 
 import android.app.Application
 import androidx.databinding.ObservableField
-import com.pp.library_network.eyepetizer.api.EyeRetrofit
+import com.pp.library_network.eyepetizer.EyeRetrofit
 import com.pp.mvvm.LifecycleViewModel
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DiscoverViewModel(app: Application) : LifecycleViewModel(app) {
-    val content = ObservableField<String>("发现")
+class FollowViewModel(app: Application) : LifecycleViewModel(app) {
+    val content = ObservableField<String>("关注")
     fun getData() {
         EyeRetrofit.eyepetizerApi
-            .discover()
+            .follow()
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
                     call: Call<ResponseBody>,

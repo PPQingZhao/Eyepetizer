@@ -53,12 +53,12 @@ abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> 
         return mBinding.root
     }
 
-    var firstResume = true
+    var alreadResume = false
     override fun onResume() {
         super.onResume()
-        if (firstResume) {
+        if (!alreadResume) {
             onFirstResume()
-            firstResume = false
+            alreadResume = true
         }
     }
 

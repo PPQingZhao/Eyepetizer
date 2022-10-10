@@ -1,4 +1,4 @@
-package com.pp.library_network.eyepetizer.api
+package com.pp.library_network.eyepetizer
 
 class EyeRequest {
     companion object{

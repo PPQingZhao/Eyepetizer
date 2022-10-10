@@ -16,31 +16,6 @@ class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
         return mBinding.homeTabLayout
     }
 
-    override fun getPager(): TabPager {
-        val factory = object : Pager.FragmentFactory {
-            override fun create(position: Int): Fragment {
-                return when (position) {
-                    0 -> DiscoverFragment()
-                    1 -> RecommendFragment()
-                    2 -> DailyFragment()
-                    else -> DiscoverFragment()
-                }
-            }
-
-        }
-        val tabResources = arrayOf(
-            R.string.home_tab_discover,
-            R.string.home_tab_recommend,
-            R.string.home_tab_daily
-        )
-        val tabPager = TabPager(tabResources.size, factory)
-        tabPager.initTabs { position ->
-            val tab = TabPager.Tab(null, 0, tabResources[position])
-            tab
-        }
-        return tabPager;
-    }
-
     override fun getViewPager(): ViewPager2 {
         return mBinding.homeViewpager
     }
@@ -51,5 +26,34 @@ class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun getModelClazz(): Class<HomeViewModel> {
         return HomeViewModel::class.java
+    }
+
+    override fun onFirstResume() {
+        mHelper.attach(getPager())
+    }
+
+    fun getPager(): TabPager {
+        val factory = object : Pager.FragmentFactory {
+            override fun create(position: Int): Fragment {
+                return when (position) {
+                    0 -> RecommendFragment()
+                    1 -> FollowFragment()
+                    2 -> DailyFragment()
+                    else -> FollowFragment()
+                }
+            }
+
+        }
+        val tabResources = arrayOf(
+            R.string.home_tab_recommend,
+            R.string.home_tab_follow,
+            R.string.home_tab_daily
+        )
+        val tabPager = TabPager(tabResources.size, factory)
+        tabPager.initTabs { position ->
+            val tab = TabPager.Tab(null, 0, tabResources[position])
+            tab
+        }
+        return tabPager;
     }
 }

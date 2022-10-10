@@ -27,8 +27,8 @@ interface EyepetizerApi {
                  ======>> 当前播放视频的id，从跳转页面视频item中获取
      */
 
-    @GET("api/v7/index/tab/discovery")
-    fun discover(): Call<ResponseBody>
+    @GET("api/v6/community/tab/follow")
+    fun follow(): Call<ResponseBody>
 
     @GET("api/v5/index/tab/allRec")
     fun recommend(): Call<ResponseBody>

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_home.DiscoverViewModel" />
+            type="com.pp.module_home.FollowViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             android:gravity="center"
             android:text="@{viewModel.content}"
             android:textSize="10sp"
-            tools:text="@string/home_tab_discover" />
+            tools:text="@string/home_tab_follow" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
