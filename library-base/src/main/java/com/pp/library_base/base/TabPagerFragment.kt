@@ -3,7 +3,7 @@ package com.pp.library_base.base
 import androidx.databinding.ViewDataBinding
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
-import com.pp.library_base.base.utils.fragmenthelper.TabPagerFragmentHelper
+import com.pp.library_base.base.helper.TabPagerFragmentHelper
 import com.pp.mvvm.LifecycleFragment
 import com.pp.mvvm.LifecycleViewModel
 

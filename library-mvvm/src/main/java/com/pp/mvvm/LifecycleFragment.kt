@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.ViewTreeViewModelStoreOwner
+import androidx.lifecycle.lifecycleScope
 
 abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> : Fragment() {
     val mBinding: VB by lazy {
@@ -33,6 +34,7 @@ abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> 
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(mViewModel)
         mBinding.setVariable(BR.viewModel, mViewModel)
+
     }
 
     override fun onCreateView(
@@ -53,7 +55,7 @@ abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> 
         return mBinding.root
     }
 
-    var alreadResume = false
+    private var alreadResume = false
     override fun onResume() {
         super.onResume()
         if (!alreadResume) {

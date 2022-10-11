@@ -23,13 +23,12 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
         )
     }
 
-    val mViewModel by lazy { ViewModelProvider(this).get(getModelClazz()) }
+    val mViewModel by lazy { ViewModelProvider(this)[(getModelClazz())] }
 
     abstract fun getModelClazz(): Class<VM>
 
     abstract @LayoutRes
     fun getLayoutRes(): Int
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

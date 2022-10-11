@@ -2,7 +2,7 @@ package com.pp.library_base.base
 
 import androidx.databinding.ViewDataBinding
 import androidx.viewpager2.widget.ViewPager2
-import com.pp.library_base.base.utils.fragmenthelper.PagerFragmentHelper
+import com.pp.library_base.base.helper.PagerFragmentHelper
 import com.pp.mvvm.LifecycleFragment
 import com.pp.mvvm.LifecycleViewModel
 

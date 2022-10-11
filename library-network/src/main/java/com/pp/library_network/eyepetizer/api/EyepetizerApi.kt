@@ -4,6 +4,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 
+@Deprecated("使用 EyepetizerService")
 interface EyepetizerApi {
     /*
     首页
