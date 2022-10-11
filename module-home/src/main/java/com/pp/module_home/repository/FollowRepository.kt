@@ -1,4 +1,4 @@
-package com.pp.module_home.repositoy
+package com.pp.module_home.repository
 
 import androidx.paging.*
 import com.pp.library_network.eyepetizer.EyepetizerService

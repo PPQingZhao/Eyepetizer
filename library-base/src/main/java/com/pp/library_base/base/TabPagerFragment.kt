@@ -9,7 +9,13 @@ import com.pp.mvvm.LifecycleViewModel
 
 abstract class TabPagerFragment<VB : ViewDataBinding, VM : LifecycleViewModel> :
     LifecycleFragment<VB, VM>() {
-    val mHelper: TabPagerFragmentHelper by lazy { TabPagerFragmentHelper(this,getTabLayout(),getViewPager()) }
+    val mHelper: TabPagerFragmentHelper by lazy {
+        TabPagerFragmentHelper(
+            this,
+            getTabLayout(),
+            getViewPager()
+        )
+    }
 
     abstract fun getTabLayout(): TabLayout
 

@@ -1,28 +1,28 @@
-package com.pp.module_home.repositoy
+package com.pp.module_home.repository
 
 import androidx.paging.*
 import com.pp.library_network.eyepetizer.EyepetizerService
-import com.pp.library_network.eyepetizer.bean.recommend.Item
+import com.pp.library_network.eyepetizer.bean.feed.Item
 import kotlinx.coroutines.flow.Flow
 
-object RecommendRepository {
+object FeedRepository {
     fun getPagingData(): Flow<PagingData<Item>> {
         return Pager(
             config = PagingConfig(15),
-            pagingSourceFactory = { RecommendPagingSource() }).flow
+            pagingSourceFactory = { FeedPagingSource() }).flow
     }
 
-    private class RecommendPagingSource : PagingSource<String, Item>() {
+   private class FeedPagingSource : PagingSource<String, Item>() {
         @ExperimentalPagingApi
         override fun getRefreshKey(state: PagingState<String, Item>): String? = null
 
         override suspend fun load(params: LoadParams<String>): LoadResult<String, Item> {
             return try {
-                val url = params.key ?: EyepetizerService.URL_RECOMMEND
-                val recommend = EyepetizerService.service.getRecommend(url)
-                val value = recommend.itemList
+                val url = params.key ?: EyepetizerService.URL_FEED
+                val feedBean = EyepetizerService.service.getFeed(url)
+                val value = feedBean.itemList
                 val preKey = null
-                val nextKey = recommend.nextPageUrl
+                val nextKey = feedBean.nextPageUrl
                 LoadResult.Page<String, Item>(value, preKey, nextKey)
             } catch (e: Exception) {
                 LoadResult.Error(e)

@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.databinding.ObservableField
 import androidx.paging.PagingData
 import com.pp.library_network.eyepetizer.bean.recommend.Item
-import com.pp.module_home.repositoy.RecommendRepository
+import com.pp.module_home.repository.RecommendRepository
 import com.pp.mvvm.LifecycleViewModel
 import kotlinx.coroutines.flow.Flow
 

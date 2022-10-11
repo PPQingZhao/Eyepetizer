@@ -4,21 +4,21 @@ import com.pp.library_network.eyepetizer.bean.feed.FeedBean
 import com.pp.library_network.eyepetizer.bean.follow.FollowBean
 import com.pp.library_network.eyepetizer.bean.recommend.RecommendBean
 import com.pp.library_network.utils.RetrofitUtil
-import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Url
 
 interface EyepetizerService {
     /*
     首页
-     发现更多: http://baobab.kaiyanapp.com/api/v7/index/tab/discovery
      每日推荐:  http://baobab.kaiyanapp.com/api/v5/index/tab/allRec
      日报精选: http://baobab.kaiyanapp.com/api/v5/index/tab/feed
+     关注:  http://baobab.kaiyanapp.com/api/v6/community/tab/follow
 
     社区
        推荐:  http://baobab.kaiyanapp.com/api/v7/community/tab/rec
-       关注:  http://baobab.kaiyanapp.com/api/v6/community/tab/follow
+
+    发现
+        发现更多: http://baobab.kaiyanapp.com/api/v7/index/tab/discovery
 
     通知
         主题： http://baobab.kaiyanapp.com/api/v7/tag/tabList
@@ -44,7 +44,6 @@ interface EyepetizerService {
         // 关注
         const val URL_FOLLOW = "${BASE_URL}api/v6/community/tab/follow"
 
-
         private val retrofit = RetrofitUtil.create(BASE_URL)
 
         val service: EyepetizerService by lazy { retrofit.create(EyepetizerService::class.java) }
@@ -68,8 +67,4 @@ interface EyepetizerService {
     @GET
     suspend fun getFeed(@Url url: String): FeedBean
 
-
-
-    @GET("api/v5/index/tab/feed")
-    fun feed(): Call<ResponseBody>
 }

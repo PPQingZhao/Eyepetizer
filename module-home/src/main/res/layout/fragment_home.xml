@@ -10,17 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/home_tab_layout"
-            style="@style/Style_tab"
+        <FrameLayout
+            android:id="@+id/home_title"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:textSize="12sp"
+            android:layout_height="wrap_content"
+            android:background="@color/purple_200"
+            android:fitsSystemWindows="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tabIndicatorColor="@color/color_tab_selected"
-            app:tabTextColor="@color/selector_tab_text" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/home_tab_layout"
+                style="@style/Style_tab"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </FrameLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/home_viewpager"
@@ -29,6 +37,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_tab_layout" />
+            app:layout_constraintTop_toBottomOf="@id/home_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

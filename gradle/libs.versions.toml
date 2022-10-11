@@ -26,6 +26,9 @@ arouter-compiler = "com.alibaba:arouter-compiler:1.5.2"
 retrofit2 = "com.squareup.retrofit2:retrofit:2.9.0"
 retrofit2-gson-converter = "com.squareup.retrofit2:converter-gson:2.9.0"
 retrofit2-rxjava-adapter = "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+#leakcanary-android
+leakcanary = "com.squareup.leakcanary:leakcanary-android:2.0-alpha-3"
+
 
 [bundles]
 retrofit2 = ["retrofit2", "retrofit2-gson-converter", "retrofit2-rxjava-adapter"]
@@ -36,5 +39,5 @@ retrofit2 = ["retrofit2", "retrofit2-gson-converter", "retrofit2-rxjava-adapter"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 # 控制 module 编译 application 或者 library
-#android-module = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-android-module = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-module = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+#android-module = { id = "com.android.application", version.ref = "androidGradlePlugin" }

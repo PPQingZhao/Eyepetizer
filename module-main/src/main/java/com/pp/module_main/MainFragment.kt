@@ -19,6 +19,7 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun getViewPager(): ViewPager2 {
         mBinding.mainViewpager.isUserInputEnabled = false
+//        mBinding.mainViewpager.offscreenPageLimit = 1
         return mBinding.mainViewpager
     }
 
@@ -31,9 +32,9 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     override fun onFirstResume() {
-        mHelper.attach(getPager(), object: TabLayout.OnTabSelectedListener{
+        mHelper.attach(getPager(), object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                getViewPager().setCurrentItem(tab?.position?:0,false)
+                getViewPager().setCurrentItem(tab?.position ?: 0, false)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {

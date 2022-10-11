@@ -1,7 +1,6 @@
 package com.pp.module_home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.module_home.adapter.RecommendAdapter
@@ -9,7 +8,6 @@ import com.pp.module_home.databinding.FragmentRecommendBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
 
 class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendViewModel>() {
     override fun getLayoutRes(): Int {
@@ -19,7 +17,6 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
     override fun getModelClazz(): Class<RecommendViewModel> {
         return RecommendViewModel::class.java
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +33,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
     override fun onFirstResume() {
 
         lifecycleScope.launch {
-            lifecycle
-            val data = mViewModel.getData().collect {
+            mViewModel.getData().collect {
                 recommendAdapter.submitData(it)
             }
         }

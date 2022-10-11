@@ -17,6 +17,7 @@ class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun getViewPager(): ViewPager2 {
+        mBinding.homeViewpager.offscreenPageLimit = 2
         return mBinding.homeViewpager
     }
 

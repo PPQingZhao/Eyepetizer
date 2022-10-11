@@ -1,6 +1,7 @@
 package com.pp.mvvm
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,12 +60,13 @@ abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> 
     override fun onResume() {
         super.onResume()
         if (!alreadResume) {
+            Log.e("TAG", "onFirstResume==> ${this}")
             onFirstResume()
             alreadResume = true
         }
     }
 
     open fun onFirstResume() {
-
     }
+
 }
