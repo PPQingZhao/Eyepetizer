@@ -5,26 +5,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingAdapter
-import com.pp.library_network.eyepetizer.bean.feed.Item
+import com.pp.library_network.eyepetizer.bean.FeedBean
 import com.pp.module_home.R
 import com.pp.module_home.model.DailyItemViewModel
 
-class DailyAdapter : BindingAdapter<Any, Item>(DIFF_CALLBACK) {
+class DailyAdapter : BindingAdapter<Any, FeedBean.Item>(DIFF_CALLBACK) {
 
     companion object {
         const val TAG = "FollowAdapter"
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Item>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FeedBean.Item>() {
 
-            override fun areItemsTheSame(oldItem: Item, newItem: Item) = oldItem.id == newItem.id
+            override fun areItemsTheSame(oldItem: FeedBean.Item, newItem: FeedBean.Item) = oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Item, newItem: Item) = oldItem == newItem
+            override fun areContentsTheSame(oldItem: FeedBean.Item, newItem: FeedBean.Item) = oldItem == newItem
         }
     }
 
     override fun createItemViewModel(
         itemViewType: Int,
-        item: Item?,
+        item: FeedBean.Item?,
         cacheItemViewModel: Any?
     ): Any? {
         return cacheItemViewModel ?: DailyItemViewModel(item)
@@ -39,7 +39,7 @@ class DailyAdapter : BindingAdapter<Any, Item>(DIFF_CALLBACK) {
         return getDailyItemType(item)
     }
 
-    private fun getDailyItemType(item: Item?): Int {
+    private fun getDailyItemType(item: FeedBean.Item?): Int {
         return if ("textCard" == item?.type) 0 else 0
     }
 

@@ -2,7 +2,7 @@ package com.pp.module_home.repository
 
 import androidx.paging.*
 import com.pp.library_network.eyepetizer.EyepetizerService
-import com.pp.library_network.eyepetizer.bean.follow.Item
+import com.pp.library_network.eyepetizer.bean.FollowBean.Item
 import kotlinx.coroutines.flow.Flow
 
 object FollowRepository {
