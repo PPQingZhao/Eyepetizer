@@ -12,6 +12,9 @@ import com.pp.module_home.databinding.FragmentHomeBinding
 
 @Route(path = RouterPath.Home.fragment_home)
 class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
+
+    override val mBinding: FragmentHomeBinding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
+
     override fun getTabLayout(): TabLayout {
         return mBinding.homeTabLayout
     }
@@ -19,10 +22,6 @@ class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun getViewPager(): ViewPager2 {
         mBinding.homeViewpager.offscreenPageLimit = 2
         return mBinding.homeViewpager
-    }
-
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_home
     }
 
     override fun getModelClazz(): Class<HomeViewModel> {
@@ -57,4 +56,6 @@ class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
         }
         return tabPager;
     }
+
+
 }

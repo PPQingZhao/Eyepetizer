@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingAdapter
-import com.pp.library_network.eyepetizer.bean.FeedBean
+import com.pp.module_home.api.bean.FeedBean
 import com.pp.module_home.R
 import com.pp.module_home.model.DailyItemViewModel
 

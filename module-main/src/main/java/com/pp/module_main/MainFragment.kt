@@ -13,6 +13,8 @@ import com.pp.module_main.databinding.FragmentMainBinding
 import com.pp.module_main.databinding.ViewTabBinding
 
 class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
+    override val mBinding: FragmentMainBinding by lazy { FragmentMainBinding.inflate(layoutInflater) }
+
     override fun getTabLayout(): TabLayout {
         return mBinding.mainTabLayout
     }
@@ -23,27 +25,12 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
         return mBinding.mainViewpager
     }
 
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_main
-    }
-
     override fun getModelClazz(): Class<MainViewModel> {
         return MainViewModel::class.java
     }
 
     override fun onFirstResume() {
-        mHelper.attach(getPager(), object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                getViewPager().setCurrentItem(tab?.position ?: 0, false)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-        })
+        mHelper.attach(getPager(), false)
     }
 
     fun getPager(): TabPager {
@@ -81,5 +68,6 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
         }
         return tabPager
     }
+
 
 }

@@ -54,12 +54,9 @@ android {
 
 dependencies {
 
-    implementation(projects.libraryBase)
-
     // 路由
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
 
-    implementation(projects.libraryServiceManager)
-    implementation(projects.libraryNetwork)
+   implementation(projects.libraryCommon)
 }

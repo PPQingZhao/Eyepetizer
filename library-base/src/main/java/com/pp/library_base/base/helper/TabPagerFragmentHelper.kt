@@ -34,28 +34,19 @@ class TabPagerFragmentHelper(
         viewPager: ViewPager2
     ) : this(taLayout, fragment.childFragmentManager, fragment.lifecycle, viewPager)
 
-    fun attach(tabPager: TabPager, onTabSelectedListener: OnTabSelectedListener?) {
+    fun attach(tabPager: TabPager, smoothScroll: Boolean) {
         this.pager = tabPager;
         pagerHelper.attach(tabPager)
 
         //TabLayout联动ViewPager
         tabLayout.clearOnTabSelectedListeners()
         tabLayout.removeAllTabs()
-        tabLayout.addOnTabSelectedListener(onTabSelectedListener ?: object :
-            TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                pagerHelper.viewPager.setCurrentItem(tab?.position ?: 0)
-            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
         TabLayoutMediator(
             tabLayout,
             pagerHelper.viewPager,
+            true,
+            smoothScroll,
             TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 val pTab = pager.getTab(position)
                 tab.customView = pTab.tab
@@ -70,6 +61,6 @@ class TabPagerFragmentHelper(
     }
 
     fun attach(tabPager: TabPager) {
-        attach(tabPager, null)
+        attach(tabPager, true)
     }
 }

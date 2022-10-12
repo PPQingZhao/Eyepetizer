@@ -1,12 +1,12 @@
 plugins {
-    id("com.android.library") version (libs.versions.androidGradlePlugin)
+
     alias(libs.plugins.kotlin.android)
+    id("com.android.library") version (libs.versions.androidGradlePlugin)
     id("kotlin-kapt")
 }
 
 android {
-
-    namespace = "com.pp.module_main"
+    namespace = "com.pp.common"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -14,12 +14,6 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments["AROUTER_MODULE_NAME"] = project.name
-            }
-        }
     }
 
     buildTypes {
@@ -45,10 +39,12 @@ android {
 }
 
 dependencies {
+    testImplementation(libs.junit.get())
+    androidTestImplementation(libs.ext.junit.get())
+    androidTestImplementation(libs.espresso.core.get())
 
-    // 路由
-    implementation(libs.arouter.api)
-    kapt(libs.arouter.compiler)
-
-    implementation(projects.libraryCommon)
+    api(projects.libraryBase)
+    api(projects.libraryServiceManager)
+    api(projects.libraryNetwork)
+    api(libs.leakcanary)
 }

@@ -10,8 +10,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendViewModel>() {
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_recommend;
+    override val mBinding: FragmentRecommendBinding by lazy {
+        FragmentRecommendBinding.inflate(
+            layoutInflater
+        )
     }
 
     override fun getModelClazz(): Class<RecommendViewModel> {
@@ -38,5 +40,6 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
             }
         }
     }
+
 }
 

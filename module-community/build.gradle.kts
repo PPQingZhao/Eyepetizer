@@ -53,11 +53,8 @@ android {
 
 dependencies {
 
-    implementation(projects.libraryBase)
-
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
 
-    implementation(projects.libraryServiceManager)
-    implementation(projects.libraryNetwork)
+    implementation(projects.libraryCommon)
 }

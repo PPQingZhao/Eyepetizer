@@ -1,11 +1,6 @@
 package com.pp.library_network.eyepetizer
 
-import com.pp.library_network.eyepetizer.bean.FeedBean
-import com.pp.library_network.eyepetizer.bean.FollowBean
-import com.pp.library_network.eyepetizer.bean.RecommendBean
 import com.pp.library_network.utils.RetrofitUtil
-import retrofit2.http.GET
-import retrofit2.http.Url
 
 interface EyepetizerService {
     /*
@@ -44,27 +39,9 @@ interface EyepetizerService {
         // 关注
         const val URL_FOLLOW = "${BASE_URL}api/v6/community/tab/follow"
 
-        private val retrofit = RetrofitUtil.create(BASE_URL)
+        val retrofit = RetrofitUtil.create(BASE_URL)
 
-        val service: EyepetizerService by lazy { retrofit.create(EyepetizerService::class.java) }
     }
 
-    /**
-     * 首页-推荐
-     */
-    @GET
-    suspend fun getRecommend(@Url url: String = URL_RECOMMEND): RecommendBean
-
-    /**
-     * 首页-关注
-     */
-    @GET
-    suspend fun geFollow(@Url url: String = URL_FOLLOW): FollowBean
-
-    /**
-     * 首页-日报精选
-     */
-    @GET
-    suspend fun getFeed(@Url url: String = URL_FEED): FeedBean
 
 }

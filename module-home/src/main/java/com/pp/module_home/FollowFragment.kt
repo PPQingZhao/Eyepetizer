@@ -10,8 +10,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>() {
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_follow;
+    override val mBinding: FragmentFollowBinding by lazy {
+        FragmentFollowBinding.inflate(
+            layoutInflater
+        )
     }
 
     override fun getModelClazz(): Class<FollowViewModel> {

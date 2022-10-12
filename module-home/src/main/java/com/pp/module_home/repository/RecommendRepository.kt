@@ -2,7 +2,8 @@ package com.pp.module_home.repository
 
 import androidx.paging.*
 import com.pp.library_network.eyepetizer.EyepetizerService
-import com.pp.library_network.eyepetizer.bean.RecommendBean
+import com.pp.module_home.api.bean.RecommendBean
+import com.pp.module_home.api.HomeApi
 import kotlinx.coroutines.flow.Flow
 
 object RecommendRepository {
@@ -19,7 +20,7 @@ object RecommendRepository {
         override suspend fun load(params: LoadParams<String>): LoadResult<String, RecommendBean.Item> {
             return try {
                 val url = params.key ?: EyepetizerService.URL_RECOMMEND
-                val recommend = EyepetizerService.service.getRecommend(url)
+                val recommend = HomeApi.api.getRecommend(url)
                 val value = recommend.itemList
                 val preKey = null
                 val nextKey = recommend.nextPageUrl

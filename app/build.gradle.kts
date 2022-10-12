@@ -43,8 +43,7 @@ android {
 }
 
 dependencies {
-
-    implementation(projects.libraryBase)
+    implementation(projects.libraryCommon)
 
     if ("com.android.library" == (libs.plugins.android.module.get().pluginId)) {
         implementation(projects.moduleMain)

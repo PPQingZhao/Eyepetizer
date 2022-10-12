@@ -1,4 +1,4 @@
-package com.pp.library_network.eyepetizer.bean
+package com.pp.module_home.api.bean
 
 data class FollowBean(
     val adExist: Boolean,

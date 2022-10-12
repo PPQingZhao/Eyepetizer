@@ -1,6 +1,6 @@
 package com.pp.module_home.model
 
-import com.pp.library_network.eyepetizer.bean.FeedBean
+import com.pp.module_home.api.bean.FeedBean
 
 
 class DailyItemViewModel(private val item: FeedBean.Item?) {

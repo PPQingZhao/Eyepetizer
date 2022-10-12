@@ -6,26 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.ViewTreeViewModelStoreOwner
-import androidx.lifecycle.lifecycleScope
 
 abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> : Fragment() {
-    val mBinding: VB by lazy {
-        DataBindingUtil.inflate<VB>(
-            layoutInflater,
-            getLayoutRes(),
-            null,
-            false
-        )
-    }
 
-    abstract @LayoutRes
-    fun getLayoutRes(): Int
+    abstract val mBinding: VB
+
+    @Deprecated("废弃", ReplaceWith("mBinding"))
+    @LayoutRes
+    open fun getLayoutRes(): Int {
+        return 0
+    }
 
     val mViewModel: VM by lazy { ViewModelProvider(this)[getModelClazz()] }
 

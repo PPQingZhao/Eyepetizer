@@ -10,9 +10,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() {
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_daily;
-    }
+    override val mBinding: FragmentDailyBinding by lazy { FragmentDailyBinding.inflate(layoutInflater) }
 
     override fun getModelClazz(): Class<DailyViewModel> {
         return DailyViewModel::class.java

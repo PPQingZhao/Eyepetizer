@@ -2,7 +2,8 @@ package com.pp.module_home.repository
 
 import androidx.paging.*
 import com.pp.library_network.eyepetizer.EyepetizerService
-import com.pp.library_network.eyepetizer.bean.FeedBean
+import com.pp.module_home.api.bean.FeedBean
+import com.pp.module_home.api.HomeApi
 import kotlinx.coroutines.flow.Flow
 
 object FeedRepository {
@@ -19,7 +20,7 @@ object FeedRepository {
         override suspend fun load(params: LoadParams<String>): LoadResult<String, FeedBean.Item> {
             return try {
                 val url = params.key ?: EyepetizerService.URL_FEED
-                val feedBean = EyepetizerService.service.getFeed(url)
+                val feedBean = HomeApi.api.getFeed(url)
                 val value = feedBean.itemList
                 val preKey = null
                 val nextKey = feedBean.nextPageUrl

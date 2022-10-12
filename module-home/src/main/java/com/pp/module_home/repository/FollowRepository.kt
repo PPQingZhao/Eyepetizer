@@ -2,7 +2,8 @@ package com.pp.module_home.repository
 
 import androidx.paging.*
 import com.pp.library_network.eyepetizer.EyepetizerService
-import com.pp.library_network.eyepetizer.bean.FollowBean.Item
+import com.pp.module_home.api.bean.FollowBean.Item
+import com.pp.module_home.api.HomeApi
 import kotlinx.coroutines.flow.Flow
 
 object FollowRepository {
@@ -19,7 +20,7 @@ object FollowRepository {
         override suspend fun load(params: LoadParams<String>): LoadResult<String, Item> {
             return try {
                 val url = params.key ?: EyepetizerService.URL_FOLLOW
-                val followBean = EyepetizerService.service.geFollow(url)
+                val followBean = HomeApi.api.geFollow(url)
                 val value = followBean.itemList
                 val preKey = null
                 val nextKey = followBean.nextPageUrl
