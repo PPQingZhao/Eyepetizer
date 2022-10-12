@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_home.RecommendViewModel" />
+            type="com.pp.module_home.ui.RecommendViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,4 +1,4 @@
-package com.pp.module_home
+package com.pp.module_home.ui
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -8,6 +8,7 @@ import com.pp.library_base.base.Pager
 import com.pp.library_base.base.TabPager
 import com.pp.library_base.base.TabPagerFragment
 import com.pp.library_servicemanager.services.RouterPath
+import com.pp.module_home.R
 import com.pp.module_home.databinding.FragmentHomeBinding
 
 @Route(path = RouterPath.Home.fragment_home)

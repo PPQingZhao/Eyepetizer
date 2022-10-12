@@ -40,6 +40,7 @@ class RecommendAdapter : BindingAdapter<Any, RecommendBean.Item>(DIFF_CALLBACK) 
     }
 
     private fun getRecommendItemType(item: RecommendBean.Item?): Int {
+
         return if ("textCard" == item?.type) 0 else 0
     }
 

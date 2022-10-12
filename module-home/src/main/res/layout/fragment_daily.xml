@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_home.DailyViewModel" />
+            type="com.pp.module_home.ui.DailyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

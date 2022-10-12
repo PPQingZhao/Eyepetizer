@@ -43,5 +43,94 @@ interface EyepetizerService {
 
     }
 
+    /**
+     * item type
+     */
+    object ItemType {
+        val UNKNOWN = -1
+        val SQUARE_CARD_COLLECTION = 0
+        val TEXT_CARD = SQUARE_CARD_COLLECTION + 1
+        val FOLLOW_CARD = TEXT_CARD + 1
+        val VIDEO_SMALL_CARD = FOLLOW_CARD + 1
+        val AUTOPLAYFOLLOWCARD = VIDEO_SMALL_CARD + 1
 
+
+        /**
+         * 字符串item type 转换 int
+         */
+        fun getItemType(type: String): Int {
+            return when (type) {
+                "squareCardCollection" -> SQUARE_CARD_COLLECTION
+                "textCard" -> TEXT_CARD
+                "followCard" -> FOLLOW_CARD
+                "videoSmallCard" -> VIDEO_SMALL_CARD
+                "autoPlayFollowCard" -> AUTOPLAYFOLLOWCARD
+
+                else -> UNKNOWN
+            }
+        }
+    }
+
+    /**
+     * item data type
+     */
+    object ItemDataType {
+        val UNKNOWN = -1
+        val ITEM_COLLECTION = 0
+        val TEXT_CARD = ITEM_COLLECTION + 1
+        val FOLLOW_CARD = TEXT_CARD + 1
+        val VIDEO_BEAN_FOR_CLIENT = FOLLOW_CARD + 1
+
+
+        /**
+         * 字符串 data type 转换 int
+         */
+        fun getItemDataType(type: String): Int {
+            return when (type) {
+                "ItemCollection" -> ITEM_COLLECTION
+                "TextCard" -> TEXT_CARD
+                "FollowCard" -> FOLLOW_CARD
+                "VideoBeanForClient" -> VIDEO_BEAN_FOR_CLIENT
+
+                else -> UNKNOWN
+            }
+        }
+    }
+
+
+    /**
+     * item content type
+     */
+    object ItemContentType {
+        val UNKNOWN = -1
+        val VIDEO = 1
+
+        /**
+         * 字符串 item content type 转换 int
+         */
+        fun getItemContentType(type: String): Int {
+            return when (type) {
+                "video" -> VIDEO
+                else -> UNKNOWN
+            }
+        }
+    }
+
+    /**
+     * item content data type
+     */
+    object ItemContentDataType {
+        val UNKNOWN = -1
+        val NORMAL = 1
+
+        /**
+         * 字符串 item content type 转换 int
+         */
+        fun getItemContentType(type: String): Int {
+            return when (type) {
+                "NORMAL" -> NORMAL
+                else -> UNKNOWN
+            }
+        }
+    }
 }

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_home.FollowViewModel" />
+            type="com.pp.module_home.ui.FollowViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

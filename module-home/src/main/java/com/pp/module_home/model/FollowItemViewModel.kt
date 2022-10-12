@@ -7,6 +7,12 @@ class FollowItemViewModel(private val item: Item?) {
     var content = "follow==>"
 
     init {
-        content = "$content ${item?.type ?: "null"}"
+        content = """
+            $content
+                         item type: ${item?.type ?: "null"}
+                    item data type: ${item?.data?.dataType ?: "null"}
+                      content type: ${item?.data?.content?.type ?: "null"}
+                 content data type: ${item?.data?.content?.data?.type ?: "null"}
+        """.trimIndent()
     }
 }

@@ -1,4 +1,4 @@
-package com.pp.module_home
+package com.pp.module_home.ui
 
 import android.app.Application
 import com.pp.mvvm.LifecycleViewModel

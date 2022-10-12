@@ -1,4 +1,4 @@
-package com.pp.module_home
+package com.pp.module_home.ui
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
