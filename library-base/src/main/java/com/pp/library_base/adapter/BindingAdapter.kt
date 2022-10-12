@@ -1,25 +1,23 @@
 package com.pp.library_base.adapter
 
 import android.util.ArrayMap
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pp.mvvm.BR
 
-abstract class BindingAdapter<VM : Any, T : Any>(diffCallback: DiffUtil.ItemCallback<T>) :
-    PagingDataAdapter<T, Holder>(diffCallback) {
-    private val itemViewModelCaches by lazy { ArrayMap<Int, VM>() }
+abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallback: DiffUtil.ItemCallback<T>) :
+    PagingDataAdapter<T, BindingHolder<VB>>(diffCallback) {
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: BindingHolder<VB>, position: Int) {
 
         // position 位置缓存的 item viewModel
         val cacheItemViewModel = itemViewModelCaches[position]
         // 创建 item viewModle
-        val createItemViewModel = createItemViewModel(
+        val createItemViewModel = createViewModel(
             getItemViewType(position),
             getItem(position),
             cacheItemViewModel
@@ -27,31 +25,43 @@ abstract class BindingAdapter<VM : Any, T : Any>(diffCallback: DiffUtil.ItemCall
         // 更新
         itemViewModelCaches[position] = createItemViewModel
 
-        holder.mBinding?.setVariable(
-            BR.viewModel,
-            createItemViewModel
-        )
-
+        onSetVariable(holder.binding, createItemViewModel)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(createItemView(parent, viewType))
+    lateinit var layoutInflater: LayoutInflater
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        layoutInflater = LayoutInflater.from(recyclerView.context)
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<VB> {
+        return BindingHolder<VB>(createBinding(parent, viewType))
+    }
 
     /**
-     * 创建 item viewModel
+     * 在这里设置 ViewDataBinding::setVariable(int variableId, @Nullable Object value);
      */
-    abstract fun createItemViewModel(itemViewType: Int, item: T?, cacheItemViewModel: VM?): VM?
+    open fun onSetVariable(binding: ViewDataBinding, viewModel: VM) {
+        //set default variable
+        try {
+            binding.setVariable(BR.viewModel, viewModel)
+        } catch (e: ClassCastException) {
+            e.printStackTrace()
+        }
+    }
+
+    private val itemViewModelCaches by lazy { ArrayMap<Int, VM>() }
 
     /**
-     * 创建item view
+     * 创建viewModel
      */
-    abstract fun createItemView(parent: ViewGroup, viewType: Int): View
+    abstract fun createViewModel(itemViewType: Int, item: T?, cacheItemViewModel: VM?): VM
+
+    /**
+     * 创建viewType类型的ViewDataBinding
+     */
+    abstract fun createBinding(parent: ViewGroup, viewType: Int): VB
 
 
 }
 
-class Holder(item: View) : RecyclerView.ViewHolder(item) {
-    val mBinding by lazy { DataBindingUtil.bind<ViewDataBinding>(itemView) }
-}
+class BindingHolder<VB : ViewDataBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)

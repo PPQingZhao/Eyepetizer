@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -12,14 +13,81 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_marginBottom="@dimen/item_margin_bottom">
+
+        <ImageView
+            android:id="@+id/item_iv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:bindSrc="@{viewModel.imagePath}"
+            android:gravity="center_vertical"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="9:4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/iv_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/padding_normal"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_category"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_iv">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:bindSrc="@{viewModel.icon}"
+                tools:src="@drawable/ic_launcher_background" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingStart="10dp"
-            android:text="@{viewModel.content}"
-            tools:text="daily" />
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.title}"
+            android:textColor="@color/color_tab_selected"
+            android:textSize="@dimen/content_title"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/item_iv"
+            tools:text="直面恐惧,看完感觉不能呼吸了了了了了了了了" />
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.category}"
+            android:textColor="@color/color_tab_selected"
+            app:layout_constraintEnd_toStartOf="@id/tv_time_range"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="开眼记录精选 # 记录22222222222222222222222222222222222" />
+
+        <TextView
+            android:id="@+id/tv_time_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:text="@{viewModel.duration}"
+            android:textColor="@color/color_tab_selected"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/tv_category"
+            app:layout_constraintTop_toTopOf="@id/tv_category"
+            tools:text="02:00" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

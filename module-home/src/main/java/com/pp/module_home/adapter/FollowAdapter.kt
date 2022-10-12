@@ -1,15 +1,15 @@
 package com.pp.module_home.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingAdapter
 import com.pp.module_home.api.bean.FollowBean.Item
-import com.pp.module_home.R
+import com.pp.module_home.databinding.ItemFollowBinding
 import com.pp.module_home.model.FollowItemViewModel
 
-class FollowAdapter : BindingAdapter<Any, Item>(DIFF_CALLBACK) {
+class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) {
 
     companion object {
         const val TAG = "FollowAdapter"
@@ -22,18 +22,6 @@ class FollowAdapter : BindingAdapter<Any, Item>(DIFF_CALLBACK) {
         }
     }
 
-    override fun createItemViewModel(
-        itemViewType: Int,
-        item: Item?,
-        cacheItemViewModel: Any?
-    ): Any? {
-        return cacheItemViewModel ?: FollowItemViewModel(item)
-    }
-
-    override fun createItemView(parent: ViewGroup, viewType: Int): View {
-        return LayoutInflater.from(parent.context).inflate(R.layout.item_follow, parent, false)
-    }
-
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
         return getFollowItemType(item)
@@ -41,6 +29,14 @@ class FollowAdapter : BindingAdapter<Any, Item>(DIFF_CALLBACK) {
 
     private fun getFollowItemType(item: Item?): Int {
         return if ("textCard" == item?.type) 0 else 0
+    }
+
+    override fun createViewModel(itemViewType: Int, item: Item?, cacheItemViewModel: Any?): Any {
+        return cacheItemViewModel ?: FollowItemViewModel(item)
+    }
+
+    override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
+        return ItemFollowBinding.inflate(LayoutInflater.from(parent.context))
     }
 
 }

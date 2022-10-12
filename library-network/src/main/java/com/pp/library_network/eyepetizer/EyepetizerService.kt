@@ -21,7 +21,7 @@ interface EyepetizerService {
         互动：  http://baobab.kaiyanapp.com/api/v7/topic/list
 
      视频详情页
-        相关推荐：http://baobab.kaiyanapp.com/api/v4/video/related?id=186856
+        相关推荐：http://baobab.kaiyanapp.com/api/v4/video/related?id=13308
                  ======>>当前播放视频的id，从跳转页面视频item中获取
         评论：http://baobab.kaiyanapp.com/api/v2/replies/video?videoId=186856
                  ======>> 当前播放视频的id，从跳转页面视频item中获取
@@ -47,18 +47,24 @@ interface EyepetizerService {
      * item type
      */
     object ItemType {
-        const val UNKNOWN = -1
-        const val SQUARE_CARD_COLLECTION = 0
+
+        const val VIDEO = 0
+        const val HEADER_5 = VIDEO +1
+        const val SQUARE_CARD_COLLECTION = HEADER_5 + 1
         const val TEXT_CARD = SQUARE_CARD_COLLECTION + 1
         const val FOLLOW_CARD = TEXT_CARD + 1
         const val VIDEO_SMALL_CARD = FOLLOW_CARD + 1
-        const val AUTOPLAYFOLLOWCARD = VIDEO_SMALL_CARD + 1
+        const val AUTO_PLAY_FOLLO_WCARD = VIDEO_SMALL_CARD + 1
+        const val ITEM_END = AUTO_PLAY_FOLLO_WCARD
+        const val UNKNOWN = -1
 
         const val squareCardCollection = "squareCardCollection"
         const val textCard = "textCard"
         const val followCard = "followCard"
         const val videoSmallCard = "videoSmallCard"
         const val autoPlayFollowCard = "autoPlayFollowCard"
+        const val header5 = "header5"
+        const val video = "video"
 
         private val map by lazy { mutableMapOf<String, Int>() }
 
@@ -68,7 +74,9 @@ interface EyepetizerService {
             map.put(followCard, FOLLOW_CARD)
             map.put(videoSmallCard, VIDEO_SMALL_CARD)
             map.put(squareCardCollection, SQUARE_CARD_COLLECTION)
-            map.put(autoPlayFollowCard, AUTOPLAYFOLLOWCARD)
+            map.put(autoPlayFollowCard, AUTO_PLAY_FOLLO_WCARD)
+            map.put(header5, HEADER_5)
+            map.put(video, VIDEO)
         }
 
         /**
@@ -84,15 +92,20 @@ interface EyepetizerService {
      */
     object ItemDataType {
         const val UNKNOWN = -1
-        const val ITEM_COLLECTION = 0
+
+        const val ITEM_COLLECTION = ItemType.ITEM_END + 1
         const val TEXT_CARD = ITEM_COLLECTION + 1
         const val FOLLOW_CARD = TEXT_CARD + 1
         const val VIDEO_BEAN_FOR_CLIENT = FOLLOW_CARD + 1
+        const val NORMAL = VIDEO_BEAN_FOR_CLIENT + 1
+
+        const val ITEM_END = VIDEO_BEAN_FOR_CLIENT
 
         const val ItemCollection = "ItemCollection"
         const val TextCard = "TextCard"
         const val FollowCard = "FollowCard"
         const val VideoBeanForClient = "VideoBeanForClient"
+        const val NORMAL_text = "NORMAL"
         private val map by lazy { mutableMapOf<String, Int>() }
 
         init {
@@ -100,6 +113,7 @@ interface EyepetizerService {
             map.put(TextCard, TEXT_CARD)
             map.put(FollowCard, FOLLOW_CARD)
             map.put(VideoBeanForClient, VIDEO_BEAN_FOR_CLIENT)
+            map.put(NORMAL_text, NORMAL)
         }
 
         /**
@@ -110,50 +124,4 @@ interface EyepetizerService {
         }
     }
 
-
-    /**
-     * item content type
-     */
-    object ItemContentType {
-        const val UNKNOWN = -1
-        const val VIDEO = 1
-
-        const val video = "video"
-
-        private val map by lazy { mutableMapOf<String, Int>() }
-
-        init {
-            map.put(video, VIDEO)
-        }
-
-        /**
-         * 字符串 item content type 转换 int
-         */
-        fun getItemContentType(type: String): Int {
-            return map[type] ?: UNKNOWN
-        }
-    }
-
-    /**
-     * item content data type
-     */
-    object ItemContentDataType {
-        const val UNKNOWN = -1
-        const val NORMAL = 1
-
-        const val NORMAL_TEXT = "NORMAL"
-
-        private val map by lazy { mutableMapOf<String, Int>() }
-
-        init {
-            map.put(NORMAL_TEXT, NORMAL)
-        }
-
-        /**
-         * 字符串 item content type 转换 int
-         */
-        fun getItemContentType(type: String): Int {
-            return map[type] ?: UNKNOWN
-        }
-    }
 }

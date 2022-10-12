@@ -28,7 +28,9 @@ retrofit2-converter-gson = "com.squareup.retrofit2:converter-gson:2.9.0"
 retrofit2-adapter-rxjava = "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
 #leakcanary-android
 leakcanary = "com.squareup.leakcanary:leakcanary-android:2.0-alpha-3"
-
+#glide
+glide = "com.github.bumptech.glide:glide:4.6.1"
+glide-compiler = "com.github.bumptech.glide:compiler:4.6.1"
 
 [bundles]
 retrofit2 = ["retrofit2", "retrofit2-converter-gson", "retrofit2-adapter-rxjava"]
@@ -39,5 +41,5 @@ retrofit2 = ["retrofit2", "retrofit2-converter-gson", "retrofit2-adapter-rxjava"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 # 控制 module 编译 application 或者 library
-android-module = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-#android-module = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+#android-module = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+android-module = { id = "com.android.application", version.ref = "androidGradlePlugin" }

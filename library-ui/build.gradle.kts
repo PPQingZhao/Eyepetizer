@@ -46,4 +46,6 @@ dependencies {
 
     api(libs.material.get())
 
+    api(libs.glide)
+    kapt(libs.glide.compiler)
 }
