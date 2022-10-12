@@ -47,27 +47,35 @@ interface EyepetizerService {
      * item type
      */
     object ItemType {
-        val UNKNOWN = -1
-        val SQUARE_CARD_COLLECTION = 0
-        val TEXT_CARD = SQUARE_CARD_COLLECTION + 1
-        val FOLLOW_CARD = TEXT_CARD + 1
-        val VIDEO_SMALL_CARD = FOLLOW_CARD + 1
-        val AUTOPLAYFOLLOWCARD = VIDEO_SMALL_CARD + 1
+        const val UNKNOWN = -1
+        const val SQUARE_CARD_COLLECTION = 0
+        const val TEXT_CARD = SQUARE_CARD_COLLECTION + 1
+        const val FOLLOW_CARD = TEXT_CARD + 1
+        const val VIDEO_SMALL_CARD = FOLLOW_CARD + 1
+        const val AUTOPLAYFOLLOWCARD = VIDEO_SMALL_CARD + 1
 
+        const val squareCardCollection = "squareCardCollection"
+        const val textCard = "textCard"
+        const val followCard = "followCard"
+        const val videoSmallCard = "videoSmallCard"
+        const val autoPlayFollowCard = "autoPlayFollowCard"
+
+        private val map by lazy { mutableMapOf<String, Int>() }
+
+        init {
+            map.put(squareCardCollection, SQUARE_CARD_COLLECTION)
+            map.put(textCard, TEXT_CARD)
+            map.put(followCard, FOLLOW_CARD)
+            map.put(videoSmallCard, VIDEO_SMALL_CARD)
+            map.put(squareCardCollection, SQUARE_CARD_COLLECTION)
+            map.put(autoPlayFollowCard, AUTOPLAYFOLLOWCARD)
+        }
 
         /**
          * 字符串item type 转换 int
          */
         fun getItemType(type: String): Int {
-            return when (type) {
-                "squareCardCollection" -> SQUARE_CARD_COLLECTION
-                "textCard" -> TEXT_CARD
-                "followCard" -> FOLLOW_CARD
-                "videoSmallCard" -> VIDEO_SMALL_CARD
-                "autoPlayFollowCard" -> AUTOPLAYFOLLOWCARD
-
-                else -> UNKNOWN
-            }
+            return map[type] ?: UNKNOWN
         }
     }
 
@@ -75,25 +83,30 @@ interface EyepetizerService {
      * item data type
      */
     object ItemDataType {
-        val UNKNOWN = -1
-        val ITEM_COLLECTION = 0
-        val TEXT_CARD = ITEM_COLLECTION + 1
-        val FOLLOW_CARD = TEXT_CARD + 1
-        val VIDEO_BEAN_FOR_CLIENT = FOLLOW_CARD + 1
+        const val UNKNOWN = -1
+        const val ITEM_COLLECTION = 0
+        const val TEXT_CARD = ITEM_COLLECTION + 1
+        const val FOLLOW_CARD = TEXT_CARD + 1
+        const val VIDEO_BEAN_FOR_CLIENT = FOLLOW_CARD + 1
 
+        const val ItemCollection = "ItemCollection"
+        const val TextCard = "TextCard"
+        const val FollowCard = "FollowCard"
+        const val VideoBeanForClient = "VideoBeanForClient"
+        private val map by lazy { mutableMapOf<String, Int>() }
+
+        init {
+            map.put(ItemCollection, ITEM_COLLECTION)
+            map.put(TextCard, TEXT_CARD)
+            map.put(FollowCard, FOLLOW_CARD)
+            map.put(VideoBeanForClient, VIDEO_BEAN_FOR_CLIENT)
+        }
 
         /**
          * 字符串 data type 转换 int
          */
         fun getItemDataType(type: String): Int {
-            return when (type) {
-                "ItemCollection" -> ITEM_COLLECTION
-                "TextCard" -> TEXT_CARD
-                "FollowCard" -> FOLLOW_CARD
-                "VideoBeanForClient" -> VIDEO_BEAN_FOR_CLIENT
-
-                else -> UNKNOWN
-            }
+            return map[type] ?: UNKNOWN
         }
     }
 
@@ -102,17 +115,22 @@ interface EyepetizerService {
      * item content type
      */
     object ItemContentType {
-        val UNKNOWN = -1
-        val VIDEO = 1
+        const val UNKNOWN = -1
+        const val VIDEO = 1
+
+        const val video = "video"
+
+        private val map by lazy { mutableMapOf<String, Int>() }
+
+        init {
+            map.put(video, VIDEO)
+        }
 
         /**
          * 字符串 item content type 转换 int
          */
         fun getItemContentType(type: String): Int {
-            return when (type) {
-                "video" -> VIDEO
-                else -> UNKNOWN
-            }
+            return map[type] ?: UNKNOWN
         }
     }
 
@@ -120,17 +138,22 @@ interface EyepetizerService {
      * item content data type
      */
     object ItemContentDataType {
-        val UNKNOWN = -1
-        val NORMAL = 1
+        const val UNKNOWN = -1
+        const val NORMAL = 1
+
+        const val NORMAL_TEXT = "NORMAL"
+
+        private val map by lazy { mutableMapOf<String, Int>() }
+
+        init {
+            map.put(NORMAL_TEXT, NORMAL)
+        }
 
         /**
          * 字符串 item content type 转换 int
          */
         fun getItemContentType(type: String): Int {
-            return when (type) {
-                "NORMAL" -> NORMAL
-                else -> UNKNOWN
-            }
+            return map[type] ?: UNKNOWN
         }
     }
 }
