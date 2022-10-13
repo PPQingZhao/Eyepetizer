@@ -47,7 +47,7 @@ dependencies {
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
 
-    implementation(projects.libraryServiceManager)
+    implementation(projects.libraryRouterService)
 
     api(libs.bundles.retrofit2)
 

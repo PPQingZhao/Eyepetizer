@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.pp.servicemanager"
+    namespace = "com.pp.router_service"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {

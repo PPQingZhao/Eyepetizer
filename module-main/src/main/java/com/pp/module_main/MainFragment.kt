@@ -1,5 +1,6 @@
 package com.pp.module_main
 
+import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -8,7 +9,7 @@ import com.google.android.material.tabs.TabLayout
 import com.pp.library_base.base.Pager
 import com.pp.library_base.base.TabPager
 import com.pp.library_base.base.TabPagerFragment
-import com.pp.library_servicemanager.services.RouterPath
+import com.pp.library_router_service.services.RouterPath
 import com.pp.module_main.databinding.FragmentMainBinding
 import com.pp.module_main.databinding.ViewTabBinding
 
@@ -27,6 +28,11 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun getModelClazz(): Class<MainViewModel> {
         return MainViewModel::class.java
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ARouter.getInstance().inject(this)
     }
 
     override fun onFirstResume() {

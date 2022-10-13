@@ -1,4 +1,4 @@
-package com.pp.library_servicemanager.services
+package com.pp.library_router_service.services
 
 object RouterPath {
     object Home {

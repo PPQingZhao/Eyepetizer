@@ -9,8 +9,13 @@ import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+
 class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() {
-    override val mBinding: FragmentDailyBinding by lazy { FragmentDailyBinding.inflate(layoutInflater) }
+    override val mBinding: FragmentDailyBinding by lazy {
+        FragmentDailyBinding.inflate(
+            layoutInflater
+        )
+    }
 
     override fun getModelClazz(): Class<DailyViewModel> {
         return DailyViewModel::class.java
@@ -35,5 +40,6 @@ class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() 
             }
         }
     }
+
 }
 

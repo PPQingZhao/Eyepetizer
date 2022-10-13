@@ -39,7 +39,7 @@ class TabPagerFragmentHelper(
         pagerHelper.attach(tabPager)
 
         //TabLayout联动ViewPager
-        tabLayout.clearOnTabSelectedListeners()
+//        tabLayout.clearOnTabSelectedListeners()
         tabLayout.removeAllTabs()
 
         TabLayoutMediator(

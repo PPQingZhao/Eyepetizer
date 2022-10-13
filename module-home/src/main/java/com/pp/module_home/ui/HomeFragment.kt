@@ -7,12 +7,12 @@ import com.google.android.material.tabs.TabLayout
 import com.pp.library_base.base.Pager
 import com.pp.library_base.base.TabPager
 import com.pp.library_base.base.TabPagerFragment
-import com.pp.library_servicemanager.services.RouterPath
+import com.pp.library_router_service.services.RouterPath
 import com.pp.module_home.R
 import com.pp.module_home.databinding.FragmentHomeBinding
 
 @Route(path = RouterPath.Home.fragment_home)
-class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
+class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>(){
 
     override val mBinding: FragmentHomeBinding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
 
@@ -57,6 +57,7 @@ class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
         }
         return tabPager;
     }
+
 
 
 }

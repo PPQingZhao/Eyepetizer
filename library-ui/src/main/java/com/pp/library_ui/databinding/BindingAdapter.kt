@@ -17,7 +17,7 @@ object BindingAdapter {
     @JvmStatic
     @androidx.databinding.BindingAdapter("android:bindSrc")
     fun setImageResource(imageView: ImageView, path: String?) {
-        Log.e("TAG","path: $path")
+//        Log.e("TAG","path: $path")
         ImageLoader.load(imageView, path)
     }
 }

@@ -1,4 +1,4 @@
-package com.pp.library_servicemanager
+package com.pp.library_router_service
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

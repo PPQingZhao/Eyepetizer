@@ -44,7 +44,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core.get())
 
     api(projects.libraryBase)
-    api(projects.libraryServiceManager)
+    api(projects.libraryRouterService)
     api(projects.libraryNetwork)
     api(libs.leakcanary)
 }
