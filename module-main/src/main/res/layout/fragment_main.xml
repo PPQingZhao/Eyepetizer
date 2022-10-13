@@ -30,9 +30,9 @@
             app:tabBackground="@null"
             app:tabGravity="fill"
             app:tabIndicator="@null"
-            app:tabIndicatorHeight="0.5dp"
             app:tabMode="fixed"
-            app:tabRippleColor="@android:color/transparent" />
+            app:tabRippleColor="@android:color/transparent"
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
     </LinearLayout>
