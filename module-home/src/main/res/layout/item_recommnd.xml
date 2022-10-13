@@ -20,6 +20,7 @@
             android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:text="@{viewModel.content}"
+            android:textColor="@color/color_text_normal"
             tools:text="recommend" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

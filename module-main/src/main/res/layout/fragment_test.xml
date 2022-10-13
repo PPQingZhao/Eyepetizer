@@ -8,17 +8,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_200"
+            android:background="@color/colorPrimary"
             android:fitsSystemWindows="true">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:gravity="center"
-                android:text="test">
-            </TextView>
+                android:text="test"
+                android:textColor="@color/color_text_selected" />
         </FrameLayout>
     </LinearLayout>
 </layout>

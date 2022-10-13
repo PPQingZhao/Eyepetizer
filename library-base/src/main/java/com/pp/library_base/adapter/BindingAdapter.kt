@@ -1,6 +1,5 @@
 package com.pp.library_base.adapter
 
-import android.util.ArrayMap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
@@ -12,13 +11,14 @@ import com.pp.mvvm.BR
 abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallback: DiffUtil.ItemCallback<T>) :
     PagingDataAdapter<T, BindingHolder<VB>>(diffCallback) {
 
+    private val itemViewModelCaches by lazy { mutableMapOf<Int, VM>() }
     override fun onBindViewHolder(holder: BindingHolder<VB>, position: Int) {
 
         // position 位置缓存的 item viewModel
         val cacheItemViewModel = itemViewModelCaches[position]
         // 创建 item viewModle
         val createItemViewModel = createViewModel(
-            getItemViewType(position),
+            holder.binding,
             getItem(position),
             cacheItemViewModel
         )
@@ -49,12 +49,14 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallb
         }
     }
 
-    private val itemViewModelCaches by lazy { ArrayMap<Int, VM>() }
-
     /**
      * 创建viewModel
      */
-    abstract fun createViewModel(itemViewType: Int, item: T?, cacheItemViewModel: VM?): VM
+    abstract fun createViewModel(
+        binding: VB,
+        item: T?,
+        cacheItemViewModel: VM?
+    ): VM
 
     /**
      * 创建viewType类型的ViewDataBinding

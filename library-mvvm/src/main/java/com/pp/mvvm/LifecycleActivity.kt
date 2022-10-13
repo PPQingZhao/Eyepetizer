@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager.LayoutParams
 import androidx.annotation.LayoutRes
 import androidx.core.view.ViewCompat
@@ -21,21 +22,11 @@ import androidx.lifecycle.ViewTreeViewModelStoreOwner
 
 abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> :
     FragmentActivity() {
-    protected val mBinding: VB by lazy {
-        DataBindingUtil.inflate<VB>(
-            LayoutInflater.from(this),
-            getLayoutRes(),
-            null,
-            false
-        )
-    }
+    abstract val mBinding: VB
 
     val mViewModel by lazy { ViewModelProvider(this)[(getModelClazz())] }
 
     abstract fun getModelClazz(): Class<VM>
-
-    abstract @LayoutRes
-    fun getLayoutRes(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +42,7 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         setTranslucent()
+        setStatsBarFront()
         /*
             windowInsets分发:拦截WindowInsets, 将windowInsets分发给每个fragment
             沉浸式状态栏: window flags = LayoutParams.FLAG_TRANSLUCENT_STATUS 配合布局中 android:fitsSystemWindows="true"进行实现
@@ -93,6 +85,18 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
                 }
             }
         }, true)
+    }
+
+    /**
+     * 设置状态栏字体颜色
+     * TODO 未做设配
+     */
+    private fun setStatsBarFront() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
     }
 
     private fun setTranslucent() {

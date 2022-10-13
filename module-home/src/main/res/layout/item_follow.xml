@@ -15,6 +15,7 @@
         android:padding="5dp">
 
         <TextView
+            android:textColor="@color/color_text_normal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"

@@ -26,9 +26,11 @@
             style="@style/Style_tab"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:background="@color/colorPrimary"
             app:tabBackground="@null"
             app:tabGravity="fill"
             app:tabIndicator="@null"
+            app:tabIndicatorHeight="0.5dp"
             app:tabMode="fixed"
             app:tabRippleColor="@android:color/transparent" />
 

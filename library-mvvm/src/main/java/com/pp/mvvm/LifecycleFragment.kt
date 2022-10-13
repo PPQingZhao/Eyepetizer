@@ -16,12 +16,6 @@ abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> 
 
     abstract val mBinding: VB
 
-    @Deprecated("废弃", ReplaceWith("mBinding"))
-    @LayoutRes
-    open fun getLayoutRes(): Int {
-        return 0
-    }
-
     val mViewModel: VM by lazy { ViewModelProvider(this)[getModelClazz()] }
 
     abstract fun getModelClazz(): Class<VM>

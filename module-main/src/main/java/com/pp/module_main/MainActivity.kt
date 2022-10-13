@@ -8,8 +8,6 @@ class MainActivity : LifecycleActivity<ActivityMainBinding, MainViewModel>() {
         return MainViewModel::class.java
     }
 
-    override fun getLayoutRes(): Int {
-        return R.layout.activity_main
-    }
+    override val mBinding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
 }

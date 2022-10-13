@@ -31,8 +31,14 @@ class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) 
         return if ("textCard" == item?.type) 0 else 0
     }
 
-    override fun createViewModel(itemViewType: Int, item: Item?, cacheItemViewModel: Any?): Any {
-        return cacheItemViewModel ?: FollowItemViewModel(item)
+    override fun createViewModel(
+        binding: ViewDataBinding,
+        item: Item?,
+        cacheItemViewModel: Any?
+    ): Any {
+        return cacheItemViewModel ?: when (binding) {
+            else -> FollowItemViewModel(item)
+        }
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {

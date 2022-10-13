@@ -69,14 +69,14 @@ interface EyepetizerService {
         private val map by lazy { mutableMapOf<String, Int>() }
 
         init {
-            map.put(squareCardCollection, SQUARE_CARD_COLLECTION)
-            map.put(textCard, TEXT_CARD)
-            map.put(followCard, FOLLOW_CARD)
-            map.put(videoSmallCard, VIDEO_SMALL_CARD)
-            map.put(squareCardCollection, SQUARE_CARD_COLLECTION)
-            map.put(autoPlayFollowCard, AUTO_PLAY_FOLLO_WCARD)
-            map.put(header5, HEADER_5)
-            map.put(video, VIDEO)
+            map[squareCardCollection] = SQUARE_CARD_COLLECTION
+            map[textCard] = TEXT_CARD
+            map[followCard] = FOLLOW_CARD
+            map[videoSmallCard] = VIDEO_SMALL_CARD
+            map[squareCardCollection] = SQUARE_CARD_COLLECTION
+            map[autoPlayFollowCard] = AUTO_PLAY_FOLLO_WCARD
+            map[header5] = HEADER_5
+            map[video] = VIDEO
         }
 
         /**
@@ -109,11 +109,11 @@ interface EyepetizerService {
         private val map by lazy { mutableMapOf<String, Int>() }
 
         init {
-            map.put(ItemCollection, ITEM_COLLECTION)
-            map.put(TextCard, TEXT_CARD)
-            map.put(FollowCard, FOLLOW_CARD)
-            map.put(VideoBeanForClient, VIDEO_BEAN_FOR_CLIENT)
-            map.put(NORMAL_text, NORMAL)
+            map[ItemCollection] = ITEM_COLLECTION
+            map[TextCard] = TEXT_CARD
+            map[FollowCard] = FOLLOW_CARD
+            map[VideoBeanForClient] = VIDEO_BEAN_FOR_CLIENT
+            map[NORMAL_text] = NORMAL
         }
 
         /**

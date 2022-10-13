@@ -9,16 +9,20 @@ import com.pp.module_home.api.bean.RecommendBean
 import com.pp.module_home.databinding.ItemRecommndBinding
 import com.pp.module_home.model.RecommendItemViewModel
 
-class RecommendAdapter : BindingAdapter<ViewDataBinding,Any, RecommendBean.Item>(DIFF_CALLBACK) {
+class RecommendAdapter : BindingAdapter<ViewDataBinding, Any, RecommendBean.Item>(DIFF_CALLBACK) {
 
     companion object {
         const val TAG = "RecommendAdapter"
 
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RecommendBean.Item>() {
 
-            override fun areItemsTheSame(oldItem: RecommendBean.Item, newItem: RecommendBean.Item) = oldItem.id == newItem.id
+            override fun areItemsTheSame(oldItem: RecommendBean.Item, newItem: RecommendBean.Item) =
+                oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: RecommendBean.Item, newItem: RecommendBean.Item) = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: RecommendBean.Item,
+                newItem: RecommendBean.Item
+            ) = oldItem == newItem
         }
     }
 
@@ -33,11 +37,13 @@ class RecommendAdapter : BindingAdapter<ViewDataBinding,Any, RecommendBean.Item>
     }
 
     override fun createViewModel(
-        itemViewType: Int,
+        binding: ViewDataBinding,
         item: RecommendBean.Item?,
         cacheItemViewModel: Any?
     ): Any {
-        return cacheItemViewModel ?: RecommendItemViewModel(item)
+        return cacheItemViewModel ?: when (binding) {
+            else -> RecommendItemViewModel(item)
+        }
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {

@@ -14,11 +14,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/item_margin_bottom"
         android:paddingStart="@dimen/padding_normal"
         android:paddingTop="@dimen/padding_normal"
-        android:paddingBottom="@dimen/padding_normal"
         android:text="@{viewModel}"
-        android:textColor="@color/color_tab_selected"
+        android:textColor="@color/color_text_selected"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,13 +1,10 @@
 package com.pp.module_home.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
-import com.pp.module_home.R
 import com.pp.module_home.api.bean.FeedBean
 import com.pp.module_home.databinding.ItemDailyBinding
 import com.pp.module_home.databinding.ItemTestBinding
@@ -17,7 +14,7 @@ import com.pp.module_home.model.DailyItemViewModel
 class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CALLBACK) {
 
     companion object {
-        const val TAG = "FollowAdapter"
+        const val TAG = "DailyAdapter"
 
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FeedBean.Item>() {
 
@@ -47,15 +44,15 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
     }
 
     override fun createViewModel(
-        itemViewType: Int,
+        binding: ViewDataBinding,
         item: FeedBean.Item?,
         cacheItemViewModel: Any?
     ): Any {
 
-        return cacheItemViewModel ?: when (itemViewType) {
-            EyepetizerService.ItemType.UNKNOWN -> item?.data?.text ?: ""
+        return cacheItemViewModel ?: when (binding) {
+            is ItemTestBinding -> "${item?.type}     ${item?.data?.text ?: ""}"
             // type = header5
-            EyepetizerService.ItemType.HEADER_5 -> item?.data?.text ?: ""
+            is ItemTextCardBinding -> item?.data?.text ?: ""
 
             else -> DailyItemViewModel(item)
         }
@@ -63,11 +60,13 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
-            EyepetizerService.ItemType.UNKNOWN -> ItemTestBinding.inflate(layoutInflater)
+            EyepetizerService.ItemType.UNKNOWN
+            -> ItemTestBinding.inflate(layoutInflater, parent, false)
             // type = header5
-            EyepetizerService.ItemType.HEADER_5 -> ItemTextCardBinding.inflate(layoutInflater)
+            EyepetizerService.ItemType.HEADER_5
+            -> ItemTextCardBinding.inflate(layoutInflater, parent, false)
             // dataType = FollowCard
-            else -> DataBindingUtil.inflate(layoutInflater, R.layout.item_daily,parent,false)
+            else -> ItemDailyBinding.inflate(layoutInflater, parent, false)
         }
     }
 

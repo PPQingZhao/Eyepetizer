@@ -2,8 +2,8 @@
 <resources>
     <style name="Style_tab">
         <item name="android:textSize">12sp</item>
-        <item name="tabSelectedTextColor">@color/color_tab_selected</item>
-        <item name="tabIndicatorColor">@color/color_tab_selected</item>
+        <item name="tabTextColor">@color/selector_tab_text</item>
+        <item name="tabIndicatorColor">@color/color_text_selected</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

@@ -33,7 +33,7 @@ class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
         mHelper.attach(getPager())
     }
 
-    fun getPager(): TabPager {
+    private fun getPager(): TabPager {
         val factory = object : Pager.FragmentFactory {
             override fun create(position: Int): Fragment {
                 return when (position) {
