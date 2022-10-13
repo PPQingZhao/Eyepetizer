@@ -39,6 +39,8 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
                 return when (position) {
                     0 -> ARouter.getInstance().build(RouterPath.Home.fragment_home)
                         .navigation() as Fragment
+                    1 -> ARouter.getInstance().build(RouterPath.Community.fragment_community)
+                        .navigation() as Fragment
                     else -> TestFragment()
                 }
             }

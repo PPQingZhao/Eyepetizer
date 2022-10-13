@@ -48,6 +48,7 @@ dependencies {
     if ("com.android.library" == (libs.plugins.android.module.get().pluginId)) {
         implementation(projects.moduleMain)
         implementation(projects.moduleHome)
+        implementation(projects.moduleCommunity)
     }
 //    print(libs.plugins.android.module.get().pluginId)
 

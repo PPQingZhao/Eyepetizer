@@ -39,6 +39,9 @@ interface EyepetizerService {
         // 关注
         const val URL_FOLLOW = "${BASE_URL}api/v6/community/tab/follow"
 
+        // 社区 推荐
+        const val URL_COMMUNITY_REC = "${BASE_URL}api/v7/community/tab/rec"
+
         val retrofit = RetrofitUtil.create(BASE_URL)
 
     }
@@ -49,7 +52,7 @@ interface EyepetizerService {
     object ItemType {
 
         const val VIDEO = 0
-        const val HEADER_5 = VIDEO +1
+        const val HEADER_5 = VIDEO + 1
         const val SQUARE_CARD_COLLECTION = HEADER_5 + 1
         const val TEXT_CARD = SQUARE_CARD_COLLECTION + 1
         const val FOLLOW_CARD = TEXT_CARD + 1
