@@ -5,9 +5,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
+import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_home.api.bean.FeedBean
 import com.pp.module_home.databinding.ItemDailyBinding
-import com.pp.module_home.databinding.ItemTestBinding
 import com.pp.module_home.databinding.ItemTextCardBinding
 import com.pp.module_home.model.DailyItemViewModel
 
@@ -50,23 +50,29 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
     ): Any {
 
         return cacheItemViewModel ?: when (binding) {
-            is ItemTestBinding -> "${item?.type}     ${item?.data?.text ?: ""}"
+            // followCard  等
+            is ItemDailyBinding -> DailyItemViewModel(item)
             // type = header5
             is ItemTextCardBinding -> item?.data?.text ?: ""
-
-            else -> DailyItemViewModel(item)
+            // 待开放功能 unknown等
+            else -> """
+                待开放: ${item?.type}
+                  ${item?.data?.content?.data?.title ?: ""}"
+            """.trimIndent()
         }
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
-            EyepetizerService.ItemType.UNKNOWN
-            -> ItemTestBinding.inflate(layoutInflater, parent, false)
+            // dataType = FollowCard 等
+            EyepetizerService.ItemDataType.FOLLOW_CARD ->
+                ItemDailyBinding.inflate(layoutInflater, parent, false)
+
             // type = header5
-            EyepetizerService.ItemType.HEADER_5
-            -> ItemTextCardBinding.inflate(layoutInflater, parent, false)
-            // dataType = FollowCard
-            else -> ItemDailyBinding.inflate(layoutInflater, parent, false)
+            EyepetizerService.ItemType.HEADER_5 ->
+                ItemTextCardBinding.inflate(layoutInflater, parent, false)
+            // 待开放功能
+            else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
         }
     }
 

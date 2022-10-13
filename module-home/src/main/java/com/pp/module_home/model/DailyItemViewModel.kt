@@ -13,6 +13,7 @@ class DailyItemViewModel(val item: FeedBean.Item?) {
 
     init {
         val data = item?.data?.content?.data
+//        title = "${item?.data?.dataType}: ${data?.title}"
         title = data?.title
         category = "${data?.author?.name} # ${data?.category}"
         imagePath = data?.cover?.feed
