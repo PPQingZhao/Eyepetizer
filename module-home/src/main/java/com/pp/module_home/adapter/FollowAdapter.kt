@@ -1,10 +1,11 @@
 package com.pp.module_home.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingAdapter
+import com.pp.library_network.eyepetizer.EyepetizerService
+import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_home.api.bean.FollowBean.Item
 import com.pp.module_home.databinding.ItemFollowBinding
 import com.pp.module_home.model.FollowItemViewModel
@@ -28,7 +29,11 @@ class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) 
     }
 
     private fun getFollowItemType(item: Item?): Int {
-        return if ("textCard" == item?.type) 0 else 0
+        return when (item?.type) {
+            // FollowCard ==>> 根据 item.data.dataType 判断类型
+            else ->
+                EyepetizerService.ItemDataType.getItemDataType(item?.data?.dataType ?: "unknown")
+        }
     }
 
     override fun createViewModel(
@@ -37,12 +42,26 @@ class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) 
         cacheItemViewModel: Any?
     ): Any {
         return cacheItemViewModel ?: when (binding) {
-            else -> FollowItemViewModel(item)
+            // FollowCard,
+            is ItemFollowBinding ->
+                FollowItemViewModel(item)
+            // to be developed
+            else -> """
+                        ${item?.type}
+                        ${item?.data?.dataType}
+                        ${item?.data?.content?.data?.title ?: "null"}
+            """.trimIndent()
+//            else -> FollowItemViewModel(item)
         }
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
-        return ItemFollowBinding.inflate(LayoutInflater.from(parent.context))
+        return when (viewType) {
+            EyepetizerService.ItemDataType.FOLLOW_CARD ->
+                ItemFollowBinding.inflate(layoutInflater, parent, false)
+            else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
+        }
+//        return ItemFollowBinding.inflate(LayoutInflater.from(parent.context))
     }
 
 }

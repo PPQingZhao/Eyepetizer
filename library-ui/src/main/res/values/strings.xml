@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">module_main</string>
+    <string name="expand">展开</string>
+    <string name="close">收起</string>
 </resources>

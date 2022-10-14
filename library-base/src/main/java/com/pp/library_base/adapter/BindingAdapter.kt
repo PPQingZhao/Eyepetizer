@@ -33,6 +33,10 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallb
         layoutInflater = LayoutInflater.from(recyclerView.context)
     }
 
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+//        layoutInflater = null
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<VB> {
         return BindingHolder<VB>(createBinding(parent, viewType))
     }

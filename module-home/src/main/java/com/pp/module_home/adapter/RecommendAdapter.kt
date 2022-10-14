@@ -1,13 +1,11 @@
 package com.pp.module_home.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingAdapter
+import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_home.api.bean.RecommendBean
-import com.pp.module_home.databinding.ItemRecommndBinding
-import com.pp.module_home.model.RecommendItemViewModel
 
 class RecommendAdapter : BindingAdapter<ViewDataBinding, Any, RecommendBean.Item>(DIFF_CALLBACK) {
 
@@ -42,12 +40,18 @@ class RecommendAdapter : BindingAdapter<ViewDataBinding, Any, RecommendBean.Item
         cacheItemViewModel: Any?
     ): Any {
         return cacheItemViewModel ?: when (binding) {
-            else -> RecommendItemViewModel(item)
+            else -> """  
+                        ${item?.type}
+                        ${item?.data?.dataType}
+                        ${item?.data?.content?.data?.title ?: "null"}
+            """.trimIndent()
         }
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
-        return ItemRecommndBinding.inflate(LayoutInflater.from(parent.context))
+        return when (viewType) {
+            else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
+        }
     }
 
 }

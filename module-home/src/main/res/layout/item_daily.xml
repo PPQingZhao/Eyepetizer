@@ -16,7 +16,7 @@
         android:layout_marginBottom="@dimen/item_margin_bottom">
 
         <ImageView
-            android:id="@+id/item_iv"
+            android:id="@+id/iv_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:bindSrc="@{viewModel.imagePath}"
@@ -28,17 +28,29 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
             tools:src="@drawable/ic_launcher_background" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_play_arrow_white"
+            app:layout_constraintBottom_toBottomOf="@id/iv_image"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/iv_image"
+            app:layout_constraintStart_toStartOf="@id/iv_image"
+            app:layout_constraintTop_toTopOf="@id/iv_image"
+            app:layout_constraintWidth_percent="0.12" />
         <!--兼容 android:foreground-->
         <FrameLayout
             android:id="@+id/iv_icon"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
             android:foreground="@drawable/shape_circle"
-            app:layout_constraintBottom_toBottomOf="@id/cl"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_iv">
+            app:layout_constraintTop_toBottomOf="@id/iv_image"
+            app:layout_constraintWidth_percent="0.1">
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
                 android:layout_width="match_parent"
@@ -54,7 +66,7 @@
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{viewModel.title}"
@@ -63,61 +75,56 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_icon"
-            app:layout_constraintTop_toBottomOf="@id/item_iv"
+            app:layout_constraintTop_toTopOf="@id/iv_icon"
             tools:text="直面恐惧,看完感觉不能呼吸了了了了了了了了" />
 
-        <!--实现效果: 时间长度tv_time_range 不会被挤出屏幕-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl"
-            android:layout_width="0dp"
-            android:layout_height="25dp"
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginEnd="60dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.category}"
+            android:textColor="@color/color_text_selected"
+            android:textSize="13sp"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_title">
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintWidth_default="wrap"
+            tools:text="开眼记录精选 # 记录" />
 
-            <TextView
-                android:id="@+id/tv_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="60dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{viewModel.category}"
-                android:textColor="@color/color_text_selected"
-                android:textSize="13sp"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="开眼记录精选 # 记录" />
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:src="@drawable/ic_play_arrow_24"
+            app:layout_constraintBottom_toBottomOf="@id/tv_category"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintHeight_default="wrap"
+            app:layout_constraintHeight_percent="0.58"
+            app:layout_constraintStart_toEndOf="@id/tv_category"
+            app:layout_constraintTop_toTopOf="@id/tv_category"
+            app:layout_constraintWidth_default="wrap"
+            tools:ignore="ContentDescription" />
 
-            <ImageView
-                android:id="@+id/iv_play"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/padding_normal"
-                android:src="@drawable/ic_play_arrow_24"
-                app:layout_constraintBottom_toBottomOf="@id/tv_time_range"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintHeight_percent="0.58"
-                app:layout_constraintStart_toEndOf="@id/tv_category"
-                app:layout_constraintTop_toTopOf="@id/tv_time_range"
-                tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/tv_time_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{viewModel.duration}"
+            android:textColor="@color/color_text_selected"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_category"
+            app:layout_constraintStart_toEndOf="@id/iv_play"
+            app:layout_constraintTop_toTopOf="@id/tv_category"
+            tools:text="02:00" />
 
-            <TextView
-                android:id="@+id/tv_time_range"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@{viewModel.duration}"
-                android:textColor="@color/color_text_selected"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_category"
-                app:layout_constraintStart_toEndOf="@id/iv_play"
-                app:layout_constraintTop_toTopOf="@id/tv_category"
-                tools:text="02:00" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

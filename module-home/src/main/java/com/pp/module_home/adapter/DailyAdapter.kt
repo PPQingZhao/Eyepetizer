@@ -37,7 +37,7 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
             EyepetizerService.ItemType.textCard ->
                 EyepetizerService.ItemType.getItemType(item.data.type)
 
-            // followCard,squareCardCollection等 ==>> 根据 item.data.dataType 判断类型
+            // FollowCard 等 ==>> 根据 item.data.dataType 判断类型
             else ->
                 EyepetizerService.ItemDataType.getItemDataType(item?.data?.dataType ?: "unknown")
         }
@@ -50,13 +50,13 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
     ): Any {
 
         return cacheItemViewModel ?: when (binding) {
-            // followCard  等
+            // dataType =followCard  等
             is ItemDailyBinding -> DailyItemViewModel(item)
             // type = header5
             is ItemTextCardBinding -> item?.data?.text ?: ""
             // 待开放功能 unknown等
             else -> """
-                待开放: ${item?.type}
+                  ${item?.type}
                   ${item?.data?.content?.data?.title ?: ""}"
             """.trimIndent()
         }

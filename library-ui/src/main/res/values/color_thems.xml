@@ -3,7 +3,7 @@
     <color name="colorWindowBackground">#FFFFFFFF</color>
     <color name="colorPrimary">#FFFFFFFF</color>
     <color name="colorOnPrimary">#FFFFFFFF</color>
-    <color name="colorAccent">#323232</color>
+    <color name="colorAccent">#FF9C27B0</color>
     <color name="colorPrimaryVariant">#FFFFFFFF</color>
 
     <color name="color_text_selected">#323232</color>

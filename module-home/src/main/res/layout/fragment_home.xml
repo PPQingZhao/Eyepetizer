@@ -23,14 +23,13 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/home_tab_layout"
                 style="@style/Style_tab"
-                app:tabGravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                app:tabIndicatorHeight="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tabIndicatorFullWidth="false" />
+                app:tabGravity="center"
+                app:tabIndicatorHeight="2dp" />
         </FrameLayout>
 
         <androidx.viewpager2.widget.ViewPager2

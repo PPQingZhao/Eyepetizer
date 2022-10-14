@@ -23,6 +23,6 @@ class DailyItemViewModel(val item: FeedBean.Item?) {
     }
 
     companion object {
-        val format = SimpleDateFormat("mm:ss")
+        val format by lazy { SimpleDateFormat("mm:ss") }
     }
 }
