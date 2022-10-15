@@ -12,7 +12,7 @@ class RecommendVideoSmallCardItemViewModel(item: RecommendBean.Item?) :VideoSmal
         title = data?.title
         category = "# ${data?.category}"
         imagePath = data?.cover?.feed
-        Log.e("RecommendVideoSmallCard","${imagePath}")
+//        Log.e("RecommendVideoSmallCard","${imagePath}")
         duration = format.format(data?.duration?.times(1000L))
     }
     companion object {
