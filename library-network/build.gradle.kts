@@ -49,6 +49,7 @@ dependencies {
 
     implementation(projects.libraryRouterService)
 
+    api(libs.logging)
     api(libs.bundles.retrofit2)
 
 }
