@@ -159,7 +159,7 @@ data class CommunityRecBean(
         @SerializedName("source")
         val source: String,
         @SerializedName("status")
-        val status: Int,
+        val status: Any,
         @SerializedName("tags")
         val tags: List<Tag>?,
         @SerializedName("title")

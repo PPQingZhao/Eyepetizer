@@ -58,7 +58,10 @@ interface EyepetizerService {
         const val FOLLOW_CARD = TEXT_CARD + 1
         const val VIDEO_SMALL_CARD = FOLLOW_CARD + 1
         const val AUTO_PLAY_FOLLO_WCARD = VIDEO_SMALL_CARD + 1
-        const val ITEM_END = AUTO_PLAY_FOLLO_WCARD
+        const val HORIZONTAL_SCROLL_CARD = AUTO_PLAY_FOLLO_WCARD + 1
+        const val COMMUNITY_COLUMN_CARD = HORIZONTAL_SCROLL_CARD + 1
+
+        const val ITEM_END = COMMUNITY_COLUMN_CARD
         const val UNKNOWN = -1
 
         const val squareCardCollection = "squareCardCollection"
@@ -68,6 +71,8 @@ interface EyepetizerService {
         const val autoPlayFollowCard = "autoPlayFollowCard"
         const val header5 = "header5"
         const val video = "video"
+        private const val horizontalScrollCard = "horizontalScrollCard"
+        private const val communityColumnsCard = "communityColumnsCard"
 
         private val map by lazy { mutableMapOf<String, Int>() }
 
@@ -80,6 +85,8 @@ interface EyepetizerService {
             map[autoPlayFollowCard] = AUTO_PLAY_FOLLO_WCARD
             map[header5] = HEADER_5
             map[video] = VIDEO
+            map[horizontalScrollCard] = HORIZONTAL_SCROLL_CARD
+            map[communityColumnsCard] = COMMUNITY_COLUMN_CARD
         }
 
         /**
@@ -101,6 +108,7 @@ interface EyepetizerService {
         const val FOLLOW_CARD = TEXT_CARD + 1
         const val VIDEO_BEAN_FOR_CLIENT = FOLLOW_CARD + 1
         const val NORMAL = VIDEO_BEAN_FOR_CLIENT + 1
+        const val HORIZONTAL_SCROLL_CARD = NORMAL + 1
 
         const val ITEM_END = VIDEO_BEAN_FOR_CLIENT
 
@@ -109,6 +117,7 @@ interface EyepetizerService {
         const val FollowCard = "FollowCard"
         const val VideoBeanForClient = "VideoBeanForClient"
         const val NORMAL_text = "NORMAL"
+        const val HorizontalScrollCard = "HorizontalScrollCard"
         private val map by lazy { mutableMapOf<String, Int>() }
 
         init {
@@ -117,6 +126,7 @@ interface EyepetizerService {
             map[FollowCard] = FOLLOW_CARD
             map[VideoBeanForClient] = VIDEO_BEAN_FOR_CLIENT
             map[NORMAL_text] = NORMAL
+            map[HorizontalScrollCard] = HORIZONTAL_SCROLL_CARD
         }
 
         /**
@@ -125,6 +135,23 @@ interface EyepetizerService {
         fun getItemDataType(type: String): Int {
             return map[type] ?: UNKNOWN
         }
+    }
+
+    object ContentType {
+        const val VIDEO = 0
+        const val UGC_PICTURE = VIDEO + 1
+
+        private const val video = "video"
+        private const val ugcPicture = "ugcPicture"
+
+        private val map = mutableMapOf<String, Int>()
+
+        init {
+            map[video] = VIDEO
+            map[ugcPicture] = UGC_PICTURE
+        }
+
+        fun getType(type: String?) = map[type]?: "-1"
     }
 
 }
