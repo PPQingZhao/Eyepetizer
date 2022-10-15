@@ -151,7 +151,7 @@ interface EyepetizerService {
             map[ugcPicture] = UGC_PICTURE
         }
 
-        fun getType(type: String?) = map[type]?: "-1"
+        fun isVideo(type: String?) = map[type] == VIDEO
     }
 
 }

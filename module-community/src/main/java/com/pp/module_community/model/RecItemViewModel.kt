@@ -34,7 +34,7 @@ class RecItemViewModel(val item: CommunityRecBean.Item?) {
         content = contentData?.description
         feed = contentData?.cover?.feed
 
-        videoType.set(EyepetizerService.ContentType.getType(_content?.type) == EyepetizerService.ContentType.VIDEO)
+        videoType.set(EyepetizerService.ContentType.isVideo(_content?.type))
         category = contentData?.tags?.getOrNull(0)?.name ?: "null"
 
         collectionCount.set(contentData?.consumption?.collectionCount.toString() ?: "0")
