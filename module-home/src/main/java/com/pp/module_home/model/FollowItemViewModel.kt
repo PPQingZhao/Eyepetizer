@@ -24,7 +24,7 @@ class FollowItemViewModel(val item: Item?) {
         icon = contentData?.author?.icon
         author = contentData?.author?.name
         date = format.format(contentData?.date)
-        content = contentData?.description
+        content = "     ${contentData?.description}"
         feed = contentData?.cover?.feed
         category = contentData?.category
 

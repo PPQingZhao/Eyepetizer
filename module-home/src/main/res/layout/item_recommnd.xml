@@ -6,20 +6,19 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_home.model.RecommendItemViewModel" />
+            type="com.pp.module_home.model.RecommendFollowCardItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
-            android:text="@{viewModel.content}"
+            android:text="@{viewModel.title}"
             android:textColor="@color/color_text_normal"
             tools:text="recommend" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@ interface EyepetizerService {
     /*
     首页
      每日推荐:  http://baobab.kaiyanapp.com/api/v5/index/tab/allRec
-     日报精选: http://baobab.kaiyanapp.com/api/v5/index/tab/feed
+     日报精选: http://baobab.kaiyanapp.com/api/v5/index/tab/feed?tabIndex=2
      关注:  http://baobab.kaiyanapp.com/api/v6/community/tab/follow
 
     社区

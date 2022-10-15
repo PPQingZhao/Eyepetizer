@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.pp.module_home.model.DailyItemViewModel" />
+            type="com.pp.module_home.model.FollowCardItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,8 +45,8 @@
             android:id="@+id/iv_icon"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
             android:foreground="@drawable/shape_circle"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,22 +96,20 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintWidth_default="wrap"
             tools:text="开眼记录精选 # 记录" />
 
         <ImageView
             android:id="@+id/iv_play"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/padding_normal"
             android:src="@drawable/ic_play_arrow_24"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="@id/tv_category"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintHeight_default="wrap"
             app:layout_constraintHeight_percent="0.58"
             app:layout_constraintStart_toEndOf="@id/tv_category"
             app:layout_constraintTop_toTopOf="@id/tv_category"
-            app:layout_constraintWidth_default="wrap"
             tools:ignore="ContentDescription" />
 
         <TextView

@@ -32,7 +32,7 @@ class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) 
         return when (item?.type) {
             // FollowCard ==>> 根据 item.data.dataType 判断类型
             else ->
-                EyepetizerService.ItemDataType.getItemDataType(item?.data?.dataType ?: "unknown")
+                EyepetizerService.ItemType.getItemType(item?.type ?: "unknown")
         }
     }
 
@@ -42,7 +42,7 @@ class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) 
         cacheItemViewModel: Any?
     ): Any {
         return cacheItemViewModel ?: when (binding) {
-            // FollowCard,
+            // autoPlayFollowCard,followCard
             is ItemFollowBinding ->
                 FollowItemViewModel(item)
             // to be developed
@@ -57,7 +57,9 @@ class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) 
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
-            EyepetizerService.ItemDataType.FOLLOW_CARD ->
+            // autoPlayFollowCard,followCard
+            EyepetizerService.ItemType.AUTO_PLAY_FOLLO_WCARD ,
+            EyepetizerService.ItemType.FOLLOW_CARD ->
                 ItemFollowBinding.inflate(layoutInflater, parent, false)
             else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
         }

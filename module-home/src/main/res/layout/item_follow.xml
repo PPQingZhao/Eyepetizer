@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_normal"
             android:ellipsize="end"
@@ -44,11 +44,11 @@
             android:text="@{viewModel.author}"
             android:textColor="@color/color_text_selected"
             android:textSize="@dimen/content_title"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@id/iv_follow"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/fl_icon"
             app:layout_constraintTop_toTopOf="@id/fl_icon"
-            app:layout_constraintWidth_default="wrap"
             tools:text="全球广告精选 " />
 
         <TextView
@@ -81,8 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_normal"
-            android:bindSrc="@{viewModel.feed}"
             android:scaleType="centerCrop"
+            android:bindSrc="@{viewModel.feed}"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -104,6 +104,7 @@
             android:id="@+id/tv_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_normal"
             android:ellipsize="end"
             android:maxLines="@{viewModel.expand ? 10:3}"
             android:text="@{viewModel.content}"

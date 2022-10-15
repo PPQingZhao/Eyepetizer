@@ -7,8 +7,8 @@ import com.pp.library_base.adapter.BindingAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_home.api.bean.FeedBean
-import com.pp.module_home.databinding.ItemDailyBinding
-import com.pp.module_home.databinding.ItemTextCardBinding
+import com.pp.module_home.databinding.ItemFollowCardBinding
+import com.pp.module_home.databinding.ItemHeader5Binding
 import com.pp.module_home.model.DailyItemViewModel
 
 class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CALLBACK) {
@@ -37,9 +37,9 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
             EyepetizerService.ItemType.textCard ->
                 EyepetizerService.ItemType.getItemType(item.data.type)
 
-            // FollowCard 等 ==>> 根据 item.data.dataType 判断类型
+            // follow 等 ==>> 根据 item.type 判断类型
             else ->
-                EyepetizerService.ItemDataType.getItemDataType(item?.data?.dataType ?: "unknown")
+                EyepetizerService.ItemType.getItemType(item?.type ?: "unknown")
         }
     }
 
@@ -50,10 +50,10 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
     ): Any {
 
         return cacheItemViewModel ?: when (binding) {
-            // dataType =followCard  等
-            is ItemDailyBinding -> DailyItemViewModel(item)
+            // dataType = followCard  等
+            is ItemFollowCardBinding -> DailyItemViewModel(item)
             // type = header5
-            is ItemTextCardBinding -> item?.data?.text ?: ""
+            is ItemHeader5Binding -> item?.data?.text ?: ""
             // 待开放功能 unknown等
             else -> """
                   ${item?.type}
@@ -64,13 +64,13 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
-            // dataType = FollowCard 等
-            EyepetizerService.ItemDataType.FOLLOW_CARD ->
-                ItemDailyBinding.inflate(layoutInflater, parent, false)
+            // type = followCard 等
+            EyepetizerService.ItemType.FOLLOW_CARD ->
+                ItemFollowCardBinding.inflate(layoutInflater, parent, false)
 
             // type = header5
             EyepetizerService.ItemType.HEADER_5 ->
-                ItemTextCardBinding.inflate(layoutInflater, parent, false)
+                ItemHeader5Binding.inflate(layoutInflater, parent, false)
             // 待开放功能
             else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
         }

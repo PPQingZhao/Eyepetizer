@@ -1,4 +1,4 @@
-package com.pp.library_ui.databinding
+package com.pp.library_ui.databinding.databinding
 
 import android.util.Log
 import android.widget.ImageView
@@ -15,9 +15,10 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @androidx.databinding.BindingAdapter("android:bindSrc")
+    @androidx.databinding.BindingAdapter("android:bindSrc", requireAll = false)
     fun setImageResource(imageView: ImageView, path: String?) {
 //        Log.e("TAG","path: $path")
         ImageLoader.load(imageView, path)
     }
+
 }
