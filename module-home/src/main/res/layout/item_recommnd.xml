@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_home.model.RecommendFollowCardItemViewModel" />
+            type="com.pp.module_home.model.RecommendVideoCardItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

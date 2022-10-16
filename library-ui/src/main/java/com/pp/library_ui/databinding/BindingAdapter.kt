@@ -1,9 +1,9 @@
-package com.pp.library_ui.databinding.databinding
+package com.pp.library_ui.databinding
 
 import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import com.pp.library_ui.databinding.utils.ImageLoader
+import com.pp.library_ui.utils.ImageLoader
 
 object BindingAdapter {
 

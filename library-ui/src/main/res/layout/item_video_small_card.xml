@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_home.model.VideoSmallCardItemViewModel" />
+            type="com.pp.library_ui.model.VideoSmallCardItemViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -1,23 +1,11 @@
 package com.pp.module_home.model
 
-import android.view.View
-import androidx.databinding.ObservableField
+import com.pp.library_ui.model.FollowCardItemViewModel
 import com.pp.module_home.api.bean.FollowBean.Item
 import java.text.SimpleDateFormat
 
 
-class FollowItemViewModel(val item: Item?) {
-
-    val content: String?
-    val icon: String?
-    val author: String?
-    val date: String?
-    val feed: String?
-    val category: String?
-    val expand: ObservableField<Boolean> = ObservableField(false)
-    val collectionCount = ObservableField<String>()
-    val realCollectionCount = ObservableField<String>()
-    val replyCount = ObservableField<String>()
+class FollowItemViewModel(item: Item?): FollowCardItemViewModel<Item>(item) {
 
     init {
         val contentData = item?.data?.content?.data
@@ -37,7 +25,4 @@ class FollowItemViewModel(val item: Item?) {
         val format by lazy { SimpleDateFormat("yyyy.MM.dd") }
     }
 
-    fun onExpand(view: View) {
-        expand.set(expand.get()?.not())
-    }
 }

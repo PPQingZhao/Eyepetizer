@@ -1,4 +1,4 @@
-package com.pp.library_ui.databinding.utils
+package com.pp.library_ui.utils
 
 import android.content.Context
 import android.widget.ImageView

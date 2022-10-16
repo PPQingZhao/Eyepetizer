@@ -5,9 +5,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
+import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_home.api.bean.FollowBean.Item
-import com.pp.module_home.databinding.ItemFollowBinding
 import com.pp.module_home.model.FollowItemViewModel
 
 class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) {
@@ -43,7 +43,7 @@ class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) 
     ): Any {
         return cacheItemViewModel ?: when (binding) {
             // autoPlayFollowCard,followCard
-            is ItemFollowBinding ->
+            is ItemFollowCardBinding ->
                 FollowItemViewModel(item)
             // to be developed
             else -> """
@@ -60,7 +60,7 @@ class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) 
             // autoPlayFollowCard,followCard
             EyepetizerService.ItemType.AUTO_PLAY_FOLLO_WCARD ,
             EyepetizerService.ItemType.FOLLOW_CARD ->
-                ItemFollowBinding.inflate(layoutInflater, parent, false)
+                ItemFollowCardBinding.inflate(layoutInflater, parent, false)
             else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
         }
 //        return ItemFollowBinding.inflate(LayoutInflater.from(parent.context))

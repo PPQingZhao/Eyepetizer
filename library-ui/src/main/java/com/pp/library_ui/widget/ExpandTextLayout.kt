@@ -1,4 +1,4 @@
-package com.pp.library_ui.databinding.widget
+package com.pp.library_ui.widget
 
 import android.content.Context
 import android.util.AttributeSet

@@ -5,10 +5,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
+import com.pp.library_ui.databinding.ItemHeader5Binding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
+import com.pp.library_ui.databinding.ItemVideoCardBinding
 import com.pp.module_home.api.bean.FeedBean
-import com.pp.module_home.databinding.ItemFollowCardBinding
-import com.pp.module_home.databinding.ItemHeader5Binding
 import com.pp.module_home.model.DailyItemViewModel
 
 class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CALLBACK) {
@@ -36,6 +36,9 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
             // textCard ==>> 根据 item.data.type 判断类型
             EyepetizerService.ItemType.textCard ->
                 EyepetizerService.ItemType.getItemType(item.data.type)
+            // follow 根据 item.data.content
+            EyepetizerService.ItemType.followCard ->
+                EyepetizerService.ItemType.getItemType(item.data.content.type)
 
             // follow 等 ==>> 根据 item.type 判断类型
             else ->
@@ -50,8 +53,8 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
     ): Any {
 
         return cacheItemViewModel ?: when (binding) {
-            // dataType = followCard  等
-            is ItemFollowCardBinding -> DailyItemViewModel(item)
+            //  video
+            is ItemVideoCardBinding -> DailyItemViewModel(item)
             // type = header5
             is ItemHeader5Binding -> item?.data?.text ?: ""
             // 待开放功能 unknown等
@@ -64,9 +67,9 @@ class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CA
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
-            // type = followCard 等
-            EyepetizerService.ItemType.FOLLOW_CARD ->
-                ItemFollowCardBinding.inflate(layoutInflater, parent, false)
+            // type = video
+            EyepetizerService.ItemType.VIDEO ->
+                ItemVideoCardBinding.inflate(layoutInflater, parent, false)
 
             // type = header5
             EyepetizerService.ItemType.HEADER_5 ->

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_home.model.FollowCardItemViewModel" />
+            type="com.pp.library_ui.model.VideoCardItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

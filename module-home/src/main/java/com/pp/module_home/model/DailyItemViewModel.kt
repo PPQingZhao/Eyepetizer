@@ -1,10 +1,11 @@
 package com.pp.module_home.model
 
+import com.pp.library_ui.model.VideoCardItemViewModel
 import com.pp.module_home.api.bean.FeedBean
 import java.text.SimpleDateFormat
 
 
-class DailyItemViewModel(item: FeedBean.Item?):FollowCardItemViewModel(item){
+class DailyItemViewModel(item: FeedBean.Item?): VideoCardItemViewModel(item){
     init {
         val data = item?.data?.content?.data
 //        title = "${item?.data?.dataType}: ${data?.title}"

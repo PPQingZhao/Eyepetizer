@@ -25,7 +25,19 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallb
         // 更新
         itemViewModelCaches[position] = createItemViewModel
 
-        onSetVariable(holder.binding, createItemViewModel)
+        setVariable(holder.binding, createItemViewModel)
+    }
+
+    private fun setVariable(binding: VB, viewModel: VM) {
+        val result = onSetVariable(binding, viewModel)
+        if (!result){
+            //set default variable
+            try {
+                binding.setVariable(BR.viewModel, viewModel)
+            } catch (e: ClassCastException) {
+                e.printStackTrace()
+            }
+        }
     }
 
     lateinit var layoutInflater: LayoutInflater
@@ -44,13 +56,8 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallb
     /**
      * 在这里设置 ViewDataBinding::setVariable(int variableId, @Nullable Object value);
      */
-    open fun onSetVariable(binding: ViewDataBinding, viewModel: VM) {
-        //set default variable
-        try {
-            binding.setVariable(BR.viewModel, viewModel)
-        } catch (e: ClassCastException) {
-            e.printStackTrace()
-        }
+    open fun onSetVariable(binding: ViewDataBinding, viewModel: VM):Boolean {
+        return false
     }
 
     /**

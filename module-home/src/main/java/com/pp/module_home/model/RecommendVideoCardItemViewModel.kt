@@ -1,9 +1,10 @@
 package com.pp.module_home.model
 
+import com.pp.library_ui.model.VideoCardItemViewModel
 import com.pp.module_home.api.bean.RecommendBean
 import java.text.SimpleDateFormat
 
-class RecommendFollowCardItemViewModel(item: RecommendBean.Item?) :FollowCardItemViewModel(item) {
+class RecommendVideoCardItemViewModel(item: RecommendBean.Item?) : VideoCardItemViewModel(item) {
 
     init {
         val data = item?.data?.content?.data
