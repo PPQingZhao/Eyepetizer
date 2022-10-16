@@ -7,6 +7,7 @@ import com.pp.library_ui.adapter.BindingAdapter
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemImageVideoBinding
 import com.pp.library_ui.model.FollowCardItemViewModel
+import com.pp.library_ui.model.ImageVideoItemViewModel
 import com.pp.module_home.api.bean.FollowBean.Item
 import java.text.SimpleDateFormat
 
@@ -29,7 +30,7 @@ class FollowItemViewModel(item: Item?, context: Context) :
 
         layoutManager = LinearLayoutManager(context)
         adapter = Adapter().apply {
-            setDataList(listOf(feed))
+            setDataList(listOf(ImageVideoItemViewModel(feed, true)))
         }
 
     }
@@ -38,13 +39,13 @@ class FollowItemViewModel(item: Item?, context: Context) :
         val format by lazy { SimpleDateFormat("yyyy.MM.dd") }
     }
 
-    inner class Adapter : BindingAdapter<ItemImageVideoBinding, String, String?>() {
+    inner class Adapter : BindingAdapter<ItemImageVideoBinding, ImageVideoItemViewModel, ImageVideoItemViewModel?>() {
         override fun createViewModel(
             binding: ItemImageVideoBinding,
-            item: String?,
-            cacheItemViewModel: String?
-        ): String {
-            return cacheItemViewModel ?: item ?: ""
+            item: ImageVideoItemViewModel?,
+            cacheItemViewModel: ImageVideoItemViewModel?
+        ): ImageVideoItemViewModel {
+            return cacheItemViewModel ?: item ?: ImageVideoItemViewModel("")
         }
 
         override fun createBinding(parent: ViewGroup, viewType: Int): ItemImageVideoBinding {

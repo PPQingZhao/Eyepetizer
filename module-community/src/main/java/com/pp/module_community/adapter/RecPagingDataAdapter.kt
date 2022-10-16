@@ -6,9 +6,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
+import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_community.api.bean.CommunityRecBean
-import com.pp.module_community.databinding.ItemCommunityRecBinding
 import com.pp.module_community.model.RecItemViewModel
 
 class RecPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, CommunityRecBean.Item>(DIFF_CALLBACK) {
@@ -36,7 +36,7 @@ class RecPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, Comm
         cacheItemViewModel: Any?
     ): Any {
         return cacheItemViewModel ?: when (binding) {
-            else -> RecItemViewModel(item)
+            else -> RecItemViewModel(item, binding.root.context)
         }
     }
 
@@ -63,7 +63,7 @@ class RecPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, Comm
         Log.e(TAG, "viewType: ${viewType}")
         return when (viewType) {
             EyepetizerService.ItemType.COMMUNITY_COLUMN_CARD ->
-                ItemCommunityRecBinding.inflate(layoutInflater, parent, false)
+                ItemFollowCardBinding.inflate(layoutInflater, parent, false)
             else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
         }
     }

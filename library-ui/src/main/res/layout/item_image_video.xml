@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="String" />
+            type="com.pp.library_ui.model.ImageVideoItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/iv_feed"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:bindSrc="@{viewModel}"
+            android:bindSrc="@{viewModel.imgUrl}"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/ic_play_arrow_white"
+            app:mVisibility="@{viewModel.videoType}"
             app:layout_constraintBottom_toBottomOf="@id/iv_feed"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/iv_feed"

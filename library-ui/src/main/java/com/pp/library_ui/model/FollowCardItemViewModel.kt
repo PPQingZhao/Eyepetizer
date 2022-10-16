@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 open class FollowCardItemViewModel<VH : ViewHolder>() {
 
+    var videoType: Boolean = false
+    var area: String? = ""
     var content: String? = ""
     var icon: String? = ""
     var author: String? = ""

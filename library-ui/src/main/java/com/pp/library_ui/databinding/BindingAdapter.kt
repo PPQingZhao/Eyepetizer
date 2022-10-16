@@ -1,6 +1,7 @@
 package com.pp.library_ui.databinding
 
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.databinding.ViewDataBinding
@@ -41,5 +42,9 @@ object BindingAdapter {
         recyclerView.layoutManager = manager
     }
 
-
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("mVisibility")
+    fun setVisibility(v: View, visibility: Boolean) {
+        v.visibility = if (visibility) View.VISIBLE else View.GONE
+    }
 }
