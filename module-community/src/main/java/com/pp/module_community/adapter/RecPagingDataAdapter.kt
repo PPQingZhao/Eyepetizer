@@ -1,18 +1,17 @@
 package com.pp.module_community.adapter
 
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
-import com.pp.library_base.adapter.BindingAdapter
+import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_community.api.bean.CommunityRecBean
 import com.pp.module_community.databinding.ItemCommunityRecBinding
 import com.pp.module_community.model.RecItemViewModel
 
-class RecAdapter : BindingAdapter<ViewDataBinding, Any, CommunityRecBean.Item>(DIFF_CALLBACK) {
+class RecPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, CommunityRecBean.Item>(DIFF_CALLBACK) {
 
     companion object {
         const val TAG = "RecAdapter"

@@ -6,9 +6,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.pp.mvvm.BR
+import com.pp.library_ui.BR
 
-abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallback: DiffUtil.ItemCallback<T>) :
+abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallback: DiffUtil.ItemCallback<T>) :
     PagingDataAdapter<T, BindingHolder<VB>>(diffCallback) {
 
     private val itemViewModelCaches by lazy { mutableMapOf<Int, VM>() }

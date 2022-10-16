@@ -76,29 +76,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/fl_icon" />
 
-        <ImageView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/iv_feed"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_normal"
-            android:bindSrc="@{viewModel.feed}"
-            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
-            tools:src="@drawable/ic_launcher_background" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_play_arrow_white"
-            app:layout_constraintBottom_toBottomOf="@id/iv_feed"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/iv_feed"
-            app:layout_constraintStart_toStartOf="@id/iv_feed"
-            app:layout_constraintTop_toTopOf="@id/iv_feed"
-            app:layout_constraintWidth_percent="0.12" />
+            app:adapter="@{viewModel.adapter}"
+            app:rvLayoutManager="@{viewModel.layoutManager}"
+            tools:listitem="@layout/item_image_video" />
 
         <TextView
             android:id="@+id/tv_content"

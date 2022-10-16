@@ -22,16 +22,23 @@ abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(mViewModel)
-        onSetVariable(mBinding, mViewModel)
+        setVariable(mBinding, mViewModel)
     }
 
-    open fun onSetVariable(binding: VB, viewModel: VM) {
-        // set default variable
-        try {
-            mBinding.setVariable(BR.viewModel, mViewModel)
-        } catch (e: ClassCastException) {
-            e.printStackTrace()
+    private fun setVariable(binding: VB, viewModel: VM) {
+        if (!onSetVariable(binding, viewModel)) {
+            // set default variable
+            try {
+                binding.setVariable(BR.viewModel, viewModel)
+            } catch (e: ClassCastException) {
+                e.printStackTrace()
+            }
         }
+    }
+
+    open fun onSetVariable(binding: VB, viewModel: VM): Boolean {
+
+        return false
     }
 
     override fun onCreateView(

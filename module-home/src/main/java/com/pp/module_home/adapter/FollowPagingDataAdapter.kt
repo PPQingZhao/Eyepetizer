@@ -3,14 +3,14 @@ package com.pp.module_home.adapter
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
-import com.pp.library_base.adapter.BindingAdapter
+import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
 import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_home.api.bean.FollowBean.Item
 import com.pp.module_home.model.FollowItemViewModel
 
-class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) {
+class FollowPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) {
 
     companion object {
         const val TAG = "FollowAdapter"
@@ -44,7 +44,7 @@ class FollowAdapter : BindingAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) 
         return cacheItemViewModel ?: when (binding) {
             // autoPlayFollowCard,followCard
             is ItemFollowCardBinding ->
-                FollowItemViewModel(item)
+                FollowItemViewModel(item,binding.root.context)
             // to be developed
             else -> """
                         ${item?.type}

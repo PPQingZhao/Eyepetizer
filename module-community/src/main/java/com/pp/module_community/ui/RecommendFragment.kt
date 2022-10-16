@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.pp.library_router_service.services.RouterPath
-import com.pp.module_community.adapter.RecAdapter
+import com.pp.module_community.adapter.RecPagingDataAdapter
 import com.pp.module_community.databinding.FragmentCommunityRecBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
@@ -30,7 +30,7 @@ class RecommendFragment : LifecycleFragment<FragmentCommunityRecBinding, Recomme
         initRecyclerView()
     }
 
-    private val mAdapter: RecAdapter by lazy { RecAdapter() }
+    private val mAdapter: RecPagingDataAdapter by lazy { RecPagingDataAdapter() }
     private fun initRecyclerView() {
         mBinding.rv.layoutManager = LinearLayoutManager(requireContext())
         mBinding.rv.adapter = mAdapter

@@ -3,7 +3,7 @@ package com.pp.module_home.adapter
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
-import com.pp.library_base.adapter.BindingAdapter
+import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
 import com.pp.library_ui.databinding.ItemHeader5Binding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
@@ -11,7 +11,7 @@ import com.pp.library_ui.databinding.ItemVideoCardBinding
 import com.pp.module_home.api.bean.FeedBean
 import com.pp.module_home.model.DailyItemViewModel
 
-class DailyAdapter : BindingAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CALLBACK) {
+class DailyPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, FeedBean.Item>(DIFF_CALLBACK) {
 
     companion object {
         const val TAG = "DailyAdapter"

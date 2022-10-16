@@ -3,7 +3,7 @@ package com.pp.module_home.adapter
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
-import com.pp.library_base.adapter.BindingAdapter
+import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
 import com.pp.library_ui.databinding.ItemHeader5Binding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
@@ -13,7 +13,7 @@ import com.pp.module_home.api.bean.RecommendBean
 import com.pp.module_home.model.RecommendVideoCardItemViewModel
 import com.pp.module_home.model.RecommendVideoSmallCardItemViewModel
 
-class RecommendAdapter : BindingAdapter<ViewDataBinding, Any, RecommendBean.Item>(DIFF_CALLBACK) {
+class RecommendPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, RecommendBean.Item>(DIFF_CALLBACK) {
 
     companion object {
         const val TAG = "RecommendAdapter"

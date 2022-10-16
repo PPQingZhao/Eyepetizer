@@ -3,15 +3,12 @@ package com.pp.mvvm
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager.LayoutParams
-import androidx.annotation.LayoutRes
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -35,8 +32,27 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
         mBinding.setLifecycleOwner { this.lifecycle }
         ViewTreeLifecycleOwner.set(mBinding.root, this)
         ViewTreeViewModelStoreOwner.set(mBinding.root, this)
-        mBinding.setVariable(BR.viewModel, mViewModel)
+
+        setVariable(mBinding, mViewModel)
     }
+
+
+    private fun setVariable(binding: VB, viewModel: VM) {
+        if (!onSetVariable(binding, viewModel)) {
+            // set default variable
+            try {
+                binding.setVariable(BR.viewModel, viewModel)
+            } catch (e: ClassCastException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    open fun onSetVariable(binding: VB, viewModel: VM): Boolean {
+
+        return false
+    }
+
 
     lateinit var windowInsets: WindowInsets
     override fun onAttachedToWindow() {
@@ -93,7 +109,10 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
      */
     private fun setStatsBarFront() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+            window.insetsController?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }

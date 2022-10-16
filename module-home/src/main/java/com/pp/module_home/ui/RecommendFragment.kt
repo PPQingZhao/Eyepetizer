@@ -3,7 +3,7 @@ package com.pp.module_home.ui
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pp.module_home.adapter.RecommendAdapter
+import com.pp.module_home.adapter.RecommendPagingDataAdapter
 import com.pp.module_home.databinding.FragmentRecommendBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
@@ -25,7 +25,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
         initRecyclerView()
     }
 
-    private val recommendAdapter by lazy { RecommendAdapter() }
+    private val recommendAdapter by lazy { RecommendPagingDataAdapter() }
 
     private fun initRecyclerView() {
         mBinding.recommendRecyclerview.layoutManager = LinearLayoutManager(context)

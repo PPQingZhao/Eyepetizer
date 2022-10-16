@@ -3,7 +3,7 @@ package com.pp.module_home.ui
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pp.module_home.adapter.DailyAdapter
+import com.pp.module_home.adapter.DailyPagingDataAdapter
 import com.pp.module_home.databinding.FragmentDailyBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
@@ -26,7 +26,7 @@ class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() 
         initRecyclerView()
     }
 
-    private val dailyAdapter: DailyAdapter by lazy { DailyAdapter() }
+    private val dailyAdapter: DailyPagingDataAdapter by lazy { DailyPagingDataAdapter() }
     private fun initRecyclerView() {
         mBinding.dailyRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.dailyRecyclerview.adapter = dailyAdapter

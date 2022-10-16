@@ -3,7 +3,7 @@ package com.pp.module_home.ui
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pp.module_home.adapter.FollowAdapter
+import com.pp.module_home.adapter.FollowPagingDataAdapter
 import com.pp.module_home.databinding.FragmentFollowBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
@@ -25,7 +25,7 @@ class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>
         initRecyclerView()
     }
 
-    private val followAdapter: FollowAdapter by lazy { FollowAdapter() }
+    private val followAdapter: FollowPagingDataAdapter by lazy { FollowPagingDataAdapter() }
     private fun initRecyclerView() {
         mBinding.followRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.followRecyclerview.adapter = followAdapter
