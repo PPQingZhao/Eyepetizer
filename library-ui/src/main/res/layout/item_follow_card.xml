@@ -99,7 +99,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
             app:adapter="@{viewModel.adapter}"
-            app:rvLayoutManager="@{viewModel.layoutManager}"
+            app:layoutManager="@{viewModel.layoutManager}"
             tools:listitem="@layout/item_image_video" />
 
         <TextView

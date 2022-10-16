@@ -27,21 +27,6 @@ object BindingAdapter {
         ImageLoader.load(imageView, path)
     }
 
-
-    @androidx.databinding.BindingAdapter("adapter")
-    @JvmStatic
-    fun setAdapter(recyclerView: RecyclerView, adapter: Adapter<BindingHolder<ViewDataBinding>>?) {
-//        Log.e("BindingAdapter", "setAdapter")
-        recyclerView.adapter = adapter
-    }
-
-    @androidx.databinding.BindingAdapter("rvLayoutManager")
-    @JvmStatic
-    fun setLayoutManager(recyclerView: RecyclerView, manager: LayoutManager?) {
-//        Log.e("BindingAdapter", "setLayoutManager")
-        recyclerView.layoutManager = manager
-    }
-
     @JvmStatic
     @androidx.databinding.BindingAdapter("mVisibility")
     fun setVisibility(v: View, visibility: Boolean) {
