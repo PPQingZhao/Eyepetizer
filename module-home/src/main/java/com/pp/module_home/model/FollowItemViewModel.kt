@@ -39,7 +39,7 @@ class FollowItemViewModel(item: Item?, context: Context) :
         val format by lazy { SimpleDateFormat("yyyy.MM.dd") }
     }
 
-    inner class Adapter : BindingAdapter<ItemImageVideoBinding, ImageVideoItemViewModel, ImageVideoItemViewModel?>() {
+    inner class Adapter : BindingAdapter<ItemImageVideoBinding, ImageVideoItemViewModel, ImageVideoItemViewModel>() {
         override fun createViewModel(
             binding: ItemImageVideoBinding,
             item: ImageVideoItemViewModel?,

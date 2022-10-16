@@ -6,7 +6,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.pp.library_ui.BR
 
-abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any?> :
+abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any> :
     RecyclerView.Adapter<BindingHolder<VB>>() {
 
     private val dataList by lazy { mutableListOf<T>() }
@@ -16,21 +16,26 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any?> :
         dataList.addAll(list)
     }
 
-    private val itemViewModelCaches by lazy { mutableMapOf<Int, VM>() }
+    val bindingHelper: AdapterBindingHelper<VB, VM, T> by lazy {
+        object : AdapterBindingHelper<VB, VM, T>() {
+            override fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM {
+                return this@BindingAdapter.createViewModel(binding, item, cacheItemViewModel)
+            }
+
+            override fun createBinding(parent: ViewGroup, viewType: Int): VB {
+                return this@BindingAdapter.createBinding(parent, viewType)
+            }
+
+            override fun onSetVariable(binding: ViewDataBinding, viewModel: VM): Boolean {
+                return this@BindingAdapter.onSetVariable(binding, viewModel)
+            }
+
+        }
+    }
+
     override fun onBindViewHolder(holder: BindingHolder<VB>, position: Int) {
 
-        // position 位置缓存的 item viewModel
-        val cacheItemViewModel = itemViewModelCaches[position]
-        // 创建 item viewModle
-        val createItemViewModel = createViewModel(
-            holder.binding,
-            getItem(position),
-            cacheItemViewModel
-        )
-        // 更新
-        itemViewModelCaches[position] = createItemViewModel
-
-        setVariable(holder.binding, createItemViewModel)
+        bindingHelper.bind(holder, position, getItem(position))
     }
 
     protected fun getItem(position: Int): T? {
@@ -45,17 +50,6 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any?> :
         return dataList.size
     }
 
-    private fun setVariable(binding: VB, viewModel: VM) {
-        val result = onSetVariable(binding, viewModel)
-        if (!result) {
-            //set default variable
-            try {
-                binding.setVariable(BR.viewModel, viewModel)
-            } catch (e: ClassCastException) {
-                e.printStackTrace()
-            }
-        }
-    }
 
     lateinit var layoutInflater: LayoutInflater
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -93,5 +87,3 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any?> :
 
 
 }
-
-class BindingHolder<VB : ViewDataBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)

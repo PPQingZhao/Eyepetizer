@@ -5,6 +5,7 @@ import com.pp.module_home.api.bean.FeedBean
 import com.pp.module_home.api.bean.FollowBean
 import com.pp.module_home.api.bean.RecommendBean
 import retrofit2.http.GET
+import retrofit2.http.Query
 import retrofit2.http.Url
 
 interface HomeApi {
@@ -18,6 +19,12 @@ interface HomeApi {
      */
     @GET
     suspend fun getRecommend(@Url url: String = EyepetizerService.URL_RECOMMEND): RecommendBean
+
+    /**
+     * 首页-推荐
+     */
+    @GET(value = "api/v5/index/tab/allRec")
+    suspend fun getRecommend(@Query("page") page:Int ): RecommendBean
 
     /**
      * 首页-关注
