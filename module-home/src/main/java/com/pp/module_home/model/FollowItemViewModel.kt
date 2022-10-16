@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_ui.adapter.BindingAdapter
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemImageVideoBinding
-import com.pp.library_ui.databinding.ItemImageVideoBindingImpl
 import com.pp.library_ui.model.FollowCardItemViewModel
 import com.pp.module_home.api.bean.FollowBean.Item
 import java.text.SimpleDateFormat
@@ -32,6 +31,7 @@ class FollowItemViewModel(item: Item?, context: Context) :
         adapter = Adapter().apply {
             setDataList(listOf(feed))
         }
+
     }
 
     companion object {
