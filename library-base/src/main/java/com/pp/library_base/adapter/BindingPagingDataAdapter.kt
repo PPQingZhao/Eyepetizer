@@ -13,7 +13,7 @@ import com.pp.library_ui.adapter.BindingHolder
 abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallback: DiffUtil.ItemCallback<T>) :
     PagingDataAdapter<T, BindingHolder<VB>>(diffCallback) {
 
-    val bindingHelper: AdapterBindingHelper<VB, VM, T> by lazy {
+    private val bindingHelper: AdapterBindingHelper<VB, VM, T> by lazy {
         object : AdapterBindingHelper<VB, VM, T>() {
             override fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM {
                 return this@BindingPagingDataAdapter.createViewModel(binding, item, cacheItemViewModel)

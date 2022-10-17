@@ -3,6 +3,7 @@ package com.pp.module_home.ui
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.module_home.adapter.FollowPagingDataAdapter
 import com.pp.module_home.databinding.FragmentFollowBinding
 import com.pp.mvvm.LifecycleFragment
@@ -28,7 +29,9 @@ class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>
     private val followAdapter: FollowPagingDataAdapter by lazy { FollowPagingDataAdapter() }
     private fun initRecyclerView() {
         mBinding.followRecyclerview.layoutManager = LinearLayoutManager(context)
-        mBinding.followRecyclerview.adapter = followAdapter
+        mBinding.followRecyclerview.adapter = followAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter{
+            followAdapter.retry()
+        })
     }
 
     override fun onFirstResume() {

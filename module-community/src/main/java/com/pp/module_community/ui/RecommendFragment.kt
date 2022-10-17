@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_community.adapter.RecPagingDataAdapter
 import com.pp.module_community.databinding.FragmentCommunityRecBinding
@@ -33,7 +34,9 @@ class RecommendFragment : LifecycleFragment<FragmentCommunityRecBinding, Recomme
     private val mAdapter: RecPagingDataAdapter by lazy { RecPagingDataAdapter() }
     private fun initRecyclerView() {
         mBinding.rv.layoutManager = LinearLayoutManager(requireContext())
-        mBinding.rv.adapter = mAdapter
+        mBinding.rv.adapter = mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter{
+            mAdapter.retry()
+        })
     }
 
     override fun onFirstResume() {

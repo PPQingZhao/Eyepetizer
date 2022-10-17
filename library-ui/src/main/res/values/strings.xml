@@ -3,4 +3,6 @@
     <string name="expand">展开</string>
     <string name="close">收起</string>
     <string name="for_detail">了解详情</string>
+    <string name="loading">正在加载...</string>
+    <string name="data_empty">没有更多数据了</string>
 </resources>

@@ -3,6 +3,7 @@ package com.pp.module_home.ui
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.module_home.adapter.DailyPagingDataAdapter
 import com.pp.module_home.databinding.FragmentDailyBinding
 import com.pp.mvvm.LifecycleFragment
@@ -29,7 +30,10 @@ class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() 
     private val dailyAdapter: DailyPagingDataAdapter by lazy { DailyPagingDataAdapter() }
     private fun initRecyclerView() {
         mBinding.dailyRecyclerview.layoutManager = LinearLayoutManager(context)
-        mBinding.dailyRecyclerview.adapter = dailyAdapter
+        mBinding.dailyRecyclerview.adapter =
+            dailyAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
+                dailyAdapter.retry()
+            })
 
     }
 

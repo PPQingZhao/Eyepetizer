@@ -16,7 +16,7 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any> :
         dataList.addAll(list)
     }
 
-    val bindingHelper: AdapterBindingHelper<VB, VM, T> by lazy {
+    private val bindingHelper: AdapterBindingHelper<VB, VM, T> by lazy {
         object : AdapterBindingHelper<VB, VM, T>() {
             override fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM {
                 return this@BindingAdapter.createViewModel(binding, item, cacheItemViewModel)

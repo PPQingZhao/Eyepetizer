@@ -3,7 +3,7 @@ package com.pp.module_home.ui
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pp.library_base.adapter.DefaultLoadStateAdapter
+import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.module_home.adapter.RecommendPagingDataAdapter
 import com.pp.module_home.databinding.FragmentRecommendBinding
 import com.pp.mvvm.LifecycleFragment
@@ -30,7 +30,10 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
     private fun initRecyclerView() {
         mBinding.recommendRecyclerview.layoutManager = LinearLayoutManager(context)
-        mBinding.recommendRecyclerview.adapter = recommendAdapter.withLoadStateFooter(DefaultLoadStateAdapter())
+        mBinding.recommendRecyclerview.adapter =
+            recommendAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
+                recommendAdapter.retry()
+            })
     }
 
     override fun onFirstResume() {
