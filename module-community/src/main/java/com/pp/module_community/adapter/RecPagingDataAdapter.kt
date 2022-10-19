@@ -9,7 +9,9 @@ import com.pp.library_network.eyepetizer.EyepetizerService
 import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_community.api.bean.CommunityRecBean
+import com.pp.module_community.databinding.ItemSquareVp2Binding
 import com.pp.module_community.model.RecItemViewModel
+import com.pp.module_community.model.RecSquareItemViewModel
 
 class RecPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, CommunityRecBean.Item>(DIFF_CALLBACK) {
 
@@ -36,6 +38,7 @@ class RecPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, Comm
         cacheItemViewModel: Any?
     ): Any {
         return cacheItemViewModel ?: when (binding) {
+            is ItemSquareVp2Binding -> RecSquareItemViewModel(item)
             else -> RecItemViewModel(item, binding.root.context)
         }
     }
@@ -62,6 +65,8 @@ class RecPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, Comm
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         Log.e(TAG, "viewType: ${viewType}")
         return when (viewType) {
+            EyepetizerService.ItemType.HORIZONTAL_SCROLL_CARD ->
+                ItemSquareVp2Binding.inflate(layoutInflater, parent, false)
             EyepetizerService.ItemType.COMMUNITY_COLUMN_CARD ->
                 ItemFollowCardBinding.inflate(layoutInflater, parent, false)
             else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
