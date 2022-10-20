@@ -44,5 +44,5 @@ retrofit2 = ["retrofit2", "retrofit2-converter-gson", "retrofit2-adapter-rxjava"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 # 控制 module 编译 application 或者 library
-android-module = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-#android-module = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+#android-module = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+android-module = { id = "com.android.application", version.ref = "androidGradlePlugin" }

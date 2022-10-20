@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.pp.module_video_details.IntroductionViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/padding_normal"
+        android:paddingTop="15dp"
+        android:paddingEnd="@dimen/padding_normal">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layer_media_divider"
+            app:elevation="0dp">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:selected="@{true}"
+                android:singleLine="true"
+                android:text="@{viewModel.title}"
+                android:textColor="@color/mediaTextColor"
+                android:textSize="15sp"
+                tools:text="复古风拼贴广告,ASICS的欲火重生,合作退出了复刻巴拿球鞋,鬼冢而而且" />
+
+            <TextView
+                android:id="@+id/tv_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:text="@{viewModel.category}"
+                android:textColor="@color/mediaTextColorSecondary"
+                android:textSize="12sp"
+                tools:text="#广告" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:text="@{viewModel.content}"
+                android:textColor="@color/mediaTextColor"
+                android:textSize="13sp"
+                tools:text="复古风拼贴广告,ASICS的欲火重生,合作退出了复刻巴拿球鞋,鬼冢而而且
+                          复古风拼贴广告,ASICS的欲火重生,合作退出了复刻巴拿球鞋,鬼冢而而且 " />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/tv_thumb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:drawableTop="@drawable/selector_thumb_up"
+                    android:drawableTint="@color/mediaTextColor"
+                    android:gravity="center"
+                    android:text="@{viewModel.collectionCount}"
+                    android:textColor="@color/mediaTextColor"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_star"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="68" />
+
+                <TextView
+                    android:id="@+id/tv_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:drawableTop="@drawable/selector_star"
+                    android:drawableTint="@color/mediaTextColor"
+                    android:gravity="center"
+                    android:text="@string/collection"
+                    android:textColor="@color/mediaTextColor"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_comment"
+                    app:layout_constraintStart_toEndOf="@id/tv_thumb"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:drawableTop="@drawable/ic_comment_24"
+                    android:drawableTint="@color/mediaTextColor"
+                    android:gravity="center"
+                    android:text="@{viewModel.replyCount}"
+                    android:textColor="@color/mediaTextColor"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_download"
+                    app:layout_constraintStart_toEndOf="@id/tv_star"
+                    app:layout_constraintTop_toTopOf="@id/tv_star"
+                    tools:text="68" />
+
+                <TextView
+                    android:id="@+id/tv_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:drawableTop="@drawable/ic_download_24"
+                    android:drawableTint="@color/mediaTextColor"
+                    android:gravity="center"
+                    android:text="@string/download"
+                    android:textColor="@color/mediaTextColor"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_share"
+                    app:layout_constraintStart_toEndOf="@id/tv_comment"
+                    app:layout_constraintTop_toTopOf="@id/tv_star" />
+
+                <TextView
+                    android:id="@+id/tv_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:drawableTop="@drawable/ic_share"
+                    android:drawableTint="@color/mediaTextColor"
+                    android:gravity="center"
+                    android:text="@{viewModel.shareCount}"
+                    android:textColor="@color/mediaTextColor"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_download"
+                    app:layout_constraintTop_toTopOf="@id/tv_star"
+                    tools:text="233" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/introduction_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:listitem="@layout/item_video_card" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

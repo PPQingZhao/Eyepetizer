@@ -42,7 +42,7 @@ android {
         enable = true
     }
 
-    if ("com.android.application"==(libs.plugins.android.module.get().pluginId)) {
+    if ("com.android.application" == (libs.plugins.android.module.get().pluginId)) {
         sourceSets["main"].java.srcDir("src/main/module")
         sourceSets["main"].manifest.srcFile("src/main/module/AndroidManifest.xml")
         sourceSets["main"].res.srcDir("src/main/res-module")
@@ -58,5 +58,5 @@ dependencies {
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
 
-   implementation(projects.libraryCommon)
+    implementation(projects.libraryCommon)
 }

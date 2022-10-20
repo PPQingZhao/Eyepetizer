@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{viewModel.onVideo}"
         android:layout_marginBottom="@dimen/item_margin_bottom">
 
         <ImageView
@@ -42,6 +43,7 @@
             app:layout_constraintWidth_percent="0.12" />
         <!--兼容 android:foreground-->
         <FrameLayout
+            android:onClick="@{viewModel.onIcon}"
             android:id="@+id/iv_icon"
             android:layout_width="0dp"
             android:layout_height="0dp"

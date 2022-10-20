@@ -54,9 +54,13 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
     }
 
 
-    lateinit var windowInsets: WindowInsets
+    private lateinit var windowInsets: WindowInsets
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+
+        if (customTheme())
+            return
+
         setTranslucent()
         setStatsBarFront()
         /*
@@ -101,6 +105,10 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
                 }
             }
         }, true)
+    }
+
+    protected open fun customTheme(): Boolean {
+        return false
     }
 
     /**

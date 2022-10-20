@@ -5,6 +5,9 @@
     <color name="colorOnPrimary">#FFFFFFFF</color>
     <color name="colorAccent">#FF9C27B0</color>
     <color name="colorPrimaryVariant">#FFFFFFFF</color>
+    <color name="colorMediaTheme">#323232</color>
+    <color name="mediaTextColor">#EFEFEF</color>
+    <color name="mediaTextColorSecondary">#6F6767</color>
 
     <color name="color_text_selected">#323232</color>
     <color name="color_text_normal">#929292</color>

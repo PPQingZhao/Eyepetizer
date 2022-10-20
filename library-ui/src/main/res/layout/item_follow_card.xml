@@ -67,11 +67,11 @@
             android:id="@+id/tv_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="2dp"
             android:text="@{viewModel.area}"
             android:textColor="@color/color_text_normal"
             android:textSize="12sp"
-            android:layout_marginStart="4dp"
             app:layout_constraintStart_toEndOf="@id/tv_date"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="北京市" />
@@ -92,14 +92,15 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/iv_feed"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_normal"
-            app:layout_constraintDimensionRatio="16:9"
+            android:orientation="horizontal"
+            app:adapter="@{viewModel.adapter}"
+            app:layoutManager="@{viewModel.layoutManager}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
-            app:adapter="@{viewModel.adapter}"
-            app:layoutManager="@{viewModel.layoutManager}"
+            tools:itemCount="1"
             tools:listitem="@layout/item_image_video" />
 
         <TextView

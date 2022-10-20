@@ -5,4 +5,9 @@
     <string name="for_detail">了解详情</string>
     <string name="loading">正在加载...</string>
     <string name="data_empty">没有更多数据了</string>
+
+    <string name="introduction" >简介</string>
+    <string name="comments" >评论</string>
+    <string name="collection" >收藏</string>
+    <string name="download" >缓存</string>
 </resources>

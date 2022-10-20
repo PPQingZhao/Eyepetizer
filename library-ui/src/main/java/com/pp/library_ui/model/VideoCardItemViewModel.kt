@@ -1,5 +1,7 @@
 package com.pp.library_ui.model
 
+import android.view.View
+
 
 open class VideoCardItemViewModel(val data: Any?) {
     var title: String? = null
@@ -9,4 +11,7 @@ open class VideoCardItemViewModel(val data: Any?) {
     var duration: String? = null
 
 
+    open fun onVideo(view: View) {}
+
+    open fun onIcon(view:View) {}
 }
