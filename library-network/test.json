@@ -672,3 +672,235 @@ Accept-Encoding: gzip\r\n
 [Response in frame: 17]
 
 
+
+
+Frame 12: 1408 bytes on wire (11264 bits), 1408 bytes captured (11264 bits) on interface en4, id 0
+Ethernet II, Src: RealtekS_68:0a:ef (00:e0:4c:68:0a:ef), Dst: MercuryC_36:93:d8 (8c:f2:28:36:93:d8)
+Internet Protocol Version 4, Src: 192.168.1.100, Dst: 106.14.250.111
+Transmission Control Protocol, Src Port: 46943, Dst Port: 80, Seq: 1, Ack: 1, Len: 1342
+Hypertext Transfer Protocol
+POST /sa?project=default HTTP/1.1\r\n
+[Expert Info (Chat/Sequence): POST /sa?project=default HTTP/1.1\r\n]
+[POST /sa?project=default HTTP/1.1\r\n]
+[Severity level: Chat]
+[Group: Sequence]
+Request Method: POST
+Request URI: /sa?project=default
+Request URI Path: /sa
+Request URI Query: project=default
+Request Version: HTTP/1.1
+Content-Length: 1075\r\n
+Content-Type: application/x-www-form-urlencoded\r\n
+User-Agent: Dalvik/2.1.0 (Linux; U; Android 10; Redmi K30 5G MIUI/V12.0.7.0.QGICNXM)\r\n
+Host: data.kaiyanapp.com\r\n
+Connection: Keep-Alive\r\n
+Accept-Encoding: gzip\r\n
+\r\n
+[Full request URI: http://data.kaiyanapp.com/sa?project=default]
+[HTTP request 1/5]
+[Response in frame: 15]
+[Next request in frame: 18]
+File Data: 1075 bytes
+HTML Form URL Encoded: application/x-www-form-urlencoded
+Form item: "crc" = "-1365227761"
+Form item: "gzip" = "1"
+Form item: "data_list" = "H4sIAAAAAAAAAJ1UzW7UMBB+FeTluA35z2ZvlbqgFT+tqkr8y3LsSddtEke2s8u2QoJ34AS8AncO8DYg4C0YZ1N1gfZQTom/mfk838x4np8TajXjp1QKMg3yZJIGUeAnY2JlDYikaRpHeZrkUZgjuG4RJH0EGRMhjZUNt30wCSAPOPh5CVkZxyIoCijiSVSWPGBFmJQiCTJfZBMMZI1q1
+
+
+H4sIAAAAAAAAAJ1UzW7UMBB+FeTluA35z2ZvlbqgFT+tqkr8y3LsSddtEke2s8u2QoJ34AS8AncO8DYg4C0YZ1N1gfZQTom/mfk838x4np8TajXjp1QKMg3yZJIGUeAnY2JlDYikaRpHeZrkUZgjuG4RJH0EGRMhjZUNt30wCSAPOPh5CVkZxyIoCijiSVSWPGBFmJQiCTJfZBMMZI1q1rXqzI0jpYDGSivBkOk5uT0c1/T/Gbc5hFZSbBhK3y/yJBZJHIZxWCTk9ZjAEj2dfmac/EoWfRL4pTXYhXJxXAlwrL2R7G4oB4AuQRupGjSkXuzFDmZtuwVnXuIFaXDhL8AyWfWstWegMUobwSzzWMOqtZXceEPSnhGnHlcavD5JT9atd+TaNHPHXWOgLioYjfA6aMQDWRxo1YK269HoXzfvhC3ZaBSFTnS7cRwq3rJjoJ12ORmogFtw4i5Q2jLNsBSg0e4GpNPMojK6maYoyELfjRHWjzbMQZtQsYKq2jiNSalVTbfuqVCibI5f3MEi1Filvzz+vvPqdkhDS6mNpYKtybRklQFElfmzR8ps9SLwb9LHmjVdybjtdJ/Ik/nu/sN5b8AMnIxDELW8dT/ybyX3HF5o1OXw2d7G8dpJMFwDNHQlhV3gk/Qn/iW4AHm8wJkMY9+hnGkt+wS+ff70/cPXn2/f/Xrz3pG44p6pBqgqSwMYsRP3PO5WKYYRW2FKqjuRzIM1tGDlGXINTkO/vn958+PjFwcKWEoO17wWtK9kKcnU6s5VugG7UvqUDhvk8fyu08wriWM3dMaoTnNnfCWZquWluWJXWrfqRfs2TzM/wZKhqpbi1IqOu8c6ezo7mB3Nn80O6e6jvcP9+Z5jbjvKCkzvOWG6TuOd5YQ5Sl0DwjvLbOtEXuIv56prhkXnBntLexKJws+KOIj8kGUsgiTNWZjlOa6buAwi94hoWXVmQf9ZqnH++uVvjIVh0IQFAAA=
+
+HTML Form URL Encoded: application/x-www-form-urlencoded
+
+
+
+// 首页推荐
+
+
+
+
+Frame 7: 1314 bytes on wire (10512 bits), 1314 bytes captured (10512 bits) on interface en4, id 0
+Ethernet II, Src: RealtekS_68:0a:ef (00:e0:4c:68:0a:ef), Dst: MercuryC_36:93:d8 (8c:f2:28:36:93:d8)
+Internet Protocol Version 4, Src: 192.168.1.100, Dst: 47.100.22.151
+Transmission Control Protocol, Src Port: 42057, Dst Port: 80, Seq: 1, Ack: 1, Len: 1260
+Hypertext Transfer Protocol
+POST /v1/card/page/get_page HTTP/1.1\r\n
+[Expert Info (Chat/Sequence): POST /v1/card/page/get_page HTTP/1.1\r\n]
+[POST /v1/card/page/get_page HTTP/1.1\r\n]
+[Severity level: Chat]
+[Group: Sequence]
+Request Method: POST
+Request URI: /v1/card/page/get_page
+Request Version: HTTP/1.1
+Connection: keep-alive\r\n
+x-api-key: 0530ee4341324ce2b26c23fcece80ea2\r\n
+User-Agent: EYEPETIZER/7051610 (Redmi K30 5G;android;10;zh_CN;android;7.5.161;cn-bj;xiaomi;53db07b41302a7a3e569a27993ff4f13;WIFI;1080*2261) native/1.0\r\n
+X-THEFAIR-APPID: ahpagrcrf2p7m6rg\r\n
+[truncated]X-THEFAIR-AUTH: uTWtTYVSWAl50Kx2La5nLZrSIox+zS1gRB/KtdP3lBcwWwxRDekPW2EDMmT2AE9WJJ0QbqmSzZXLLmZkJXsa/dj0xNc8GZ0WXf20PLYH+uB3ePfz2u7d+7GSsc0vLkXiiV9vdZtq+rnu6cF4EMCaMIQz1Uf7PPQNia3IdPbC11BdssO5yMx9y/Scytg8tzFmAmaoZ0hSj3cjkOHMlU
+X-THEFAIR-CID: 53db07b41302a7a3e569a27993ff4f13\r\n
+X-THEFAIR-UA: EYEPETIZER/7051610 (Redmi K30 5G;android;10;zh_CN;android;7.5.161;cn-bj;xiaomi;53db07b41302a7a3e569a27993ff4f13;WIFI;1080*2261) native/1.0\r\n
+Cookie: ky_udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78;ky_auth=;PHPSESSID=def4248276f8142d792758f3f844b513;APPID=ahpagrcrf2p7m6rg\r\n
+Cookie pair: ky_udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78
+Cookie pair: ky_auth=
+Cookie pair: PHPSESSID=def4248276f8142d792758f3f844b513
+Cookie pair: APPID=ahpagrcrf2p7m6rg
+Content-Type: application/x-www-form-urlencoded\r\n
+Content-Length: 211\r\n
+[Content length: 211]
+Host: api.eyepetizer.net\r\n
+Accept-Encoding: gzip\r\n
+\r\n
+[Full request URI: http://api.eyepetizer.net/v1/card/page/get_page]
+[HTTP request 1/37]
+[Response in frame: 165]
+[Next request in frame: 706]
+File Data: 211 bytes
+HTML Form URL Encoded: application/x-www-form-urlencoded
+Form item: "udid" = "1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78"
+Key: udid
+Value: 1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78
+Form item: "vc" = "7051610"
+Key: vc
+Value: 7051610
+Form item: "vn" = "7.5.161"
+Key: vn
+Value: 7.5.161
+Form item: "deviceModel" = "Redmi K30 5G"
+Key: deviceModel
+Value: Redmi K30 5G
+Form item: "first_channel" = "xiaomi"
+Key: first_channel
+Value: xiaomi
+Form item: "size" = "1080X2261"
+Key: size
+Value: 1080X2261
+Form item: "system_version_code" = "29"
+Key: system_version_code
+Value: 29
+Form item: "token" = "ea9cd264f05e6e14"
+Key: token
+Value: ea9cd264f05e6e14
+Form item: "page_type" = "card"
+Key: page_type
+Value: card
+Form item: "page_label" = "follow"
+Key: page_label
+Value: follow
+
+
+Frame 7: 1314 bytes on wire (10512 bits), 1314 bytes captured (10512 bits) on interface en4, id 0
+Ethernet II, Src: RealtekS_68:0a:ef (00:e0:4c:68:0a:ef), Dst: MercuryC_36:93:d8 (8c:f2:28:36:93:d8)
+Internet Protocol Version 4, Src: 192.168.1.100, Dst: 47.100.22.151
+Transmission Control Protocol, Src Port: 42057, Dst Port: 80, Seq: 1, Ack: 1, Len: 1260
+Hypertext Transfer Protocol
+POST /v1/card/page/get_page HTTP/1.1\r\n
+[Expert Info (Chat/Sequence): POST /v1/card/page/get_page HTTP/1.1\r\n]
+[POST /v1/card/page/get_page HTTP/1.1\r\n]
+[Severity level: Chat]
+[Group: Sequence]
+Request Method: POST
+Request URI: /v1/card/page/get_page
+Request Version: HTTP/1.1
+Connection: keep-alive\r\n
+x-api-key: 0530ee4341324ce2b26c23fcece80ea2\r\n
+User-Agent: EYEPETIZER/7051610 (Redmi K30 5G;android;10;zh_CN;android;7.5.161;cn-bj;xiaomi;53db07b41302a7a3e569a27993ff4f13;WIFI;1080*2261) native/1.0\r\n
+X-THEFAIR-APPID: ahpagrcrf2p7m6rg\r\n
+[truncated]X-THEFAIR-AUTH: uTWtTYVSWAl50Kx2La5nLZrSIox+zS1gRB/KtdP3lBcwWwxRDekPW2EDMmT2AE9WJJ0QbqmSzZXLLmZkJXsa/dj0xNc8GZ0WXf20PLYH+uB3ePfz2u7d+7GSsc0vLkXiiV9vdZtq+rnu6cF4EMCaMIQz1Uf7PPQNia3IdPbC11BdssO5yMx9y/Scytg8tzFmAmaoZ0hSj3cjkOHMlU
+X-THEFAIR-CID: 53db07b41302a7a3e569a27993ff4f13\r\n
+X-THEFAIR-UA: EYEPETIZER/7051610 (Redmi K30 5G;android;10;zh_CN;android;7.5.161;cn-bj;xiaomi;53db07b41302a7a3e569a27993ff4f13;WIFI;1080*2261) native/1.0\r\n
+Cookie: ky_udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78;ky_auth=;PHPSESSID=def4248276f8142d792758f3f844b513;APPID=ahpagrcrf2p7m6rg\r\n
+Cookie pair: ky_udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78
+Cookie pair: ky_auth=
+Cookie pair: PHPSESSID=def4248276f8142d792758f3f844b513
+Cookie pair: APPID=ahpagrcrf2p7m6rg
+Content-Type: application/x-www-form-urlencoded\r\n
+Content-Length: 211\r\n
+[Content length: 211]
+Host: api.eyepetizer.net\r\n
+Accept-Encoding: gzip\r\n
+\r\n
+[Full request URI: http://api.eyepetizer.net/v1/card/page/get_page]
+[HTTP request 1/37]
+[Response in frame: 165]
+[Next request in frame: 706]
+File Data: 211 bytes
+HTML Form URL Encoded: application/x-www-form-urlencoded
+
+
+udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78&vc=7051610&vn=7.5.161&deviceModel=Redmi%20K30%205G&first_channel=xiaomi&size=1080X2261&system_version_code=29&token=ea9cd264f05e6e14&page_type=card&page_label=follow
+
+
+
+
+请求示例：
+
+http://api.eyepetizer.net/v1/card/page/get_page
+
+POST /v1/card/page/get_page HTTP/1.1
+
+请求头：
+Connection: keep-alive
+x-api-key: 0530ee4341324ce2b26c23fcece80ea2
+User-Agent: EYEPETIZER/7051610 (Redmi K30 5G;android;10;zh_CN;android;7.5.161;cn-bj;xiaomi;53db07b41302a7a3e569a27993ff4f13;WIFI;1080*2261) native/1.0
+X-THEFAIR-APPID: ahpagrcrf2p7m6rg
+X-THEFAIR-AUTH: uTWtTYVSWAl50Kx2La5nLZrSIox+zS1gRB/KtdP3lBcwWwxRDekPW2EDMmT2AE9WJJ0QbqmSzZXLLmZkJXsa/dj0xNc8GZ0WXf20PLYH+uB3ePfz2u7d+7GSsc0vLkXiiV9vdZtq+rnu6cF4EMCaMIQz1Uf7PPQNia3IdPbC11BdssO5yMx9y/Scytg8tzFmAmaoZ0hSj3cjkOHMlUStSWOoiBClbaY+VsR7cum/pCyRQgJxFCOmh5MWnTdA5RNgF8/3JEBQ06qyClVCCjaXfA==
+X-THEFAIR-CID: 53db07b41302a7a3e569a27993ff4f13
+X-THEFAIR-UA: EYEPETIZER/7051610 (Redmi K30 5G;android;10;zh_CN;android;7.5.161;cn-bj;xiaomi;53db07b41302a7a3e569a27993ff4f13;WIFI;1080*2261) native/1.0
+Cookie: ky_udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78;ky_auth=;PHPSESSID=def4248276f8142d792758f3f844b513;APPID=ahpagrcrf2p7m6rg
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 211
+Host: api.eyepetizer.net
+Accept-Encoding: gzip
+
+
+请求体：
+udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78&vc=7051610&vn=7.5.161&deviceModel=Redmi%20K30%205G&first_channel=xiaomi&size=1080X2261&system_version_code=29&token=ea9cd264f05e6e14&page_type=card&page_label=follow
+
+
+
+X-Auth-Token
+
+
+
+Frame 15: 330 bytes on wire (2640 bits), 330 bytes captured (2640 bits) on interface en4, id 0
+Ethernet II, Src: MercuryC_36:93:d8 (8c:f2:28:36:93:d8), Dst: RealtekS_68:0a:ef (00:e0:4c:68:0a:ef)
+Internet Protocol Version 4, Src: 106.14.250.111, Dst: 192.168.1.100
+Transmission Control Protocol, Src Port: 80, Dst Port: 46943, Seq: 1, Ack: 1343, Len: 264
+Hypertext Transfer Protocol
+HTTP/1.1 200 OK\r\n
+[Expert Info (Chat/Sequence): HTTP/1.1 200 OK\r\n]
+[HTTP/1.1 200 OK\r\n]
+[Severity level: Chat]
+[Group: Sequence]
+Response Version: HTTP/1.1
+Status Code: 200
+[Status Code Description: OK]
+Response Phrase: OK
+Server: Tengine/2.1.2\r\n
+Date: Sat, 22 Oct 2022 11:54:18 GMT\r\n
+Content-Type: text/plain\r\n
+Transfer-Encoding: chunked\r\n
+Connection: keep-alive\r\n
+Cache-Control: no-cache, no-store, must-revalidate\r\n
+Content-Encoding: gzip\r\n
+\r\n
+[HTTP response 1/5]
+[Time since request: 0.111142000 seconds]
+[Request in frame: 12]
+[Next request in frame: 18]
+[Next response in frame: 20]
+[Request URI: http://data.kaiyanapp.com/sa?project=default]
+HTTP chunked response
+Data chunk (20 octets)
+Chunk size: 20 octets
+Chunk data: 1f8b080000000000000303000000000000000000
+Chunk boundary: 0d0a
+End of chunked encoding
+Chunk size: 0 octets
+\r\n
+Content-encoded entity body (gzip): 20 bytes -> 0 bytes
+File Data: 0 bytes
+
+
+
+https://api.eyepetizer.net/v1/card/metro/call_metro_list_v2
+
