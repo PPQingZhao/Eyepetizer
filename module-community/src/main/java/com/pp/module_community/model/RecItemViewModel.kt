@@ -20,15 +20,15 @@ class RecItemViewModel(val item: CommunityRecBean.Item?, context: Context) :
         val header = item?.data?.header
         val _content = item?.data?.content
         val contentData = item?.data?.content?.data
-        icon = header?.icon
-        author = header?.issuerName
-        date = format.format(Date(header?.time ?: 0))
-        area = contentData?.city
-        content = contentData?.description
-        feed = contentData?.cover?.feed
+        icon.set(header?.icon)
+        author.set(header?.issuerName)
+        date.set(format.format(Date(header?.time ?: 0)))
+        area.set(contentData?.city)
+        content.set(contentData?.description)
+        cover.set(contentData?.cover?.feed)
 
         videoType = EyepetizerService.ContentType.isVideo(_content?.type)
-        category = contentData?.tags?.getOrNull(0)?.name ?: "null"
+        category.set(contentData?.tags?.getOrNull(0)?.name ?: "null")
 
         collectionCount.set(contentData?.consumption?.collectionCount.toString() ?: "0")
         realCollectionCount.set(contentData?.consumption?.realCollectionCount.toString() ?: "0")
@@ -36,7 +36,7 @@ class RecItemViewModel(val item: CommunityRecBean.Item?, context: Context) :
 
         layoutManager = LinearLayoutManager(context)
         adapter = ItemAdapter().apply {
-            setDataList(listOf(ImageVideoItemViewModel(feed, videoType)))
+            setDataList(listOf(ImageVideoItemViewModel(cover.get(), videoType)))
         }
         adapter.apply {
         }

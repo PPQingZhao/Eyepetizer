@@ -17,12 +17,12 @@ class FollowItemViewModel(item: Item?, context: Context) :
 
     init {
         val contentData = item?.data?.content?.data
-        icon = contentData?.author?.icon
-        author = contentData?.author?.name
-        date = format.format(contentData?.date)
-        content = "     ${contentData?.description}"
-        feed = contentData?.cover?.feed
-        category = contentData?.category
+        icon.set(contentData?.author?.icon)
+        author.set(contentData?.author?.name)
+        date.set(format.format(contentData?.date))
+        content.set("     ${contentData?.description}")
+        cover.set(contentData?.cover?.feed)
+        category.set(contentData?.category)
 
         collectionCount.set(contentData?.consumption?.collectionCount.toString() ?: "0")
         realCollectionCount.set(contentData?.consumption?.realCollectionCount.toString() ?: "0")
@@ -30,7 +30,7 @@ class FollowItemViewModel(item: Item?, context: Context) :
 
         layoutManager = LinearLayoutManager(context)
         adapter = Adapter().apply {
-            setDataList(listOf(ImageVideoItemViewModel(feed, true)))
+            setDataList(listOf(ImageVideoItemViewModel(cover.get(), true)))
         }
 
     }
@@ -39,7 +39,8 @@ class FollowItemViewModel(item: Item?, context: Context) :
         val format by lazy { SimpleDateFormat("yyyy.MM.dd") }
     }
 
-    inner class Adapter : BindingAdapter<ItemImageVideoBinding, ImageVideoItemViewModel, ImageVideoItemViewModel>() {
+    inner class Adapter :
+        BindingAdapter<ItemImageVideoBinding, ImageVideoItemViewModel, ImageVideoItemViewModel>() {
         override fun createViewModel(
             binding: ItemImageVideoBinding,
             item: ImageVideoItemViewModel?,

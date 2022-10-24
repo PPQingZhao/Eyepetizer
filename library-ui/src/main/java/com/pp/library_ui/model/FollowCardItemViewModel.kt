@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 open class FollowCardItemViewModel<VH : ViewHolder>() {
 
     var videoType: Boolean = false
-    var area: String? = ""
-    var content: String? = ""
-    var icon: String? = ""
-    var author: String? = ""
-    var date: String? = ""
-    var feed: String? = ""
-    var category: String? = ""
+    var area = ObservableField<String>()
+    var content = ObservableField<String>()
+    var icon = ObservableField<String>()
+    var author = ObservableField<String>()
+    var date = ObservableField<String>()
+    var cover = ObservableField<String>()
+    var category = ObservableField<String>()
     val expand: ObservableField<Boolean> = ObservableField(false)
     val collectionCount = ObservableField<String>()
     val realCollectionCount = ObservableField<String>()

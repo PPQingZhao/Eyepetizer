@@ -3,35 +3,55 @@ package com.pp.module_home.model
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pp.library_network.eyepetizer.ApiService
 import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.library_ui.adapter.BindingAdapter
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemImageVideoBinding
 import com.pp.library_ui.model.FollowCardItemViewModel
 import com.pp.library_ui.model.ImageVideoItemViewModel
+import io.reactivex.schedulers.Schedulers
 
 
 class MetroFollowItemViewModel(metro: PageDataBean.Card.CardData.Body.Metro?, context: Context) :
     FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
     init {
+
         val metroData = metro?.metroData
-        icon = metroData?.author?.avatar?.url
-        author = metroData?.author?.nick
-        content = metroData?.author?.description
-        feed = metroData?.cover?.url
-        category = metroData?.tags?.get(0)?.title?.split("#")?.get(1) ?: ""
 
-        val trackingData = metro?.trackingData
-        date = trackingData?.show?.get(0)?.data?.devReleaseTime
 
-//        collectionCount.set(metroData?.consumption?.collectionCount.toString() ?: "0")
-//        realCollectionCount.set(metroData?.consumption?.realCollectionCount.toString() ?: "0")
-//        replyCount.set(metroData?.consumption?.replyCount.toString() ?: "0")
+        icon.set(metroData?.author?.avatar?.url)
+        author.set(metroData?.author?.nick)
+        cover.set(metroData?.cover?.url)
+
+        ApiService.api.getItemDetails(metroData?.resourceId ?: -1, metroData?.resourceType ?: "")
+            .subscribeOn(Schedulers.io())
+            .subscribe {
+
+                it?.result?.run {
+                    this@MetroFollowItemViewModel.date.set(this.publishTime)
+//                    this@MetroFollowItemViewModel.area.set(this.realLocation)
+                    this@MetroFollowItemViewModel.content.set(this.text)
+                    this@MetroFollowItemViewModel.category.set(this.category.name)
+
+                    this@MetroFollowItemViewModel.collectionCount.set(
+                        this.consumption.likeCount.toString()
+                    )
+                    this@MetroFollowItemViewModel.realCollectionCount.set(
+                        this.consumption.collectionCount.toString()
+                    )
+                    this@MetroFollowItemViewModel.replyCount.set(
+                        this.consumption.commentCount.toString()
+                    )
+                }
+
+            }
+
 
         layoutManager = LinearLayoutManager(context)
         adapter = Adapter().apply {
-            setDataList(listOf(ImageVideoItemViewModel(feed, true)))
+            setDataList(listOf(ImageVideoItemViewModel(cover.get(), true)))
         }
 
     }
