@@ -8,7 +8,7 @@ import com.pp.library_network.eyepetizer.bean.PageDataBean.Card.CardData.Body.Me
 import com.pp.library_network.utils.PageType
 import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
-import com.pp.module_home.model.MetroFollowItemViewModel
+import com.pp.library_common.model.MetroFollowItemViewModel
 
 class FollowPagingDataAdapter2 :
     BindingPagingDataAdapter<ViewDataBinding, Any, Metro>(DIFF_CALLBACK) {

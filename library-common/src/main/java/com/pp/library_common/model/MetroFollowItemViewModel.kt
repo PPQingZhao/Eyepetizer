@@ -1,4 +1,4 @@
-package com.pp.module_home.model
+package com.pp.library_common.model
 
 import android.content.Context
 import android.view.ViewGroup
