@@ -14,10 +14,8 @@ import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_network.eyepetizer.ApiService
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_community.adapter.RecPagingDataAdapter
-import com.pp.module_community.api.CommunityApi
 import com.pp.module_community.databinding.FragmentCommunityRecBinding
 import com.pp.mvvm.LifecycleFragment
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Community.fragment_community)

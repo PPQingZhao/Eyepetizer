@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 object HttpUtil {
     private const val TAG = "OKHttp"
 
-    fun getClient(): OkHttpClient {
+    fun getEyeClient(): OkHttpClient {
         val logger = HttpLoggingInterceptor.Logger { message ->
             Log.e(TAG, "===> $message")
         }
@@ -42,6 +42,23 @@ object HttpUtil {
 
         val builder = OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .addInterceptor(logInterceptor)
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS);
+
+        return builder.build();
+    }
+
+    fun getClient(): OkHttpClient {
+        val logger = HttpLoggingInterceptor.Logger { message ->
+            Log.e(TAG, "===> $message")
+        }
+
+        val logInterceptor = HttpLoggingInterceptor(logger)
+        logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val builder = OkHttpClient.Builder()
             .addInterceptor(logInterceptor)
             .connectTimeout(20, TimeUnit.SECONDS)
             .readTimeout(20, TimeUnit.SECONDS)
