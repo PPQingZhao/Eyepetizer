@@ -2,6 +2,7 @@ package com.pp.library_network.eyepetizer.bean
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ItemDetailsBean(
     @SerializedName("app_link")
@@ -56,7 +57,7 @@ data class ItemDetailsBean(
     val type: String,
     @SerializedName("video")
     val video: Video
-) {
+) : Serializable {
     data class Author(
         @SerializedName("avatar")
         val avatar: Avatar,

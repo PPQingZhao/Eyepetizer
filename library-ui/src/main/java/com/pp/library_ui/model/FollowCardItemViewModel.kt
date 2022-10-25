@@ -26,4 +26,6 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
     fun onExpand(view: View) {
         expand.set(expand.get()?.not())
     }
+
+    open fun onVideo(view:View){}
 }

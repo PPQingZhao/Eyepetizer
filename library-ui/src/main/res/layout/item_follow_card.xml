@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:onClick="@{viewModel.onVideo}">
 
         <FrameLayout
             android:id="@+id/fl_icon"
@@ -104,11 +105,11 @@
 
         <TextView
             android:id="@+id/tv_content"
+            expandText="@{true}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_normal"
             android:ellipsize="end"
-            expandText="@{true}"
             android:maxLines="@{viewModel.expand ? 10:3}"
             android:text="@{viewModel.content}"
             android:textColor="@color/color_text_selected"

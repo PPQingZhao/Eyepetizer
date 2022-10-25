@@ -14,6 +14,12 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["AROUTER_MODULE_NAME"] = project.name
+            }
+        }
     }
 
     buildTypes {
@@ -42,6 +48,9 @@ dependencies {
     testImplementation(libs.junit.get())
     androidTestImplementation(libs.ext.junit.get())
     androidTestImplementation(libs.espresso.core.get())
+
+    implementation(libs.arouter.api)
+    kapt(libs.arouter.compiler)
 
     api(projects.libraryBase)
     api(projects.libraryRouterService)

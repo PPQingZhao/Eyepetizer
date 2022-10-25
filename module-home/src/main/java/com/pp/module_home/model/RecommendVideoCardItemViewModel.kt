@@ -8,12 +8,12 @@ class RecommendVideoCardItemViewModel(item: RecommendBean.Item?) : VideoCardItem
 
     init {
         val data = item?.data?.content?.data
-//        title = "${item?.data?.dataType}: ${data?.title}"
-        title = data?.title
-        category = "${data?.author?.name} # ${data?.category}"
-        imagePath = data?.cover?.feed
-        icon = data?.author?.icon
-        duration = format.format(data?.duration?.times(1000L))
+
+        title.set(data?.title)
+        category.set("${data?.author?.name} # ${data?.category}")
+        imagePath.set(data?.cover?.feed)
+        icon.set(data?.author?.icon)
+        duration.set(DailyItemViewModel.format.format(data?.duration?.times(1000L)))
     }
     companion object {
         val format by lazy { SimpleDateFormat("mm:ss") }

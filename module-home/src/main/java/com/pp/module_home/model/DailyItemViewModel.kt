@@ -8,15 +8,15 @@ import com.pp.module_home.api.bean.FeedBean
 import java.text.SimpleDateFormat
 
 
-class DailyItemViewModel(item: FeedBean.Item?): VideoCardItemViewModel(item){
+class DailyItemViewModel(item: FeedBean.Item?) : VideoCardItemViewModel(item) {
     init {
         val data = item?.data?.content?.data
 //        title = "${item?.data?.dataType}: ${data?.title}"
-        title = data?.title
-        category = "${data?.author?.name} # ${data?.category}"
-        imagePath = data?.cover?.feed
-        icon = data?.author?.icon
-        duration = format.format(data?.duration?.times(1000L))
+        title.set(data?.title)
+        category.set("${data?.author?.name} # ${data?.category}")
+        imagePath.set(data?.cover?.feed)
+        icon.set(data?.author?.icon)
+        duration.set(format.format(data?.duration?.times(1000L)))
 
     }
 

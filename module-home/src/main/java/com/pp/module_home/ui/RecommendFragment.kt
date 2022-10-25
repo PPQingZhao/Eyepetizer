@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
-import com.pp.module_home.adapter.RecommendPagingDataAdapter
+import com.pp.module_home.adapter.RecommendPagingDataAdapter2
 import com.pp.module_home.databinding.FragmentRecommendBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
@@ -26,7 +26,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
         initRecyclerView()
     }
 
-    private val recommendAdapter by lazy { RecommendPagingDataAdapter() }
+    private val recommendAdapter by lazy { RecommendPagingDataAdapter2() }
 
     private fun initRecyclerView() {
         mBinding.recommendRecyclerview.layoutManager = LinearLayoutManager(context)

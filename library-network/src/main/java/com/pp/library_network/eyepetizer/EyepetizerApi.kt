@@ -1,11 +1,13 @@
 package com.pp.library_network.eyepetizer
 
+import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.URL_FOLLOW
+import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.URL_GET_PAGE
+import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.URL_RECOMMEND
 import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.VERSION
 import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.VERSION_NAME
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
 import com.pp.library_network.eyepetizer.bean.PageDataBean
-import com.pp.library_network.utils.RetrofitUtil
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -13,18 +15,6 @@ import retrofit2.http.Query
 import retrofit2.http.Url
 
 interface EyepetizerApi {
-
-    companion object {
-        private const val BASE_URL_V1 = "http://api.eyepetizer.net/"
-
-        const val URL_GET_PAGE = "/v1/card/page/get_page"
-        const val URL_FOLLOW = "/v1/card/page/get_page?page_type=card&page_label=follow"
-
-        private val retrofit = RetrofitUtil.createEyeRetrofit(BASE_URL_V1)
-        val api: EyepetizerApi by lazy { retrofit.create(EyepetizerApi::class.java) }
-
-
-    }
 
     /**
      * udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78&vc=7051610&vn=7.5.161&deviceModel=Redmi%20K30%205G&first_channel=xiaomi
@@ -44,6 +34,9 @@ interface EyepetizerApi {
         @Query("system_version_code") system_version_code: Int = 29,
         @Query("deviceModel") deviceModel: String = "Redmi%20K30%205G"
     ): BaseResponse<PageDataBean>
+
+    @POST
+    suspend fun getPageData(@Url url: String): BaseResponse<PageDataBean>
 
     @POST
     suspend fun getFollow(
@@ -70,4 +63,9 @@ interface EyepetizerApi {
         @Query("resource_id") resource_id: Int?,
         @Query("resource_type") resource_type: String?
     ): Observable<BaseResponse<ItemDetailsBean>>
+
+    @POST
+    suspend fun getRecommend(
+        @Url url: String = URL_RECOMMEND
+    ): BaseResponse<PageDataBean>
 }

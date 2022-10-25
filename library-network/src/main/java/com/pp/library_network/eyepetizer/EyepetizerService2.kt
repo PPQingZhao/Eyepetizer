@@ -1,5 +1,7 @@
 package com.pp.library_network.eyepetizer
 
+import com.pp.library_network.utils.RetrofitUtil
+
 interface EyepetizerService2 {
     companion object {
 
@@ -24,6 +26,18 @@ interface EyepetizerService2 {
 
         const val VERSION = 7051610
         const val VERSION_NAME = "7.5.161"
+
+
+        private const val BASE_URL_V1 = "http://api.eyepetizer.net/"
+
+        const val URL_GET_PAGE = "/v1/card/page/get_page"
+        const val URL_FOLLOW = "${URL_GET_PAGE}?page_type=card&page_label=follow"
+        const val URL_RECOMMEND = "${URL_GET_PAGE}/v1/card/page/get_page?page_type=card&page_label=recommend"
+        const val URL_DAILY = "${URL_GET_PAGE}/v1/card/page/get_page?page_type=card&page_label=daily_issue"
+
+        private val retrofit = RetrofitUtil.createEyeRetrofit(BASE_URL_V1)
+        val api: EyepetizerApi by lazy { retrofit.create(EyepetizerApi::class.java) }
+
 
     }
 

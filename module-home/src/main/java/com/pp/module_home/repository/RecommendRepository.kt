@@ -1,14 +1,15 @@
 package com.pp.module_home.repository
 
-import android.util.Log
 import androidx.paging.*
-import com.pp.library_network.eyepetizer.EyepetizerService
-import com.pp.module_home.api.bean.RecommendBean
-import com.pp.module_home.api.HomeApi
+import com.pp.library_common.pagingsource.ItemModel
+import com.pp.library_common.pagingsource.MetroPagingSource
+import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_network.eyepetizer.bean.BaseResponse
+import com.pp.library_network.eyepetizer.bean.PageDataBean
 import kotlinx.coroutines.flow.Flow
 
 object RecommendRepository {
-    fun getPagingData(): Flow<PagingData<RecommendBean.Item>> {
+    /*fun getPagingData(): Flow<PagingData<RecommendBean.Item>> {
         return Pager(
             config = PagingConfig(15),
             pagingSourceFactory = { RecommendPagingSource() }).flow
@@ -43,5 +44,21 @@ object RecommendRepository {
                 LoadResult.Error(e)
             }
         }
+    }*/
+
+    fun getPagingData(): Flow<PagingData<ItemModel<Any>>> {
+
+        return Pager(
+            config = PagingConfig(15),
+            pagingSourceFactory = { RecommendPagingSource() }).flow
     }
+
+    private class RecommendPagingSource : MetroPagingSource() {
+        override suspend fun loadPageData(key: String?): BaseResponse<PageDataBean> {
+            return EyepetizerService2.api.getPageData(key ?: EyepetizerService2.URL_RECOMMEND)
+        }
+
+    }
+
+
 }
