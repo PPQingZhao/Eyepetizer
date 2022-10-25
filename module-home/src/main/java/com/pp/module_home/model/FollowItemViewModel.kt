@@ -2,7 +2,6 @@ package com.pp.module_home.model
 
 import android.content.Context
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_ui.adapter.BindingAdapter
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemImageVideoBinding
@@ -12,7 +11,7 @@ import com.pp.module_home.api.bean.FollowBean.Item
 import java.text.SimpleDateFormat
 
 
-class FollowItemViewModel(item: Item?, context: Context) :
+class FollowItemViewModel(item: Item?,val context: Context) :
     FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
     init {
@@ -28,9 +27,8 @@ class FollowItemViewModel(item: Item?, context: Context) :
         realCollectionCount.set(contentData?.consumption?.realCollectionCount.toString() ?: "0")
         replyCount.set(contentData?.consumption?.replyCount.toString() ?: "0")
 
-        layoutManager = LinearLayoutManager(context)
         adapter = Adapter().apply {
-            setDataList(listOf(ImageVideoItemViewModel(cover.get(), true)))
+            setDataList(listOf(ImageVideoItemViewModel(cover, true)))
         }
 
     }
@@ -46,7 +44,7 @@ class FollowItemViewModel(item: Item?, context: Context) :
             item: ImageVideoItemViewModel?,
             cacheItemViewModel: ImageVideoItemViewModel?
         ): ImageVideoItemViewModel {
-            return cacheItemViewModel ?: item ?: ImageVideoItemViewModel("")
+            return cacheItemViewModel ?: item ?: ImageVideoItemViewModel(null)
         }
 
         override fun createBinding(parent: ViewGroup, viewType: Int): ItemImageVideoBinding {

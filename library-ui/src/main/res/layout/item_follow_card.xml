@@ -90,13 +90,12 @@
             app:layout_constraintTop_toTopOf="@id/fl_icon" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/iv_feed"
+            android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_normal"
             android:orientation="horizontal"
             app:adapter="@{viewModel.adapter}"
-            app:layoutManager="@{viewModel.layoutManager}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
@@ -109,13 +108,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_normal"
             android:ellipsize="end"
+            expandText="@{true}"
             android:maxLines="@{viewModel.expand ? 10:3}"
             android:text="@{viewModel.content}"
             android:textColor="@color/color_text_selected"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="@id/iv_follow"
             app:layout_constraintStart_toStartOf="@id/fl_icon"
-            app:layout_constraintTop_toBottomOf="@id/iv_feed"
+            app:layout_constraintTop_toBottomOf="@id/recyclerview"
             tools:text="社恐的最高境界是什么样的?
             自己跟自己下棋还有滋有味,就算受伤也不用别人帮忙，包扎、借钱、去医院，
             破了也自己搞定轮胎,提供车贷房贷及时来不到就是零零零零，二七十九世纪就，点击" />

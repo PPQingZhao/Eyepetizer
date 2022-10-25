@@ -1,3 +1,5 @@
 package com.pp.library_ui.model
 
-class ImageVideoItemViewModel(val imgUrl: String?, val videoType: Boolean = false)
+import androidx.databinding.ObservableField
+
+class ImageVideoItemViewModel(val imgUrl: ObservableField<String>?, val videoType: Boolean = false)

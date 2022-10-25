@@ -3,6 +3,7 @@ package com.pp.module_home.adapter
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
 import com.pp.library_ui.databinding.ItemFollowCardBinding
@@ -10,7 +11,8 @@ import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_home.api.bean.FollowBean.Item
 import com.pp.module_home.model.FollowItemViewModel
 
-class FollowPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) {
+class FollowPagingDataAdapter :
+    BindingPagingDataAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) {
 
     companion object {
         const val TAG = "FollowAdapter"
@@ -44,7 +46,7 @@ class FollowPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, I
         return cacheItemViewModel ?: when (binding) {
             // autoPlayFollowCard,followCard
             is ItemFollowCardBinding ->
-                FollowItemViewModel(item,binding.root.context)
+                FollowItemViewModel(item, binding.root.context)
             // to be developed
             else -> """
                         ${item?.type}
@@ -58,9 +60,12 @@ class FollowPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, I
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
             // autoPlayFollowCard,followCard
-            EyepetizerService.ItemType.AUTO_PLAY_FOLLO_WCARD ,
-            EyepetizerService.ItemType.FOLLOW_CARD ->
-                ItemFollowCardBinding.inflate(layoutInflater, parent, false)
+            EyepetizerService.ItemType.AUTO_PLAY_FOLLO_WCARD,
+            EyepetizerService.ItemType.FOLLOW_CARD -> {
+                val binding = ItemFollowCardBinding.inflate(layoutInflater, parent, false)
+                binding.recyclerview.layoutManager = LinearLayoutManager(parent.context)
+                binding
+            }
             else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
         }
 //        return ItemFollowBinding.inflate(LayoutInflater.from(parent.context))

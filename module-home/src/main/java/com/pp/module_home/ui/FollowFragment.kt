@@ -29,9 +29,10 @@ class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>
     private val followAdapter: FollowPagingDataAdapter2 by lazy { FollowPagingDataAdapter2() }
     private fun initRecyclerView() {
         mBinding.followRecyclerview.layoutManager = LinearLayoutManager(context)
-        mBinding.followRecyclerview.adapter = followAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter{
-            followAdapter.retry()
-        })
+        mBinding.followRecyclerview.adapter =
+            followAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
+                followAdapter.retry()
+            })
     }
 
     override fun onFirstResume() {

@@ -9,11 +9,9 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.pp.library_network.eyepetizer.ApiService
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_video_details.databinding.ActivityVideoDetailsBinding
 import com.pp.mvvm.LifecycleActivity
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.VideoDetails.activity_video_details)
@@ -43,12 +41,6 @@ class VideoDetailsActivity :
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            val follow = ApiService.api.getFollow2()
-                .subscribeOn(Schedulers.io())
-                .subscribe {
-                    Log.e("TAG", it.code.toString())
-                }
-
         }
     }
 

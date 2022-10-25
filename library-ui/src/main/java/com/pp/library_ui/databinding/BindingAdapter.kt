@@ -2,8 +2,11 @@ package com.pp.library_ui.databinding
 
 import android.util.Log
 import android.view.View
+import android.view.View.OnLayoutChangeListener
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.core.widget.TextViewCompat
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -31,5 +34,34 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter("mVisibility")
     fun setVisibility(v: View, visibility: Boolean) {
         v.visibility = if (visibility) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("expandText")
+    fun expandText(textView: TextView,t:Boolean) {
+
+        textView.addOnLayoutChangeListener(object :OnLayoutChangeListener{
+            override fun onLayoutChange(
+                v: View?,
+                left: Int,
+                top: Int,
+                right: Int,
+                bottom: Int,
+                oldLeft: Int,
+                oldTop: Int,
+                oldRight: Int,
+                oldBottom: Int
+            ) {
+                textView.removeOnLayoutChangeListener(this)
+
+                val lineCount = textView.lineCount
+                val maxLines = textView.maxLines
+                val fontH = textView.paint.getFontMetricsInt(null)
+
+                Log.e("TAG","lineCount: ${lineCount} maxLines: ${maxLines}  fontH: ${fontH}")
+            }
+
+        })
+
     }
 }

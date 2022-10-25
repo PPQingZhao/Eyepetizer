@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService
 import com.pp.library_ui.databinding.ItemFollowCardBinding
@@ -67,8 +68,11 @@ class RecPagingDataAdapter : BindingPagingDataAdapter<ViewDataBinding, Any, Comm
         return when (viewType) {
             EyepetizerService.ItemType.HORIZONTAL_SCROLL_CARD ->
                 ItemSquareVp2Binding.inflate(layoutInflater, parent, false)
-            EyepetizerService.ItemType.COMMUNITY_COLUMN_CARD ->
-                ItemFollowCardBinding.inflate(layoutInflater, parent, false)
+            EyepetizerService.ItemType.COMMUNITY_COLUMN_CARD -> {
+                val binding = ItemFollowCardBinding.inflate(layoutInflater, parent, false)
+                binding.recyclerview.layoutManager = LinearLayoutManager(parent.context)
+                binding
+            }
             else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
         }
     }

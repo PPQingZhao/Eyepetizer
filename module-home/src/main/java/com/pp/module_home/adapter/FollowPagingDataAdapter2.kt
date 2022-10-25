@@ -3,12 +3,13 @@ package com.pp.module_home.adapter
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_network.eyepetizer.bean.PageDataBean.Card.CardData.Body.Metro
-import com.pp.library_network.utils.PageType
 import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.library_common.model.MetroFollowItemViewModel
+import com.pp.library_network.eyepetizer.EyepetizerService2
 
 class FollowPagingDataAdapter2 :
     BindingPagingDataAdapter<ViewDataBinding, Any, Metro>(DIFF_CALLBACK) {
@@ -30,20 +31,23 @@ class FollowPagingDataAdapter2 :
         return getFollowItemType(item)
     }
 
-    val type_video = 1
+    private val item_type_video = 1
     private fun getFollowItemType(item: Metro?): Int {
         return when (item?.type) {
-            PageType.MetroType.VIDEO -> type_video
+            EyepetizerService2.MetroType.VIDEO -> item_type_video
             else -> 0
         }
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
-            type_video -> ItemFollowCardBinding.inflate(layoutInflater, parent, false)
+            item_type_video -> {
+                val binding = ItemFollowCardBinding.inflate(layoutInflater, parent, false)
+                binding.recyclerview.layoutManager = LinearLayoutManager(parent.context)
+                binding
+            }
             else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
         }
-//        return ItemFollowBinding.inflate(LayoutInflater.from(parent.context))
     }
 
     override fun createViewModel(
@@ -52,16 +56,13 @@ class FollowPagingDataAdapter2 :
         cacheItemViewModel: Any?
     ): Any {
         return cacheItemViewModel ?: when (binding) {
-            // autoPlayFollowCard,followCard
-            is ItemFollowCardBinding ->
-                MetroFollowItemViewModel(item, binding.root.context)
+            is ItemFollowCardBinding -> MetroFollowItemViewModel(item)
             // to be developed
             else -> """
                         ${item?.type}
                         ${item?.style?.tplLabel}
                         ${item?.metroData?.title ?: "null"}
             """.trimIndent()
-//            else -> FollowItemViewModel(item)
         }
     }
 

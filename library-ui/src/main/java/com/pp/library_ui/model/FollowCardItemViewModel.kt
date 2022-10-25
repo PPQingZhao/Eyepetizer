@@ -22,7 +22,6 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
     val replyCount = ObservableField<String>()
 
     var adapter: RecyclerView.Adapter<VH>? = null
-    var layoutManager: RecyclerView.LayoutManager? = null
 
     fun onExpand(view: View) {
         expand.set(expand.get()?.not())

@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
-import com.pp.library_network.eyepetizer.ApiService
+import com.pp.library_network.eyepetizer.EyepetizerApi
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_community.adapter.RecPagingDataAdapter
 import com.pp.module_community.databinding.FragmentCommunityRecBinding
@@ -58,7 +58,7 @@ class RecommendFragment : LifecycleFragment<FragmentCommunityRecBinding, Recomme
         super.onResume()
         lifecycleScope.launch {
             try {
-                val data = ApiService.api.getPageData()
+                val data = EyepetizerApi.api.getPageData()
             } catch (e: Exception) {
                 Log.e("TAG", "err: ${e.message}")
             }
