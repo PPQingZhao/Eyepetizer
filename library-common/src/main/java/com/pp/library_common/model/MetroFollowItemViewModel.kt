@@ -11,9 +11,10 @@ import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemImageVideoBinding
 import com.pp.library_ui.model.FollowCardItemViewModel
 import com.pp.library_ui.model.ImageVideoItemViewModel
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.*
 
 
+@OptIn(DelicateCoroutinesApi::class)
 class MetroFollowItemViewModel(
     val metro: PageDataBean.Card.CardData.Body.Metro?,
 ) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
@@ -27,16 +28,15 @@ class MetroFollowItemViewModel(
         resourceId = metroData?.resourceId
         resourceType = metroData?.resourceType
 
-        EyepetizerService2.api.getItemDetails(resourceId, resourceType)
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .subscribe {
-//                {"code":40001,"message":{"content":"当前作品不可见","action":"toast"},"result":{"status":false}}
-                if (it.code != EyepetizerService2.ErrorCode.SUCCESS) {
-                    this.content.set(it.message?.content)
-                    return@subscribe
-                }
+        GlobalScope.launch(Dispatchers.IO) {
 
+            val it = EyepetizerService2.api.getItemDetails(resourceId, resourceType)
+
+//                {"code":40001,"message":{"content":"当前作品不可见","action":"toast"},"result":{"status":false}}
+            if (it.code != EyepetizerService2.ErrorCode.SUCCESS) {
+                this@MetroFollowItemViewModel.content.set(it.message?.content)
+                cancel()
+            } else {
                 it.result.run {
 
                     this@MetroFollowItemViewModel.icon.set(this.author.avatar.url)
@@ -54,9 +54,9 @@ class MetroFollowItemViewModel(
                         .set(this.consumption.collectionCount.toString())
                     this@MetroFollowItemViewModel.replyCount
                         .set(this.consumption.commentCount.toString())
-
                 }
             }
+        }
 
         adapter = Adapter().apply {
             setDataList(listOf(ImageVideoItemViewModel(cover, true)))

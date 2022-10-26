@@ -3,7 +3,6 @@ package com.pp.library_network.utils
 import com.google.gson.Gson
 import com.pp.library_network.eyepetizer.bean.PageDataBean
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitUtil {
@@ -13,7 +12,7 @@ object RetrofitUtil {
             .client(HttpUtil.getClient())
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         return builder.build()
     }
 
@@ -28,7 +27,7 @@ object RetrofitUtil {
             .client(HttpUtil.getEyeClient())
             .baseUrl(baseUrl)
             .addConverterFactory(gsonConverter)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         return builder.build()
     }
 }

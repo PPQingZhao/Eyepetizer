@@ -1,14 +1,11 @@
 package com.pp.library_network.eyepetizer
 
-import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.URL_FOLLOW
 import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.URL_GET_PAGE
-import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.URL_RECOMMEND
 import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.VERSION
 import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.VERSION_NAME
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
 import com.pp.library_network.eyepetizer.bean.PageDataBean
-import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -38,10 +35,6 @@ interface EyepetizerApi {
     @POST
     suspend fun getPageData(@Url url: String): BaseResponse<PageDataBean>
 
-    @POST
-    suspend fun getFollow(
-        @Url url: String = URL_FOLLOW
-    ): BaseResponse<PageDataBean>
 
     /*
         http://api.eyepetizer.net/v1/content/item/get_item_detail_v2
@@ -59,13 +52,10 @@ interface EyepetizerApi {
      */
 
     @GET("v1/content/item/get_item_detail_v2")
-    fun getItemDetails(
+    suspend fun getItemDetails(
         @Query("resource_id") resource_id: Int?,
         @Query("resource_type") resource_type: String?
-    ): Observable<BaseResponse<ItemDetailsBean>>
+    ): BaseResponse<ItemDetailsBean>
 
-    @POST
-    suspend fun getRecommend(
-        @Url url: String = URL_RECOMMEND
-    ): BaseResponse<PageDataBean>
+
 }
