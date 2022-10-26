@@ -28,7 +28,7 @@ abstract class MetroPagingSource<Item : Any> :
                     }
 
                     EyepetizerService2.CardType.SET_BANNER_LIST -> {
-                        valueList.addAll(getSetBannerList(it.cardData.body.metroList))
+                        valueList.addAll(getSetBannerList(it, it.cardData.body.metroList))
                     }
 
                     EyepetizerService2.CardType.SET_METRO_LIST -> {
@@ -51,7 +51,7 @@ abstract class MetroPagingSource<Item : Any> :
     /**
      * 创建 set banner list 类型
      */
-    abstract fun getSetBannerList(metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<Item>
+    abstract fun getSetBannerList(card: PageDataBean.Card, metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<Item>
 
     /**
      * 创建 set metro list 类型

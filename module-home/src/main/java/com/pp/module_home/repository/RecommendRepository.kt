@@ -26,7 +26,7 @@ object RecommendRepository {
             return EyepetizerService2.api.getPageData(key ?: EyepetizerService2.URL_RECOMMEND)
         }
 
-        override fun getSetBannerList(metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<Any> {
+        override fun getSetBannerList(card: PageDataBean.Card, metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<Any> {
             val itemModels = mutableListOf<Any>()
             itemModels.add(MetroSlideImageWithFooterViewModel(metroList))
             return itemModels

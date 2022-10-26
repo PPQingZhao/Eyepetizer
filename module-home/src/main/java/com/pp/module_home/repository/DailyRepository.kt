@@ -23,7 +23,7 @@ object DailyRepository {
             return EyepetizerService2.api.getPageData(key ?: EyepetizerService2.URL_DAILY)
         }
 
-        override fun getSetBannerList(metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<MetroLargeVideoCardItemViewModel> {
+        override fun getSetBannerList(card: PageDataBean.Card, metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<MetroLargeVideoCardItemViewModel> {
             return mutableListOf()
         }
 

@@ -22,6 +22,6 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_community.ui.RecommendViewModel" />
+            type="com.pp.module_community.ui.SquareViewModel" />
     </data>
 </layout>

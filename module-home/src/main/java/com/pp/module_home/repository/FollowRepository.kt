@@ -21,7 +21,7 @@ object FollowRepository {
             return EyepetizerService2.api.getPageData(key ?: EyepetizerService2.URL_DAILY)
         }
 
-        override fun getSetBannerList(metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<MetroFollowItemViewModel> {
+        override fun getSetBannerList(card: PageDataBean.Card, metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<MetroFollowItemViewModel> {
             return mutableListOf()
         }
 
