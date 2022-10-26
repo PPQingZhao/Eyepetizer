@@ -6,7 +6,7 @@ data class BaseResponse<T>(
     @SerializedName("code")
     val code: Int,
     @SerializedName("message")
-    val message: Any?,
+    val message: Message?,
     @SerializedName("result")
     val result: T,
 )

@@ -51,14 +51,14 @@ class VideoDetailsActivity :
         super.onCreate(savedInstanceState)
         ARouter.getInstance().inject(this)
         Log.e("TAG", "==>resourceType: ${resourceType}")
-        EyepetizerService2.api.getItemDetails(resourceId, resourceType)
+       /* EyepetizerService2.api.getItemDetails(resourceId, resourceType)
             .subscribeOn(Schedulers.io())
             .subscribe {
                 if (it.code != EyepetizerService2.ErrorCode.SUCCESS) {
                     return@subscribe
                 }
                 Log.e("TAG", " ${it.result.video.title}")
-            }
+            }*/
     }
 
     fun onBack(view: View) {

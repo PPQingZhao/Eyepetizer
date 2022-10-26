@@ -4,7 +4,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
 import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.adapter.BindingAdapter
@@ -16,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 
 
 class MetroFollowItemViewModel(
-    metro: PageDataBean.Card.CardData.Body.Metro?,
+    val metro: PageDataBean.Card.CardData.Body.Metro?,
 ) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
     var resourceId: Int?
@@ -32,8 +31,9 @@ class MetroFollowItemViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe {
-
+//                {"code":40001,"message":{"content":"当前作品不可见","action":"toast"},"result":{"status":false}}
                 if (it.code != EyepetizerService2.ErrorCode.SUCCESS) {
+                    this.content.set(it.message?.content)
                     return@subscribe
                 }
 

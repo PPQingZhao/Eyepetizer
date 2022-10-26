@@ -20,6 +20,8 @@ class MetroSmallVideoCardItemViewModel(metro: PageDataBean.Card.CardData.Body.Me
             .subscribe {
 
                 if (it.code != EyepetizerService2.ErrorCode.SUCCESS) {
+                    // todo: 测试
+                    this.title.set(it.message?.content)
                     return@subscribe
                 }
                 it.result.run {

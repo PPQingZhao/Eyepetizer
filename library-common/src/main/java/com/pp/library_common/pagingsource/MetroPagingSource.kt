@@ -7,18 +7,18 @@ import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.PageDataBean
 
-abstract class MetroPagingSource :
-    PagingSource<String, ItemModel<Any>>() {
+abstract class MetroPagingSource<Item : Any> :
+    PagingSource<String, Item>() {
     @ExperimentalPagingApi
-    override fun getRefreshKey(state: PagingState<String, ItemModel<Any>>): String? =
+    override fun getRefreshKey(state: PagingState<String, Item>): String? =
         null
 
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, ItemModel<Any>> {
+    override suspend fun load(params: LoadParams<String>): LoadResult<String, Item> {
         return try {
 
             val response: BaseResponse<PageDataBean> = loadPageData(params.key)
 
-            val valueList = mutableListOf<ItemModel<Any>>()
+            val valueList = mutableListOf<Item>()
             var nextKey = ""
             response.result.cardList.forEach {
                 when (it.type) {
@@ -28,23 +28,17 @@ abstract class MetroPagingSource :
                     }
 
                     EyepetizerService2.CardType.SET_BANNER_LIST -> {
-                        val metroList = mutableListOf<PageDataBean.Card.CardData.Body.Metro>()
-                        it.cardData.body.metroList?.forEach {
-                            metroList.add(it)
-                        }
-                        valueList.add(ItemModel(metroList))
+                        valueList.addAll(getSetBannerList(it.cardData.body.metroList))
                     }
 
                     EyepetizerService2.CardType.SET_METRO_LIST -> {
-                        it.cardData.body.metroList?.forEach {
-                            valueList.add(ItemModel(it))
-                        }
+                        valueList.addAll(getSetMetroList(it.cardData.body.metroList))
                     }
                 }
             }
 
             val preKey = null
-            LoadResult.Page<String, ItemModel<Any>>(
+            LoadResult.Page<String, Item>(
                 valueList,
                 preKey,
                 nextKey
@@ -54,5 +48,18 @@ abstract class MetroPagingSource :
         }
     }
 
+    /**
+     * 创建 set banner list 类型
+     */
+    abstract fun getSetBannerList(metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<Item>
+
+    /**
+     * 创建 set metro list 类型
+     */
+    abstract fun getSetMetroList(metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<Item>
+
+    /**
+     * 加载 page data
+     */
     abstract suspend fun loadPageData(key: String?): BaseResponse<PageDataBean>
 }

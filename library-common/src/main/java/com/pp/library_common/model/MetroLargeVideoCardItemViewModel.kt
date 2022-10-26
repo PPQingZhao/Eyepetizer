@@ -1,5 +1,6 @@
 package com.pp.library_common.model
 
+import android.util.Log
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_network.eyepetizer.EyepetizerService2
@@ -8,7 +9,7 @@ import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.model.VideoCardItemViewModel
 import io.reactivex.schedulers.Schedulers
 
-class MetroLargeVideoCardItemViewModel(metro: PageDataBean.Card.CardData.Body.Metro?) :
+class MetroLargeVideoCardItemViewModel(val metro: PageDataBean.Card.CardData.Body.Metro?) :
     VideoCardItemViewModel(metro) {
 
     init {
@@ -20,10 +21,13 @@ class MetroLargeVideoCardItemViewModel(metro: PageDataBean.Card.CardData.Body.Me
             .subscribe {
 
                 if (it.code != EyepetizerService2.ErrorCode.SUCCESS) {
+                    // todo: 测试
+                    this.title.set(it.message?.content)
                     return@subscribe
                 }
                 it.result.run {
 
+                    Log.e("TAG","${this.video.title}")
                     this@MetroLargeVideoCardItemViewModel.title.set(this.video.title)
                     this@MetroLargeVideoCardItemViewModel.category.set(this.category.name)
                     this@MetroLargeVideoCardItemViewModel.imagePath.set(this.video.cover.url)
