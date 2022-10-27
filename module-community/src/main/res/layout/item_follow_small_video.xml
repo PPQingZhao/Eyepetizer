@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{viewModel.onVideo}">
+
+        <FrameLayout
+            android:id="@+id/fl_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:foreground="@drawable/shape_circle"
+            android:onClick="@{viewModel::onUser}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description"
+            app:layout_constraintWidth_percent="0.06">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:bindSrc="@{viewModel.avatarPath}"
+                app:roundPercent="1"
+                tools:src="@drawable/ic_launcher_background" />
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:src="@drawable/ic_play_arrow_white"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/iv_feed"
+            app:layout_constraintTop_toTopOf="@id/iv_feed"
+            app:layout_constraintWidth_percent="0.2" />
+
+        <ImageView
+            android:id="@+id/iv_feed"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:bindSrc="@{viewModel.imagePath}"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="@dimen/padding_normal"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.5"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <ImageView
+            android:id="@+id/iv_like"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:drawablePadding="5dp"
+            android:onClick="@{viewModel::onLike}"
+            android:src="@drawable/selector_thumb_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside" />
+
+        <TextView
+            android:id="@+id/tv_nick_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.nickname}"
+            android:textColor="@color/color_text_normal"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/fl_icon"
+            app:layout_constraintStart_toEndOf="@id/fl_icon"
+            app:layout_constraintTop_toTopOf="@id/fl_icon"
+            app:layout_constraintEnd_toStartOf="@+id/iv_like"
+            tools:text="停雲見山" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:minLines="2"
+            android:text="@{viewModel.description}"
+            android:textColor="@color/color_text_selected"
+            android:textSize="@dimen/content_title"
+            app:layout_constraintStart_toStartOf="@id/iv_feed"
+            app:layout_constraintTop_toBottomOf="@id/iv_feed"
+            tools:text="浮云一别后，流水十年间" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.pp.module_community.model.FollowVideoSmallItemViewModel" />
+    </data>
+</layout>

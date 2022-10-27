@@ -40,11 +40,14 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
         val layoutManager = GridLayoutManager(requireContext(), 2)
         layoutManager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
+                if (position >= mAdapter.itemCount) {
+                    return 1
+                }
                 val viewType = mAdapter.getItemViewType(position)
                 if (viewType == SquareType.TYPE_VIDEO_SMALL) {
-                    return 2
+                    return 1
                 }
-                return 1
+                return 2
             }
         }
         mBinding.rv.layoutManager = layoutManager

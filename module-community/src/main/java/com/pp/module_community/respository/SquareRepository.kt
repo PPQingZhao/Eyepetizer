@@ -27,7 +27,7 @@ object SquareRepository {
         override fun getSetBannerList(card: PageDataBean.Card, metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<MultiItemEntity> {
             val bannerList = mutableListOf<BannerListViewModel>()
             metroList?.let {
-                bannerList.add(BannerListViewModel(card, it))
+                //bannerList.add(BannerListViewModel(card, it))
             }
             return bannerList
         }
@@ -39,7 +39,7 @@ object SquareRepository {
                 if (style == EyepetizerService2.MetroType.Style.feed_cover_small_video) {
                     itemModels.add(SquareVideoSmallItemViewModel(metro))
                 } else if (style == EyepetizerService2.MetroType.Style.feed_cover_large_video) {
-                    itemModels.add(SquareVideoLargeItemViewModel(metro))
+                    //itemModels.add(SquareVideoLargeItemViewModel(metro))
                 } else {
                     Log.e(TAG, "待开发类型：$style")
                 }
