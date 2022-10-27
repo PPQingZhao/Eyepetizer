@@ -39,6 +39,15 @@ interface EyepetizerService2 {
         val api: EyepetizerApi by lazy { retrofit.create(EyepetizerApi::class.java) }
 
 
+        /**
+         * 热度排序
+         */
+        const val SORT_TYPE_HOT = "hot"
+
+        /**
+         * 时间排序
+         */
+        const val SORT_TYPE_TIME = "time"
     }
 
     object ErrorCode {

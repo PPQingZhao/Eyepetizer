@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_video_details.VideoDetailsVideoModel" />
+            type="com.pp.module_video_details.ui.VideoDetailsVideoModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".VideoDetailsActivity">
+        tools:context=".ui.VideoDetailsActivity">
 
         <ImageView
             android:id="@+id/iv_video_back"
@@ -87,16 +87,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_video_icon" />
 
-        <fragment
-            android:id="@+id/fragment_details"
-            android:name="com.pp.module_video_details.DetailsFragment"
+        <FrameLayout
+            android:id="@+id/fl_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/video"
-            tools:layout="@layout/fragment_details" />
+            app:layout_constraintTop_toBottomOf="@id/video" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

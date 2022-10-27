@@ -1,4 +1,4 @@
-package com.pp.module_video_details
+package com.pp.module_video_details.ui
 
 import android.content.res.Configuration
 import android.net.Uri
@@ -7,15 +7,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.VideoView
+import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
 import com.pp.library_router_service.services.RouterPath
+import com.pp.module_video_details.R
 import com.pp.module_video_details.databinding.ActivityVideoDetailsBinding
 import com.pp.mvvm.LifecycleActivity
 
@@ -50,16 +52,30 @@ class VideoDetailsActivity :
         return true
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ARouter.getInstance().inject(this)
-        Log.e("TAG", "==>resourceType: ${resourceType}")
+//        Log.e("TAG", "==>resourceType: ${resourceType}")
 
+        Log.e("VideoDetailsActivity", "${mViewModel}")
         mViewModel.getItemDetails(resourceId, resourceType)
             .observe(this) {
+                Log.e("VideoDetailsActivity", "${mViewModel}  details: ${it}")
 
                 startPlay(it?.video?.playUrl)
+                showDetailsFragment(it)
             }
+    }
+
+    private fun showDetailsFragment(itemDetailsBean: ItemDetailsBean?) {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fl_container, getDetailsFragment(itemDetailsBean))
+            .commitNow()
+    }
+
+    private fun getDetailsFragment(itemDetailsBean: ItemDetailsBean?): Fragment {
+        return DetailsFragment(itemDetailsBean)
     }
 
     override fun onDestroy() {
@@ -69,7 +85,10 @@ class VideoDetailsActivity :
 
     private fun startPlay(playUrl: String?) {
 
-        val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+        val layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        )
         layoutParams.gravity = Gravity.CENTER
         mBinding.video.addView(videoView, layoutParams)
 

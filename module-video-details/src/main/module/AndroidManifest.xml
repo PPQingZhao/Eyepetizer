@@ -7,7 +7,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppThem">
         <activity
-            android:name=".VideoDetailsActivity"
+            android:name=".ui.VideoDetailsActivity"
             android:exported="true"
             android:theme="@style/MediaTheme">
             <intent-filter>

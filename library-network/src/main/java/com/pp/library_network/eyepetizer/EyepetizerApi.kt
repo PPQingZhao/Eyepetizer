@@ -3,13 +3,8 @@ package com.pp.library_network.eyepetizer
 import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.URL_GET_PAGE
 import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.VERSION
 import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.VERSION_NAME
-import com.pp.library_network.eyepetizer.bean.BaseResponse
-import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
-import com.pp.library_network.eyepetizer.bean.PageDataBean
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.Url
+import com.pp.library_network.eyepetizer.bean.*
+import retrofit2.http.*
 
 interface EyepetizerApi {
 
@@ -57,5 +52,24 @@ interface EyepetizerApi {
         @Query("resource_type") resource_type: String?
     ): BaseResponse<ItemDetailsBean>
 
+    /**
+     * 相关推荐
+     */
+    @POST("v1/content/item/get_related_recommend")
+    suspend fun getRelatedRecommend(
+        @Query("resource_id") resource_id: Int?,
+        @Query("resource_type") resource_type: String?
+    ): BaseResponse<RelatedRecommendBean>
+
+
+    /**
+     * 评论
+     */
+    @POST("v1/item/comment/get_cms_comment_list")
+    suspend fun getCMSCommentList(
+        @Query("resource_id") resource_id: Int?,
+        @Query("resource_type") resource_type: String?,
+        @Query("sort_type") sort_type: String? = EyepetizerService2.SORT_TYPE_HOT
+    ): BaseResponse<CommentsBean>
 
 }
