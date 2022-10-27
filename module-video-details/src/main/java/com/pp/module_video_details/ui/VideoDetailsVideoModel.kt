@@ -1,4 +1,4 @@
-package com.pp.module_video_details
+package com.pp.module_video_details.ui
 
 import android.app.Application
 import androidx.databinding.ObservableField
@@ -18,14 +18,12 @@ class VideoDetailsVideoModel(app: Application) : LifecycleViewModel(app) {
     private val itemDetails = MutableLiveData<ItemDetailsBean?>()
     val icon = ObservableField<String>()
     val nick = ObservableField<String>()
-    val cover = ObservableField<String>()
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         itemDetails.observe(owner) {
             icon.set(it?.author?.avatar?.url)
             nick.set(it?.author?.nick)
-            cover.set(it?.video?.cover?.url)
         }
     }
 
@@ -34,12 +32,16 @@ class VideoDetailsVideoModel(app: Application) : LifecycleViewModel(app) {
      */
     @OptIn(DelicateCoroutinesApi::class)
     fun getItemDetails(resourceId: Int?, resourceType: String?): LiveData<ItemDetailsBean?> {
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                val itemDetails = EyepetizerService2.api.getItemDetails(resourceId, resourceType)
-                this@VideoDetailsVideoModel.itemDetails.postValue(itemDetails.result)
-            } catch (e: Exception) {
-                e.printStackTrace()
+
+        if (itemDetails.value == null) {
+            GlobalScope.launch(Dispatchers.IO) {
+                try {
+                    val itemDetails =
+                        EyepetizerService2.api.getItemDetails(resourceId, resourceType)
+                    this@VideoDetailsVideoModel.itemDetails.postValue(itemDetails.result)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
 

@@ -1,4 +1,4 @@
-package com.pp.module_video_details
+package com.pp.module_video_details.ui
 
 import com.pp.module_video_details.databinding.FragmentCommentsBinding
 import com.pp.mvvm.LifecycleFragment
@@ -10,5 +10,6 @@ class CommentsFragment :
     override fun getModelClazz(): Class<CommentsViewModel> {
         return CommentsViewModel::class.java
     }
+
 
 }

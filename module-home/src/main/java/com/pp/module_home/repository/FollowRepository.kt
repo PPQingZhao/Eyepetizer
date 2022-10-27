@@ -18,7 +18,7 @@ object FollowRepository {
 
     private class FollowPagingSource : MetroPagingSource<MetroFollowItemViewModel>() {
         override suspend fun loadPageData(key: String?): BaseResponse<PageDataBean> {
-            return EyepetizerService2.api.getPageData(key ?: EyepetizerService2.URL_DAILY)
+            return EyepetizerService2.api.getPageData(key ?: EyepetizerService2.URL_FOLLOW)
         }
 
         override fun getSetBannerList(metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<MetroFollowItemViewModel> {

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_video_details.IntroductionViewModel" />
+            type="com.pp.module_video_details.ui.IntroductionViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

@@ -15,7 +15,10 @@ abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> 
 
     abstract val mBinding: VB
 
-    val mViewModel: VM by lazy { ViewModelProvider(this)[getModelClazz()] }
+    val mViewModel: VM by lazy { ViewModelProvider(this, getModelFactory())[getModelClazz()] }
+
+    open fun getModelFactory(): ViewModelProvider.Factory =
+        ViewModelProvider.AndroidViewModelFactory(activity?.application!!)
 
     abstract fun getModelClazz(): Class<VM>
 

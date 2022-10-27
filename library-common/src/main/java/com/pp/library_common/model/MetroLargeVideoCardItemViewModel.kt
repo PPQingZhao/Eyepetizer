@@ -33,7 +33,7 @@ class MetroLargeVideoCardItemViewModel(val metro: PageDataBean.Card.CardData.Bod
 
                     Log.e("TAG", "${this.video.title}")
                     this@MetroLargeVideoCardItemViewModel.title.set(this.video.title)
-                    this@MetroLargeVideoCardItemViewModel.category.set(this.category.name)
+                    this@MetroLargeVideoCardItemViewModel.category.set("# ${this.category.name}")
                     this@MetroLargeVideoCardItemViewModel.imagePath.set(this.video.cover.url)
                     this@MetroLargeVideoCardItemViewModel.icon.set(this.author.avatar.url)
                     this@MetroLargeVideoCardItemViewModel.duration.set(this.video.duration.text)

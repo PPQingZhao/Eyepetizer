@@ -30,7 +30,7 @@ class MetroSmallVideoCardItemViewModel(metro: PageDataBean.Card.CardData.Body.Me
             } else {
                 it.result.run {
                     this@MetroSmallVideoCardItemViewModel.title.set(this.video.title)
-                    this@MetroSmallVideoCardItemViewModel.category.set(this.category.name)
+                    this@MetroSmallVideoCardItemViewModel.category.set("# ${this.category.name}")
                     this@MetroSmallVideoCardItemViewModel.imagePath.set(this.video.cover.url)
                     this@MetroSmallVideoCardItemViewModel.duration.set(this.video.duration.text)
 
