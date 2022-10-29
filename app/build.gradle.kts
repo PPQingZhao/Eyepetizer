@@ -49,6 +49,7 @@ dependencies {
         implementation(projects.moduleHome)
         implementation(projects.moduleCommunity)
         implementation(projects.moduleVideoDetails)
+        implementation(projects.moduleComments)
     }
 //    print(libs.plugins.android.module.get().pluginId)
 

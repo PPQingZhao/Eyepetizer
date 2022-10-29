@@ -4,13 +4,13 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.pp.library_ui.BR
 
-abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any> {
-    private val itemViewModelCaches by lazy { mutableMapOf<Int, VM>() }
+abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any?> {
+    private val itemViewModelCaches by lazy { mutableMapOf<Int, VM?>() }
 
     fun bind(holder: BindingHolder<VB>, position: Int, item: T?){
         // position 位置缓存的 item viewModel
         val cacheItemViewModel = itemViewModelCaches[position]
-        // 创建 item viewModle
+        // 创建 item viewModel
         val createItemViewModel = createViewModel(
             holder.binding,
             item,
@@ -22,7 +22,7 @@ abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any> {
         setVariable(holder.binding,createItemViewModel)
     }
 
-   private fun setVariable(binding: VB, viewModel: VM) {
+   private fun setVariable(binding: VB, viewModel: VM?) {
         val result = onSetVariable(binding, viewModel)
         if (!result) {
             //set default variable
@@ -37,7 +37,7 @@ abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any> {
     /**
      * 在这里设置 ViewDataBinding::setVariable(int variableId, @Nullable Object value);
      */
-    open fun onSetVariable(binding: ViewDataBinding, viewModel: VM):Boolean {
+    open fun onSetVariable(binding: VB, viewModel: VM?):Boolean {
         return false
     }
 
@@ -48,7 +48,7 @@ abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any> {
         binding: VB,
         item: T?,
         cacheItemViewModel: VM?
-    ): VM
+    ): VM?
 
     /**
      * 创建viewType类型的ViewDataBinding

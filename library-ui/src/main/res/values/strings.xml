@@ -6,8 +6,15 @@
     <string name="loading">正在加载...</string>
     <string name="data_empty">没有更多数据了</string>
 
-    <string name="introduction" >简介</string>
-    <string name="comments" >评论</string>
-    <string name="collection" >收藏</string>
-    <string name="download" >缓存</string>
+    <string name="introduction">简介</string>
+    <string name="comments">评论</string>
+    <string name="collection">收藏</string>
+    <string name="download">缓存</string>
+
+    <string name="comment_hot">最热评论</string>
+    <string name="comment_new">最新评论</string>
+
+    <string name="sort_type_hot">按热度</string>
+    <string name="sort_type_time">按时间</string>
+
 </resources>

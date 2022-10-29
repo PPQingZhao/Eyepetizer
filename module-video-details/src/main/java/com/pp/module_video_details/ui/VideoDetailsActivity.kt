@@ -38,20 +38,13 @@ class VideoDetailsActivity :
     @Autowired(name = "resourceType")
     var resourceType: String? = ""
 
+    override fun isLightStatusBar(): Boolean {
+        return false
+    }
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         Log.e("TAG", "onConfigurationChanged")
     }
-
-    override fun customTheme(): Boolean {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        }
-        return true
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

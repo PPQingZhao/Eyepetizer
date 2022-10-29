@@ -54,7 +54,7 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
     }
 
 
-    private lateinit var windowInsets: WindowInsets
+    private var windowInsets: WindowInsets? = null
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
@@ -97,6 +97,9 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
                 savedInstanceState: Bundle?
             ) {
                 Log.e("TAG", "onFragmentViewCreated==>> ${f}")
+                if (null == windowInsets){
+                    return
+                }
                 f.view?.let { view ->
                     ViewCompat.dispatchApplyWindowInsets(
                         view,
@@ -111,6 +114,10 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
         return false
     }
 
+    open fun isLightStatusBar(): Boolean {
+        return true
+    }
+
     /**
      * 设置状态栏字体颜色
      * TODO 未做设配
@@ -118,19 +125,22 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
     private fun setStatsBarFront() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+               if (isLightStatusBar()) WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS else 0,
                 WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.decorView.systemUiVisibility = if (isLightStatusBar()) View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR else View.VISIBLE
         }
+
     }
 
     private fun setTranslucent() {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.addFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS)
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
             window.addFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS)
         }
     }

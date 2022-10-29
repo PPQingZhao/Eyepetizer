@@ -12,4 +12,8 @@ object RouterPath {
     object VideoDetails {
         const val activity_video_details = "/video_details/activity_video_details"
     }
+
+    object Comments {
+        const val fragment_comments = "/comments/fragment_comments"
+    }
 }

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
-import com.pp.module_home.adapter.DailyPagingDataAdapter2
+import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.module_home.databinding.FragmentDailyBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
@@ -27,7 +27,7 @@ class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() 
         initRecyclerView()
     }
 
-    private val dailyAdapter by lazy { DailyPagingDataAdapter2() }
+    private val dailyAdapter by lazy { MetroPagingDataAdapterType.largeVideoCardPagingDataAdapter }
     private fun initRecyclerView() {
         mBinding.dailyRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.dailyRecyclerview.adapter =

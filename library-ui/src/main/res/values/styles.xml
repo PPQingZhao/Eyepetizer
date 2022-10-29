@@ -9,4 +9,5 @@
         <item name="tabIndicator">@drawable/layer_tab_indicator</item>
 
     </style>
+
 </resources>

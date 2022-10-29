@@ -36,25 +36,26 @@ class MetroFollowItemViewModel(
             if (it.code != EyepetizerService2.ErrorCode.SUCCESS) {
                 this@MetroFollowItemViewModel.content.set(it.message?.content)
                 cancel()
-            } else {
-                it.result.run {
+                return@launch
+            }
+            it.result.run {
 
-                    this@MetroFollowItemViewModel.icon.set(this.author.avatar.url)
-                    this@MetroFollowItemViewModel.author.set(this.author.nick)
-                    this@MetroFollowItemViewModel.cover.set(this.video.cover.url)
-                    this@MetroFollowItemViewModel.date.set(this.publishTime)
+                this@MetroFollowItemViewModel.icon.set(this.author.avatar.url)
+                this@MetroFollowItemViewModel.author.set(this.author.nick)
+                this@MetroFollowItemViewModel.cover.set(this.video.cover.url)
+                this@MetroFollowItemViewModel.date.set(this.rawPublishTime)
 //                    this@MetroFollowItemViewModel.area.set(this.realLocation)
-                    this@MetroFollowItemViewModel.content.set(this.text)
-                    this@MetroFollowItemViewModel.category.set(this.category.name)
+                this@MetroFollowItemViewModel.content.set(this.text)
+                this@MetroFollowItemViewModel.category.set(this.category.name)
 
 
-                    this@MetroFollowItemViewModel.collectionCount
-                        .set(this.consumption.likeCount.toString())
-                    this@MetroFollowItemViewModel.realCollectionCount
-                        .set(this.consumption.collectionCount.toString())
-                    this@MetroFollowItemViewModel.replyCount
-                        .set(this.consumption.commentCount.toString())
-                }
+                this@MetroFollowItemViewModel.collectionCount
+                    .set(this.consumption.likeCount.toString())
+                this@MetroFollowItemViewModel.realCollectionCount
+                    .set(this.consumption.collectionCount.toString())
+                this@MetroFollowItemViewModel.replyCount
+                    .set(this.consumption.commentCount.toString())
+
             }
         }
 
@@ -70,8 +71,8 @@ class MetroFollowItemViewModel(
             binding: ItemImageVideoBinding,
             item: ImageVideoItemViewModel?,
             cacheItemViewModel: ImageVideoItemViewModel?
-        ): ImageVideoItemViewModel {
-            return cacheItemViewModel ?: item ?: ImageVideoItemViewModel(null)
+        ): ImageVideoItemViewModel? {
+            return cacheItemViewModel ?: item
         }
 
         override fun createBinding(parent: ViewGroup, viewType: Int): ItemImageVideoBinding {

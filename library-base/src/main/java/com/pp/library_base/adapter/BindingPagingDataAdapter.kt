@@ -6,7 +6,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.pp.library_ui.BR
 import com.pp.library_ui.adapter.AdapterBindingHelper
 import com.pp.library_ui.adapter.BindingHolder
 
@@ -15,22 +14,34 @@ abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>
 
     private val bindingHelper: AdapterBindingHelper<VB, VM, T> by lazy {
         object : AdapterBindingHelper<VB, VM, T>() {
-            override fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM {
-                return this@BindingPagingDataAdapter.createViewModel(binding, item, cacheItemViewModel)
+            override fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM? {
+                return this@BindingPagingDataAdapter.createViewModel(
+                    binding,
+                    item,
+                    cacheItemViewModel
+                )
             }
 
             override fun createBinding(parent: ViewGroup, viewType: Int): VB {
                 return this@BindingPagingDataAdapter.createBinding(parent, viewType)
             }
 
+            override fun onSetVariable(binding: VB, viewModel: VM?): Boolean {
+                return this@BindingPagingDataAdapter.onSetVariable(binding, viewModel)
+            }
+
         }
+    }
+
+    open fun onSetVariable(binding: VB, viewModel: VM?): Boolean {
+        return false
     }
 
     override fun onBindViewHolder(holder: BindingHolder<VB>, position: Int) {
         bindingHelper.bind(holder, position, getItem(position))
     }
 
-    abstract fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM
+    abstract fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM?
     abstract fun createBinding(parent: ViewGroup, viewType: Int): VB
 
     lateinit var layoutInflater: LayoutInflater

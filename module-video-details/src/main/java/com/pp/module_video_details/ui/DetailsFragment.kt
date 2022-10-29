@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.tabs.TabLayout
 import com.pp.library_base.base.Pager
 import com.pp.library_base.base.TabPager
 import com.pp.library_base.base.TabPagerFragment
 import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
+import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.R
 import com.pp.module_video_details.databinding.FragmentDetailsBinding
 
@@ -59,6 +62,7 @@ class DetailsFragment(details: ItemDetailsBean?) :
     ): View? {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mHelper.attach(getPager())
@@ -71,7 +75,11 @@ class DetailsFragment(details: ItemDetailsBean?) :
                     0 -> {
                         IntroductionFragment(mViewModel.details)
                     }
-                    else -> CommentsFragment()
+                    else -> ARouter.getInstance()
+                        .build(RouterPath.Comments.fragment_comments)
+                        .withInt("resourceId", mViewModel.details?.resourceId?.toInt() ?: 0)
+                        .withString("resourceType", mViewModel.details?.resourceType)
+                        .navigation() as Fragment
                 }
             }
         }

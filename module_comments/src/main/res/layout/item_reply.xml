@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.pp.module_comments.model.CommentItemModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layer_media_divider"
+        android:paddingStart="@dimen/padding_normal"
+        android:paddingTop="20dp"
+        android:paddingEnd="@dimen/padding_normal"
+        android:paddingBottom="20dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <FrameLayout
+            android:id="@+id/fl_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:foreground="@drawable/shape_circle"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.05">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:bindSrc="@{viewModel.icon}"
+                app:roundPercent="1"
+                tools:src="@drawable/ic_launcher_background" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.nick}"
+            android:textColor="@color/mediaTextColor"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/fl_icon"
+            app:layout_constraintTop_toTopOf="@id/fl_icon"
+            tools:text="用户1223333" />
+
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/selector_thumb_up"
+            app:layout_constraintBottom_toTopOf="@id/tv_favorite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fl_icon"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_percent="0.05" />
+
+
+        <TextView
+            android:id="@+id/tv_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{viewModel.favorite}"
+            android:textColor="@color/mediaTextColor"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_content"
+            app:layout_constraintEnd_toEndOf="@id/iv_favorite"
+            app:layout_constraintStart_toStartOf="@id/iv_favorite"
+            app:layout_constraintTop_toBottomOf="@id/iv_favorite"
+            tools:text="77" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@{viewModel.comment}"
+            android:textColor="@color/mediaTextColor"
+            android:textSize="12sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@id/tv_favorite"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/tv_nick"
+            app:layout_constraintTop_toBottomOf="@id/fl_icon"
+            tools:text="作为信用会来到身边就是,而且你们就是这样的人们，我们就是111111没。你们大大大大大大" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,12 +1,24 @@
 package com.pp.module_home.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
-import com.pp.module_home.adapter.RecommendPagingDataAdapter2
+import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_common.model.ItemModel
+import com.pp.library_common.model.MetroLargeVideoCardItemViewModel
+import com.pp.library_common.model.MetroSmallVideoCardItemViewModel
+import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_network.eyepetizer.bean.PageDataBean.Card.CardData.Body.Metro
+import com.pp.library_ui.adapter.DefaultViewBindingItem
+import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
+import com.pp.library_ui.databinding.ItemVideoCardBinding
+import com.pp.library_ui.databinding.ItemVideoSmallCardBinding
 import com.pp.module_home.databinding.FragmentRecommendBinding
 import com.pp.mvvm.LifecycleFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -26,13 +38,63 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
         initRecyclerView()
     }
 
-    private val recommendAdapter by lazy { RecommendPagingDataAdapter2() }
+    private val multiAdapter by lazy {
+        val call = object : DiffUtil.ItemCallback<Any>() {
+            override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+                return oldItem == newItem
+            }
+
+            @SuppressLint("DiffUtilEquals")
+            override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
+                return oldItem == newItem
+            }
+        }
+        val adapter = MultiBindingPagingDataAdapter<Any>(call)
+        // item type (唯一)
+        val type_large_video = 1
+        val type_small_video = type_large_video + 1
+        val type_small_slide_image = type_small_video + 1
+        // feed_cover_large_video 类型
+        adapter.addBindingItem(
+            DefaultViewBindingItem<Metro>(
+                type_large_video,
+                { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_large_video },
+                { ItemVideoCardBinding.inflate(layoutInflater, it, false) },
+                { binding, item -> MetroLargeVideoCardItemViewModel(item) })
+        )
+
+        // feed_cover_small_video 类型
+        adapter.addBindingItem(
+            DefaultViewBindingItem<Metro>(
+                type_small_video,
+                { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_small_video },
+                { ItemVideoSmallCardBinding.inflate(layoutInflater, it, false) },
+                { binding, item -> MetroSmallVideoCardItemViewModel(item) })
+        )
+
+        // slide_cover_image_with_footer 轮播图类型 (数据源:set_banner_list)
+        adapter.addBindingItem(
+            DefaultViewBindingItem<ItemModel<List<Metro>>>(
+                type_small_slide_image,
+                { it?.type == EyepetizerService2.CardType.SET_BANNER_LIST },
+                // TODO: 待实现 -> MetroSlideImageWithFooterViewModel
+                { ItemToBeDevelopedBinding.inflate(layoutInflater, it, false) },
+                { binding, item ->
+                    """
+                    set banner list:
+                    size: ${item?.data?.size}
+                """.trimIndent()
+                })
+        )
+        adapter
+    }
 
     private fun initRecyclerView() {
+
         mBinding.recommendRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.recommendRecyclerview.adapter =
-            recommendAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
-                recommendAdapter.retry()
+            multiAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
+                multiAdapter.retry()
             })
     }
 
@@ -40,7 +102,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
         lifecycleScope.launch {
             mViewModel.getData().collect {
-                recommendAdapter.submitData(it)
+                multiAdapter.submitData(it)
             }
         }
     }

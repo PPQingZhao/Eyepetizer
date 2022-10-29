@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 object FollowRepository {
 
-    fun getPagingData2(): Flow<PagingData<MetroFollowItemViewModel>> {
+    fun getPagingData(): Flow<PagingData<MetroFollowItemViewModel>> {
         return Pager(
             config = PagingConfig(15),
             pagingSourceFactory = { FollowPagingSource() }).flow

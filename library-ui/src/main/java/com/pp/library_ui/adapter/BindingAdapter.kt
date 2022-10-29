@@ -18,7 +18,7 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any> :
 
     private val bindingHelper: AdapterBindingHelper<VB, VM, T> by lazy {
         object : AdapterBindingHelper<VB, VM, T>() {
-            override fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM {
+            override fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM? {
                 return this@BindingAdapter.createViewModel(binding, item, cacheItemViewModel)
             }
 
@@ -26,7 +26,7 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any> :
                 return this@BindingAdapter.createBinding(parent, viewType)
             }
 
-            override fun onSetVariable(binding: ViewDataBinding, viewModel: VM): Boolean {
+            override fun onSetVariable(binding: VB, viewModel: VM?): Boolean {
                 return this@BindingAdapter.onSetVariable(binding, viewModel)
             }
 
@@ -67,7 +67,7 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any> :
     /**
      * 在这里设置 ViewDataBinding::setVariable(int variableId, @Nullable Object value);
      */
-    open fun onSetVariable(binding: ViewDataBinding, viewModel: VM): Boolean {
+    open fun onSetVariable(binding: ViewDataBinding, viewModel: VM?): Boolean {
         return false
     }
 
@@ -78,7 +78,7 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any> :
         binding: VB,
         item: T?,
         cacheItemViewModel: VM?
-    ): VM
+    ): VM?
 
     /**
      * 创建viewType类型的ViewDataBinding

@@ -1,74 +1,50 @@
 package com.pp.module_home.adapter
 
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.BindingPagingDataAdapter
-import com.pp.library_network.eyepetizer.EyepetizerService
+import com.pp.library_common.model.MetroFollowItemViewModel
 import com.pp.library_ui.databinding.ItemFollowCardBinding
-import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
-import com.pp.module_home.api.bean.FollowBean.Item
-import com.pp.module_home.model.FollowItemViewModel
 
 class FollowPagingDataAdapter :
-    BindingPagingDataAdapter<ViewDataBinding, Any, Item>(DIFF_CALLBACK) {
+    BindingPagingDataAdapter<ItemFollowCardBinding, MetroFollowItemViewModel, MetroFollowItemViewModel>(
+        DIFF_CALLBACK
+    ) {
 
     companion object {
         const val TAG = "FollowAdapter"
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Item>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MetroFollowItemViewModel>() {
 
-            override fun areItemsTheSame(oldItem: Item, newItem: Item) = oldItem.id == newItem.id
+            override fun areItemsTheSame(
+                oldItem: MetroFollowItemViewModel,
+                newItem: MetroFollowItemViewModel
+            ) =
+                oldItem.metro?.metroId == newItem.metro?.metroId
 
-            override fun areContentsTheSame(oldItem: Item, newItem: Item) = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: MetroFollowItemViewModel,
+                newItem: MetroFollowItemViewModel
+            ) = oldItem.metro == newItem.metro
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        val item = getItem(position)
-        return getFollowItemType(item)
-    }
+    override fun createBinding(parent: ViewGroup, viewType: Int): ItemFollowCardBinding {
 
-    private fun getFollowItemType(item: Item?): Int {
-        return when (item?.type) {
-            // FollowCard ==>> 根据 item.data.dataType 判断类型
-            else ->
-                EyepetizerService.ItemType.getItemType(item?.type ?: "unknown")
-        }
+        val binding = ItemFollowCardBinding.inflate(layoutInflater, parent, false)
+        binding.recyclerview.layoutManager = LinearLayoutManager(parent.context)
+        return binding
+
     }
 
     override fun createViewModel(
-        binding: ViewDataBinding,
-        item: Item?,
-        cacheItemViewModel: Any?
-    ): Any {
-        return cacheItemViewModel ?: when (binding) {
-            // autoPlayFollowCard,followCard
-            is ItemFollowCardBinding ->
-                FollowItemViewModel(item, binding.root.context)
-            // to be developed
-            else -> """
-                        ${item?.type}
-                        ${item?.data?.dataType}
-                        ${item?.data?.content?.data?.title ?: "null"}
-            """.trimIndent()
-//            else -> FollowItemViewModel(item)
-        }
+        binding: ItemFollowCardBinding,
+        item: MetroFollowItemViewModel?,
+        cacheItemViewModel: MetroFollowItemViewModel?
+    ): MetroFollowItemViewModel? {
+        return cacheItemViewModel ?: item
     }
 
-    override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
-        return when (viewType) {
-            // autoPlayFollowCard,followCard
-            EyepetizerService.ItemType.AUTO_PLAY_FOLLO_WCARD,
-            EyepetizerService.ItemType.FOLLOW_CARD -> {
-                val binding = ItemFollowCardBinding.inflate(layoutInflater, parent, false)
-                binding.recyclerview.layoutManager = LinearLayoutManager(parent.context)
-                binding
-            }
-            else -> ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
-        }
-//        return ItemFollowBinding.inflate(LayoutInflater.from(parent.context))
-    }
 
 }
