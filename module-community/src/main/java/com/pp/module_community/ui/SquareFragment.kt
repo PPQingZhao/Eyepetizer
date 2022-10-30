@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_router_service.services.RouterPath
+import com.pp.module_community.GridDivider
 import com.pp.module_community.adapter.SquareAdapter
 import com.pp.module_community.databinding.FragmentSquareBinding
 import com.pp.module_community.model.MultiItemEntity
@@ -51,6 +52,8 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
             }
         }
         mBinding.rv.layoutManager = layoutManager
+        mBinding.rv.addItemDecoration(GridDivider())
+
         mBinding.rv.adapter = mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter{
             mAdapter.retry()
         })

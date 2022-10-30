@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingPagingDataAdapter
+import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.module_community.databinding.ItemBannerListBinding
 import com.pp.module_community.databinding.ItemFollowSmallVideoBinding
@@ -56,15 +57,7 @@ class SquareAdapter :
         item: MultiItemEntity?,
         cacheItemViewModel: MultiItemEntity?
     ): MultiItemEntity {
-        return cacheItemViewModel ?: item ?: SquareVideoSmallItemViewModel(null)
-        /*return cacheItemViewModel ?:when (binding) {
-            is ItemFollowSmallVideoBinding -> {
-                SquareVideoSmallItemViewModel(null)
-            }
-            else -> {
-                SquareVideoSmallItemViewModel(null)
-            }
-        }*/
+        return cacheItemViewModel ?: item!!
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
@@ -76,7 +69,7 @@ class SquareAdapter :
                 ItemFollowSmallVideoBinding.inflate(layoutInflater, parent, false)
             }
             SquareType.TYPE_VIDEO_LARGE -> {
-                ItemBannerListBinding.inflate(layoutInflater, parent, false)
+                ItemFollowCardBinding.inflate(layoutInflater, parent, false)
             }
             else -> {
                 ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)

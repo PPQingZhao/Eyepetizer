@@ -96,6 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_normal"
             android:orientation="horizontal"
+            app:layoutManager="@{viewModel.getLayoutManager(context)}"
             app:adapter="@{viewModel.adapter}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

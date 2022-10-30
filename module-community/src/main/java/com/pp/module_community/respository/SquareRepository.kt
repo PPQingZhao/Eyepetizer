@@ -39,7 +39,9 @@ object SquareRepository {
                 if (style == EyepetizerService2.MetroType.Style.feed_cover_small_video) {
                     itemModels.add(SquareVideoSmallItemViewModel(metro))
                 } else if (style == EyepetizerService2.MetroType.Style.feed_cover_large_video) {
-                    //itemModels.add(SquareVideoLargeItemViewModel(metro))
+                    itemModels.add(SquareVideoLargeItemViewModel(metro))
+                } else if (style == EyepetizerService2.MetroType.Style.feed_cover_large_image) {
+                    itemModels.add(SquareVideoLargeItemViewModel(metro))
                 } else {
                     Log.e(TAG, "待开发类型：$style")
                 }

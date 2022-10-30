@@ -146,6 +146,7 @@ interface EyepetizerService2 {
             const val feed_cover_large_video = "feed_cover_large_video"
             const val slide_cover_image_with_footer = "slide_cover_image_with_footer"
             const val feed_cover_small_video = "feed_cover_small_video"
+            const val feed_cover_large_image = "feed_cover_large_image"
         }
     }
 

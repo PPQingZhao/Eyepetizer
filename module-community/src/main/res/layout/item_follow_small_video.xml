@@ -96,7 +96,7 @@
             android:minLines="2"
             android:text="@{viewModel.description}"
             android:textColor="@color/color_text_selected"
-            android:textSize="@dimen/content_title"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/iv_feed"
             app:layout_constraintTop_toBottomOf="@id/iv_feed"
             tools:text="浮云一别后，流水十年间" />
