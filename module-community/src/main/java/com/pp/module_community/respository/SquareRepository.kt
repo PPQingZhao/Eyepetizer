@@ -27,7 +27,7 @@ object SquareRepository {
         override fun getSetBannerList(card: PageDataBean.Card, metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<MultiItemEntity> {
             val bannerList = mutableListOf<BannerListViewModel>()
             metroList?.let {
-                //bannerList.add(BannerListViewModel(card, it))
+                bannerList.add(BannerListViewModel(card, it))
             }
             return bannerList
         }

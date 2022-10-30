@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
-import com.pp.module_community.databinding.ItemBannerListBinding
+import com.pp.module_community.model.BannerListViewModel
+import com.pp.module_community.databinding.ItemBannerBinding
 import com.pp.module_community.databinding.ItemFollowSmallVideoBinding
 import com.pp.module_community.model.*
 import com.pp.module_community.respository.SquareType
@@ -63,7 +64,7 @@ class SquareAdapter :
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
             SquareType.TYPE_BANNER_LIST -> {
-                ItemBannerListBinding.inflate(layoutInflater, parent, false)
+                ItemBannerBinding.inflate(layoutInflater, parent, false)
             }
             SquareType.TYPE_VIDEO_SMALL -> {
                 ItemFollowSmallVideoBinding.inflate(layoutInflater, parent, false)
