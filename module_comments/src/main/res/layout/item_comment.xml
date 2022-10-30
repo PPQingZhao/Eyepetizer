@@ -30,16 +30,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.05">
 
-            <!--                  android:bindSrc="@{viewModel.icon}"-->
             <androidx.constraintlayout.utils.widget.ImageFilterView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:bindSrc="@{viewModel.icon}"
                 android:src="@drawable/ic_launcher_background"
                 app:roundPercent="1"
                 tools:src="@drawable/ic_launcher_background" />
         </FrameLayout>
 
-        <!--              android:text="@{viewModel.nick}"-->
         <TextView
             android:id="@+id/tv_nick"
             android:layout_width="wrap_content"
@@ -47,7 +46,7 @@
             android:layout_marginStart="5dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="user name "
+            android:text="@{viewModel.nick}"
             android:textColor="@color/mediaTextColor"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/fl_icon"
@@ -67,13 +66,12 @@
             app:layout_constraintWidth_percent="0.05" />
 
 
-        <!--              android:text="@{viewModel.favorite}"-->
         <TextView
             android:id="@+id/tv_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="33"
+            android:text="@{viewModel.favorite}"
             android:textColor="@color/mediaTextColor"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_content"
@@ -82,13 +80,13 @@
             app:layout_constraintTop_toBottomOf="@id/iv_favorite"
             tools:text="77" />
 
-        <!--              android:bindText="@{viewModel.comment}"-->
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_normal"
             android:gravity="start"
-            android:text="comment  111111111111111111"
+            android:text="@{viewModel.comment}"
             android:textColor="@color/mediaTextColor"
             android:textSize="12sp"
             app:layout_constrainedWidth="true"

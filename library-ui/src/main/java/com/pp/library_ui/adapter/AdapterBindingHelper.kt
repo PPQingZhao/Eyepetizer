@@ -20,6 +20,7 @@ abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any?> {
         itemViewModelCaches[position] = createItemViewModel
 
         setVariable(holder.binding,createItemViewModel)
+        holder.binding.executePendingBindings()
     }
 
    private fun setVariable(binding: VB, viewModel: VM?) {

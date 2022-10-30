@@ -29,7 +29,7 @@ class IntroductionViewModel(val details: ItemDetailsBean?, app: Application) :
             category.set("# ${it.category.name}")
             content.set(it.text)
             collectionCount.set(it.consumption.likeCount.toString())
-            replyCount.set(it.consumption.likeCount.toString())
+            replyCount.set(it.consumption.commentCount.toString())
             shareCount.set(it.consumption.shareCount.toString())
             Log.e("TAG", "${details.resourceId}   ${details.resourceType}")
         }

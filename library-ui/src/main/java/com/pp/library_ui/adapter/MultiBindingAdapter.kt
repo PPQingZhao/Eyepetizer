@@ -1,7 +1,6 @@
 package com.pp.library_ui.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 
@@ -84,7 +83,6 @@ open class MultiBindingAdapter<Data : Any> : Adapter<MultiItemViewHolder<Data>>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultiItemViewHolder<Data> {
-
         val viewBindingItem = mViewTypeAdapterMap[viewType]!!
         return MultiItemViewHolder(
             viewBindingItem,
@@ -93,7 +91,6 @@ open class MultiBindingAdapter<Data : Any> : Adapter<MultiItemViewHolder<Data>>(
     }
 
     override fun onBindViewHolder(holder: MultiItemViewHolder<Data>, position: Int) {
-        Log.e("TAG","onBindViewHolder")
         holder.viewBindingItem.adapterBindingHelper.bind(holder, position, getItem(position))
     }
 

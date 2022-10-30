@@ -10,13 +10,12 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_router_service.services.RouterPath
+import com.pp.library_ui.R
 import com.pp.library_ui.adapter.DefaultViewBindingItem
-import com.pp.library_ui.adapter.MultiBindingAdapter
-import com.pp.library_ui.adapter.TreeNode
 import com.pp.library_ui.adapter.TreeNodeAdapter
 import com.pp.module_comments.databinding.FragmentCommentsBinding
-import com.pp.module_comments.databinding.ItemCommentBinding
-import com.pp.module_comments.databinding.ItemReplyBinding
+import com.pp.module_comments.databinding.ItemCommentBindingImpl
+import com.pp.module_comments.databinding.ItemReplyBindingImpl
 import com.pp.module_comments.model.CommentItemViewModel
 import com.pp.module_comments.model.ReplyItemViewModel
 import com.pp.mvvm.LifecycleFragment
@@ -54,7 +53,7 @@ class CommentsFragment :
     }
 
     private val treeAdapter by lazy {
-        val adapter = MultiBindingAdapter<TreeNode>()
+        val adapter = TreeNodeAdapter()
 
         val item_type_comment = 0
         val item_type_reply = item_type_comment + 1
@@ -63,7 +62,7 @@ class CommentsFragment :
             DefaultViewBindingItem<CommentItemViewModel>(
                 item_type_comment,
                 { it != null },
-                { parent -> ItemCommentBinding.inflate(layoutInflater, parent, false) },
+                { parent -> ItemCommentBindingImpl.inflate(layoutInflater, parent, false) },
                 { binding, item, cacheItemViewModel ->
                     if (cacheItemViewModel is CommentItemViewModel) cacheItemViewModel else item
                 })
@@ -74,7 +73,7 @@ class CommentsFragment :
             DefaultViewBindingItem<ReplyItemViewModel>(
                 item_type_reply,
                 { it != null },
-                { parent -> ItemReplyBinding.inflate(layoutInflater, parent, false) },
+                { parent -> ItemReplyBindingImpl.inflate(layoutInflater, parent, false) },
                 { binding, item, cacheItemViewModel ->
                     if (cacheItemViewModel is ReplyItemViewModel) cacheItemViewModel else item
                 })
@@ -83,13 +82,11 @@ class CommentsFragment :
         adapter
     }
 
-    val layoutManager = LinearLayoutManager(context)
+    val linearLayoutManager = LinearLayoutManager(context)
     private fun initRecyclerView() {
         // hot
-        mBinding.commentsHotRecyclerview.layoutManager = layoutManager
+        mBinding.commentsHotRecyclerview.layoutManager = linearLayoutManager
         mBinding.commentsHotRecyclerview.adapter = treeAdapter
-        // time
-//        mBinding.commentsTimeRecyclerview.layoutManager = layoutManager
 
     }
 
@@ -104,72 +101,17 @@ class CommentsFragment :
 
                     val dataList = mutableListOf<CommentItemViewModel>()
                     it.result.itemList.forEach {
-                        dataList.add(CommentItemViewModel(it))
-                    }
-/*
-                    val nodes = mutableListOf<TreeNode>()
-                    dataList.forEach {
-                        nodes.addAll(TreeNodeAdapter.expandNode(it))
-                    }
-
-                    val nodeCount = nodes.size
-
-                    val addData = nodes.size > treeAdapter.getDataList().size
-
-                    val tempNodes = mutableListOf<TreeNode>()
-                    tempNodes.addAll(nodes)
-                    val adapterDataList = mutableListOf<TreeNode?>()
-                    adapterDataList.addAll(treeAdapter.getDataList())
-                    for ((index, adapterNode) in adapterDataList.withIndex()) {
-                        if (index > tempNodes.size - 1) {
-                            break
-                        }
-
-                        val newNode = tempNodes[index]
-                        // 更新或者替换 adapter中的数据
-                        nodes.remove(newNode)
-                        // 更新
-                        if (adapterNode is CommentItemViewModel && newNode is CommentItemViewModel) {
-                            adapterNode.commentItem = newNode.commentItem
-                            // 更新
-                        } else if (adapterNode is ReplyItemViewModel && newNode is ReplyItemViewModel) {
-                            adapterNode.replyItem = newNode.replyItem
-                            // 替换
-                        } else {
-                            treeAdapter.removeData(index)
-                            treeAdapter.addData(index, newNode)
-
-                        }
+                        dataList.add(
+                            CommentItemViewModel(
+                                it,
+                                resources.getColor(R.color.mediaTextColorSecondary)
+                            )
+                        )
                     }
 
-                    if (addData) {
-                        treeAdapter.addDatas(nodes)
-                    } else {
-                        val removeDatas = mutableListOf<TreeNode?>()
-                        for (index in nodeCount..treeAdapter.getDataList().size - 1) {
-                            removeDatas.add(treeAdapter.getItem(index))
-                        }
-                        treeAdapter.removeDataList(removeDatas)
-                    }
-
-                    layoutManager.scrollToPositionWithOffset(0, 0)*/
-
-
+                    linearLayoutManager.scrollToPositionWithOffset(0, 0)
                     treeAdapter.setDataList(dataList)
-/*
-                    if (type == EyepetizerService2.SORT_TYPE_HOT) {
 
-                        mBinding.commentsHotRecyclerview.adapter = treeAdapter
-                        mBinding.commentsHotRecyclerview.visibility = View.VISIBLE
-
-                        mBinding.commentsTimeRecyclerview.visibility = View.GONE
-                    } else {
-
-                        mBinding.commentsTimeRecyclerview.adapter = treeAdapter
-                        mBinding.commentsTimeRecyclerview.visibility = View.VISIBLE
-
-                        mBinding.commentsHotRecyclerview.visibility = View.GONE
-                    }*/
                 }
             }
         }

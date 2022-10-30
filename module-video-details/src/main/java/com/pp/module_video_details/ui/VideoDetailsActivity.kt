@@ -2,13 +2,10 @@ package com.pp.module_video_details.ui
 
 import android.content.res.Configuration
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.VideoView
 import androidx.fragment.app.Fragment
@@ -51,10 +48,8 @@ class VideoDetailsActivity :
         ARouter.getInstance().inject(this)
 //        Log.e("TAG", "==>resourceType: ${resourceType}")
 
-        Log.e("VideoDetailsActivity", "${mViewModel}")
         mViewModel.getItemDetails(resourceId, resourceType)
             .observe(this) {
-                Log.e("VideoDetailsActivity", "${mViewModel}  details: ${it}")
 
                 startPlay(it?.video?.playUrl)
                 showDetailsFragment(it)

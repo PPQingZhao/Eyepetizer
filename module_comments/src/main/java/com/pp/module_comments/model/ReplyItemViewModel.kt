@@ -1,37 +1,42 @@
 package com.pp.module_comments.model
 
-import androidx.recyclerview.widget.RecyclerView
+import androidx.annotation.ColorInt
 import com.pp.library_network.eyepetizer.bean.CommentsBean
+import com.pp.module_comments.util.CommentUtil
 
-class ReplyItemViewModel(reply: CommentsBean.Item.Reply) :  CommentItemModel() {
+class ReplyItemViewModel(reply: CommentsBean.Item.Reply, @ColorInt val color: Int) :
+    CommentItemModel() {
 
     var replyItem: CommentsBean.Item.Reply? = null
-       /* set(value) {
+        set(value) {
             field = value
             replyItem?.run {
                 this@ReplyItemViewModel.icon.set(user.avatar)
                 this@ReplyItemViewModel.nick.set(user.nick)
                 this@ReplyItemViewModel.favorite.set(countSummary.favorite.count.toString())
-                this@ReplyItemViewModel.comment.set(commentContent)
+                var commentResult: CharSequence
+                if (atUser.uid > 0) {
+                    // 回复类型
+                    commentResult =
+                        CommentUtil.getReply(
+                            atUser.nick,
+                            commentContent,
+                            commentTime,
+                            location,
+                            0.6f,
+                            color
+                        )
+                } else {
+                    commentResult =
+                        CommentUtil.getComment(commentContent, commentTime, location, 0.6f, color)
+                }
+                this@ReplyItemViewModel.comment.set(commentResult)
 
-                this@ReplyItemViewModel.icon.set("user.avatar")
-                this@ReplyItemViewModel.nick.set("user.nick")
-                this@ReplyItemViewModel.favorite.set(countSummary.favorite.count.toString())
-                this@ReplyItemViewModel.comment.set("commentContent")
             }
-        }*/
+        }
 
     init {
         this.replyItem = reply
     }
 
-    fun commentId(): Long {
-        return try {
-            val id = replyItem?.commentId?.split("-")?.get(0)?.toLong() ?: RecyclerView.NO_ID
-            id
-        } catch (e: Exception) {
-            e.printStackTrace()
-            RecyclerView.NO_ID
-        }
-    }
 }
