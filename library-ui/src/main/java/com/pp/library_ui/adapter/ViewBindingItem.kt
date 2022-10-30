@@ -17,7 +17,7 @@ abstract class ViewBindingItem<out Data : Any?> {
                 item: @UnsafeVariance Data?,
                 cacheItemViewModel: Any?
             ): Any? {
-                return cacheItemViewModel ?: this@ViewBindingItem.onCreateViewModel(binding, item)
+                return this@ViewBindingItem.onCreateViewModel(binding, item,cacheItemViewModel)
             }
 
             override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
@@ -34,7 +34,11 @@ abstract class ViewBindingItem<out Data : Any?> {
     /**
      * 创建 item view model
      */
-    abstract fun onCreateViewModel(binding: ViewDataBinding, item: @UnsafeVariance Data?): Any?
+    abstract fun onCreateViewModel(
+        binding: ViewDataBinding,
+        item: @UnsafeVariance Data?,
+        cacheItemViewModel: Any?
+    ): Any?
 
 
     /**

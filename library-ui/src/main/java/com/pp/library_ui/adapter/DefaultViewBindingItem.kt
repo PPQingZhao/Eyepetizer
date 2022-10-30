@@ -7,7 +7,7 @@ class DefaultViewBindingItem<Data : Any?>(
     private val type: Int,
     private val isRight: (item: Data?) -> Boolean,
     private val onCreateViewDataBinding: (parent: ViewGroup) -> ViewDataBinding,
-    private val onCreateViewModel: (binding: ViewDataBinding, item: Data?) -> Any?
+    private val onCreateViewModel: (binding: ViewDataBinding, item: Data?, cacheItemViewModel: Any?) -> Any?
 ) :
     ViewBindingItem<Data>() {
 
@@ -17,9 +17,10 @@ class DefaultViewBindingItem<Data : Any?>(
 
     override fun onCreateViewModel(
         binding: ViewDataBinding,
-        item: Data?
+        item: Data?,
+        cacheItemViewModel: Any?
     ): Any? {
-        return onCreateViewModel.invoke(binding, item)
+        return onCreateViewModel.invoke(binding, item, cacheItemViewModel)
     }
 
     override fun getType(): Int {

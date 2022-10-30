@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/padding_normal">
 
         <TextView
             android:id="@+id/tv_title"
@@ -40,23 +41,23 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/sort_type_hot" />
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/comments_hot_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/padding_normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:listitem="@layout/item_comment" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/comments_time_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:listitem="@layout/item_comment" />
+        <!--  <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/comments_time_recyclerview"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:visibility="gone"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/tv_title"
+              tools:listitem="@layout/item_comment" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

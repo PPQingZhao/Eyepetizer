@@ -1,6 +1,5 @@
 package com.pp.library_ui.adapter
 
-import android.util.Log
 
 open class TreeNodeAdapter : MultiBindingAdapter<TreeNode>() {
 
@@ -10,6 +9,7 @@ open class TreeNodeAdapter : MultiBindingAdapter<TreeNode>() {
             nodes.addAll(expandNode(it))
         }
 
+//        Log.e("TAG","size: ${nodes.size}")
         super.setDataList(nodes)
     }
 

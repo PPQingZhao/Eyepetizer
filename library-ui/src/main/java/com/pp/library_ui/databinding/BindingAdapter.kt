@@ -19,7 +19,7 @@ object BindingAdapter {
     @JvmStatic
     @androidx.databinding.BindingAdapter("android:src")
     fun setImageResource(iv: ImageView, @DrawableRes res: Int) {
-        Log.e("TAG", "res: $res")
+//        Log.e("TAG", "res: $res")
         iv.setImageResource(res)
     }
 
@@ -38,9 +38,9 @@ object BindingAdapter {
 
     @JvmStatic
     @androidx.databinding.BindingAdapter("expandText")
-    fun expandText(textView: TextView,t:Boolean) {
+    fun expandText(textView: TextView, t: Boolean) {
 
-        textView.addOnLayoutChangeListener(object :OnLayoutChangeListener{
+        textView.addOnLayoutChangeListener(object : OnLayoutChangeListener {
             override fun onLayoutChange(
                 v: View?,
                 left: Int,
@@ -58,7 +58,7 @@ object BindingAdapter {
                 val maxLines = textView.maxLines
                 val fontH = textView.paint.getFontMetricsInt(null)
 
-                Log.e("TAG","lineCount: ${lineCount} maxLines: ${maxLines}  fontH: ${fontH}")
+                Log.e("TAG", "lineCount: ${lineCount} maxLines: ${maxLines}  fontH: ${fontH}")
             }
 
         })

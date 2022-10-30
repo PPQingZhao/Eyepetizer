@@ -11,6 +11,8 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.adapter.DefaultViewBindingItem
+import com.pp.library_ui.adapter.MultiBindingAdapter
+import com.pp.library_ui.adapter.TreeNode
 import com.pp.library_ui.adapter.TreeNodeAdapter
 import com.pp.module_comments.databinding.FragmentCommentsBinding
 import com.pp.module_comments.databinding.ItemCommentBinding
@@ -51,19 +53,8 @@ class CommentsFragment :
         initRecyclerView()
     }
 
-    val treeAdapter by lazy {
-        val adapter = object : TreeNodeAdapter() {
-//            override fun getItemId(position: Int): Long {
-//                val item = getItem(position)
-//                return when (item) {
-//                    is CommentItemViewModel -> item.commentId()
-//                    is ReplyItemViewModel -> item.commentId()
-//                    else -> super.getItemId(position)
-//                }
-//            }
-        }
-
-//        adapter.setHasStableIds(true)
+    private val treeAdapter by lazy {
+        val adapter = MultiBindingAdapter<TreeNode>()
 
         val item_type_comment = 0
         val item_type_reply = item_type_comment + 1
@@ -71,18 +62,22 @@ class CommentsFragment :
         adapter.addBindingItem(
             DefaultViewBindingItem<CommentItemViewModel>(
                 item_type_comment,
-                { true },
+                { it != null },
                 { parent -> ItemCommentBinding.inflate(layoutInflater, parent, false) },
-                { binding, item -> item })
+                { binding, item, cacheItemViewModel ->
+                    if (cacheItemViewModel is CommentItemViewModel) cacheItemViewModel else item
+                })
         )
 
         // reply
         adapter.addBindingItem(
             DefaultViewBindingItem<ReplyItemViewModel>(
                 item_type_reply,
-                { true },
+                { it != null },
                 { parent -> ItemReplyBinding.inflate(layoutInflater, parent, false) },
-                { binding, item -> item })
+                { binding, item, cacheItemViewModel ->
+                    if (cacheItemViewModel is ReplyItemViewModel) cacheItemViewModel else item
+                })
         )
 
         adapter

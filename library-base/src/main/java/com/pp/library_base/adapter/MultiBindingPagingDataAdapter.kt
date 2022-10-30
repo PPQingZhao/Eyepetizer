@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_ui.adapter.MultiItemViewHolder
 import com.pp.library_ui.adapter.ViewBindingItem
 
-class MultiBindingPagingDataAdapter<Data : Any>(
+open class MultiBindingPagingDataAdapter<Data : Any>(
     diffCallback: DiffUtil.ItemCallback<Data>
 ) :
     PagingDataAdapter<Data, MultiItemViewHolder<Data>>(diffCallback) {

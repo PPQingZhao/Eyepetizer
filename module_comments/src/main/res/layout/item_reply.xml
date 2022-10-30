@@ -20,6 +20,7 @@
         android:paddingEnd="@dimen/padding_normal"
         android:paddingBottom="20dp">
 
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
@@ -50,9 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:bindText="@{viewModel.nick}"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{viewModel.nick}"
             android:textColor="@color/mediaTextColor"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/fl_icon"
@@ -76,8 +77,8 @@
             android:id="@+id/tv_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:bindText="@{viewModel.favorite}"
             android:gravity="center"
-            android:text="@{viewModel.favorite}"
             android:textColor="@color/mediaTextColor"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_content"
@@ -90,8 +91,8 @@
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:bindText="@{viewModel.comment}"
             android:gravity="start"
-            android:text="@{viewModel.comment}"
             android:textColor="@color/mediaTextColor"
             android:textSize="12sp"
             app:layout_constrainedWidth="true"
@@ -100,6 +101,5 @@
             app:layout_constraintStart_toStartOf="@id/tv_nick"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
             tools:text="作为信用会来到身边就是,而且你们就是这样的人们，我们就是111111没。你们大大大大大大" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

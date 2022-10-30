@@ -30,14 +30,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.05">
 
+            <!--                  android:bindSrc="@{viewModel.icon}"-->
             <androidx.constraintlayout.utils.widget.ImageFilterView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:bindSrc="@{viewModel.icon}"
+                android:src="@drawable/ic_launcher_background"
                 app:roundPercent="1"
                 tools:src="@drawable/ic_launcher_background" />
         </FrameLayout>
 
+        <!--              android:text="@{viewModel.nick}"-->
         <TextView
             android:id="@+id/tv_nick"
             android:layout_width="wrap_content"
@@ -45,7 +47,7 @@
             android:layout_marginStart="5dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{viewModel.nick}"
+            android:text="user name "
             android:textColor="@color/mediaTextColor"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/fl_icon"
@@ -65,12 +67,13 @@
             app:layout_constraintWidth_percent="0.05" />
 
 
+        <!--              android:text="@{viewModel.favorite}"-->
         <TextView
             android:id="@+id/tv_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{viewModel.favorite}"
+            android:text="33"
             android:textColor="@color/mediaTextColor"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_content"
@@ -79,12 +82,13 @@
             app:layout_constraintTop_toBottomOf="@id/iv_favorite"
             tools:text="77" />
 
+        <!--              android:bindText="@{viewModel.comment}"-->
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:text="@{viewModel.comment}"
+            android:text="comment  111111111111111111"
             android:textColor="@color/mediaTextColor"
             android:textSize="12sp"
             app:layout_constrainedWidth="true"
@@ -93,6 +97,5 @@
             app:layout_constraintStart_toStartOf="@id/tv_nick"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
             tools:text="作为信用会来到身边就是,而且你们就是这样的人们，我们就是111111没。你们大大大大大大" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

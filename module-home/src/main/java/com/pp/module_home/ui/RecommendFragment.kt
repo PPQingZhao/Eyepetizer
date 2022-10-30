@@ -18,7 +18,6 @@ import com.pp.library_ui.databinding.ItemVideoCardBinding
 import com.pp.library_ui.databinding.ItemVideoSmallCardBinding
 import com.pp.module_home.databinding.FragmentRecommendBinding
 import com.pp.mvvm.LifecycleFragment
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -60,7 +59,10 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                 type_large_video,
                 { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_large_video },
                 { ItemVideoCardBinding.inflate(layoutInflater, it, false) },
-                { binding, item -> MetroLargeVideoCardItemViewModel(item) })
+                { binding, item, cacheItemViewModel ->
+                    if (cacheItemViewModel is MetroLargeVideoCardItemViewModel) cacheItemViewModel
+                    else MetroLargeVideoCardItemViewModel(item)
+                })
         )
 
         // feed_cover_small_video 类型
@@ -69,7 +71,10 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                 type_small_video,
                 { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_small_video },
                 { ItemVideoSmallCardBinding.inflate(layoutInflater, it, false) },
-                { binding, item -> MetroSmallVideoCardItemViewModel(item) })
+                { binding, item, cacheItemViewModel ->
+                    if (cacheItemViewModel is MetroSmallVideoCardItemViewModel) cacheItemViewModel
+                    else MetroSmallVideoCardItemViewModel(item)
+                })
         )
 
         // slide_cover_image_with_footer 轮播图类型 (数据源:set_banner_list)
@@ -79,7 +84,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                 { it?.type == EyepetizerService2.CardType.SET_BANNER_LIST },
                 // TODO: 待实现 -> MetroSlideImageWithFooterViewModel
                 { ItemToBeDevelopedBinding.inflate(layoutInflater, it, false) },
-                { binding, item ->
+                { binding, item, cacheItemViewModel ->
                     """
                     set banner list:
                     size: ${item?.data?.size}

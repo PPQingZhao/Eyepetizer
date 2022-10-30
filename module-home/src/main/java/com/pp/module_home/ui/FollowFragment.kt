@@ -1,12 +1,14 @@
 package com.pp.module_home.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.module_home.adapter.FollowPagingDataAdapter
 import com.pp.module_home.databinding.FragmentFollowBinding
 import com.pp.mvvm.LifecycleFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -36,7 +38,7 @@ class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>
     }
 
     override fun onFirstResume() {
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             mViewModel.getData().collect {
                 followAdapter.submitData(it)
             }
