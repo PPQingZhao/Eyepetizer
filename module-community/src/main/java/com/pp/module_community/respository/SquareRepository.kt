@@ -6,7 +6,7 @@ import com.pp.library_common.pagingsource.MetroPagingSource
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.PageDataBean
-import com.pp.module_community.model.BannerListViewModel
+import com.pp.module_community.model.SquareBannerListViewModel
 import com.pp.module_community.model.MultiItemEntity
 import com.pp.module_community.model.SquareVideoLargeItemViewModel
 import com.pp.module_community.model.SquareVideoSmallItemViewModel
@@ -28,9 +28,9 @@ object SquareRepository {
             card: PageDataBean.Card,
             metroList: List<PageDataBean.Card.CardData.Body.Metro>?
         ): List<MultiItemEntity> {
-            val bannerList = mutableListOf<BannerListViewModel>()
+            val bannerList = mutableListOf<SquareBannerListViewModel>()
             metroList?.let {
-                bannerList.add(BannerListViewModel(card, it))
+                bannerList.add(SquareBannerListViewModel(card, it))
             }
             return bannerList
         }

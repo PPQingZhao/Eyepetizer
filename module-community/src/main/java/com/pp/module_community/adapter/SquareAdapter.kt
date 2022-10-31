@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingPagingDataAdapter
+import com.pp.library_ui.databinding.ItemBannerBinding
 import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
-import com.pp.module_community.model.BannerListViewModel
-import com.pp.module_community.databinding.ItemBannerBinding
+import com.pp.module_community.model.SquareBannerListViewModel
 import com.pp.module_community.databinding.ItemFollowSmallVideoBinding
 import com.pp.module_community.model.*
 import com.pp.module_community.respository.SquareType
@@ -21,7 +21,7 @@ class SquareAdapter :
             override fun areItemsTheSame(
                 oldItem: MultiItemEntity, newItem: MultiItemEntity
             ): Boolean {
-                return if (oldItem is BannerListViewModel && newItem is BannerListViewModel) {
+                return if (oldItem is SquareBannerListViewModel && newItem is SquareBannerListViewModel) {
                     oldItem.card.cardUniqueId == newItem.card.cardUniqueId
                 } else if (oldItem is SquareVideoSmallItemViewModel && newItem is SquareVideoSmallItemViewModel) {
                     oldItem.metro?.metroId == newItem.metro?.metroId
@@ -36,7 +36,7 @@ class SquareAdapter :
             override fun areContentsTheSame(
                 oldItem: MultiItemEntity, newItem: MultiItemEntity
             ): Boolean {
-                return if (oldItem is BannerListViewModel && newItem is BannerListViewModel) {
+                return if (oldItem is SquareBannerListViewModel && newItem is SquareBannerListViewModel) {
                     return oldItem == newItem
                 } else if (oldItem is SquareVideoSmallItemViewModel && newItem is SquareVideoSmallItemViewModel) {
                     return oldItem == newItem

@@ -1,3 +1,3 @@
-package com.pp.module_community.model
+package com.pp.library_ui.model
 
 data class BannerContentItemViewModel(val imgUrl: String?)
