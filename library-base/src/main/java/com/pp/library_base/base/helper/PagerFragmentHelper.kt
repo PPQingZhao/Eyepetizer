@@ -40,7 +40,7 @@ class PagerFragmentHelper(
         viewPager.adapter = adapter
         val firstChild = viewPager.getChildAt(0)
         if (firstChild is RecyclerView) {
-            firstChild.overScrollMode = View.OVER_SCROLL_IF_CONTENT_SCROLLS
+            firstChild.overScrollMode = View.OVER_SCROLL_NEVER
         }
         return this
     }

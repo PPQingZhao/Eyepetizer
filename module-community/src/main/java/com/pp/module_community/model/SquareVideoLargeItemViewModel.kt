@@ -4,7 +4,6 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_common.model.MetroFollowItemViewModel
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.library_router_service.services.RouterPath
@@ -13,7 +12,6 @@ import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemImageVideoBinding
 import com.pp.library_ui.model.FollowCardItemViewModel
 import com.pp.library_ui.model.ImageVideoItemViewModel
-import com.pp.library_ui.model.VideoCardItemViewModel
 import com.pp.module_community.respository.SquareType.TYPE_VIDEO_LARGE
 
 class SquareVideoLargeItemViewModel(val metro: PageDataBean.Card.CardData.Body.Metro?) :

@@ -35,6 +35,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRecyclerView()
+
     }
 
     private val multiAdapter by lazy {
@@ -106,10 +107,10 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
     override fun onFirstResume() {
 
         lifecycleScope.launch {
-           /* EyepetizerService2.api.getPageData(EyepetizerService2.URL_TOPIC_HOT).let {
+            /* EyepetizerService2.api.getPageData(EyepetizerService2.URL_TOPIC_HOT).let {
 
-                Log.e("TAG","${it.result.cardList.size}")
-            }*/
+                 Log.e("TAG","${it.result.cardList.size}")
+             }*/
             mViewModel.getData().collect {
                 multiAdapter.submitData(it)
             }
