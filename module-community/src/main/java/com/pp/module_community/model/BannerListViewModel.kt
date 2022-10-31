@@ -41,7 +41,8 @@ class BannerListViewModel(
             itemList.add(BannerContentItemViewModel(metro.metroData.cover.url))
         }
 
-        bannerAdapter = object: BaseBannerAdapter<BannerContentItemViewModel, ViewHolder<ItemBannerContentBinding>>(){
+        bannerAdapter = object :
+            BaseBannerAdapter<BannerContentItemViewModel, ViewHolder<ItemBannerContentBinding>>() {
 
 
             override fun onBind(
@@ -69,5 +70,5 @@ class BannerListViewModel(
 
     }
 
-    class ViewHolder<VB : ViewDataBinding>(val binding: VB): RecyclerView.ViewHolder(binding.root)
+    class ViewHolder<VB : ViewDataBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)
 }

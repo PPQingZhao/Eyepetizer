@@ -10,7 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.pp.library_ui.R
 
-class BannerViewPager<T>: RelativeLayout {
+class BannerViewPager<T> : RelativeLayout {
 
     private var mContext: Context = context
     private lateinit var mViewPager: ViewPager2
@@ -28,7 +28,7 @@ class BannerViewPager<T>: RelativeLayout {
 
     private var pageMargin = 0
 
-//    private var revealWidth = -1
+    //    private var revealWidth = -1
     private var revealWidth = 40
 
     private var offscreenPageLimit = 3
@@ -53,7 +53,7 @@ class BannerViewPager<T>: RelativeLayout {
 
     }
 
-    private val mOnPagerChangeCallback: OnPageChangeCallback = object: OnPageChangeCallback() {
+    private val mOnPagerChangeCallback: OnPageChangeCallback = object : OnPageChangeCallback() {
 
         override fun onPageScrolled(
             position: Int,

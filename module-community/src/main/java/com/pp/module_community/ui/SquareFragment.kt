@@ -11,11 +11,9 @@ import com.pp.library_router_service.services.RouterPath
 import com.pp.module_community.GridDivider
 import com.pp.module_community.adapter.SquareAdapter
 import com.pp.module_community.databinding.FragmentSquareBinding
-import com.pp.module_community.model.MultiItemEntity
 import com.pp.module_community.respository.SquareType
 import com.pp.mvvm.LifecycleFragment
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Community.fragment_community)
@@ -39,7 +37,7 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
     private val mAdapter: SquareAdapter by lazy { SquareAdapter() }
     private fun initRecyclerView() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
-        layoutManager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup() {
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 if (position >= mAdapter.itemCount) {
                     return 1
@@ -54,20 +52,17 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
         mBinding.rv.layoutManager = layoutManager
         mBinding.rv.addItemDecoration(GridDivider())
 
-        mBinding.rv.adapter = mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter{
+        mBinding.rv.adapter = mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
             mAdapter.retry()
         })
     }
 
-    @OptIn(InternalCoroutinesApi::class)
     override fun onFirstResume() {
         super.onFirstResume()
         lifecycleScope.launch {
-            mViewModel.getData().collect(object: FlowCollector<PagingData<MultiItemEntity>> {
-                override suspend fun emit(value: PagingData<MultiItemEntity>) {
-                    mAdapter.submitData(value)
-                }
-            })
+            mViewModel.getData().collect {
+                mAdapter.submitData(it)
+            }
         }
 
     }

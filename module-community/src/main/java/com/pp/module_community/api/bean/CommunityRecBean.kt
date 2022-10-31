@@ -1,4 +1,5 @@
 package com.pp.module_community.api.bean
+
 import com.google.gson.annotations.SerializedName
 
 
