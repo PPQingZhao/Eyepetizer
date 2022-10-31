@@ -4,11 +4,15 @@ import android.app.Application
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagingData
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.CommentsBean
 import com.pp.mvvm.LifecycleViewModel
 import com.pp.library_ui.R
+import com.pp.library_ui.adapter.TreeNode
+import com.pp.module_comments.repository.CommentRepository
+import kotlinx.coroutines.flow.Flow
 
 class CommentsViewModel(app: Application) : LifecycleViewModel(app) {
 
@@ -16,18 +20,18 @@ class CommentsViewModel(app: Application) : LifecycleViewModel(app) {
     val comment_sort_type = ObservableField<Int>(com.pp.library_ui.R.string.sort_type_hot)
     var sort_type = MutableLiveData<String>(EyepetizerService2.SORT_TYPE_HOT)
 
+
     /**
      * 获取评论
      */
-    suspend fun getComments(
+    fun getPageData(
         resourceId: Int?,
         resourceType: String?,
         sort_type: String
-    ): BaseResponse<CommentsBean> {
-        return EyepetizerService2.api.getCMSCommentList(resourceId, resourceType, sort_type)
+    ): Flow<PagingData<TreeNode>> {
+        return CommentRepository.getPagingData(resourceId, resourceType, sort_type)
     }
 
-   
 
     /**
      * 评论排序点击事件

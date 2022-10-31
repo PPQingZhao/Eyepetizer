@@ -4,8 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.pp.library_common.model.ItemModel
-import com.pp.library_common.model.MetroLargeVideoCardItemViewModel
-import com.pp.library_common.model.MetroSmallVideoCardItemViewModel
 import com.pp.library_common.pagingsource.MetroPagingSource
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.BaseResponse

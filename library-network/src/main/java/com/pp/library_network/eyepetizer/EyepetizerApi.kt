@@ -51,7 +51,8 @@ interface EyepetizerApi {
     suspend fun getCMSCommentList(
         @Query("resource_id") resource_id: Int?,
         @Query("resource_type") resource_type: String?,
-        @Query("sort_type") sort_type: String? = EyepetizerService2.SORT_TYPE_HOT
+        @Query("sort_type") sort_type: String? = EyepetizerService2.SORT_TYPE_HOT,
+        @Query("last_item_id") last_item_id: Int?
     ): BaseResponse<CommentsBean>
 
     /**

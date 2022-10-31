@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -51,8 +52,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/data_empty"
-            android:textColor="@color/color_text_selected"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            tools:textColor="@color/color_text_selected" />
 
     </LinearLayout>
 </layout>

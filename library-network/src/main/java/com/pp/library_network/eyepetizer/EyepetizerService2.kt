@@ -59,7 +59,7 @@ interface EyepetizerService2 {
         // url
         private const val BASE_URL_V1 = "http://api.eyepetizer.net/"
         const val URL_GET_PAGE = "/v1/card/page/get_page"
-        const val BASE_URL_TOPIC_HOT = "${URL_GET_PAGE}/v1/card/page/get_page?page_type=card"
+        const val BASE_URL_TOPIC_HOT = "${URL_GET_PAGE}?page_type=card"
 
         /*
           用户密码登录
@@ -69,8 +69,8 @@ interface EyepetizerService2 {
             "${URL_GET_PAGE}/v1/user/oauth/password_login?user_type=ugc"
 
         const val URL_FOLLOW = "${URL_GET_PAGE}?page_type=card&page_label=follow"
-        const val URL_RECOMMEND = "${URL_GET_PAGE}/v1/card/page/get_page?page_type=card&page_label=recommend"
-        const val URL_DAILY = "${URL_GET_PAGE}/v1/card/page/get_page?page_type=card&page_label=daily_issue"
+        const val URL_RECOMMEND = "${URL_GET_PAGE}?page_type=card&page_label=recommend"
+        const val URL_DAILY = "${URL_GET_PAGE}?page_type=card&page_label=daily_issue"
         const val URL_DISCOVERY = "${URL_GET_PAGE}?page_type=card&page_label=/discover_v2"
         const val URL_HOT_QUERIES = "/v1/recommend/search/get_hot_queries?"
 

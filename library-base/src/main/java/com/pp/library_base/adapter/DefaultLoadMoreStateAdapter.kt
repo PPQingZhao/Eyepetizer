@@ -3,12 +3,16 @@ package com.pp.library_base.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemDefaultLoadMoreBinding
 
-class DefaultLoadMoreStateAdapter(val retry: () -> Unit) :
+class DefaultLoadMoreStateAdapter(
+    @ColorRes val textColor: Int = com.pp.library_ui.R.color.color_text_selected,
+    val retry: () -> Unit
+) :
     LoadStateAdapter<BindingHolder<ItemDefaultLoadMoreBinding>>() {
     override fun onBindViewHolder(
         holder: BindingHolder<ItemDefaultLoadMoreBinding>,
@@ -28,6 +32,8 @@ class DefaultLoadMoreStateAdapter(val retry: () -> Unit) :
 
         holder.binding.loadDataEmpty.visibility =
             if (loadState is LoadState.NotLoading && loadState.endOfPaginationReached) View.VISIBLE else View.GONE
+
+        holder.binding.loadDataEmpty.setTextColor(holder.binding.root.resources.getColor(textColor))
     }
 
     override fun onCreateViewHolder(

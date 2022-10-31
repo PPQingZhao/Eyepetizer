@@ -30,15 +30,15 @@ class MetroFollowItemViewModel(
 
         GlobalScope.launch(Dispatchers.IO) {
 
-            val it = EyepetizerService2.api.getItemDetails(resourceId, resourceType)
+            val response = EyepetizerService2.api.getItemDetails(resourceId, resourceType)
 
 //                {"code":40001,"message":{"content":"当前作品不可见","action":"toast"},"result":{"status":false}}
-            if (it.code != EyepetizerService2.ErrorCode.SUCCESS) {
-                this@MetroFollowItemViewModel.content.set(it.message?.content)
+            if (response.code != EyepetizerService2.ErrorCode.SUCCESS) {
+                this@MetroFollowItemViewModel.content.set(response.message?.content)
                 cancel()
                 return@launch
             }
-            it.result.run {
+            response.result.run {
 
                 this@MetroFollowItemViewModel.icon.set(this.author.avatar.url)
                 this@MetroFollowItemViewModel.author.set(this.author.nick)
