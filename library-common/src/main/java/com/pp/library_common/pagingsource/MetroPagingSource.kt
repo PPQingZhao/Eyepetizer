@@ -1,5 +1,6 @@
 package com.pp.library_common.pagingsource
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -37,6 +38,7 @@ abstract class MetroPagingSource<Item : Any> :
                 }
             }
 
+            Log.e("TAG","data: ${valueList.size}")
             val preKey = null
             LoadResult.Page<String, Item>(
                 valueList,
@@ -44,6 +46,7 @@ abstract class MetroPagingSource<Item : Any> :
                 nextKey
             )
         } catch (e: Exception) {
+            e.printStackTrace()
             LoadResult.Error(e)
         }
     }

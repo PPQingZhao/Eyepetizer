@@ -192,13 +192,13 @@ data class PageDataBean(
 
                         data class CropArea(
                             @SerializedName("height")
-                            val height: Int,
+                            val height: Float,
                             @SerializedName("origin_height")
-                            val originHeight: Int,
+                            val originHeight: Float,
                             @SerializedName("origin_width")
-                            val originWidth: Int,
+                            val originWidth: Float,
                             @SerializedName("width")
-                            val width: Int,
+                            val width: Float,
                             @SerializedName("x")
                             val x: Float,
                             @SerializedName("y")
