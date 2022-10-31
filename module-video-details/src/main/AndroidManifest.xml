@@ -6,6 +6,7 @@
             android:name=".ui.VideoDetailsActivity"
             android:configChanges="keyboardHidden|locale|keyboard|screenSize|orientation"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/MediaTheme">
 
             <meta-data

@@ -18,8 +18,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="start"
-            app:tabIndicatorColor="@color/mediaTextColor"
             app:tabIndicator="@drawable/layer_tab_indicator_media"
+            app:tabIndicatorColor="@color/mediaTextColor"
             app:tabRippleColor="@android:color/transparent"
             app:tabTextColor="@color/mediaTextColor" />
 

@@ -72,4 +72,26 @@ interface EyepetizerApi {
         @Query("sort_type") sort_type: String? = EyepetizerService2.SORT_TYPE_HOT
     ): BaseResponse<CommentsBean>
 
+    /**
+     * topic_hot_feed
+     *
+     * /v1/card/page/get_page?page_type=card&page_label=topic_hot_feed-2310400673
+     */
+    @POST(value = EyepetizerService2.BASE_URL_TOPIC_HOT)
+    suspend fun getTopicHotPageData(@Query("page_label") page_label: String): BaseResponse<PageDataBean>
+
+    /**
+     * http://baobab.kaiyanapp.com/api/v3/lightTopics/internal/704?
+     * udid=074347ace25d41df856528937c4a3804eb4fea22&vc=7051610
+     * &vn=7.5.161
+     * &size=1200X2499
+     * &first_channel=huawei
+     * &last_channel=huawei
+     * &system_version_code=29
+     */
+    @GET
+    suspend fun getLightTopic()
+
+    @POST(value = EyepetizerService2.BASE_URL_PASSWORD_LOGIN)
+    suspend fun passwordLogin(@Field("username") username: String?,@Field("password") password:String?)
 }

@@ -15,7 +15,24 @@ import java.util.concurrent.TimeUnit
 object HttpUtil {
     private const val TAG = "OKHttp"
 
-    fun getEyeClient(): OkHttpClient {
+    fun getClient(): OkHttpClient {
+        val logger = HttpLoggingInterceptor.Logger { message ->
+            Log.e(TAG, "===> $message")
+        }
+
+        val logInterceptor = HttpLoggingInterceptor(logger)
+        logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val builder = OkHttpClient.Builder()
+            .addInterceptor(logInterceptor)
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS);
+
+        return builder.build();
+    }
+
+    fun getClient(vararg headers: Pair<String, String>): OkHttpClient {
         val logger = HttpLoggingInterceptor.Logger { message ->
             Log.e(TAG, "===> $message")
         }
@@ -26,39 +43,20 @@ object HttpUtil {
         val interceptor = object : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val original = chain.request()
-                val newRequest = original.newBuilder()
-                    .header("x-api-key", API_KEY)
-                    .header("X-THEFAIR-APPID", APP_ID)
-                    .header("X-THEFAIR-CID", CID)
-                    .header("X-THEFAIR-AUTH", AUTH)
-                    .header("X-THEFAIR-UA", UA)
-                    .header("User-Agent", UA)
+                val builder = original.newBuilder()
                     .method(original.method(), original.body())
-                    .build()
-                return chain.proceed(newRequest)
+
+                headers.onEach {
+                    builder.header(it.first, it.second)
+                }
+
+                return chain.proceed(builder.build())
             }
 
         }
 
         val builder = OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            .addInterceptor(logInterceptor)
-            .connectTimeout(20, TimeUnit.SECONDS)
-            .readTimeout(20, TimeUnit.SECONDS)
-            .writeTimeout(20, TimeUnit.SECONDS);
-
-        return builder.build();
-    }
-
-    fun getClient(): OkHttpClient {
-        val logger = HttpLoggingInterceptor.Logger { message ->
-            Log.e(TAG, "===> $message")
-        }
-
-        val logInterceptor = HttpLoggingInterceptor(logger)
-        logInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val builder = OkHttpClient.Builder()
             .addInterceptor(logInterceptor)
             .connectTimeout(20, TimeUnit.SECONDS)
             .readTimeout(20, TimeUnit.SECONDS)

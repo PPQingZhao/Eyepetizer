@@ -36,14 +36,19 @@ class IntroductionViewModel(val details: ItemDetailsBean?, app: Application) :
     }
 
 
-    fun getRelatedRecommend() {
-        GlobalScope.launch(Dispatchers.IO) {
-            EyepetizerService2.api
-                .getRelatedRecommend(details?.resourceId?.toInt(), details?.resourceType)
-                .let {
-                    Log.e("TAG", "size: ${it.result.itemList.size}")
-                }
+    suspend fun getRelatedRecommend() {
+            details?.run {
+                EyepetizerService2.api
+                    .getRelatedRecommend(
+                        resourceId?.toInt(),
+                        resourceType
+                    )
+                    .let {
+                        Log.e("TAG", "getRelatedRecommend size: ${it.result.itemList.size}")
+                    }
 
-        }
+
+            }
+
     }
 }

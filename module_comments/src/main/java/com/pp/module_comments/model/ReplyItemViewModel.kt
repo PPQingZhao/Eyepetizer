@@ -14,7 +14,7 @@ class ReplyItemViewModel(reply: CommentsBean.Item.Reply, @ColorInt val color: In
                 this@ReplyItemViewModel.icon.set(user.avatar)
                 this@ReplyItemViewModel.nick.set(user.nick)
                 this@ReplyItemViewModel.favorite.set(countSummary.favorite.count.toString())
-                var commentResult: CharSequence
+                val commentResult: CharSequence
                 if (atUser.uid > 0) {
                     // 回复类型
                     commentResult =

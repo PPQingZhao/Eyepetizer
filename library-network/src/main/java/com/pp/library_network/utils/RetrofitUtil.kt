@@ -16,15 +16,18 @@ object RetrofitUtil {
         return builder.build()
     }
 
-    fun createEyeRetrofit(baseUrl: String): Retrofit {
+    fun createEyeRetrofit(baseUrl: String, vararg headers: Pair<String, String>): Retrofit {
 
         val gson = Gson().newBuilder()
-            .registerTypeHierarchyAdapter(PageDataBean.Card.CardData.Body.Metro.TrackingParams::class.java, TrackingParamsAdapter())
+            .registerTypeHierarchyAdapter(
+                PageDataBean.Card.CardData.Body.Metro.TrackingParams::class.java,
+                TrackingParamsAdapter()
+            )
             .create()
         val gsonConverter = GsonConverterFactory.create(gson)
 
         val builder = Retrofit.Builder()
-            .client(HttpUtil.getEyeClient())
+            .client(HttpUtil.getClient(*headers))
             .baseUrl(baseUrl)
             .addConverterFactory(gsonConverter)
 //            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

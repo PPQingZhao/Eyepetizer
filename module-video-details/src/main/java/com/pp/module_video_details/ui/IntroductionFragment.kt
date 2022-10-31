@@ -3,10 +3,13 @@ package com.pp.module_video_details.ui
 import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
 import com.pp.module_video_details.databinding.FragmentIntroductionBinding
 import com.pp.mvvm.LifecycleFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class IntroductionFragment(details: ItemDetailsBean?) :
     LifecycleFragment<FragmentIntroductionBinding, IntroductionViewModel>() {
@@ -44,7 +47,9 @@ class IntroductionFragment(details: ItemDetailsBean?) :
     }
 
     override fun onFirstResume() {
-        mViewModel.getRelatedRecommend()
+        lifecycleScope.launch(Dispatchers.IO) {
+            mViewModel.getRelatedRecommend()
+        }
     }
 
     private fun initRecyclerView() {
