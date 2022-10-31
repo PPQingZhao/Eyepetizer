@@ -50,6 +50,7 @@ dependencies {
         implementation(projects.moduleCommunity)
         implementation(projects.moduleVideoDetails)
         implementation(projects.moduleComments)
+        implementation(projects.moduleSearch)
     }
 //    print(libs.plugins.android.module.get().pluginId)
 

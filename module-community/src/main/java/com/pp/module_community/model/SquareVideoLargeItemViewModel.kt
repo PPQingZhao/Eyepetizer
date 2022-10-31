@@ -30,7 +30,6 @@ class SquareVideoLargeItemViewModel(val metro: PageDataBean.Card.CardData.Body.M
 
         metroData?.let {
             cover.set(it.cover.url)
-            Log.e("hhh", "cover.url: ${it.cover.url}")
             author.set(it.author?.nick)
             icon.set(it.author?.avatar?.url)
             content.set(it.title)
