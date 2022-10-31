@@ -51,6 +51,6 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_community.model.BannerListViewModel" />
+            type="com.pp.library_ui.model.BannerListItemViewModel" />
     </data>
 </layout>

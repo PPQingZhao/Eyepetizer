@@ -24,6 +24,6 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_community.model.BannerContentItemViewModel" />
+            type="com.pp.library_ui.model.BannerContentItemViewModel" />
     </data>
 </layout>
