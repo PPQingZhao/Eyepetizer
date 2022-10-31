@@ -1,11 +1,10 @@
 package com.pp.library_ui.widget.banner
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseBannerAdapter<T, VH: RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class BaseBannerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
 
     protected var mList: MutableList<T> = mutableListOf()
     var isCanLoop = false

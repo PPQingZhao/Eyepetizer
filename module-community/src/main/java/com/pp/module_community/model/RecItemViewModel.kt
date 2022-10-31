@@ -12,7 +12,7 @@ import com.pp.module_community.api.bean.CommunityRecBean
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RecItemViewModel(val item: CommunityRecBean.Item?,val context: Context) :
+class RecItemViewModel(val item: CommunityRecBean.Item?, val context: Context) :
     FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
     init {

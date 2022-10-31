@@ -51,10 +51,9 @@ interface EyepetizerService2 {
             "${URL_GET_PAGE}/v1/user/oauth/password_login?user_type=ugc"
 
         const val URL_FOLLOW = "${URL_GET_PAGE}?page_type=card&page_label=follow"
-        const val URL_RECOMMEND =
-            "${URL_GET_PAGE}/v1/card/page/get_page?page_type=card&page_label=recommend"
-        const val URL_DAILY =
-            "${URL_GET_PAGE}/v1/card/page/get_page?page_type=card&page_label=daily_issue"
+        const val URL_RECOMMEND = "${URL_GET_PAGE}/v1/card/page/get_page?page_type=card&page_label=recommend"
+        const val URL_DAILY = "${URL_GET_PAGE}/v1/card/page/get_page?page_type=card&page_label=daily_issue"
+        const val URL_DISCOVERY = "${URL_GET_PAGE}?page_type=card&page_label=/discover_v2"
 
         /*
            val newRequest = original.newBuilder()
@@ -113,69 +112,6 @@ interface EyepetizerService2 {
             // preview_url
             // cover
             // author  uid   nick  followed type  avatar.url
-            /**
-             * "metro_data": {
-            "video_id": "314282",
-            "title": "极简风动画，装神弄鬼的「皇家牧师」",
-            "duration": {
-            "value": 110,
-            "text": "01:50"
-            },
-            "play_ctrl": {
-            "autoplay": true,
-            "autoplay_times": 0,
-            "need_wifi": true,
-            "need_cellular": true,
-            "need_wifi_preload": false
-            },
-            "play_url": "http://static.thefair.net.cn/eyepetizer/pgc_video/video_summary/314282.mp4",
-            "preview_url": "http://static.thefair.net.cn/eyepetizer/pgc_video/video_summary/314282.mp4",
-            "recommend_level": "featured",
-            "tags": [
-            {
-            "id": 0,
-            "title": "# 动画",
-            "link": ""
-            }
-            ],
-            "cover": {
-            "url": "http://img.kaiyanapp.com/cover/20220928/6d66ead2bcee6f0181e0a8d06cc917dd.jpg?imageMogr2/auto-orient/thumbnail/1242x/interlace/1/quality/80/format/webp",
-            "img_info": {
-            "width": 1242,
-            "height": 720,
-            "scale": 1.73
-            }
-            },
-            "author": {
-            "uid": 301178685,
-            "nick": "全球动画精选",
-            "description": "我们精选全球最好看的动画短片，有趣的人永远不缺童心。",
-            "avatar": {
-            "url": "http://img.kaiyanapp.com/482c741c06644f5566c7218096dbaf26.jpeg?imageMogr2/auto-orient/thumbnail/360x/interlace/1/quality/80/format/webp",
-            "img_info": {
-            "width": 300,
-            "height": 300,
-            "scale": 1
-            },
-            "shape": "circle"
-            },
-            "link": "eyepetizer://pgc/detail/301178685/?title\u003d%E5%85%A8%E7%90%83%E5%8A%A8%E7%94%BB%E7%B2%BE%E9%80%89\u0026userType\u003dPGC\u0026tabIndex\u003d1",
-            "type": "pgc",
-            "followed": false
-            },
-            "resource_id": 314282,
-            "resource_type": "pgc_video",
-            "hot_value": 0,
-            "crop_area": {
-            "x": 0,
-            "y": 0,
-            "width": 1,
-            "height": 1,
-            "origin_width": 1280,
-            "origin_height": 720
-            }
-            },
-             */
         }
 
         class ResourceType {
