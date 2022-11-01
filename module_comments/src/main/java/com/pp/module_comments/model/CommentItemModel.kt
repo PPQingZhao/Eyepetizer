@@ -10,20 +10,6 @@ open class CommentItemModel(parent: TreeNode? = null, expand: Boolean = false) :
     val favorite = ObservableField<String>()
     val comment = ObservableField<CharSequence>()
 
-
-    override fun equals(other: Any?): Boolean {
-        return if (this === other) {
-            true
-        } else if (other == null || !(other is CommentItemModel)) {
-            false
-        } else {
-            this.icon.get() == other.icon.get()
-                    && this.nick.get() == other.nick.get()
-                    && this.favorite.get() == other.favorite.get()
-                    && this.comment.get() == other.comment.get()
-        }
-    }
-
     override fun toString(): String {
         return """
             ----------------------------------------------

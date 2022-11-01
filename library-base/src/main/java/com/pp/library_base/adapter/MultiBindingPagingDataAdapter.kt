@@ -1,5 +1,6 @@
 package com.pp.library_base.adapter
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -45,7 +46,7 @@ open class MultiBindingPagingDataAdapter<Data : Any>(
     }
 
     override fun onBindViewHolder(holder: MultiItemViewHolder<Data>, position: Int) {
-//        Log.e("PagingDataAdapter","onBindViewHolder pos: ${position}  item: ${getItem(position)}")
+        Log.e("PagingDataAdapter","onBindViewHolder pos: ${position}  item: ${getItem(position)}")
         holder.viewBindingItem.adapterBindingHelper.bind(holder, position, getItem(position))
     }
 

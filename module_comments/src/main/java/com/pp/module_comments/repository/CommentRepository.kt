@@ -45,7 +45,7 @@ object CommentRepository {
 
         @ExperimentalPagingApi
         override fun getRefreshKey(state: PagingState<Param, TreeNode>): Param {
-            Log.e("TAG", "${startParam.resourceId}")
+//            Log.e("TAG", "${startParam.resourceId}")
             return Param(
                 startParam.resourceId,
                 startParam.resourceType,

@@ -36,8 +36,5 @@ open class TreeNode(var parent: TreeNode? = null, var expand: Boolean = true) {
         }
     }
 
-    override fun equals(other: Any?): Boolean {
-        return super.equals(other)
-    }
 
 }

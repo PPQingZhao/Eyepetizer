@@ -1,7 +1,9 @@
 package com.pp.module_comments.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
@@ -70,13 +72,27 @@ class CommentsFragment :
                     } else if (oldItem is ReplyItemViewModel && newItem is ReplyItemViewModel) {
                         oldItem.replyItem?.commentId == newItem.replyItem?.commentId
                     } else {
-                        false
+                        oldItem == newItem
                     }
+//                Log.e("TAG", "${result}")
                 return result
             }
 
+            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: TreeNode, newItem: TreeNode): Boolean {
-                return oldItem == newItem
+                val result =
+                    if (oldItem is CommentItemViewModel && newItem is CommentItemViewModel) {
+//                        Log.e("TAG", "comment oldItem: ${oldItem} newItem: ${newItem} ")
+                        oldItem.commentItem?.commentId == newItem.commentItem?.commentId
+                    } else if (oldItem is ReplyItemViewModel && newItem is ReplyItemViewModel) {
+//                        Log.e("TAG", "reply oldItem: ${oldItem} newItem: ${newItem} ")
+                        oldItem.replyItem?.commentId == newItem.replyItem?.commentId
+                    } else {
+                        oldItem == newItem
+                    }
+                Log.e("TAG", "content: ${result}")
+
+                return result
             }
         })
 
@@ -134,7 +150,6 @@ class CommentsFragment :
         // 评论排序发生改变,重新加载评论数据
         mViewModel.sort_type.observe(this) { type ->
             linearLayoutManager.scrollToPositionWithOffset(0, 0)
-            mBinding.commentRefresh.setRefreshing(true)
             treeAdapter.refresh()
         }
     }
