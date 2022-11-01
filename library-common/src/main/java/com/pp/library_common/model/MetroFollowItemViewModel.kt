@@ -15,7 +15,7 @@ import kotlinx.coroutines.*
 
 
 @OptIn(DelicateCoroutinesApi::class)
-class MetroFollowItemViewModel(
+open class MetroFollowItemViewModel(
     val metro: PageDataBean.Card.CardData.Body.Metro?,
 ) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 

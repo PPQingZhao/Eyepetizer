@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
 import com.pp.library_common.model.ItemModel
+import com.pp.library_common.model.MetroBannerItemViewModel
 import com.pp.library_common.model.MetroLargeVideoCardItemViewModel
 import com.pp.library_common.model.MetroSmallVideoCardItemViewModel
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.PageDataBean.Card.CardData.Body.Metro
 import com.pp.library_ui.adapter.DefaultViewBindingItem
+import com.pp.library_ui.databinding.ItemBannerBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.library_ui.databinding.ItemVideoCardBinding
 import com.pp.library_ui.databinding.ItemVideoSmallCardBinding
@@ -84,12 +86,10 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                 type_small_slide_image,
                 { it?.type == EyepetizerService2.CardType.SET_BANNER_LIST },
                 // TODO: 待实现 -> MetroSlideImageWithFooterViewModel
-                { ItemToBeDevelopedBinding.inflate(layoutInflater, it, false) },
+                { ItemBannerBinding.inflate(layoutInflater, it, false) },
                 { binding, item, cacheItemViewModel ->
-                    """
-                    set banner list:
-                    size: ${item?.data?.size}
-                """.trimIndent()
+                    if (cacheItemViewModel is MetroBannerItemViewModel) cacheItemViewModel
+                    else MetroBannerItemViewModel(metroList = item?.data)
                 })
         )
         adapter
@@ -111,7 +111,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
                  Log.e("TAG","${it.result.cardList.size}")
              }*/
-            mViewModel.getData().collect {
+            mViewModel.getPageData().collect {
                 multiAdapter.submitData(it)
             }
         }

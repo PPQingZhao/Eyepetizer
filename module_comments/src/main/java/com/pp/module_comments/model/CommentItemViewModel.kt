@@ -29,4 +29,5 @@ class CommentItemViewModel(comment: CommentsBean.Item, @ColorInt val color: Int)
         this.commentItem = comment
     }
 
+
 }

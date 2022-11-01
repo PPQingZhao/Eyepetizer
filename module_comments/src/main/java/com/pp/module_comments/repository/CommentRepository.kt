@@ -1,9 +1,7 @@
 package com.pp.module_comments.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.PagingSource
+import android.util.Log
+import androidx.paging.*
 import com.pp.library_base.adapter.TreeNodeAdapter
 import com.pp.library_common.app.App
 import com.pp.library_network.eyepetizer.EyepetizerService2
@@ -18,17 +16,18 @@ object CommentRepository {
     fun getPagingData(
         resourceId: Int?,
         resourceType: String?,
-        sort_type: String
+        sort_type: String,
+        refresh: () -> String?
     ): Flow<PagingData<TreeNode>> {
         return Pager(
-            config = PagingConfig(15),
+            config = PagingConfig(15, prefetchDistance = 2, initialLoadSize = 15),
             pagingSourceFactory = {
                 FollowPagingSource(
                     Param(
                         resourceId,
                         resourceType,
                         sort_type
-                    )
+                    ), refresh
                 )
             }).flow
     }
@@ -40,8 +39,21 @@ object CommentRepository {
         val last_item_id: Int? = null
     )
 
-    private class FollowPagingSource(val startParam: Param) : PagingSource<Param, TreeNode>() {
+    private class FollowPagingSource(val startParam: Param, val refresh: () -> String?) :
+        PagingSource<Param, TreeNode>() {
         val NO_DATA = -1
+
+        @ExperimentalPagingApi
+        override fun getRefreshKey(state: PagingState<Param, TreeNode>): Param {
+            Log.e("TAG", "${startParam.resourceId}")
+            return Param(
+                startParam.resourceId,
+                startParam.resourceType,
+                refresh.invoke(),
+                startParam.last_item_id
+            )
+        }
+
         override suspend fun load(params: LoadParams<Param>): LoadResult<Param, TreeNode> {
             return try {
                 val key = params.key ?: startParam
@@ -78,10 +90,14 @@ object CommentRepository {
                     valueList.addAll(TreeNodeAdapter.expandNode(it))
                 }
 
-               /* Log.e(
-                    "TAG",
-                    "lastItemId: ${commentsBean.lastItemId} pageCount: ${commentsBean.pageCount} itemCount: ${commentsBean.itemCount} itemPerPage: ${commentsBean.itemPerPage}"
-                )*/
+                /* valueList.onEach {
+                     Log.e("TAG",it.toString())
+                 }*/
+
+                /* Log.e(
+                     "TAG",
+                     "lastItemId: ${commentsBean.lastItemId} pageCount: ${commentsBean.pageCount} itemCount: ${commentsBean.itemCount} itemPerPage: ${commentsBean.itemPerPage}"
+                 )*/
                 val last_item_id = if (commentsBean.lastItemId > (startParam.last_item_id ?: 0))
                     commentsBean.lastItemId else NO_DATA
 

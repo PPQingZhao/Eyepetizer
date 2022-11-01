@@ -29,7 +29,7 @@ class CommentsViewModel(app: Application) : LifecycleViewModel(app) {
         resourceType: String?,
         sort_type: String
     ): Flow<PagingData<TreeNode>> {
-        return CommentRepository.getPagingData(resourceId, resourceType, sort_type)
+        return CommentRepository.getPagingData(resourceId, resourceType, sort_type,{this.sort_type.value})
     }
 
 
@@ -50,5 +50,6 @@ class CommentsViewModel(app: Application) : LifecycleViewModel(app) {
             comment_sort_type.set(R.string.sort_type_time)
         }
     }
+
 
 }

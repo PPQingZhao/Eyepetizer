@@ -1,10 +1,9 @@
 package com.pp.module_comments.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -12,10 +11,11 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.TreeNodeAdapter
+import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_router_service.services.RouterPath
+import com.pp.library_ui.R
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.adapter.TreeNode
-import com.pp.library_ui.R
 import com.pp.module_comments.databinding.FragmentCommentsBinding
 import com.pp.module_comments.databinding.ItemCommentBindingImpl
 import com.pp.module_comments.databinding.ItemReplyBindingImpl
@@ -23,6 +23,7 @@ import com.pp.module_comments.model.CommentItemViewModel
 import com.pp.module_comments.model.ReplyItemViewModel
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Comments.fragment_comments)
@@ -42,10 +43,6 @@ class CommentsFragment :
     @Autowired(name = "resourceType")
     var resourceType: String? = ""
 
-    override fun getModelFactory(): ViewModelProvider.Factory {
-        return super.getModelFactory()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         ARouter.getInstance().inject(this)
@@ -54,19 +51,36 @@ class CommentsFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRecyclerView()
+        initRefreshLayout()
+    }
+
+    private fun initRefreshLayout() {
+        mBinding.commentRefresh.setColorSchemeResources(R.color.colorAccent)
+        mBinding.commentRefresh.setOnRefreshListener {
+            treeAdapter.refresh()
+        }
     }
 
     private val treeAdapter by lazy {
         val adapter = TreeNodeAdapter(object : DiffUtil.ItemCallback<TreeNode>() {
             override fun areItemsTheSame(oldItem: TreeNode, newItem: TreeNode): Boolean {
-                return oldItem == newItem
+                val result =
+                    if (oldItem is CommentItemViewModel && newItem is CommentItemViewModel) {
+                        oldItem.commentItem?.commentId == newItem.commentItem?.commentId
+                    } else if (oldItem is ReplyItemViewModel && newItem is ReplyItemViewModel) {
+                        oldItem.replyItem?.commentId == newItem.replyItem?.commentId
+                    } else {
+                        false
+                    }
+                return result
             }
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: TreeNode, newItem: TreeNode): Boolean {
                 return oldItem == newItem
             }
         })
+
+
         val item_type_comment = 0
         val item_type_reply = item_type_comment + 1
         // comment
@@ -75,9 +89,7 @@ class CommentsFragment :
                 item_type_comment,
                 { it != null },
                 { parent -> ItemCommentBindingImpl.inflate(layoutInflater, parent, false) },
-                { binding, item, cacheItemViewModel ->
-                    if (cacheItemViewModel is CommentItemViewModel) cacheItemViewModel else item
-                })
+                { binding, item, cacheItemViewModel -> item })
         )
 
         // reply
@@ -86,9 +98,7 @@ class CommentsFragment :
                 item_type_reply,
                 { it != null },
                 { parent -> ItemReplyBindingImpl.inflate(layoutInflater, parent, false) },
-                { binding, item, cacheItemViewModel ->
-                    if (cacheItemViewModel is ReplyItemViewModel) cacheItemViewModel else item
-                })
+                { binding, item, cacheItemViewModel -> item })
         )
 
         adapter
@@ -106,14 +116,26 @@ class CommentsFragment :
     }
 
     override fun onFirstResume() {
+        lifecycleScope.launch {
+            mViewModel.getPageData(resourceId, resourceType, EyepetizerService2.SORT_TYPE_HOT)
+                .collect {
+                    treeAdapter.submitData(it)
+                }
+        }
+
+        lifecycleScope.launch {
+
+            treeAdapter.loadStateFlow.collectLatest {
+                mBinding.commentRefresh.isRefreshing = it.refresh is LoadState.Loading
+            }
+
+        }
+
         // 评论排序发生改变,重新加载评论数据
         mViewModel.sort_type.observe(this) { type ->
             linearLayoutManager.scrollToPositionWithOffset(0, 0)
-            lifecycleScope.launch {
-                mViewModel.getPageData(resourceId, resourceType, type).collect {
-                    treeAdapter.submitData(it)
-                }
-            }
+            mBinding.commentRefresh.setRefreshing(true)
+            treeAdapter.refresh()
         }
     }
 }

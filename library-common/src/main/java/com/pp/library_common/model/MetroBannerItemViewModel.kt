@@ -11,14 +11,14 @@ import com.pp.library_ui.model.BannerListItemViewModel
 import com.pp.library_ui.widget.banner.BaseBannerAdapter
 
 open class MetroBannerItemViewModel(
-    val card: PageDataBean.Card,
-    val metroList: List<PageDataBean.Card.CardData.Body.Metro>
+    val card: PageDataBean.Card? = null,
+    val metroList: List<PageDataBean.Card.CardData.Body.Metro>?
 ) : BannerListItemViewModel<BannerContentItemViewModel, MetroBannerItemViewModel.BannerViewHolder<ItemBannerContentBinding>>() {
     val itemList = mutableListOf<BannerContentItemViewModel>()
 
     init {
 
-        metroList.forEach { metro ->
+        metroList?.forEach { metro ->
             itemList.add(BannerContentItemViewModel(metro.metroData.cover.url))
         }
 
