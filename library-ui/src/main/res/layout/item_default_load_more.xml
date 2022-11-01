@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="textColor"
+            type="Integer" />
     </data>
 
     <LinearLayout
@@ -27,12 +30,13 @@
                 android:padding="5dp" />
 
             <TextView
+                android:id="@+id/tv_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/padding_normal"
                 android:text="@string/loading"
-                android:textColor="@color/color_text_selected"
+                android:textColor="@{textColor}"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -52,6 +56,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/data_empty"
+            android:textColor="@{textColor}"
             android:textSize="13sp"
             tools:textColor="@color/color_text_selected" />
 

@@ -3,7 +3,6 @@ package com.pp.module_comments.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
+import com.pp.library_base.adapter.CustomLoadMoreStateAdapter
 import com.pp.library_base.adapter.TreeNodeAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_router_service.services.RouterPath
@@ -59,6 +58,7 @@ class CommentsFragment :
     private fun initRefreshLayout() {
         mBinding.commentRefresh.setColorSchemeResources(R.color.colorAccent)
         mBinding.commentRefresh.setOnRefreshListener {
+//            stateAdapter.loadState =LoadState.Loading
             treeAdapter.refresh()
         }
     }
@@ -90,8 +90,7 @@ class CommentsFragment :
                     } else {
                         oldItem == newItem
                     }
-                Log.e("TAG", "content: ${result}")
-
+//                Log.e("TAG", "content: ${result}")
                 return result
             }
         })
@@ -120,15 +119,15 @@ class CommentsFragment :
         adapter
     }
 
-    val linearLayoutManager = LinearLayoutManager(context)
+    private val linearLayoutManager = LinearLayoutManager(context)
     private fun initRecyclerView() {
+
         // hot
         mBinding.commentsHotRecyclerview.layoutManager = linearLayoutManager
         mBinding.commentsHotRecyclerview.adapter =
-            treeAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(R.color.mediaTextColor) {
+            treeAdapter.withLoadStateFooter(CustomLoadMoreStateAdapter(R.color.mediaTextColor) {
                 treeAdapter.retry()
             })
-
     }
 
     override fun onFirstResume() {
@@ -140,7 +139,6 @@ class CommentsFragment :
         }
 
         lifecycleScope.launch {
-
             treeAdapter.loadStateFlow.collectLatest {
                 mBinding.commentRefresh.isRefreshing = it.refresh is LoadState.Loading
             }

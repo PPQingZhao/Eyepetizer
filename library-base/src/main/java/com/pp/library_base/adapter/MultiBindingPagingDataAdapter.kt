@@ -3,6 +3,7 @@ package com.pp.library_base.adapter
 import android.util.Log
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_ui.adapter.MultiItemViewHolder
 import com.pp.library_ui.adapter.ViewBindingItem
@@ -50,5 +51,13 @@ open class MultiBindingPagingDataAdapter<Data : Any>(
         holder.viewBindingItem.adapterBindingHelper.bind(holder, position, getItem(position))
     }
 
+    fun withLoadStateFooter(
+        footer: SelfLoadStateAdapter<*>
+    ): ConcatAdapter {
+        addLoadStateListener { loadStates ->
+            footer.loadStates = loadStates
+        }
+        return ConcatAdapter(this, footer)
+    }
 
 }
