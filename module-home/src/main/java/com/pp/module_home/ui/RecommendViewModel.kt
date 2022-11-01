@@ -7,7 +7,7 @@ import com.pp.mvvm.LifecycleViewModel
 import kotlinx.coroutines.flow.Flow
 
 class RecommendViewModel(app: Application) : LifecycleViewModel(app) {
-   fun getData(): Flow<PagingData<Any>> {
+   fun getPageData(): Flow<PagingData<Any>> {
       return  RecommendRepository.getPagingData()
     }
 

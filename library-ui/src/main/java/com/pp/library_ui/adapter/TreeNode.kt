@@ -35,4 +35,9 @@ open class TreeNode(var parent: TreeNode? = null, var expand: Boolean = true) {
             childNodes.remove(node)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+    }
+
 }

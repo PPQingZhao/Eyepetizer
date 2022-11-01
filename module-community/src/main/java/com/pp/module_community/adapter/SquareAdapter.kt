@@ -22,7 +22,7 @@ class SquareAdapter :
                 oldItem: MultiItemEntity, newItem: MultiItemEntity
             ): Boolean {
                 return if (oldItem is SquareBannerListViewModel && newItem is SquareBannerListViewModel) {
-                    oldItem.card.cardUniqueId == newItem.card.cardUniqueId
+                    oldItem.card?.cardUniqueId == newItem.card?.cardUniqueId
                 } else if (oldItem is SquareVideoSmallItemViewModel && newItem is SquareVideoSmallItemViewModel) {
                     oldItem.metro?.metroId == newItem.metro?.metroId
                 } else if (oldItem is SquareVideoLargeItemViewModel && newItem is SquareVideoLargeItemViewModel) {

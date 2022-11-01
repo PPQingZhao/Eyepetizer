@@ -37,7 +37,7 @@ open class MultiBindingPagingDataAdapter<Data : Any>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultiItemViewHolder<Data> {
         val viewBindingItem = mViewTypeAdapterMap[viewType]!!
-
+//        Log.e("PagingDataAdapter","onCreateViewHolder viewType: ${viewType}")
         return MultiItemViewHolder(
             viewBindingItem,
             viewBindingItem.adapterBindingHelper.createBinding(parent, viewType)
@@ -45,6 +45,7 @@ open class MultiBindingPagingDataAdapter<Data : Any>(
     }
 
     override fun onBindViewHolder(holder: MultiItemViewHolder<Data>, position: Int) {
+//        Log.e("PagingDataAdapter","onBindViewHolder pos: ${position}  item: ${getItem(position)}")
         holder.viewBindingItem.adapterBindingHelper.bind(holder, position, getItem(position))
     }
 

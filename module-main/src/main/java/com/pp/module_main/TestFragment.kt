@@ -1,14 +1,11 @@
 package com.pp.module_main
 
-import android.util.Log
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import com.pp.module_main.databinding.FragmentTestBinding
 import com.pp.mvvm.LifecycleFragment
 import com.pp.mvvm.LifecycleViewModel
 
-class TestFragment : LifecycleFragment<ViewDataBinding, LifecycleViewModel>() {
-    override val mBinding: ViewDataBinding by lazy {
+class TestFragment : LifecycleFragment<FragmentTestBinding, LifecycleViewModel>() {
+    override val mBinding: FragmentTestBinding by lazy {
         FragmentTestBinding.inflate(layoutInflater)
     }
 
@@ -17,6 +14,8 @@ class TestFragment : LifecycleFragment<ViewDataBinding, LifecycleViewModel>() {
     }
 
     override fun onFirstResume() {
-        Log.e("TAG", "first resume")
+
+        mBinding.text = "test"
+
     }
 }

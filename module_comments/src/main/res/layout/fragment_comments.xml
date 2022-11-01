@@ -41,17 +41,24 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/sort_type_hot" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/comments_hot_recyclerview"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/comment_refresh"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_normal"
-            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:listitem="@layout/item_comment" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments_hot_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+
+                tools:listitem="@layout/item_comment" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
