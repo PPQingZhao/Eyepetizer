@@ -7,16 +7,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_base.adapter.CustomLoadMoreStateAdapter
+import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.TreeNodeAdapter
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.R
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.adapter.TreeNode
+import com.pp.library_ui.utils.DividerDecoration
 import com.pp.module_comments.databinding.FragmentCommentsBinding
 import com.pp.module_comments.databinding.ItemCommentBindingImpl
 import com.pp.module_comments.databinding.ItemReplyBindingImpl
@@ -56,45 +58,44 @@ class CommentsFragment :
     }
 
     private fun initRefreshLayout() {
+        // todo:暂时禁用 待解决bug：下拉过程中一直触发recyclerview onBindViewHolder
+        mBinding.commentRefresh.isEnabled = false
         mBinding.commentRefresh.setColorSchemeResources(R.color.colorAccent)
         mBinding.commentRefresh.setOnRefreshListener {
-//            stateAdapter.loadState =LoadState.Loading
             treeAdapter.refresh()
         }
     }
 
     private val treeAdapter by lazy {
-        val adapter = TreeNodeAdapter(object : DiffUtil.ItemCallback<TreeNode>() {
-            override fun areItemsTheSame(oldItem: TreeNode, newItem: TreeNode): Boolean {
-                val result =
-                    if (oldItem is CommentItemViewModel && newItem is CommentItemViewModel) {
-                        oldItem.commentItem?.commentId == newItem.commentItem?.commentId
-                    } else if (oldItem is ReplyItemViewModel && newItem is ReplyItemViewModel) {
-                        oldItem.replyItem?.commentId == newItem.replyItem?.commentId
-                    } else {
-                        oldItem == newItem
-                    }
-//                Log.e("TAG", "${result}")
-                return result
-            }
+        val adapter =
+            TreeNodeAdapter(object : DiffUtil.ItemCallback<TreeNode>() {
+                override fun areItemsTheSame(oldItem: TreeNode, newItem: TreeNode): Boolean {
+                    val result =
+                        if (oldItem is CommentItemViewModel && newItem is CommentItemViewModel) {
+                            oldItem.commentItem?.commentId == newItem.commentItem?.commentId
+                        } else if (oldItem is ReplyItemViewModel && newItem is ReplyItemViewModel) {
+                            oldItem.replyItem?.commentId == newItem.replyItem?.commentId
+                        } else {
+                            oldItem == newItem
+                        }
+//                    Log.e("TAG", "${result}")
+                    return result
+                }
 
-            @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: TreeNode, newItem: TreeNode): Boolean {
-                val result =
-                    if (oldItem is CommentItemViewModel && newItem is CommentItemViewModel) {
-//                        Log.e("TAG", "comment oldItem: ${oldItem} newItem: ${newItem} ")
-                        oldItem.commentItem?.commentId == newItem.commentItem?.commentId
-                    } else if (oldItem is ReplyItemViewModel && newItem is ReplyItemViewModel) {
-//                        Log.e("TAG", "reply oldItem: ${oldItem} newItem: ${newItem} ")
-                        oldItem.replyItem?.commentId == newItem.replyItem?.commentId
-                    } else {
-                        oldItem == newItem
-                    }
-//                Log.e("TAG", "content: ${result}")
-                return result
-            }
-        })
-
+                @SuppressLint("DiffUtilEquals")
+                override fun areContentsTheSame(oldItem: TreeNode, newItem: TreeNode): Boolean {
+                    val result =
+                        if (oldItem is CommentItemViewModel && newItem is CommentItemViewModel) {
+                            oldItem.commentItem?.commentId == newItem.commentItem?.commentId
+                        } else if (oldItem is ReplyItemViewModel && newItem is ReplyItemViewModel) {
+                            oldItem.replyItem?.commentId == newItem.replyItem?.commentId
+                        } else {
+                            oldItem == newItem
+                        }
+//                    Log.e("TAG", "content: ${result}")
+                    return result
+                }
+            })
 
         val item_type_comment = 0
         val item_type_reply = item_type_comment + 1
@@ -122,10 +123,47 @@ class CommentsFragment :
     private val linearLayoutManager = LinearLayoutManager(context)
     private fun initRecyclerView() {
 
-        // hot
         mBinding.commentsHotRecyclerview.layoutManager = linearLayoutManager
+        mBinding.commentsHotRecyclerview.addItemDecoration(
+            DividerDecoration(
+                1,
+                resources.getColor(R.color.mediaTextColorSecondary),
+                RecyclerView.VERTICAL
+            ) { viewHolder, type ->
+                if (viewHolder == null) {
+                    return@DividerDecoration false
+                }
+
+                // 加载更多
+                if (viewHolder.adapterPosition >= treeAdapter.itemCount) {
+                    return@DividerDecoration false
+                }
+
+                // 只绘制 bottom divider
+                if (type != DividerDecoration.DIVIDER_BOTTOM) {
+                    return@DividerDecoration false
+                }
+
+                // 绘制 comment item bottom divider
+                val itemData = treeAdapter.getItemData(viewHolder.adapterPosition)
+                when (itemData) {
+                    is CommentItemViewModel -> {
+                        itemData.getChildNodes().isEmpty()
+                    }
+
+                    is ReplyItemViewModel -> {
+                        itemData.parent?.run {
+                            getNode(getChildNodes().size - 1) === itemData
+                        } ?: false
+                    }
+                    else -> {
+                        false
+                    }
+                }
+            }
+        )
         mBinding.commentsHotRecyclerview.adapter =
-            treeAdapter.withLoadStateFooter(CustomLoadMoreStateAdapter(R.color.mediaTextColor) {
+            treeAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(R.color.mediaTextColor) {
                 treeAdapter.retry()
             })
     }

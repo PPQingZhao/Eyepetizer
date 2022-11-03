@@ -11,7 +11,7 @@ import com.pp.library_ui.databinding.ItemDefaultLoadMoreBinding
 
 class CustomLoadMoreStateAdapter(
     @ColorRes val textColor: Int = com.pp.library_ui.R.color.color_text_selected,
-    val retry: () -> Unit
+    val onRetry: () -> Unit
 ) :
     SelfLoadStateAdapter<BindingHolder<ItemDefaultLoadMoreBinding>>() {
     override fun onBindViewHolder(
@@ -22,19 +22,19 @@ class CustomLoadMoreStateAdapter(
 
         holder.binding.textColor = holder.binding.root.resources.getColor(textColor)
         holder.binding.loading.visibility =
-            if (loadStates.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+            if (!loadStates.append .endOfPaginationReached && loadStates.refresh is LoadState.Loading) View.VISIBLE else View.GONE
 
         holder.binding.loadError.visibility =
             if (loadStates.refresh is LoadState.Error) View.VISIBLE else View.GONE
         // 错误重试
         holder.binding.loadError.setOnClickListener {
-            retry()
+            onRetry()
         }
 
         holder.binding.loadDataEmpty.visibility =
             if (loadStates.append is LoadState.NotLoading
                 && loadStates.append.endOfPaginationReached
-                && !(loadStates.refresh is LoadState.Error)
+                && (loadStates.refresh is LoadState.NotLoading)
             ) View.VISIBLE else View.GONE
 
     }

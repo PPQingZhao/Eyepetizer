@@ -14,7 +14,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layer_media_divider"
         android:paddingStart="@dimen/padding_normal"
         android:paddingTop="20dp"
         android:paddingEnd="@dimen/padding_normal"
@@ -31,6 +30,7 @@
             app:layout_constraintWidth_percent="0.06">
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/iv_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:bindSrc="@{viewModel.icon}"
@@ -49,6 +49,7 @@
             android:text="@{viewModel.nick}"
             android:textColor="@color/mediaTextColor"
             android:textSize="12sp"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@id/iv_favorite"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/fl_icon"

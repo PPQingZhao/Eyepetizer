@@ -3,6 +3,7 @@ package com.pp.module_home.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
@@ -12,15 +13,16 @@ import com.pp.library_common.model.MetroBannerItemViewModel
 import com.pp.library_common.model.MetroLargeVideoCardItemViewModel
 import com.pp.library_common.model.MetroSmallVideoCardItemViewModel
 import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.library_network.eyepetizer.bean.PageDataBean.Card.CardData.Body.Metro
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.ItemBannerBinding
-import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
 import com.pp.library_ui.databinding.ItemVideoCardBinding
 import com.pp.library_ui.databinding.ItemVideoSmallCardBinding
 import com.pp.module_home.databinding.FragmentRecommendBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendViewModel>() {
@@ -37,18 +39,46 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRecyclerView()
+        initRefreshView()
+    }
 
+    private fun initRefreshView() {
+        mBinding.recommendRefresh.setOnRefreshListener {
+            multiAdapter.refresh()
+        }
+
+        lifecycleScope.launch {
+            multiAdapter.loadStateFlow.collectLatest {
+                mBinding.recommendRefresh.isRefreshing = it.refresh is LoadState.Loading
+            }
+        }
     }
 
     private val multiAdapter by lazy {
         val call = object : DiffUtil.ItemCallback<Any>() {
             override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-                return oldItem == newItem
+                val result =
+                    if (oldItem is Metro && newItem is Metro) {
+                        oldItem.metroId == newItem.metroId
+                    } else if (oldItem is ItemModel<*> && newItem is ItemModel<*>) {
+                        (oldItem.data as PageDataBean.Card).cardId == (newItem.data as PageDataBean.Card).cardId
+                    } else {
+                        oldItem == newItem
+                    }
+                return result
             }
 
             @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-                return oldItem == newItem
+                val result =
+                    if (oldItem is Metro && newItem is Metro) {
+                        oldItem.metroId == newItem.metroId
+                    } else if (oldItem is ItemModel<*> && newItem is ItemModel<*>) {
+                        (oldItem.data as PageDataBean.Card).cardId == (newItem.data as PageDataBean.Card).cardId
+                    } else {
+                        oldItem == newItem
+                    }
+                return result
             }
         }
         val adapter = MultiBindingPagingDataAdapter<Any>(call)
@@ -82,14 +112,14 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
         // slide_cover_image_with_footer 轮播图类型 (数据源:set_banner_list)
         adapter.addBindingItem(
-            DefaultViewBindingItem<ItemModel<List<Metro>>>(
+            DefaultViewBindingItem<ItemModel<PageDataBean.Card>>(
                 type_small_slide_image,
                 { it?.type == EyepetizerService2.CardType.SET_BANNER_LIST },
                 // TODO: 待实现 -> MetroSlideImageWithFooterViewModel
                 { ItemBannerBinding.inflate(layoutInflater, it, false) },
                 { binding, item, cacheItemViewModel ->
                     if (cacheItemViewModel is MetroBannerItemViewModel) cacheItemViewModel
-                    else MetroBannerItemViewModel(metroList = item?.data)
+                    else MetroBannerItemViewModel(metroList = item?.data?.cardData?.body?.metroList)
                 })
         )
         adapter

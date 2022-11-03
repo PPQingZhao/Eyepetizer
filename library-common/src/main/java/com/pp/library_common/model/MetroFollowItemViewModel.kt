@@ -40,6 +40,8 @@ open class MetroFollowItemViewModel(
             }
             response.result.run {
 
+                try {
+
                 this@MetroFollowItemViewModel.icon.set(this.author.avatar.url)
                 this@MetroFollowItemViewModel.author.set(this.author.nick)
                 this@MetroFollowItemViewModel.cover.set(this.video.cover.url)
@@ -55,6 +57,9 @@ open class MetroFollowItemViewModel(
                     .set(this.consumption.collectionCount.toString())
                 this@MetroFollowItemViewModel.replyCount
                     .set(this.consumption.commentCount.toString())
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
 
             }
         }

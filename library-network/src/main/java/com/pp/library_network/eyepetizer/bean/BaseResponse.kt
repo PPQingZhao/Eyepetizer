@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class BaseResponse<T>(
     @SerializedName("code")
-    val code: Int,
+    val code: Int = -1,
     @SerializedName("message")
     val message: Message?,
     @SerializedName("result")

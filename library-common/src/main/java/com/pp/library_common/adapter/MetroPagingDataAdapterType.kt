@@ -17,7 +17,7 @@ object MetroPagingDataAdapterType {
             }
 
             override fun areContentsTheSame(oldItem: Metro, newItem: Metro): Boolean {
-                return oldItem == newItem
+                return  oldItem.metroId == newItem.metroId
             }
 
         }

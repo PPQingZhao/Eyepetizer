@@ -14,7 +14,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layer_media_divider"
         android:paddingStart="@dimen/padding_normal"
         android:paddingTop="20dp"
         android:paddingEnd="@dimen/padding_normal"

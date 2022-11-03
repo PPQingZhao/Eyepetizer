@@ -11,6 +11,10 @@ open class TreeNode(var parent: TreeNode? = null, var expand: Boolean = true) {
         return childNodes
     }
 
+    fun getNode(@androidx.annotation.IntRange(from = 0) index: Int): TreeNode {
+        return childNodes[index]
+    }
+
     /**
      * 添加节点
      */

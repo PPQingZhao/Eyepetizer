@@ -1,9 +1,11 @@
 package com.pp.module_home.adapter
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.BindingPagingDataAdapter
+import com.pp.library_base.adapter.SelfLoadStateAdapter
 import com.pp.library_common.model.MetroFollowItemViewModel
 import com.pp.library_ui.databinding.ItemFollowCardBinding
 
@@ -26,7 +28,7 @@ class FollowPagingDataAdapter :
             override fun areContentsTheSame(
                 oldItem: MetroFollowItemViewModel,
                 newItem: MetroFollowItemViewModel
-            ) = oldItem.metro == newItem.metro
+            ) =  oldItem.metro?.metroId == newItem.metro?.metroId
         }
     }
 
@@ -46,5 +48,13 @@ class FollowPagingDataAdapter :
         return cacheItemViewModel ?: item
     }
 
+    fun withLoadStateFooter(
+        footer: SelfLoadStateAdapter<*>
+    ): ConcatAdapter {
+        addLoadStateListener { loadStates ->
+            footer.loadStates = loadStates
+        }
+        return ConcatAdapter(this, footer)
+    }
 
 }

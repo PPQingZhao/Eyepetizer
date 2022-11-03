@@ -3,6 +3,7 @@ package com.pp.module_community.ui
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -14,6 +15,7 @@ import com.pp.module_community.databinding.FragmentSquareBinding
 import com.pp.module_community.respository.SquareType
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Community.fragment_community)
@@ -32,6 +34,18 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        initRefreshView()
+    }
+
+    private fun initRefreshView() {
+        mBinding.communityRefresh.setOnRefreshListener {
+            mAdapter.refresh()
+        }
+        lifecycleScope.launch {
+            mAdapter.loadStateFlow.collectLatest {
+                mBinding.communityRefresh.isRefreshing = it.refresh is LoadState.Loading
+            }
+        }
     }
 
     private val mAdapter: SquareAdapter by lazy { SquareAdapter() }

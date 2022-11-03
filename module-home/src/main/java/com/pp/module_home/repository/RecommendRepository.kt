@@ -27,7 +27,7 @@ object RecommendRepository {
 
         override fun getSetBannerList(card: PageDataBean.Card, metroList: List<Metro>?): List<Any> {
             val itemModels = mutableListOf<Any>()
-            itemModels.add(ItemModel(EyepetizerService2.CardType.SET_BANNER_LIST, metroList))
+            itemModels.add(ItemModel(EyepetizerService2.CardType.SET_BANNER_LIST, card))
             return itemModels
         }
 

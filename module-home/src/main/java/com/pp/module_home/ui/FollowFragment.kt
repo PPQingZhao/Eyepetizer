@@ -1,8 +1,8 @@
 package com.pp.module_home.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.module_home.adapter.FollowPagingDataAdapter
@@ -10,6 +10,7 @@ import com.pp.module_home.databinding.FragmentFollowBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>() {
@@ -26,6 +27,18 @@ class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRecyclerView()
+        initRefreshView()
+    }
+
+    private fun initRefreshView() {
+        mBinding.followRefresh.setOnRefreshListener {
+            followAdapter.refresh()
+        }
+        lifecycleScope.launch {
+            followAdapter.loadStateFlow.collectLatest {
+                mBinding.followRefresh.isRefreshing = it.refresh is LoadState.Loading
+            }
+        }
     }
 
     private val followAdapter: FollowPagingDataAdapter by lazy { FollowPagingDataAdapter() }

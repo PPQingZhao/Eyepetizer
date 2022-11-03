@@ -23,6 +23,7 @@
             android:text="@{viewModel.title}"
             android:textColor="@color/mediaTextColor"
             android:textSize="15sp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/comment_hot" />
@@ -37,13 +38,14 @@
             android:text="@{viewModel.comment_sort_type}"
             android:textColor="@color/mediaTextColor"
             android:textSize="15sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/sort_type_hot" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/comment_refresh"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_normal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,8 +58,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
-
+                android:paddingStart="@dimen/padding_normal"
+                android:paddingEnd="@dimen/padding_normal"
                 tools:listitem="@layout/item_comment" />
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

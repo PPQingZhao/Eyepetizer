@@ -12,6 +12,7 @@ import com.pp.module_comments.model.CommentItemViewModel
 import kotlinx.coroutines.flow.Flow
 
 object CommentRepository {
+
     fun getPagingData(
         resourceId: Int?,
         resourceType: String?,
@@ -19,9 +20,9 @@ object CommentRepository {
         refresh: () -> String?
     ): Flow<PagingData<TreeNode>> {
         return Pager(
-            config = PagingConfig(15, prefetchDistance = 2, initialLoadSize = 15),
+            config = PagingConfig(15, prefetchDistance = 15, initialLoadSize = 1),
             pagingSourceFactory = {
-                FollowPagingSource(
+                CommentsPagingSource(
                     Param(
                         resourceId,
                         resourceType,
@@ -38,12 +39,12 @@ object CommentRepository {
         val last_item_id: Int? = null
     )
 
-    private class FollowPagingSource(val startParam: Param, val refresh: () -> String?) :
+    private class CommentsPagingSource(val startParam: Param, val refresh: () -> String?) :
         PagingSource<Param, TreeNode>() {
         val NO_DATA = -1
 
         @ExperimentalPagingApi
-        override fun getRefreshKey(state: PagingState<Param, TreeNode>): Param {
+        override fun getRefreshKey(state: PagingState<Param, TreeNode>): Param? {
 //            Log.e("TAG", "${startParam.resourceId}")
             return Param(
                 startParam.resourceId,
