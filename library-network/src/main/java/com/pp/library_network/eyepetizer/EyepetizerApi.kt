@@ -80,4 +80,7 @@ interface EyepetizerApi {
         @Field("username") username: String?,
         @Field("password") password: String?
     )
+
+    @GET(value = EyepetizerService2.URL_HOT_QUERIES)
+    suspend fun getHotQueries(): BaseResponse<HotQueriesBean>
 }

@@ -12,4 +12,7 @@
     <color name="color_text_selected">#323232</color>
     <color name="color_text_normal">#929292</color>
     <color name="color_button_bg">#40929292</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="blue">#0096FF</color>
 </resources>

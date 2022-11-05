@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_hint">搜索视频、作者、用户及标签</string>
+    <string name="search_history">搜索历史</string>
+    <string name="search_recommend">推荐搜索</string>
+    <string name="delete">删除</string>
+</resources>

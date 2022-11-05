@@ -1,3 +1,3 @@
 package com.pp.library_common.model
 
-class ItemModel<Data>(val type: String, val data: Data?)
+open class ItemModel<Data>(val type: String, val data: Data?)

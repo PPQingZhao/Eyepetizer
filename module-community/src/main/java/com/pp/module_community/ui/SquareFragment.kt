@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_community.GridDivider
@@ -35,6 +35,21 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         initRefreshView()
+        initAppbar()
+    }
+
+    private fun initAppbar() {
+        mBinding.includeTitle.ivStart.setOnClickListener {
+            navigateSearch()
+        }
+
+        mBinding.includeTitle.ivEnd.setOnClickListener {
+
+        }
+    }
+
+    private fun navigateSearch() {
+        ARouter.getInstance().build(RouterPath.Search.activity_search).navigation()
     }
 
     private fun initRefreshView() {
@@ -83,12 +98,5 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
 
     override fun onResume() {
         super.onResume()
-        /*lifecycleScope.launch {
-            try {
-                val data = EyepetizerService2.api.getPageData()
-            } catch (e: Exception) {
-                Log.e("TAG", "err: ${e.message}")
-            }
-        }*/
     }
 }

@@ -21,4 +21,8 @@ object RouterPath {
         const val activity_login = "/user/activity_login"
         const val fragment_user = "/user/fragment_user"
     }
+
+    object Search {
+        const val activity_search = "/search/activity_search"
+    }
 }

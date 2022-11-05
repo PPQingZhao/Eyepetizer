@@ -39,6 +39,9 @@ android {
     dataBinding {
         enable = true
     }
+    viewBinding {
+        enable = true
+    }
 
     if ("com.android.application"==(libs.plugins.android.module.get().pluginId)) {
         sourceSets["main"].java.srcDir("src/main/module")
