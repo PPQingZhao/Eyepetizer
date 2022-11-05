@@ -168,17 +168,21 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
 
         lifecycleScope.launch {
             hotList.add(hotTitle)
-            val response = mViewModel.getHotQueries()
-            if (response.code == 0) {
-                Log.e(TAG, "collect: response success 00 ")
-                response.result.itemList.forEach {
-                    val item = SearchItemModel(TYPE_HOT_QUERIES, it)
-                    hotList.add(item)
+            try {
+                val response = mViewModel.getHotQueries()
+                if (response.code == 0) {
+                    Log.e(TAG, "collect: response success 00 ")
+                    response.result.itemList.forEach {
+                        val item = SearchItemModel(TYPE_HOT_QUERIES, it)
+                        hotList.add(item)
+                    }
+                    val last = mList.size
+                    mList.addAll(last, hotList)
+                    mAdapter?.setDataList(mList)
+                    Log.e(TAG, "collect: response success 11 ")
                 }
-                val last = mList.size
-                mList.addAll(last, hotList)
-                mAdapter?.setDataList(mList)
-                Log.e(TAG, "collect: response success 11 ")
+            } catch (e: Exception) {
+                Log.e(TAG, "getHotQueries err: ${e.message}")
             }
 
         }
