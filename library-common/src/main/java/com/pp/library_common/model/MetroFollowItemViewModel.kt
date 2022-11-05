@@ -1,5 +1,6 @@
 package com.pp.library_common.model
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
@@ -19,6 +20,10 @@ open class MetroFollowItemViewModel(
     val metro: PageDataBean.Card.CardData.Body.Metro?,
 ) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
+    companion object {
+        private const val TAG = "MetroFollowItemViewModel"
+    }
+
     var resourceId: Int?
     var resourceType: String?
 
@@ -30,37 +35,35 @@ open class MetroFollowItemViewModel(
 
         GlobalScope.launch(Dispatchers.IO) {
 
-            val response = EyepetizerService2.api.getItemDetails(resourceId, resourceType)
+            try {
+                val response = EyepetizerService2.api.getItemDetails(resourceId, resourceType)
 
 //                {"code":40001,"message":{"content":"当前作品不可见","action":"toast"},"result":{"status":false}}
-            if (response.code != EyepetizerService2.ErrorCode.SUCCESS) {
-                this@MetroFollowItemViewModel.content.set(response.message?.content)
-                cancel()
-                return@launch
-            }
-            response.result.run {
-
-                try {
-
-                this@MetroFollowItemViewModel.icon.set(this.author.avatar.url)
-                this@MetroFollowItemViewModel.author.set(this.author.nick)
-                this@MetroFollowItemViewModel.cover.set(this.video.cover.url)
-                this@MetroFollowItemViewModel.date.set(this.rawPublishTime)
-//                    this@MetroFollowItemViewModel.area.set(this.realLocation)
-                this@MetroFollowItemViewModel.content.set(this.text)
-                this@MetroFollowItemViewModel.category.set(this.category.name)
-
-
-                this@MetroFollowItemViewModel.collectionCount
-                    .set(this.consumption.likeCount.toString())
-                this@MetroFollowItemViewModel.realCollectionCount
-                    .set(this.consumption.collectionCount.toString())
-                this@MetroFollowItemViewModel.replyCount
-                    .set(this.consumption.commentCount.toString())
-                }catch (e:Exception){
-                    e.printStackTrace()
+                if (response.code != EyepetizerService2.ErrorCode.SUCCESS) {
+                    this@MetroFollowItemViewModel.content.set(response.message?.content)
+                    cancel()
+                    return@launch
                 }
+                response.result.run {
 
+                    this@MetroFollowItemViewModel.icon.set(this.author.avatar.url)
+                    this@MetroFollowItemViewModel.author.set(this.author.nick)
+                    this@MetroFollowItemViewModel.cover.set(this.video.cover.url)
+                    this@MetroFollowItemViewModel.date.set(this.rawPublishTime)
+//                    this@MetroFollowItemViewModel.area.set(this.realLocation)
+                    this@MetroFollowItemViewModel.content.set(this.text)
+                    this@MetroFollowItemViewModel.category.set(this.category.name)
+
+
+                    this@MetroFollowItemViewModel.collectionCount
+                        .set(this.consumption.likeCount.toString())
+                    this@MetroFollowItemViewModel.realCollectionCount
+                        .set(this.consumption.collectionCount.toString())
+                    this@MetroFollowItemViewModel.replyCount
+                        .set(this.consumption.commentCount.toString())
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "err: ${e.message}")
             }
         }
 
