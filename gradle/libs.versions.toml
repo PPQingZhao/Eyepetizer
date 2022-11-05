@@ -18,6 +18,10 @@ paging3 = "androidx.paging:paging-runtime-ktx:3.0.0-alpha05"
 
 #ui
 material = "com.google.android.material:material:1.5.0"
+flexbox = "com.google.android:flexbox:2.0.1"
+
+#DataStore
+datastore = "androidx.datastore:datastore-preferences:1.0.0"
 
 #okhttp3
 logging = "com.squareup.okhttp3:logging-interceptor:3.9.1"
