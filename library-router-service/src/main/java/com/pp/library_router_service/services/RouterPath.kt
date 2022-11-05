@@ -16,4 +16,9 @@ object RouterPath {
     object Comments {
         const val fragment_comments = "/comments/fragment_comments"
     }
+
+    object User {
+        const val activity_login = "/user/activity_login"
+        const val fragment_user = "/user/fragment_user"
+    }
 }

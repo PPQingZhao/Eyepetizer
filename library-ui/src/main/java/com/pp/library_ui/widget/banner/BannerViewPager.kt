@@ -2,23 +2,19 @@ package com.pp.library_ui.widget.banner
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.pp.library_ui.R
+import com.pp.library_ui.widget.NestedScrollableHost
 
-class BannerViewPager<T> : RelativeLayout {
+class BannerViewPager<T> : NestedScrollableHost {
 
     private var mContext: Context = context
     private lateinit var mViewPager: ViewPager2
 
     private var mBannerPagerAdapter: BaseBannerAdapter<T, *>? = null
     private var onPageChangeCallback: OnPageChangeCallback? = null
-    private var mCompositePageTransformer: CompositePageTransformer? = null
-    private var mMarginPageTransformer: MarginPageTransformer? = null
     private var mOnPageClickListener: BaseBannerAdapter.OnPagerClickListener? = null
 
     private var lastPosition = 0
@@ -42,16 +38,26 @@ class BannerViewPager<T> : RelativeLayout {
         attrs,
         defStyleAttr
     ) {
-        initView()
-        mCompositePageTransformer = CompositePageTransformer()
-        mViewPager.setPageTransformer(mCompositePageTransformer)
+//        initView()
+        mViewPager = ViewPager2(context)
+        attachViewToParent(
+            mViewPager, 0,
+            LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        )
+
+        // set default PageTransformer
+        setPageTransformer(MarginPageTransformer(10))
     }
 
+    fun setPageTransformer(transformer: ViewPager2.PageTransformer) {
+        mViewPager.setPageTransformer(transformer)
+    }
+/*
     private fun initView() {
         inflate(context, R.layout.banner_vp_layout, this)
         mViewPager = findViewById(R.id.vp2)
 
-    }
+    }*/
 
     private val mOnPagerChangeCallback: OnPageChangeCallback = object : OnPageChangeCallback() {
 

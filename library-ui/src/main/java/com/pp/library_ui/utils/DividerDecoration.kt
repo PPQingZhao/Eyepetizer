@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.Orientation
 
 open class DividerDecoration(
-    private val dividerSize: Int = 5,
+    private val dividerSize: Int = 1,
     @ColorInt colorInt: Int = Color.GRAY,
     @Orientation orientation: Int,
     private val canDraw: (viewHolder: RecyclerView.ViewHolder?, type: Int) -> Boolean
 ) :
     ItemDecoration() {
-    val dividerDawer: DividerDrawer
+    private val dividerDawer: DividerDrawer
 
-    val paint: Paint
+    private val paint: Paint
 
     init {
         dividerDawer = if (orientation == RecyclerView.VERTICAL) VerticalDividerDrawer()
@@ -38,7 +38,7 @@ open class DividerDecoration(
         const val DIVIDER_BOTTOM = 3
     }
 
-    @IntDef(value = intArrayOf(DIVIDER_LEFT, DIVIDER_TOP, DIVIDER_RIGHT, DIVIDER_BOTTOM))
+    @IntDef(value = [DIVIDER_LEFT, DIVIDER_TOP, DIVIDER_RIGHT, DIVIDER_BOTTOM])
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class DivideType {
     }

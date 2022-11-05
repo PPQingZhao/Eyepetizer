@@ -10,17 +10,21 @@
             type="Integer" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/loading"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintDimensionRatio="3:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ProgressBar
                 android:layout_width="30dp"
@@ -41,24 +45,42 @@
 
         </LinearLayout>
 
-        <ImageView
+        <androidx.cardview.widget.CardView
             android:id="@+id/load_error"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            app:cardElevation="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/load_err" />
+            app:cardBackgroundColor="@android:color/transparent"
+            app:layout_constraintDimensionRatio="3:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loading">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxWidth="80dp"
+                android:maxHeight="80dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/load_err" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/load_data_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/data_empty"
             android:textColor="@{textColor}"
             android:textSize="13sp"
+            app:layout_constraintDimensionRatio="3:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/load_error"
             tools:textColor="@color/color_text_selected" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

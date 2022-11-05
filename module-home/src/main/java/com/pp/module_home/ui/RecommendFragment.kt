@@ -115,7 +115,6 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
             DefaultViewBindingItem<ItemModel<PageDataBean.Card>>(
                 type_small_slide_image,
                 { it?.type == EyepetizerService2.CardType.SET_BANNER_LIST },
-                // TODO: 待实现 -> MetroSlideImageWithFooterViewModel
                 { ItemBannerBinding.inflate(layoutInflater, it, false) },
                 { binding, item, cacheItemViewModel ->
                     if (cacheItemViewModel is MetroBannerItemViewModel) cacheItemViewModel
@@ -137,10 +136,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
     override fun onFirstResume() {
 
         lifecycleScope.launch {
-            /* EyepetizerService2.api.getPageData(EyepetizerService2.URL_TOPIC_HOT).let {
 
-                 Log.e("TAG","${it.result.cardList.size}")
-             }*/
             mViewModel.getPageData().collect {
                 multiAdapter.submitData(it)
             }

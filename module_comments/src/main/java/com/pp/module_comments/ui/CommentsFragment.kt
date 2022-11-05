@@ -134,12 +134,12 @@ class CommentsFragment :
                     return@DividerDecoration false
                 }
 
-                // 加载更多
-                if (viewHolder.adapterPosition >= treeAdapter.itemCount) {
+                // 过滤 加载更多
+                if (viewHolder.position >= treeAdapter.itemCount) {
                     return@DividerDecoration false
                 }
 
-                // 只绘制 bottom divider
+                // 只绘制 bottom divider,过滤其它
                 if (type != DividerDecoration.DIVIDER_BOTTOM) {
                     return@DividerDecoration false
                 }

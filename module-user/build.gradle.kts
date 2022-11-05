@@ -1,23 +1,25 @@
+
 plugins {
+    alias(libs.plugins.android.module)
     alias(libs.plugins.kotlin.android)
-    id("com.android.application") version (libs.versions.androidGradlePlugin)
     id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.pp.eyepetizer"
+
+    namespace = "com.pp.module_user"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.pp.eyepetizer"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = libs.versions.versionCode.get().toInt()
-        versionName = libs.versions.versionName.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        multiDexEnabled = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["AROUTER_MODULE_NAME"] = project.name
+            }
+        }
     }
 
     buildTypes {
@@ -40,19 +42,22 @@ android {
     dataBinding {
         enable = true
     }
+
+    if ("com.android.application" == (libs.plugins.android.module.get().pluginId)) {
+        sourceSets["main"].java.srcDir("src/main/module")
+        sourceSets["main"].manifest.srcFile("src/main/module/AndroidManifest.xml")
+        sourceSets["main"].res.srcDir("src/main/res-module")
+    } else {
+        sourceSets["main"].resources.exclude("src/main/module/*")
+        sourceSets["main"].resources.exclude("src/main/res-module/*")
+    }
 }
 
 dependencies {
-    implementation(projects.libraryCommon)
-    implementation(projects.moduleMain)
-    if ("com.android.library" == (libs.plugins.android.module.get().pluginId)) {
-        implementation(projects.moduleHome)
-        implementation(projects.moduleCommunity)
-        implementation(projects.moduleVideoDetails)
-        implementation(projects.moduleComments)
-        implementation(projects.moduleSearch)
-        implementation(projects.moduleUser)
-    }
-//    print(libs.plugins.android.module.get().pluginId)
 
+    // 路由
+    implementation(libs.arouter.api)
+    kapt(libs.arouter.compiler)
+
+    implementation(projects.libraryCommon)
 }
