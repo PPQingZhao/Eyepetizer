@@ -39,9 +39,9 @@ class SquareAdapter :
                 return if (oldItem is SquareBannerListViewModel && newItem is SquareBannerListViewModel) {
                     return oldItem == newItem
                 } else if (oldItem is SquareVideoSmallItemViewModel && newItem is SquareVideoSmallItemViewModel) {
-                    return oldItem == newItem
+                    return oldItem.resourceId == newItem.resourceId
                 } else if (oldItem is SquareVideoLargeItemViewModel && newItem is SquareVideoLargeItemViewModel) {
-                    return oldItem == newItem
+                    return oldItem.resourceId == newItem.resourceId
                 } else {
                     false
                 }
@@ -58,7 +58,7 @@ class SquareAdapter :
         item: MultiItemEntity?,
         cacheItemViewModel: MultiItemEntity?
     ): MultiItemEntity {
-        return cacheItemViewModel ?: item!!
+        return item!!
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {

@@ -17,7 +17,7 @@ object MetroPagingDataAdapterType {
             }
 
             override fun areContentsTheSame(oldItem: Metro, newItem: Metro): Boolean {
-                return  oldItem.metroId == newItem.metroId
+                return oldItem.metroData.resourceId == newItem.metroData.resourceId
             }
 
         }
@@ -29,8 +29,13 @@ object MetroPagingDataAdapterType {
     val largeVideoCardPagingDataAdapter by lazy {
 
         DefaultBindingPagingDataAdapter<ItemVideoCardBinding, MetroLargeVideoCardItemViewModel, Metro>(
-            { _, item ->
-                MetroLargeVideoCardItemViewModel(item)
+            { _, item, cacheItemViewModel ->
+                if (null != cacheItemViewModel) {
+                    cacheItemViewModel.metro = item
+                    cacheItemViewModel
+                } else {
+                    MetroLargeVideoCardItemViewModel(item)
+                }
             },
             { parent, _, inflater ->
                 ItemVideoCardBinding.inflate(inflater, parent, false)
@@ -45,8 +50,14 @@ object MetroPagingDataAdapterType {
     val smallVideoCardPagingDataAdapter by lazy {
 
         DefaultBindingPagingDataAdapter<ItemVideoSmallCardBinding, MetroSmallVideoCardItemViewModel, Metro>(
-            { _, item ->
-                MetroSmallVideoCardItemViewModel(item)
+            { _, item, cacheItemViewModel ->
+                if (null != cacheItemViewModel) {
+                    cacheItemViewModel.metro = item
+
+                    cacheItemViewModel
+                } else {
+                    MetroSmallVideoCardItemViewModel(item)
+                }
             },
             { parent, _, inflater ->
                 ItemVideoSmallCardBinding.inflate(inflater, parent, false)

@@ -21,7 +21,6 @@ import com.pp.library_ui.databinding.ItemVideoCardBinding
 import com.pp.library_ui.databinding.ItemVideoSmallCardBinding
 import com.pp.module_home.databinding.FragmentRecommendBinding
 import com.pp.mvvm.LifecycleFragment
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -61,10 +60,12 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                     if (oldItem is Metro && newItem is Metro) {
                         oldItem.metroId == newItem.metroId
                     } else if (oldItem is ItemModel<*> && newItem is ItemModel<*>) {
-                        (oldItem.data as PageDataBean.Card).cardId == (newItem.data as PageDataBean.Card).cardId
+                        (oldItem.data as PageDataBean.Card).cardUniqueId == (newItem.data as PageDataBean.Card).cardUniqueId
                     } else {
                         oldItem == newItem
                     }
+
+//                Log.e("TAG", "111  result: ${result}")
                 return result
             }
 
@@ -72,12 +73,13 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
             override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
                 val result =
                     if (oldItem is Metro && newItem is Metro) {
-                        oldItem.metroId == newItem.metroId
+                        oldItem.metroData.resourceId == newItem.metroData.resourceId
                     } else if (oldItem is ItemModel<*> && newItem is ItemModel<*>) {
-                        (oldItem.data as PageDataBean.Card).cardId == (newItem.data as PageDataBean.Card).cardId
+                        (oldItem.data as PageDataBean.Card).cardUniqueId == (newItem.data as PageDataBean.Card).cardUniqueId
                     } else {
                         oldItem == newItem
                     }
+//                Log.e("TAG", "2222  result: ${result}")
                 return result
             }
         }
@@ -93,8 +95,10 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                 { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_large_video },
                 { ItemVideoCardBinding.inflate(layoutInflater, it, false) },
                 { binding, item, cacheItemViewModel ->
-                    if (cacheItemViewModel is MetroLargeVideoCardItemViewModel) cacheItemViewModel
-                    else MetroLargeVideoCardItemViewModel(item)
+                    if (cacheItemViewModel is MetroLargeVideoCardItemViewModel) {
+                        cacheItemViewModel.metro = item
+                        cacheItemViewModel
+                    } else MetroLargeVideoCardItemViewModel(item)
                 })
         )
 
@@ -105,8 +109,10 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                 { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_small_video },
                 { ItemVideoSmallCardBinding.inflate(layoutInflater, it, false) },
                 { binding, item, cacheItemViewModel ->
-                    if (cacheItemViewModel is MetroSmallVideoCardItemViewModel) cacheItemViewModel
-                    else MetroSmallVideoCardItemViewModel(item)
+                    if (cacheItemViewModel is MetroSmallVideoCardItemViewModel) {
+                        cacheItemViewModel.metro = item
+                        cacheItemViewModel
+                    } else MetroSmallVideoCardItemViewModel(item)
                 })
         )
 
@@ -137,8 +143,9 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
         lifecycleScope.launch {
 
-            mViewModel.getPageData().collect {
-                multiAdapter.submitData(it)
+            mViewModel.getPageData().observe(this@RecommendFragment) {
+
+                multiAdapter.submitData(lifecycle, it)
             }
         }
     }

@@ -28,7 +28,7 @@ class FollowPagingDataAdapter :
             override fun areContentsTheSame(
                 oldItem: MetroFollowItemViewModel,
                 newItem: MetroFollowItemViewModel
-            ) =  oldItem.metro?.metroId == newItem.metro?.metroId
+            ) = oldItem.metro?.metroData?.resourceId == newItem.metro?.metroData?.resourceId
         }
     }
 
@@ -45,7 +45,7 @@ class FollowPagingDataAdapter :
         item: MetroFollowItemViewModel?,
         cacheItemViewModel: MetroFollowItemViewModel?
     ): MetroFollowItemViewModel? {
-        return cacheItemViewModel ?: item
+        return item
     }
 
     fun withLoadStateFooter(

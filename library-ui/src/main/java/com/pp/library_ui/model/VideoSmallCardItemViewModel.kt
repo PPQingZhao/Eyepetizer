@@ -4,7 +4,7 @@ import android.view.View
 import androidx.databinding.ObservableField
 
 
-open class VideoSmallCardItemViewModel(val data: Any?) {
+open class VideoSmallCardItemViewModel() {
     val title = ObservableField<String>()
     val category = ObservableField<String>()
     val imagePath = ObservableField<String>()

@@ -6,23 +6,27 @@ import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.model.VideoSmallCardItemViewModel
 
-class MetroSmallVideoCardItemViewModel(val metro: PageDataBean.Card.CardData.Body.Metro?) :
-    VideoSmallCardItemViewModel(metro) {
-    private val resourceId: Int?
-    private val resourceType: String?
+class MetroSmallVideoCardItemViewModel(item: PageDataBean.Card.CardData.Body.Metro?) :
+    VideoSmallCardItemViewModel() {
+    private var resourceId: Int? = null
+    private var resourceType: String? = null
+    var metro: PageDataBean.Card.CardData.Body.Metro? = null
+        set(value) {
+            field = value
 
-    init {
-        val metroData = metro?.metroData
-        resourceId = metroData?.resourceId
-        resourceType = metroData?.resourceType
+            field?.run {
+                resourceId = metroData.resourceId
+                resourceType = metroData.resourceType
 
-        metroData?.let {
-            title.set(it.title)
-            category.set("${it.tags?.get(0)?.title}")
-            imagePath.set(it.cover.url)
-            duration.set(it.duration?.text)
+                title.set(metroData.title)
+                category.set("${metroData.tags?.get(0)?.title}")
+                imagePath.set(metroData.cover.url)
+                duration.set(metroData.duration?.text)
+            }
         }
 
+    init {
+        metro = item
     }
 
     override fun onVideo(view: View) {
