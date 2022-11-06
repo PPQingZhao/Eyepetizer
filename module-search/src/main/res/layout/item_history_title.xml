@@ -30,6 +30,7 @@
             android:paddingStart="8dp"
             android:paddingTop="3dp"
             android:layout_alignParentEnd="true"
+            android:onClick="@{v -> viewModel.onDelete()}"
             android:text="@string/delete"
             android:textColor="@color/blue"
             android:textSize="14sp"

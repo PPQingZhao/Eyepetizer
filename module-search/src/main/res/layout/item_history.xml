@@ -17,7 +17,9 @@
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
             android:paddingTop="3dp"
+            android:onClick="@{v -> viewModel.onSelect(viewModel)}"
             android:text="@{viewModel.data}"
+            android:textColor="@color/color_text_normal"
             tools:text="1111" />
 
     </RelativeLayout>

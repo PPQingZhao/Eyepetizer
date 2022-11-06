@@ -2,7 +2,6 @@ package com.pp.module_search.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.widget.SearchView.OnCloseListener
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -17,6 +16,7 @@ import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.module_search.R
 import com.pp.module_search.adapter.SearchAdapter
 import com.pp.module_search.databinding.*
+import com.pp.module_search.listener.OnItemClickListener
 import com.pp.module_search.model.SearchItemModel
 import com.pp.mvvm.LifecycleActivity
 import kotlinx.coroutines.flow.collect
@@ -41,6 +41,7 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
         private const val TYPE_HOT_QUERIES_TITLE = "type_hot_queries_title"
 
         private const val KEY_SEARCH_HISTORY = "search_history"
+        private const val MAX_HISTORY_COUNT = 5
     }
 
     private var mAdapter: SearchAdapter? = null
@@ -114,16 +115,13 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
     }
 
     private val mList = mutableListOf<SearchItemModel>()
-    private val hotList: MutableList<SearchItemModel> by lazy {
-        mutableListOf<SearchItemModel>()
-    }
-    private val historyList: MutableList<SearchItemModel> by lazy {
-        mutableListOf<SearchItemModel>()
-    }
+    private val hotList: MutableList<SearchItemModel> by lazy { mutableListOf() }
+    private val historyList: MutableList<SearchItemModel> by lazy { mutableListOf() }
     private val historyTitle by lazy {
         SearchItemModel(
             TYPE_HISTORY_TITLE,
-            getString(R.string.search_history)
+            getString(R.string.search_history),
+            mItemClickListener
         )
     }
     private val hotTitle by lazy {
@@ -133,13 +131,27 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
         )
     }
 
+    private val mItemClickListener = object : OnItemClickListener {
+        override fun onDelete() {
+            removeHistory()
+        }
+
+        override fun onSelect(itemModel: SearchItemModel) {
+            itemModel.data?.let {
+                save(it)
+                // do search
+                mBinding.searchView.setQuery(it, true)
+
+            }
+        }
+    }
+
     private fun initData() {
         lifecycleScope.launch {
 
             try {
                 baseContext.dataStore.data.collect {
                     it.asMap().forEach { entry ->
-                        Log.e(TAG, "collect: ${entry.key.name}   ${entry.value.toString()}")
                         if (entry.key.name == KEY_SEARCH_HISTORY) {
                             val value = entry.value.toString()
                             val items = value.split(";").filter { s ->
@@ -147,17 +159,25 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
                             }
                             mList.clear()
                             historyList.clear()
-                            historyList.add(historyTitle)
-                            val size = if (items.size > 5) 5 else items.size
+
+                            val size = if (items.size > MAX_HISTORY_COUNT) MAX_HISTORY_COUNT else items.size
+                            if (size > 0) {
+                                historyList.add(historyTitle)
+                            }
                             for (i in 0 until size) {
-                                historyList.add(SearchItemModel(TYPE_HISTORY, items[i]))
+                                historyList.add(
+                                    SearchItemModel(
+                                        TYPE_HISTORY,
+                                        items[i],
+                                        mItemClickListener
+                                    )
+                                )
                             }
                             mList.addAll(historyList)
                             mList.addAll(hotList)
                             mAdapter?.setDataList(mList)
                         }
 
-                        Log.e(TAG, "collect: ${entry.key.name}   end")
                     }
                 }
             } catch (e: Exception) {
@@ -166,27 +186,23 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
 
         }
 
+        hotList.add(hotTitle)
         lifecycleScope.launch {
-            hotList.add(hotTitle)
             try {
                 val response = mViewModel.getHotQueries()
                 if (response.code == 0) {
-                    Log.e(TAG, "collect: response success 00 ")
                     response.result.itemList.forEach {
-                        val item = SearchItemModel(TYPE_HOT_QUERIES, it)
+                        val item = SearchItemModel(TYPE_HOT_QUERIES, it, mItemClickListener)
                         hotList.add(item)
                     }
-                    val last = mList.size
-                    mList.addAll(last, hotList)
+                    mList.addAll(hotList)
                     mAdapter?.setDataList(mList)
-                    Log.e(TAG, "collect: response success 11 ")
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "getHotQueries err: ${e.message}")
             }
 
         }
-
 
     }
 
@@ -204,24 +220,21 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    Log.e(TAG, "onQueryTextChange: $newText")
                     return false
                 }
 
             })
 
-            setOnCloseListener(object : OnCloseListener {
-                override fun onClose(): Boolean {
-
-                    return true
-                }
-            })
+            setOnCloseListener {
+                this@SearchActivity.finish()
+                true
+            }
 
         }
     }
 
-
     private val searchKey = stringPreferencesKey(KEY_SEARCH_HISTORY)
+    private val maxIndex = 3
 
     private fun save(searchText: String) {
         lifecycleScope.launch {
@@ -229,23 +242,34 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
                 baseContext.dataStore.edit {
                     val old = it[searchKey] ?: ""
 
-                    if (!old.contains(searchText, false)) {
-                        var oldItem = ""
-                        val items = old.split(";").filter { s ->
-                            s.isNotBlank()
-                        }.filterIndexed { index, s ->
-                            index <=3
-                        }.forEach {
-                            oldItem += "${it};"
-                        }
-
-                        it[searchKey] = "${searchText};${old}"
+                    var oldItem = ""
+                    old.split(";").filter { s ->
+                        s.isNotBlank() && s != searchText
+                    }.filterIndexed { index, _ ->
+                        index <= maxIndex
+                    }.forEach { s ->
+                        oldItem += "${s};"
                     }
+
+                    it[searchKey] = "${searchText};${oldItem}"
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "save err: ${e.message}")
             }
         }
 
+    }
+
+    private fun removeHistory() {
+        lifecycleScope.launch {
+            try {
+                baseContext.dataStore.edit {
+                    val old = it[searchKey] ?: ""
+                    it[searchKey] = ""
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "save err: ${e.message}")
+            }
+        }
     }
 }
