@@ -1,9 +1,18 @@
 package com.pp.module_main
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.alibaba.android.arouter.core.LogisticsCenter
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.tabs.TabLayout
 import com.pp.library_base.base.Pager
@@ -30,15 +39,7 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
         return MainViewModel::class.java
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        ARouter.getInstance().inject(this)
-    }
-
-    override fun onFirstResume() {
-        mHelper.attach(getPager(), false)
-    }
-
+    @SuppressLint("ClickableViewAccessibility")
     fun getPager(): TabPager {
         val factory = object : Pager.FragmentFactory {
             override fun create(position: Int): Fragment {
@@ -47,10 +48,9 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
                         .navigation() as Fragment
                     1 -> ARouter.getInstance().build(RouterPath.Community.fragment_community)
                         .navigation() as Fragment
-                    3->{
-                        ARouter.getInstance().build(RouterPath.User.fragment_user)
-                            .navigation() as Fragment
-                    }
+                    3 -> ARouter.getInstance().build(RouterPath.User.fragment_user)
+                        .navigation() as Fragment
+
                     else -> TestFragment()
                 }
             }
@@ -73,6 +73,27 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
                 false
             )
             val resourcePair = resources[position]
+            tabBinding.root.setOnTouchListener { v, event ->
+
+                if (event.action != MotionEvent.ACTION_DOWN) {
+                    return@setOnTouchListener false
+                }
+                if (resourcePair.first != R.drawable.selector_mine) {
+                    return@setOnTouchListener false
+                }
+                val postcard = ARouter.getInstance().build(RouterPath.User.activity_login)
+                LogisticsCenter.completion(postcard)
+                // 跳转登录
+                loginLauncher.launch(
+                    Intent(
+                        context,
+                        postcard.destination
+                    )
+                )
+
+                true
+            }
+
             val tab =
                 TabPager.Tab(tabBinding.root, resourcePair.first, resourcePair.second);
             tabBinding.viewModel = tab
@@ -81,5 +102,20 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
         return tabPager
     }
 
+    private val loginLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode != Activity.RESULT_OK){
+                return@registerForActivityResult
+            }
+            mBinding.mainViewpager.currentItem = 3
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onFirstResume() {
+        mHelper.attach(getPager(), false)
+    }
 
 }

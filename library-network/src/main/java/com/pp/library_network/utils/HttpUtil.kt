@@ -1,11 +1,6 @@
 package com.pp.library_network.utils
 
 import android.util.Log
-import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.API_KEY
-import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.APP_ID
-import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.AUTH
-import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.CID
-import com.pp.library_network.eyepetizer.EyepetizerService2.Companion.UA
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response

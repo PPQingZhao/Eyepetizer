@@ -64,7 +64,7 @@
                 android:maxWidth="80dp"
                 android:maxHeight="80dp"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/load_err" />
+                android:src="@drawable/load_err" />
         </androidx.cardview.widget.CardView>
 
         <TextView

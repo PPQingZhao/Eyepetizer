@@ -75,7 +75,7 @@ object CommentRepository {
 
                 val commentsBean = response.result
                 val commentList = mutableListOf<CommentItemViewModel>()
-                commentsBean.itemList.onEach {
+                commentsBean?.itemList?.onEach {
                     commentList.add(
                         CommentItemViewModel(
                             it, App.getInstance()
@@ -98,8 +98,10 @@ object CommentRepository {
                      "TAG",
                      "lastItemId: ${commentsBean.lastItemId} pageCount: ${commentsBean.pageCount} itemCount: ${commentsBean.itemCount} itemPerPage: ${commentsBean.itemPerPage}"
                  )*/
-                val last_item_id = if (commentsBean.lastItemId > (startParam.last_item_id ?: 0))
-                    commentsBean.lastItemId else NO_DATA
+                val last_item_id = if ((commentsBean?.lastItemId ?: -1) > (startParam.last_item_id
+                        ?: 0)
+                )
+                    commentsBean?.lastItemId else NO_DATA
 
                 val nextKey = Param(
                     key.resourceId,

@@ -1,32 +1,11 @@
 package com.pp.library_network.eyepetizer
 
+import com.google.gson.Gson
+import com.pp.library_network.eyepetizer.bean.Header
 import com.pp.library_network.utils.RetrofitUtil
 
 interface EyepetizerService2 {
     companion object {
-
-        /*  {
-         "x-api-key": "0530ee4341324ce2b26c23fcece80ea2",
-         "User-Agent": "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0",
-         "X-THEFAIR-APPID": "ahpagrcrf2p7m6rg",
-         "X-THEFAIR-AUTH": "Ee17OewjhONMFg7wu3+DMjYJ0+7BnnkF6VmMpTPvIUPmdBFN1esyXOPChQuxOgeeYU9Xg1w65fTNRjaSFCef7L11uxUVeN+sVTltut5ZRrkpgcYq7NXODEs/QObe36cdpCK/q6VgJmyngs5L2mQq/RNGsAjAY881y64hHnW9ZQ9kgNZOm01QqwbaptVqSAe9PQojEoUiiFCK0Hf3meOP+5kc/kBuLz/tum4/2miAz7hbkaQ0MN+5j3PLrwsIXL51HmNQ1QI4rk2W4MDi5GL7jQ==",
-         "X-THEFAIR-CID": "2248c7390ffd3039d84a554301e0fd73",
-         "X-THEFAIR-UA": "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0",
-         "Cookie": "ky_udid=074347ace25d41df856528937c4a3804eb4fea22;ky_auth=;PHPSESSID=83ce5646caf556a20e2b7f076d997eec;APPID=ahpagrcrf2p7m6rg",
-         "Host": "api.eyepetizer.net"
-     }*/
-
-        const val APP_ID = "ahpagrcrf2p7m6rg"
-        const val API_KEY = "0530ee4341324ce2b26c23fcece80ea2"
-        const val AUTH =
-            "Ee17OewjhONMFg7wu3+DMjYJ0+7BnnkF6VmMpTPvIUPmdBFN1esyXOPChQuxOgeeYU9Xg1w65fTNRjaSFCef7L11uxUVeN+sVTltut5ZRrkpgcYq7NXODEs/QObe36cdpCK/q6VgJmyngs5L2mQq/RNGsAjAY881y64hHnW9ZQ9kgNZOm01QqwbaptVqSAe9PQojEoUiiFCK0Hf3meOP+5kc/kBuLz/tum4/2miAz7hbkaQ0MN+5j3PLrwsIXL51HmNQ1QI4rk2W4MDi5GL7jQ=="
-        const val USER_AGENT =
-            "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0"
-        const val UA = USER_AGENT
-        const val CID = "2248c7390ffd3039d84a554301e0fd73"
-        const val COOKIE =
-            "ky_udid=074347ace25d41df856528937c4a3804eb4fea22;ky_auth=;PHPSESSID=83ce5646caf556a20e2b7f076d997eec;APPID=ahpagrcrf2p7m6rg"
-        const val HOST = "api.eyepetizer.net"
 
         /*
 
@@ -65,8 +44,11 @@ interface EyepetizerService2 {
           用户密码登录
           http://api.eyepetizer.net/v1/user/oauth/password_login?username=17820460461&password=zpq940220&user_type=ugc
          */
-        const val BASE_URL_PASSWORD_LOGIN =
-            "${URL_GET_PAGE}/v1/user/oauth/password_login?user_type=ugc"
+        const val BASE_URL_PASSWORD_LOGIN = "${BASE_URL_V1}/v1/user/oauth/password_login"
+        /**
+         * 获取用户信息:http://api.eyepetizer.net/v1/user/center/get_user_info?uid=304922815
+         */
+        const val BASE_URL_GET_USER_INFO = "${BASE_URL_V1}/v1/user/center/get_user_info"
 
         const val URL_FOLLOW = "${URL_GET_PAGE}?page_type=card&page_label=follow"
         const val URL_RECOMMEND = "${URL_GET_PAGE}?page_type=card&page_label=recommend"
@@ -86,21 +68,41 @@ interface EyepetizerService2 {
                           .method(original.method(), original.body())
                           .build()
               * */
+        val headerJson = """
+           {
+           	"x-api-key": "0530ee4341324ce2b26c23fcece80ea2",
+           	"User-Agent": "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0",
+           	"X-THEFAIR-APPID": "ahpagrcrf2p7m6rg",
+           	"X-THEFAIR-AUTH": "Ee17OewjhONMFg7wu3+DMjYJ0+7BnnkF6VmMpTPvIUPmdBFN1esyXOPChQuxOgeeYU9Xg1w65fTNRjaSFCef7L11uxUVeN+sVTltut5ZRrkpgcYq7NXODEs/QObe36cdpCK/q6VgJmyngs5L2mQq/RNGsAjAY881y64hHnW9ZQ9kgNZOm01QqwbaptVqSAe9PQojEoUiiFCK0Hf3meOP+5kc/kBuLz/tum4/2miAz7hWrc9BWcqMk+zkk2lIiiJe7U9jlP2IHzBBsUoLAA5QTQ==",
+           	"X-THEFAIR-CID": "2248c7390ffd3039d84a554301e0fd73",
+           	"X-THEFAIR-UA": "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0",
+           	"Cookie": "ky_udid=074347ace25d41df856528937c4a3804eb4fea22;ky_auth=;APPID=ahpagrcrf2p7m6rg;PHPSESSID=a6776649d6a1ab71d5ff78680f36cccc",
+           	"Host": "api.eyepetizer.net"
+           }
+        """.trimIndent()
+        val header = Gson().fromJson(headerJson, Header::class.java)
         private val retrofit = RetrofitUtil.createEyeRetrofit(
             BASE_URL_V1,
-            "x-api-key" to API_KEY,
-            "X-THEFAIR-APPID" to APP_ID,
-            "X-THEFAIR-CID" to CID,
-            "X-THEFAIR-AUTH" to AUTH,
-            "X-THEFAIR-UA" to UA,
-            "User-Agent" to USER_AGENT,
-            "Cookie" to COOKIE,
-            "Host" to HOST,
+            "x-api-key" to header.xApiKey,
+            "X-THEFAIR-APPID" to header.xTHEFAIRAPPID,
+            "X-THEFAIR-CID" to header.xTHEFAIRCID,
+            "X-THEFAIR-AUTH" to header.xTHEFAIRAUTH,
+            "X-THEFAIR-UA" to header.xTHEFAIRUA,
+            "User-Agent" to header.userAgent,
+            "Cookie" to header.cookie,
+            "Host" to header.host,
         )
 
-        val api: EyepetizerApi by lazy { retrofit.create(EyepetizerApi::class.java) }
+        val api by lazy { retrofit.create(EyepetizerApi::class.java) }
+        val userApi by lazy { retrofit.create(UserApi::class.java) }
 
+    }
 
+    object ErrorCode {
+        const val SUCCESS = 0
+    }
+
+    object SortType {
         /**
          * 热度排序
          */
@@ -111,11 +113,6 @@ interface EyepetizerService2 {
          */
         const val SORT_TYPE_TIME = "time"
     }
-
-    object ErrorCode {
-        const val SUCCESS = 0
-    }
-
 
     object CardType {
         const val SET_METRO_LIST = "set_metro_list"

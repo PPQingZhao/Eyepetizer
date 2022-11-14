@@ -44,7 +44,7 @@ class IntroductionViewModel(val details: ItemDetailsBean?, app: Application) :
                         resourceType
                     )
                     .let {
-                        Log.e("TAG", "getRelatedRecommend size: ${it.result.itemList.size}")
+                        Log.e("TAG", "getRelatedRecommend size: ${it.result?.itemList?.size}")
                     }
 
 

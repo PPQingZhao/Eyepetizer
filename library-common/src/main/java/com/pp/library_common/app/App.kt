@@ -2,8 +2,11 @@ package com.pp.library_common.app
 
 import android.app.Application
 import android.content.Context
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.common.BuildConfig
+import com.pp.library_router_service.services.IAppservice
+import com.pp.library_router_service.services.RouterServiceImpl
 import kotlin.properties.Delegates
 
 open class App : Application() {
@@ -16,6 +19,9 @@ open class App : Application() {
         }
     }
 
+    @Autowired(name = RouterServiceImpl.DataBase.DATABASE_APP)
+    lateinit var dataBaseAppService: IAppservice
+
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         mInstance = this
@@ -26,5 +32,11 @@ open class App : Application() {
         }
         ARouter.init(this)
         ARouter.getInstance().inject(this)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        // 数据库模块
+        dataBaseAppService.onCreate(this)
     }
 }

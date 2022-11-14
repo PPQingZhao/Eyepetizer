@@ -15,4 +15,7 @@
 
     <color name="transparent">#00000000</color>
     <color name="blue">#0096FF</color>
+    <color name="login_bg">#B3AFAF</color>
+    <color name="enable_true">#000000</color>
+    <color name="enable_false">#B3AFAF</color>
 </resources>

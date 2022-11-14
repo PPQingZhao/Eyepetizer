@@ -21,7 +21,7 @@ open class MetroFollowItemViewModel(
 ) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
     companion object {
-        private const val TAG = "MetroFollowItemViewModel"
+        private const val TAG = "MetroFollowItem"
     }
 
     var resourceId: Int?
@@ -44,7 +44,7 @@ open class MetroFollowItemViewModel(
                     cancel()
                     return@launch
                 }
-                response.result.run {
+                response.result?.run {
 
                     this@MetroFollowItemViewModel.icon.set(this.author.avatar.url)
                     this@MetroFollowItemViewModel.author.set(this.author.nick)

@@ -44,5 +44,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core.get())
 
     api(libs.appcompat.get())
-
+    api(libs.viewmodel.ktx)
 }

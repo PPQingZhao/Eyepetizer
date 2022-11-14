@@ -50,7 +50,7 @@ open class MultiBindingPagingDataAdapter<Data : Any>(
     }
 
     override fun onBindViewHolder(holder: MultiItemViewHolder<Data>, position: Int) {
-        Log.e("PagingDataAdapter","onBindViewHolder pos: ${position}  item: ${getItem(position)}")
+//        Log.e("PagingDataAdapter","onBindViewHolder pos: ${position}  item: ${getItem(position)}")
 //        Thread.dumpStack()
         holder.viewBindingItem.adapterBindingHelper.bind(holder, position, getItem(position))
     }

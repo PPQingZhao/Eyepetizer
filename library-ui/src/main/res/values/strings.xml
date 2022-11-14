@@ -18,5 +18,17 @@
     <string name="sort_type_time">按时间</string>
 
     <string name="eyepetizer">eyepetizer</string>
+    <string name="account">用户账号</string>
+    <string name="account_hint">输入邮箱/手机号码</string>
+    <string name="password_hint">输入密码</string>
+    <string name="login">登录</string>
+    <string name="fan">粉丝</string>
+    <string name="follow">关注</string>
+    <string name="badge">徽章</string>
+    <string name="IP">IP属地:</string>
+    <string name="cache">缓存</string>
+    <string name="record_of_viewing">观看记录</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
 
 </resources>

@@ -191,7 +191,7 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
             try {
                 val response = mViewModel.getHotQueries()
                 if (response.code == 0) {
-                    response.result.itemList.forEach {
+                    response.result?.itemList?.forEach {
                         val item = SearchItemModel(TYPE_HOT_QUERIES, it, mItemClickListener)
                         hotList.add(item)
                     }

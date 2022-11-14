@@ -10,4 +10,22 @@
 
     </style>
 
+    <style name="Style_edittext">
+        <item name="android:minHeight">48dp</item>
+        <item name="colorControlActivated">@color/transparent</item>
+        <item name="colorControlHighlight">@color/transparent</item>
+        <item name="colorControlNormal">@color/transparent</item>
+        <item name="android:background">@drawable/inset_edittext_bg</item>
+        <item name="android:textCursorDrawable">@drawable/shape_edittext_cursor</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="Style_textinputlayout">
+        <item name="hintAnimationEnabled">true</item>
+        <item name="boxStrokeColor">@color/blue</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxBackgroundColor">@color/transparent</item>
+    </style>
 </resources>

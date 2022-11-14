@@ -21,7 +21,7 @@ abstract class MetroPagingSource<Item : Any> :
 
             val valueList = mutableListOf<Item>()
             var nextKey = ""
-            response.result.cardList.forEach {
+            response.result?.cardList?.forEach {
                 when (it.type) {
                     EyepetizerService2.CardType.CALL_METRO_LIST -> {
                         // TODO: 待实现

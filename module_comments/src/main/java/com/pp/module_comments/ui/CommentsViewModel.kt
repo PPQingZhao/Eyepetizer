@@ -16,7 +16,7 @@ class CommentsViewModel(app: Application) : LifecycleViewModel(app) {
 
     val title = ObservableField<Int>(R.string.comment_hot)
     val comment_sort_type = ObservableField<Int>(com.pp.library_ui.R.string.sort_type_hot)
-    var sort_type = MutableLiveData<String>(EyepetizerService2.SORT_TYPE_HOT)
+    var sort_type = MutableLiveData<String>(EyepetizerService2.SortType.SORT_TYPE_HOT)
 
 
     /**
@@ -40,11 +40,11 @@ class CommentsViewModel(app: Application) : LifecycleViewModel(app) {
      */
     fun onCommentType(view: View) {
         // 更新 sort_type
-        sort_type.value = if (sort_type.value == EyepetizerService2.SORT_TYPE_HOT)
-            EyepetizerService2.SORT_TYPE_TIME else EyepetizerService2.SORT_TYPE_HOT
+        sort_type.value = if (sort_type.value == EyepetizerService2.SortType.SORT_TYPE_HOT)
+            EyepetizerService2.SortType.SORT_TYPE_TIME else EyepetizerService2.SortType.SORT_TYPE_HOT
 
         // 更新
-        if (sort_type.value == EyepetizerService2.SORT_TYPE_HOT) {
+        if (sort_type.value == EyepetizerService2.SortType.SORT_TYPE_HOT) {
             title.set(R.string.comment_hot)
             comment_sort_type.set(R.string.sort_type_hot)
         } else {

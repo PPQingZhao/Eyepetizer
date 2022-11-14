@@ -51,7 +51,7 @@ interface EyepetizerApi {
     suspend fun getCMSCommentList(
         @Query("resource_id") resource_id: Int?,
         @Query("resource_type") resource_type: String?,
-        @Query("sort_type") sort_type: String? = EyepetizerService2.SORT_TYPE_HOT,
+        @Query("sort_type") sort_type: String? = EyepetizerService2.SortType.SORT_TYPE_HOT,
         @Query("last_item_id") last_item_id: Int?
     ): BaseResponse<CommentsBean>
 
@@ -75,11 +75,6 @@ interface EyepetizerApi {
     @GET
     suspend fun getLightTopic()
 
-    @POST(value = EyepetizerService2.BASE_URL_PASSWORD_LOGIN)
-    suspend fun passwordLogin(
-        @Field("username") username: String?,
-        @Field("password") password: String?
-    )
 
     @GET(value = EyepetizerService2.URL_HOT_QUERIES)
     suspend fun getHotQueries(): BaseResponse<HotQueriesBean>

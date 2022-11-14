@@ -170,7 +170,7 @@ class CommentsFragment :
 
     override fun onFirstResume() {
         lifecycleScope.launch {
-            mViewModel.getPageData(resourceId, resourceType, EyepetizerService2.SORT_TYPE_HOT)
+            mViewModel.getPageData(resourceId, resourceType, EyepetizerService2.SortType.SORT_TYPE_HOT)
                 .collect {
                     treeAdapter.submitData(it)
                 }

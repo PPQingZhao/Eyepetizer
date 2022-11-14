@@ -7,8 +7,9 @@ import com.pp.mvvm.LifecycleFragment
 
 @Route(path = RouterPath.User.fragment_user)
 class UserFragment : LifecycleFragment<FragmentUserBinding, UserViewModel>() {
-    override val mBinding: FragmentUserBinding
-        get() = FragmentUserBinding.inflate(layoutInflater)
+    override val mBinding by lazy {
+        FragmentUserBinding.inflate(layoutInflater)
+    }
 
     override fun getModelClazz(): Class<UserViewModel> {
         return UserViewModel::class.java
