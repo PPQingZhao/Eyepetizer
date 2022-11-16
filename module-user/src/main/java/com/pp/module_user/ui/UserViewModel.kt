@@ -44,11 +44,6 @@ class UserViewModel(app: Application) : LifecycleViewModel(app) {
                 badge.set(it.medalCount.toString())
                 location.set(it.location)
 
-                viewModelScope.launch {
-                    val  r1= EyepetizerService2.api.getPageData(it?.uid, page_label = "follow")
-                    val  r2= EyepetizerService2.api.getPageData(it?.uid, page_label = "daily_issue")
-                }
-
             }
         }
     }
