@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.BindingPagingDataAdapter
+import com.pp.library_common.model.MultiItemEntity
 import com.pp.library_ui.databinding.ItemBannerBinding
 import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding

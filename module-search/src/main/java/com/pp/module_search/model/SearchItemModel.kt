@@ -9,7 +9,7 @@ class SearchItemModel(type: String, data: String, val itemClickListener: OnItemC
         itemClickListener?.onDelete()
     }
 
-    fun onSelect(itemModel: SearchItemModel) {
-        itemClickListener?.onSelect(itemModel)
+    fun onSelect() {
+        itemClickListener?.onSelect(this)
     }
 }

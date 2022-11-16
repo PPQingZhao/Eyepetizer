@@ -1,8 +1,8 @@
 package com.pp.module_community.model
 
-import android.util.Log
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
+import com.pp.library_common.model.MultiItemEntity
 import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_community.respository.SquareType.TYPE_VIDEO_SMALL

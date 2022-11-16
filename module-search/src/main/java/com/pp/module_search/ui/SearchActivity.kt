@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -21,6 +22,9 @@ import com.pp.module_search.model.SearchItemModel
 import com.pp.mvvm.LifecycleActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import com.pp.library_common.result.Result
+import com.pp.module_search.adapter.SearchRankAdapter
+import com.pp.module_search.model.SearchRankItemTitleModel
 
 @Route(path = RouterPath.Search.activity_search)
 class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>() {
@@ -35,26 +39,42 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
     companion object {
         private const val TAG = "SearchActivity"
 
-        private const val TYPE_HISTORY = "type_history"
-        private const val TYPE_HISTORY_TITLE = "type_history_title"
-        private const val TYPE_HOT_QUERIES = "type_hot_queries"
-        private const val TYPE_HOT_QUERIES_TITLE = "type_hot_queries_title"
+        const val TYPE_HISTORY = "type_history"
+        const val TYPE_HISTORY_TITLE = "type_history_title"
+        const val TYPE_HOT_QUERIES = "type_hot_queries"
+        const val TYPE_HOT_QUERIES_TITLE = "type_hot_queries_title"
 
         private const val KEY_SEARCH_HISTORY = "search_history"
         private const val MAX_HISTORY_COUNT = 5
     }
 
     private var mAdapter: SearchAdapter? = null
+    private var mRankAdapter: SearchRankAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initSearchView()
-        initRecyclerView()
+        initHotRecycler()
+        initRankRecycler()
         initData()
     }
 
+    private fun initRankRecycler() {
+        mBinding.recyclerTag.layoutManager = LinearLayoutManager(baseContext)
 
-    private fun initRecyclerView() {
+        mRankAdapter = SearchRankAdapter().apply {
+            /*addBindingItem(DefaultViewBindingItem<SearchRankItemTitleModel>(
+                SearchViewModel.TYPE_RANK_TITLE,
+                { it?.itemType == SearchViewModel.TYPE_RANK_TITLE },
+                { parent ->
+                    //ItemSearchRankBinding.
+                }
+            ))*/
+//            ItemSearch
+        }
+    }
+
+    private fun initHotRecycler() {
         val layoutManager = FlexboxLayoutManager(baseContext)
         layoutManager.flexDirection = FlexDirection.ROW
         layoutManager.justifyContent = JustifyContent.FLEX_START
@@ -187,23 +207,30 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
         }
 
         hotList.add(hotTitle)
-        lifecycleScope.launch {
-            try {
-                val response = mViewModel.getHotQueries()
-                if (response.code == 0) {
-                    response.result?.itemList?.forEach {
-                        val item = SearchItemModel(TYPE_HOT_QUERIES, it, mItemClickListener)
-                        hotList.add(item)
-                    }
-                    mList.addAll(hotList)
-                    mAdapter?.setDataList(mList)
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "getHotQueries err: ${e.message}")
-            }
 
+        mViewModel.hotQueriesData.observe(this) { t ->
+            hotList.addAll(t)
         }
 
+        mViewModel.getHot(mItemClickListener)
+
+        lifecycleScope.launch {
+            mViewModel.recommendState.collect {
+                when (it) {
+                    is Result.Loading -> {
+
+                    }
+                    is Result.Success -> {
+                        it.data
+                    }
+                    else -> {
+
+                    }
+                }
+            }
+        }
+
+        mViewModel.getRecommend()
     }
 
     private fun initSearchView() {

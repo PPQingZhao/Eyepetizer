@@ -36,4 +36,7 @@ interface EyepetizerApi {
         @Field("page_type") page_type: String? = "card",
         @Field("page_label") page_label: String?,
     ): BaseResponse<PageDataBean>
+
+    @POST("v1/search/search/get_search_recommend_card_list")
+    suspend fun getSearchRecommend(): BaseResponse<PageDataBean>
 }

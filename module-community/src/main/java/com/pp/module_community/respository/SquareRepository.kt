@@ -7,7 +7,7 @@ import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.module_community.model.SquareBannerListViewModel
-import com.pp.module_community.model.MultiItemEntity
+import com.pp.library_common.model.MultiItemEntity
 import com.pp.module_community.model.SquareVideoLargeItemViewModel
 import com.pp.module_community.model.SquareVideoSmallItemViewModel
 import kotlinx.coroutines.flow.Flow
@@ -39,14 +39,19 @@ object SquareRepository {
             val itemModels = mutableListOf<MultiItemEntity>()
             metroList?.forEach { metro ->
                 val style = metro.style.tplLabel
-                if (style == EyepetizerService2.MetroType.Style.feed_cover_small_video) {
-                    itemModels.add(SquareVideoSmallItemViewModel(metro))
-                } else if (style == EyepetizerService2.MetroType.Style.feed_cover_large_video) {
-                    itemModels.add(SquareVideoLargeItemViewModel(metro))
-                } else if (style == EyepetizerService2.MetroType.Style.feed_cover_large_image) {
-                    itemModels.add(SquareVideoLargeItemViewModel(metro))
-                } else {
-                    Log.e(TAG, "待开发类型：$style")
+                when (style) {
+                    EyepetizerService2.MetroType.Style.feed_cover_small_video,
+                    EyepetizerService2.MetroType.Style.waterfall_cover_small_video -> {
+                        itemModels.add(SquareVideoSmallItemViewModel(metro))
+                    }
+                    EyepetizerService2.MetroType.Style.feed_item_detail,
+                    EyepetizerService2.MetroType.Style.feed_cover_large_video,
+                    EyepetizerService2.MetroType.Style.feed_cover_large_image -> {
+                        itemModels.add(SquareVideoLargeItemViewModel(metro))
+                    }
+                    else -> {
+                        Log.e(TAG, "待开发类型：$style")
+                    }
                 }
             }
             return itemModels

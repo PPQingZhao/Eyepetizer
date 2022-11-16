@@ -119,6 +119,8 @@ interface EyepetizerService2 {
         const val SET_METRO_LIST = "set_metro_list"
         const val SET_BANNER_LIST = "set_banner_list"
         const val CALL_METRO_LIST = "call_metro_list"
+        const val SET_SLIDE_METRO_LIST = "set_slide_metro_list"
+        const val SET_WATERFALL_METRO_LIST = "set_waterfall_metro_list"
     }
 
     object MetroType {
@@ -148,6 +150,11 @@ interface EyepetizerService2 {
             const val slot_image = "slot_image"
             const val description_text = "description_text"
             const val feed_item_detail = "feed_item_detail"
+            const val slide_user = "slide_user"
+            // 社区 宫格
+            const val waterfall_cover_small_video = "waterfall_cover_small_video"
+            // 社区 精选热门话题
+            const val slide_cover_image_with_title = "slide_cover_image_with_title"
         }
     }
 
