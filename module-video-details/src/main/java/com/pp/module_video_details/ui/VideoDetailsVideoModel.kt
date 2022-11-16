@@ -31,7 +31,7 @@ class VideoDetailsVideoModel(app: Application) : LifecycleViewModel(app) {
      * 加载 item details
      */
     @OptIn(DelicateCoroutinesApi::class)
-    fun getItemDetails(resourceId: Int?, resourceType: String?): LiveData<MetroDataBean?> {
+    fun getItemDetails(resourceId: Long?, resourceType: String?): LiveData<MetroDataBean?> {
 
         if (itemDetails.value == null) {
             GlobalScope.launch(Dispatchers.IO) {

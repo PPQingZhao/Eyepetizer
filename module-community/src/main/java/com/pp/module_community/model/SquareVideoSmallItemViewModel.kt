@@ -12,7 +12,7 @@ class SquareVideoSmallItemViewModel(val metro: PageDataBean.Card.CardData.Body.M
     override val itemType: Int
         get() = TYPE_VIDEO_SMALL
 
-    var resourceId: Int = 0
+    var resourceId: Long = 0
     var resourceType: String = ""
 
     init {
@@ -35,7 +35,7 @@ class SquareVideoSmallItemViewModel(val metro: PageDataBean.Card.CardData.Body.M
     override fun onVideo(view: View) {
         ARouter.getInstance()
             .build(RouterPath.VideoDetails.activity_video_details)
-            .withInt("resourceId", resourceId ?: 0)
+            .withLong("resourceId", resourceId ?: 0)
             .withString("resourceType", resourceType)
             .navigation()
     }

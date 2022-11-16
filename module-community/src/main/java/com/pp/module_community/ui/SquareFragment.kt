@@ -1,6 +1,7 @@
 package com.pp.module_community.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -89,8 +90,12 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
     override fun onFirstResume() {
         super.onFirstResume()
         lifecycleScope.launch {
-            mViewModel.getData().collect {
-                mAdapter.submitData(it)
+            try {
+                mViewModel.getData().collect {
+                    mAdapter.submitData(it)
+                }
+            } catch (e: Exception) {
+                Log.e("TAG", "getData err: ${e.message}")
             }
         }
 

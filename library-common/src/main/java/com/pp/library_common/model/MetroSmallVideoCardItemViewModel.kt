@@ -8,7 +8,7 @@ import com.pp.library_ui.model.VideoSmallCardItemViewModel
 
 class MetroSmallVideoCardItemViewModel(item: PageDataBean.Card.CardData.Body.Metro?) :
     VideoSmallCardItemViewModel() {
-    private var resourceId: Int? = null
+    private var resourceId: Long? = null
     private var resourceType: String? = null
     var metro: PageDataBean.Card.CardData.Body.Metro? = null
         set(value) {
@@ -32,7 +32,7 @@ class MetroSmallVideoCardItemViewModel(item: PageDataBean.Card.CardData.Body.Met
     override fun onVideo(view: View) {
         ARouter.getInstance()
             .build(RouterPath.VideoDetails.activity_video_details)
-            .withInt("resourceId", resourceId ?: 0)
+            .withLong("resourceId", resourceId ?: 0)
             .withString("resourceType", resourceType)
             .navigation()
     }

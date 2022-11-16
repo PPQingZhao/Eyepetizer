@@ -47,7 +47,7 @@ data class TrackingData(
                 @SerializedName("element_content")
                 val elementContent: String?,
                 @SerializedName("element_id")
-                val elementId: Int,
+                val elementId: String,
                 @SerializedName("element_index")
                 val elementIndex: Int,
                 @SerializedName("element_label")
@@ -92,7 +92,7 @@ data class TrackingData(
             @SerializedName("element_content")
             val elementContent: String?,
             @SerializedName("element_id")
-            val elementId: Int?,
+            val elementId: String?,
             @SerializedName("element_index")
             val elementIndex: Int?,
             @SerializedName("element_label")
@@ -146,7 +146,7 @@ data class TrackingData(
             @SerializedName("element_content")
             val elementContent: String?,
             @SerializedName("element_id")
-            val elementId: Int?,
+            val elementId: String?,
             @SerializedName("element_index")
             val elementIndex: Int?,
             @SerializedName("element_label")

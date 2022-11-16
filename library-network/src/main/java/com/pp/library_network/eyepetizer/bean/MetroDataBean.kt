@@ -42,7 +42,7 @@ data class MetroDataBean(
     @SerializedName("recommend_level")
     val recommendLevel: String,
     @SerializedName("resource_id")
-    val resourceId: Int,
+    val resourceId: Long,
     @SerializedName("resource_type")
     val resourceType: String,
     @SerializedName("subtitles")
@@ -142,14 +142,14 @@ data class MetroDataBean(
         @SerializedName("city")
         val city: String,
         @SerializedName("latitude")
-        val latitude: Int,
+        val latitude: Float,
         @SerializedName("longitude")
-        val longitude: Int
+        val longitude: Float
     )
 
     data class Topic(
         @SerializedName("id")
-        val id: Int,
+        val id: Long,
         @SerializedName("link")
         val link: String,
         @SerializedName("title")

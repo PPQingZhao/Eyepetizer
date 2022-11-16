@@ -38,7 +38,7 @@ interface ItemApi {
 
     @GET("v1/content/item/get_item_detail_v2")
     suspend fun getItemDetails(
-        @Query("resource_id") resource_id: Int?,
+        @Query("resource_id") resource_id: Long?,
         @Query("resource_type") resource_type: String?
     ): BaseResponse<MetroDataBean>
 
@@ -49,7 +49,7 @@ interface ItemApi {
     @FormUrlEncoded
     @POST("v1/content/item/get_related_recommend")
     suspend fun getRelatedRecommend(
-        @Field("resource_id") resource_id: Int?,
+        @Field("resource_id") resource_id: Long?,
         @Field("resource_type") resource_type: String?
     ): BaseResponse<RelatedRecommendBean>
 }

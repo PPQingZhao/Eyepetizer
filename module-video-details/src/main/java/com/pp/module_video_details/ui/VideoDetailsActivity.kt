@@ -29,7 +29,7 @@ class VideoDetailsActivity :
 
     @JvmField
     @Autowired(name = "resourceId")
-    var resourceId: Int? = 0
+    var resourceId: Long? = 0
 
     @JvmField
     @Autowired(name = "resourceType")

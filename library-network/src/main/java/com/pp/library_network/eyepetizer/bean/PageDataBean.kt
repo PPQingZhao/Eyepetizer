@@ -231,9 +231,9 @@ data class PageDataBean(
         val pageLabel: String,
         @SerializedName("show_the_end")
         val showTheEnd: Boolean,
-        @JsonAdapter(StyleTypeAdapter::class)
-        @SerializedName("style")
-        val style: Style?,
+//        @JsonAdapter(StyleTypeAdapter::class)
+//        @SerializedName("style")
+//        val style: List<Style?>?,
         @SerializedName("title")
         val title: String,
         @JsonAdapter(TrackingDataAdapter::class)

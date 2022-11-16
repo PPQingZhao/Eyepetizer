@@ -22,7 +22,7 @@ open class MetroFollowItemViewModel2(
         private const val TAG = "MetroFollowItem"
     }
 
-    var resourceId: Int? = null
+    var resourceId: Long? = null
     var resourceType: String? = null
 
     var metro: PageDataBean.Card.CardData.Body.Metro? = null
@@ -88,7 +88,7 @@ open class MetroFollowItemViewModel2(
     override fun onVideo(view: View) {
         ARouter.getInstance()
             .build(RouterPath.VideoDetails.activity_video_details)
-            .withInt("resourceId", resourceId ?: 0)
+            .withLong("resourceId", resourceId ?: 0)
             .withString("resourceType", resourceType)
             .navigation()
     }
