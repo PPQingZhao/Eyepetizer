@@ -1,11 +1,11 @@
 package com.pp.library_ui.databinding
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.pp.library_ui.utils.ExpandTextWatcher
@@ -68,4 +68,12 @@ object BindingAdapter {
         bannerViewPager.setAdapter(adapter)
     }
 
+    @JvmStatic
+    @androidx.databinding.BindingAdapter(value =  ["constraintLayout","dimensionRatio"], requireAll = true)
+    fun setConstraintDimensionRatio(view:View, cl:ConstraintLayout, dimension:String){
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(cl)
+        constraintSet.setDimensionRatio(view.id,dimension)
+        constraintSet.applyTo(cl)
+    }
 }

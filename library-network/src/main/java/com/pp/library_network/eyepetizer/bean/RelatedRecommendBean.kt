@@ -9,7 +9,7 @@ data class RelatedRecommendBean(
     @SerializedName("item_count")
     val itemCount: Int,
     @SerializedName("item_list")
-    val itemList: List<ItemDetailsBean>,
+    val itemList: List<MetroDataBean>,
     @SerializedName("item_per_page")
     val itemPerPage: Int
 )

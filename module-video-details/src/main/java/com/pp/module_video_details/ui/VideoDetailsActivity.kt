@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
+import com.pp.library_network.eyepetizer.bean.MetroDataBean
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_video_details.R
 import com.pp.module_video_details.databinding.ActivityVideoDetailsBinding
@@ -56,13 +56,13 @@ class VideoDetailsActivity :
             }
     }
 
-    private fun showDetailsFragment(itemDetailsBean: ItemDetailsBean?) {
+    private fun showDetailsFragment(itemDetailsBean: MetroDataBean?) {
         supportFragmentManager.beginTransaction()
             .add(R.id.fl_container, getDetailsFragment(itemDetailsBean))
             .commitNow()
     }
 
-    private fun getDetailsFragment(itemDetailsBean: ItemDetailsBean?): Fragment {
+    private fun getDetailsFragment(itemDetailsBean: MetroDataBean?): Fragment {
         return DetailsFragment(itemDetailsBean)
     }
 

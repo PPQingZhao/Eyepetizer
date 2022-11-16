@@ -11,6 +11,7 @@ import com.pp.library_network.eyepetizer.bean.UserInfoBean
 import kotlinx.coroutines.*
 import kotlinx.coroutines.withContext as withContext1
 
+@OptIn(DelicateCoroutinesApi::class)
 class UserModel(private val user: User) {
 
     private val isLogin = MutableLiveData<Boolean>()
@@ -24,12 +25,14 @@ class UserModel(private val user: User) {
             if (null == it) {
                 return@observeForever
             }
+
             getInfoJob = GlobalScope.launch(Dispatchers.Main) {
                 val response = withContext1(Dispatchers.IO) {
                     EyepetizerService2.userApi.getUserInfo(it.userInfo.uid)
                 }
 
                 userInfoBean.value = response.result
+
             }
         }
     }

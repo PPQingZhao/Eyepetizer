@@ -4,7 +4,7 @@ package com.pp.library_network.eyepetizer.bean
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class ItemDetailsBean(
+data class MetroDataBean(
     @SerializedName("app_link")
     val appLink: String,
     @SerializedName("author")
@@ -18,7 +18,7 @@ data class ItemDetailsBean(
     @SerializedName("consumption")
     val consumption: Consumption,
     @SerializedName("images")
-    val images: List<Any>,
+    val images: List<ImageBean?>,
     @SerializedName("is_mine")
     val isMine: Boolean,
     @SerializedName("item_id")
@@ -42,7 +42,7 @@ data class ItemDetailsBean(
     @SerializedName("recommend_level")
     val recommendLevel: String,
     @SerializedName("resource_id")
-    val resourceId: String,
+    val resourceId: Int,
     @SerializedName("resource_type")
     val resourceType: String,
     @SerializedName("subtitles")
@@ -56,8 +56,26 @@ data class ItemDetailsBean(
     @SerializedName("type")
     val type: String,
     @SerializedName("video")
-    val video: Video
+    val video: Video,
+    @SerializedName("tags")
+    val tags: List<Tag>?,
+    @SerializedName("title")
+    val title: String?,
+    @SerializedName("cover")
+    val cover: Cover,
+    @SerializedName("duration")
+    val duration: Duration?,
 ) : Serializable {
+
+    data class Tag(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("link")
+        val link: String,
+        @SerializedName("title")
+        val title: String
+    )
+
     data class Author(
         @SerializedName("avatar")
         val avatar: Avatar,
@@ -185,29 +203,6 @@ data class ItemDetailsBean(
                 val width: Int
             )
         }
-
-        data class Cover(
-            @SerializedName("img_info")
-            val imgInfo: ImgInfo,
-            @SerializedName("url")
-            val url: String
-        ) {
-            data class ImgInfo(
-                @SerializedName("height")
-                val height: Int,
-                @SerializedName("scale")
-                val scale: Double,
-                @SerializedName("width")
-                val width: Int
-            )
-        }
-
-        data class Duration(
-            @SerializedName("text")
-            val text: String,
-            @SerializedName("value")
-            val value: Int
-        )
 
         data class PlayCtrl(
             @SerializedName("autoplay")

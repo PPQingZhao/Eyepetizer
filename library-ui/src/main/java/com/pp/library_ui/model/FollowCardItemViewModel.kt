@@ -6,11 +6,12 @@ import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.pp.library_ui.R
 
 
 open class FollowCardItemViewModel<VH : ViewHolder>() {
 
-    var videoType: Boolean = false
+    var isVideo: Boolean = true
     var area = ObservableField<String>()
     var content = ObservableField<String>()
     var icon = ObservableField<String>()
@@ -22,6 +23,8 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
     val collectionCount = ObservableField<String>()
     val realCollectionCount = ObservableField<String>()
     val replyCount = ObservableField<String>()
+    val constraintDimensionRatio = ObservableField<String>()
+    val drawableFolow = ObservableField<Int>(R.drawable.layer_follow)
 
     var adapter: RecyclerView.Adapter<VH>? = null
 
@@ -33,5 +36,5 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
         expand.set(expand.get()?.not())
     }
 
-    open fun onVideo(view:View){}
+    open fun onVideo(view: View) {}
 }

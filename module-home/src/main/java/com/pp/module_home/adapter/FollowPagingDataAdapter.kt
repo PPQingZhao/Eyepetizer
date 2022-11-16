@@ -35,7 +35,6 @@ class FollowPagingDataAdapter :
     override fun createBinding(parent: ViewGroup, viewType: Int): ItemFollowCardBinding {
 
         val binding = ItemFollowCardBinding.inflate(layoutInflater, parent, false)
-        binding.recyclerview.layoutManager = LinearLayoutManager(parent.context)
         return binding
 
     }

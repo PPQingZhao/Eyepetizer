@@ -1,6 +1,9 @@
 package com.pp.library_network.eyepetizer.bean
 
+import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
+import com.pp.library_network.utils.StyleTypeAdapter
+import com.pp.library_network.utils.TrackingDataAdapter
 
 
 data class PageDataBean(
@@ -36,6 +39,7 @@ data class PageDataBean(
         val specialPos: String,
         @SerializedName("style")
         val style: Style,
+        @JsonAdapter(TrackingDataAdapter::class)
         @SerializedName("tracking_data")
         val trackingData: TrackingData?,
         @SerializedName("type")
@@ -91,13 +95,14 @@ data class PageDataBean(
                     @SerializedName("link")
                     val link: String,
                     @SerializedName("metro_data")
-                    val metroData: MetroData,
+                    val metroData: MetroDataBean,
                     @SerializedName("metro_id")
                     val metroId: Int,
                     @SerializedName("metro_unique_id")
                     val metroUniqueId: String,
                     @SerializedName("style")
                     val style: Style,
+                    @JsonAdapter(TrackingDataAdapter::class)
                     @SerializedName("tracking_data")
                     val trackingData: TrackingData,
                     @SerializedName("tracking_params")
@@ -105,221 +110,6 @@ data class PageDataBean(
                     @SerializedName("type")
                     val type: String
                 ) {
-                    data class MetroData(
-                        @SerializedName("author")
-                        val author: Author?,
-                        @SerializedName("cover")
-                        val cover: Cover,
-                        @SerializedName("crop_area")
-                        val cropArea: CropArea?,
-                        @SerializedName("duration")
-                        val duration: Duration?,
-                        @SerializedName("footer")
-                        val footer: Footer?,
-                        @SerializedName("hot_value")
-                        val hotValue: Int?,
-                        @SerializedName("image_id")
-                        val imageId: Int?,
-                        @SerializedName("play_ctrl")
-                        val playCtrl: PlayCtrl?,
-                        @SerializedName("play_url")
-                        val playUrl: String?,
-                        @SerializedName("preview_url")
-                        val previewUrl: String?,
-                        @SerializedName("recommend_level")
-                        val recommendLevel: String?,
-                        @SerializedName("resource_id")
-                        val resourceId: Int,
-                        @SerializedName("resource_type")
-                        val resourceType: String,
-                        @SerializedName("tags")
-                        val tags: List<Tag>?,
-                        @SerializedName("title")
-                        val title: String?,
-                        @SerializedName("video_id")
-                        val videoId: String?
-                    ) {
-                        data class Author(
-                            @SerializedName("avatar")
-                            val avatar: Avatar,
-                            @SerializedName("description")
-                            val description: String,
-                            @SerializedName("followed")
-                            val followed: Boolean,
-                            @SerializedName("link")
-                            val link: String,
-                            @SerializedName("nick")
-                            val nick: String,
-                            @SerializedName("type")
-                            val type: String,
-                            @SerializedName("uid")
-                            val uid: Int
-                        ) {
-                            data class Avatar(
-                                @SerializedName("img_info")
-                                val imgInfo: ImgInfo,
-                                @SerializedName("shape")
-                                val shape: String,
-                                @SerializedName("url")
-                                val url: String
-                            ) {
-                                data class ImgInfo(
-                                    @SerializedName("height")
-                                    val height: Int,
-                                    @SerializedName("scale")
-                                    val scale: Int,
-                                    @SerializedName("width")
-                                    val width: Int
-                                )
-                            }
-                        }
-
-                        data class Cover(
-                            @SerializedName("img_info")
-                            val imgInfo: ImgInfo,
-                            @SerializedName("url")
-                            val url: String
-                        ) {
-                            data class ImgInfo(
-                                @SerializedName("height")
-                                val height: Double,
-                                @SerializedName("scale")
-                                val scale: Double,
-                                @SerializedName("width")
-                                val width: Int
-                            )
-                        }
-
-                        data class CropArea(
-                            @SerializedName("height")
-                            val height: Float,
-                            @SerializedName("origin_height")
-                            val originHeight: Float,
-                            @SerializedName("origin_width")
-                            val originWidth: Float,
-                            @SerializedName("width")
-                            val width: Float,
-                            @SerializedName("x")
-                            val x: Float,
-                            @SerializedName("y")
-                            val y: Float
-                        )
-
-                        data class Duration(
-                            @SerializedName("text")
-                            val text: String,
-                            @SerializedName("value")
-                            val value: Int
-                        )
-
-                        data class Footer(
-                            @SerializedName("left")
-                            val left: Left,
-                            @SerializedName("right")
-                            val right: Right
-                        ) {
-                            data class Left(
-                                @SerializedName("link")
-                                val link: String,
-                                @SerializedName("text")
-                                val text: String
-                            )
-
-                            data class Right(
-                                @SerializedName("text")
-                                val text: String
-                            )
-                        }
-
-                        data class PlayCtrl(
-                            @SerializedName("autoplay")
-                            val autoplay: Boolean,
-                            @SerializedName("autoplay_times")
-                            val autoplayTimes: Int,
-                            @SerializedName("need_cellular")
-                            val needCellular: Boolean,
-                            @SerializedName("need_wifi")
-                            val needWifi: Boolean,
-                            @SerializedName("need_wifi_preload")
-                            val needWifiPreload: Boolean
-                        )
-
-                        data class Tag(
-                            @SerializedName("id")
-                            val id: Int,
-                            @SerializedName("link")
-                            val link: String,
-                            @SerializedName("title")
-                            val title: String
-                        )
-                    }
-
-                    data class Style(
-                        @SerializedName("across_column")
-                        val acrossColumn: Boolean?,
-                        @SerializedName("background")
-                        val background: Background,
-                        @SerializedName("banner_padding")
-                        val bannerPadding: Int?,
-                        @SerializedName("padding")
-                        val padding: Padding,
-                        @SerializedName("separator_line")
-                        val separatorLine: SeparatorLine,
-                        @SerializedName("tpl_label")
-                        val tplLabel: String
-                    ) {
-                        data class Background(
-                            @SerializedName("color")
-                            val color: String
-                        )
-
-                        data class Padding(
-                            @SerializedName("bottom")
-                            val bottom: Double,
-                            @SerializedName("left")
-                            val left: Double,
-                            @SerializedName("right")
-                            val right: Double,
-                            @SerializedName("top")
-                            val top: Double
-                        )
-
-                        data class SeparatorLine(
-                            @SerializedName("bottom")
-                            val bottom: Bottom,
-                            @SerializedName("top")
-                            val top: Top
-                        ) {
-                            data class Bottom(
-                                @SerializedName("color")
-                                val color: String,
-                                @SerializedName("height")
-                                val height: Double,
-                                @SerializedName("margin")
-                                val margin: Margin
-                            )
-
-                            data class Top(
-                                @SerializedName("color")
-                                val color: String,
-                                @SerializedName("height")
-                                val height: Double,
-                                @SerializedName("margin")
-                                val margin: Margin
-                            )
-
-                            data class Margin(
-                                @SerializedName("bottom")
-                                val bottom: Int,
-                                @SerializedName("left")
-                                val left: Int,
-                                @SerializedName("right")
-                                val right: Int,
-                                @SerializedName("top")
-                                val top: Int
-                            )
-                        }
-                    }
 
                     class TrackingParams() {
                         @SerializedName("data_source")
@@ -356,23 +146,7 @@ data class PageDataBean(
                 val right: List<Any>,
                 @SerializedName("style")
                 val style: Style
-            ) {
-                data class Style(
-                    @SerializedName("padding")
-                    val padding: Padding
-                ) {
-                    data class Padding(
-                        @SerializedName("bottom")
-                        val bottom: Int,
-                        @SerializedName("left")
-                        val left: Int,
-                        @SerializedName("right")
-                        val right: Int,
-                        @SerializedName("top")
-                        val top: Int
-                    )
-                }
-            }
+            )
 
             data class Header(
                 @SerializedName("center")
@@ -383,23 +157,7 @@ data class PageDataBean(
                 val right: List<Any>,
                 @SerializedName("style")
                 val style: Style
-            ) {
-                data class Style(
-                    @SerializedName("padding")
-                    val padding: Padding
-                ) {
-                    data class Padding(
-                        @SerializedName("bottom")
-                        val bottom: Int,
-                        @SerializedName("left")
-                        val left: Int,
-                        @SerializedName("right")
-                        val right: Int,
-                        @SerializedName("top")
-                        val top: Int
-                    )
-                }
-            }
+            )
         }
 
         data class Interaction(
@@ -407,71 +165,12 @@ data class PageDataBean(
             val scroll: String
         )
 
-        data class Style(
-            @SerializedName("background")
-            val background: Background?,
-            @SerializedName("padding")
-            val padding: Padding,
-            @SerializedName("separator_line")
-            val separatorLine: SeparatorLine
-        ) {
-            data class Background(
-                @SerializedName("color")
-                val color: String
-            )
-
-            data class Padding(
-                @SerializedName("bottom")
-                val bottom: Double,
-                @SerializedName("left")
-                val left: Int,
-                @SerializedName("right")
-                val right: Int,
-                @SerializedName("top")
-                val top: Int
-            )
-
-            data class SeparatorLine(
-                @SerializedName("bottom")
-                val bottom: Bottom,
-                @SerializedName("top")
-                val top: Top
-            ) {
-                data class Bottom(
-                    @SerializedName("color")
-                    val color: String,
-                    @SerializedName("height")
-                    val height: Double,
-                    @SerializedName("margin")
-                    val margin: Margin
-                )
-
-                data class Top(
-                    @SerializedName("color")
-                    val color: String,
-                    @SerializedName("height")
-                    val height: Int,
-                    @SerializedName("margin")
-                    val margin: Margin
-                )
-
-                data class Margin(
-                    @SerializedName("bottom")
-                    val bottom: Int,
-                    @SerializedName("left")
-                    val left: Int,
-                    @SerializedName("right")
-                    val right: Int,
-                    @SerializedName("top")
-                    val top: Int
-                )
-            }
-        }
     }
 
     data class Modal(
         @SerializedName("data")
         val `data`: Data,
+        @JsonAdapter(TrackingDataAdapter::class)
         @SerializedName("tracking_data")
         val trackingData: TrackingData
     ) {
@@ -532,10 +231,12 @@ data class PageDataBean(
         val pageLabel: String,
         @SerializedName("show_the_end")
         val showTheEnd: Boolean,
+        @JsonAdapter(StyleTypeAdapter::class)
         @SerializedName("style")
-        val style: List<Any>,
+        val style: Style?,
         @SerializedName("title")
         val title: String,
+        @JsonAdapter(TrackingDataAdapter::class)
         @SerializedName("tracking_data")
         val trackingData: TrackingData
     )

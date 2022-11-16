@@ -3,16 +3,11 @@ package com.pp.module_video_details.ui
 import android.app.Application
 import android.util.Log
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.BaseResponse
-import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
+import com.pp.library_network.eyepetizer.bean.MetroDataBean
 import com.pp.mvvm.LifecycleViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-class IntroductionViewModel(val details: ItemDetailsBean?, app: Application) :
+class IntroductionViewModel(val details: MetroDataBean?, app: Application) :
     LifecycleViewModel(app) {
 
     val title = ObservableField<String>()
@@ -35,20 +30,19 @@ class IntroductionViewModel(val details: ItemDetailsBean?, app: Application) :
         }
     }
 
-
     suspend fun getRelatedRecommend() {
-            details?.run {
-                EyepetizerService2.api
-                    .getRelatedRecommend(
-                        resourceId?.toInt(),
-                        resourceType
-                    )
-                    .let {
-                        Log.e("TAG", "getRelatedRecommend size: ${it.result?.itemList?.size}")
-                    }
+        details?.run {
+            EyepetizerService2.itemApi
+                .getRelatedRecommend(
+                    resourceId,
+                    resourceType
+                )
+                .let {
+                    Log.e("TAG", "getRelatedRecommend size: ${it.result?.itemList?.size}")
+                }
 
 
-            }
+        }
 
     }
 }

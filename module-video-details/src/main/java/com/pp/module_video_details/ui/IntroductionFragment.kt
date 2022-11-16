@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
+import com.pp.library_network.eyepetizer.bean.MetroDataBean
 import com.pp.module_video_details.databinding.FragmentIntroductionBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class IntroductionFragment(details: ItemDetailsBean?) :
+class IntroductionFragment(details: MetroDataBean?) :
     LifecycleFragment<FragmentIntroductionBinding, IntroductionViewModel>() {
     override val mBinding by lazy { FragmentIntroductionBinding.inflate(layoutInflater) }
     override fun getModelClazz(): Class<IntroductionViewModel> {

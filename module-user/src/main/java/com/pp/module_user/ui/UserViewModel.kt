@@ -1,12 +1,21 @@
 package com.pp.module_user.ui
 
 import android.app.Application
+import android.util.Log
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.*
+import androidx.paging.PagingData
 import com.pp.library_common.app.App
+import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.UserInfoBean
 import com.pp.library_ui.R
 import com.pp.module_user.manager.UserManager
+import com.pp.module_user.repositoy.NvaTabRepository
 import com.pp.mvvm.LifecycleViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserViewModel(app: Application) : LifecycleViewModel(app) {
     val icon = ObservableField<String>()
@@ -17,11 +26,15 @@ class UserViewModel(app: Application) : LifecycleViewModel(app) {
     val follow = ObservableField<String>("0")
     val badge = ObservableField<String>("0")
     val location = ObservableField<String>()
+
+    val userInfo = MutableLiveData<UserInfoBean>()
+
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-        fan.toString()
         UserManager.userModel().observe(owner) {
             it.userInfo().observe(owner) {
+                userInfo.value = it
+
                 icon.set(it.avatar.url)
                 nickName.set(it.nick)
                 gender.set(getApplication<App>().resources.getText(if ("male" == it.gender) R.string.male else R.string.female))
@@ -30,9 +43,22 @@ class UserViewModel(app: Application) : LifecycleViewModel(app) {
                 follow.set(it.followCount.toString())
                 badge.set(it.medalCount.toString())
                 location.set(it.location)
-            }
 
+                viewModelScope.launch {
+                    val  r1= EyepetizerService2.api.getPageData(it?.uid, page_label = "follow")
+                    val  r2= EyepetizerService2.api.getPageData(it?.uid, page_label = "daily_issue")
+                }
+
+            }
         }
+    }
+
+    fun getNvaTabData(
+        uid: Int,
+        pageType: String,
+        pageLabel: String
+    ): LiveData<PagingData<PageDataBean.Card.CardData.Body.Metro>> {
+        return NvaTabRepository.getPagingData(uid, pageType, pageLabel).asLiveData()
     }
 
 }

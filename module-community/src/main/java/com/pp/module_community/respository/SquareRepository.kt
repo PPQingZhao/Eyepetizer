@@ -53,7 +53,7 @@ object SquareRepository {
         }
 
         override suspend fun loadPageData(key: String?): BaseResponse<PageDataBean> {
-            return EyepetizerService2.api.getPageData(key ?: EyepetizerService2.URL_FOLLOW)
+            return EyepetizerService2.api.getPageData(page_label = "community", page_type = "card")
         }
 
     }

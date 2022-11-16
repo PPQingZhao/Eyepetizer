@@ -66,7 +66,7 @@ object CommentRepository {
                     )
                 }
 
-                val response: BaseResponse<CommentsBean> = EyepetizerService2.api.getCMSCommentList(
+                val response: BaseResponse<CommentsBean> = EyepetizerService2.itemApi.getCMSCommentList(
                     key.resourceId,
                     key.resourceType,
                     key.sort_type,

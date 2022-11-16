@@ -5,12 +5,17 @@
 
     <data>
 
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.pp.library_ui.model.FollowCardItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -82,26 +87,28 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="@dimen/padding_normal"
-            android:background="@drawable/shape_rectangle"
             android:padding="3dp"
-            android:src="@drawable/ic_add_24"
+            android:src="@{viewModel.drawableFolow}"
             app:layout_constraintBottom_toBottomOf="@id/fl_icon"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/fl_icon" />
+            app:layout_constraintTop_toTopOf="@id/fl_icon"
+            tools:src="@drawable/layer_follow" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager"
+            constraintLayout="@{parent}"
+            dimensionRatio='@{viewModel.video ? "16:9" : "1:1"}'
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_normal"
             android:orientation="horizontal"
             app:adapter="@{viewModel.adapter}"
-            app:layoutManager="@{viewModel.getLayoutManager(context)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
             tools:itemCount="1"
+            tools:layout_constraintDimensionRatio="16:9"
             tools:listitem="@layout/item_image_video" />
 
         <TextView
@@ -116,7 +123,7 @@
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="@id/iv_follow"
             app:layout_constraintStart_toStartOf="@id/fl_icon"
-            app:layout_constraintTop_toBottomOf="@id/recyclerview"
+            app:layout_constraintTop_toBottomOf="@id/viewpager"
             tools:maxLines="3"
             tools:text="社恐的最高境界是什么样的?
             自己跟自己下棋还有滋有味,就算受伤也不用别人帮忙，包扎、借钱、去医院，
@@ -145,10 +152,12 @@
             android:text="#"
             android:textColor="@color/white"
             android:textSize="12sp"
+            android:visibility="@{TextUtils.isEmpty(viewModel.category) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="@id/fl_icon"
             app:layout_constraintTop_toBottomOf="@id/tv_expand" />
 
         <TextView
+            android:id="@+id/tv_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -217,6 +226,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
+            android:id="@+id/iv_share"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="3dp"
@@ -227,6 +237,7 @@
 
 
         <View
+            android:id="@+id/view_dividerl"
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
             android:layout_marginTop="@dimen/padding_normal"

@@ -11,12 +11,12 @@ import com.google.android.material.tabs.TabLayout
 import com.pp.library_base.base.Pager
 import com.pp.library_base.base.TabPager
 import com.pp.library_base.base.TabPagerFragment
-import com.pp.library_network.eyepetizer.bean.ItemDetailsBean
+import com.pp.library_network.eyepetizer.bean.MetroDataBean
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.R
 import com.pp.module_video_details.databinding.FragmentDetailsBinding
 
-class DetailsFragment(details: ItemDetailsBean?) :
+class DetailsFragment(details: MetroDataBean?) :
     TabPagerFragment<FragmentDetailsBinding, DetailsViewModel>() {
     override val mBinding by lazy { FragmentDetailsBinding.inflate(layoutInflater) }
     override fun getModelClazz(): Class<DetailsViewModel> {

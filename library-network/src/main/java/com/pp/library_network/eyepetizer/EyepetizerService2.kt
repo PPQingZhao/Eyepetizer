@@ -2,6 +2,7 @@ package com.pp.library_network.eyepetizer
 
 import com.google.gson.Gson
 import com.pp.library_network.eyepetizer.bean.Header
+import com.pp.library_network.eyepetizer.bean.ItemApi
 import com.pp.library_network.utils.RetrofitUtil
 
 interface EyepetizerService2 {
@@ -45,14 +46,13 @@ interface EyepetizerService2 {
           http://api.eyepetizer.net/v1/user/oauth/password_login?username=17820460461&password=zpq940220&user_type=ugc
          */
         const val BASE_URL_PASSWORD_LOGIN = "${BASE_URL_V1}/v1/user/oauth/password_login"
+
         /**
          * 获取用户信息:http://api.eyepetizer.net/v1/user/center/get_user_info?uid=304922815
          */
         const val BASE_URL_GET_USER_INFO = "${BASE_URL_V1}/v1/user/center/get_user_info"
 
         const val URL_FOLLOW = "${URL_GET_PAGE}?page_type=card&page_label=follow"
-        const val URL_RECOMMEND = "${URL_GET_PAGE}?page_type=card&page_label=recommend"
-        const val URL_DAILY = "${URL_GET_PAGE}?page_type=card&page_label=daily_issue"
         const val URL_DISCOVERY = "${URL_GET_PAGE}?page_type=card&page_label=/discover_v2"
         const val URL_HOT_QUERIES = "/v1/recommend/search/get_hot_queries?"
 
@@ -73,14 +73,14 @@ interface EyepetizerService2 {
            	"x-api-key": "0530ee4341324ce2b26c23fcece80ea2",
            	"User-Agent": "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0",
            	"X-THEFAIR-APPID": "ahpagrcrf2p7m6rg",
-           	"X-THEFAIR-AUTH": "Ee17OewjhONMFg7wu3+DMjYJ0+7BnnkF6VmMpTPvIUPmdBFN1esyXOPChQuxOgeeYU9Xg1w65fTNRjaSFCef7L11uxUVeN+sVTltut5ZRrkpgcYq7NXODEs/QObe36cdpCK/q6VgJmyngs5L2mQq/RNGsAjAY881y64hHnW9ZQ9kgNZOm01QqwbaptVqSAe9PQojEoUiiFCK0Hf3meOP+5kc/kBuLz/tum4/2miAz7hWrc9BWcqMk+zkk2lIiiJe7U9jlP2IHzBBsUoLAA5QTQ==",
+           	"X-THEFAIR-AUTH": "Ee17OewjhONMFg7wu3+DMjYJ0+7BnnkF6VmMpTPvIUPmdBFN1esyXOPChQuxOgeeYU9Xg1w65fTNRjaSFCef7L11uxUVeN+sVTltut5ZRrkpgcYq7NXODEs/QObe36cdpCK/q6VgJmyngs5L2mQq/RNGsAjAY881y64hHnW9ZQ9kgNZOm01QqwbaptVqSAe9PQojEoUiiFCK0Hf3meOP+5kc/kBuLz/tum4/2miAz7hjNTRg3IyJdD87mAH5jA6FdnLIRlfJkF4JT+bhqE1HLw==",
            	"X-THEFAIR-CID": "2248c7390ffd3039d84a554301e0fd73",
            	"X-THEFAIR-UA": "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0",
            	"Cookie": "ky_udid=074347ace25d41df856528937c4a3804eb4fea22;ky_auth=;APPID=ahpagrcrf2p7m6rg;PHPSESSID=a6776649d6a1ab71d5ff78680f36cccc",
            	"Host": "api.eyepetizer.net"
            }
         """.trimIndent()
-        val header = Gson().fromJson(headerJson, Header::class.java)
+        private val header: Header = Gson().fromJson(headerJson, Header::class.java)
         private val retrofit = RetrofitUtil.createEyeRetrofit(
             BASE_URL_V1,
             "x-api-key" to header.xApiKey,
@@ -93,8 +93,9 @@ interface EyepetizerService2 {
             "Host" to header.host,
         )
 
-        val api by lazy { retrofit.create(EyepetizerApi::class.java) }
-        val userApi by lazy { retrofit.create(UserApi::class.java) }
+        val api: EyepetizerApi by lazy { retrofit.create(EyepetizerApi::class.java) }
+        val userApi: UserApi by lazy { retrofit.create(UserApi::class.java) }
+        val itemApi: ItemApi by lazy { retrofit.create(ItemApi::class.java) }
 
     }
 
@@ -145,6 +146,8 @@ interface EyepetizerService2 {
             const val feed_cover_small_video = "feed_cover_small_video"
             const val feed_cover_large_image = "feed_cover_large_image"
             const val slot_image = "slot_image"
+            const val description_text = "description_text"
+            const val feed_item_detail = "feed_item_detail"
         }
     }
 

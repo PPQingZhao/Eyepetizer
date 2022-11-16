@@ -22,7 +22,7 @@ object RecommendRepository {
 
     private class RecommendPagingSource : MetroPagingSource<Any>() {
         override suspend fun loadPageData(key: String?): BaseResponse<PageDataBean> {
-            return EyepetizerService2.api.getPageData(key ?: EyepetizerService2.URL_RECOMMEND)
+            return EyepetizerService2.api.getPageData(page_type = "card", page_label = "recommend")
         }
 
         override fun getSetBannerList(card: PageDataBean.Card, metroList: List<Metro>?): List<Any> {

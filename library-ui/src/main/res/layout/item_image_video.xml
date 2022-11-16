@@ -12,15 +12,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/iv_feed"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:bindSrc="@{viewModel.imgUrl}"
             android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_launcher_background" />
@@ -29,13 +28,13 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/ic_play_arrow_white"
-            app:mVisibility="@{viewModel.videoType}"
             app:layout_constraintBottom_toBottomOf="@id/iv_feed"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/iv_feed"
             app:layout_constraintStart_toStartOf="@id/iv_feed"
             app:layout_constraintTop_toTopOf="@id/iv_feed"
-            app:layout_constraintWidth_percent="0.12" />
+            app:layout_constraintWidth_percent="0.12"
+            app:mVisibility="@{viewModel.videoType}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

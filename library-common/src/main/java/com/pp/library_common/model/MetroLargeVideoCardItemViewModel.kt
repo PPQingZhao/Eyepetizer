@@ -19,7 +19,7 @@ class MetroLargeVideoCardItemViewModel(item: PageDataBean.Card.CardData.Body.Met
                 resourceType = metroData.resourceType
                 title.set(metroData.title)
                 category.set("${metroData.author?.nick} ${metroData.tags?.get(0)?.title}")
-                imagePath.set(metroData.cover.url)
+                imagePath.set(metroData.cover?.url)
                 icon.set(metroData.author?.avatar?.url)
                 duration.set(metroData.duration?.text)
             }

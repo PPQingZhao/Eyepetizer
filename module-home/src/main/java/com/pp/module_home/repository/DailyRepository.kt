@@ -21,7 +21,7 @@ object DailyRepository {
 
     private class DailyPagingSource : MetroPagingSource<PageDataBean.Card.CardData.Body.Metro>() {
         override suspend fun loadPageData(key: String?): BaseResponse<PageDataBean> {
-            return EyepetizerService2.api.getPageData(key ?: EyepetizerService2.URL_DAILY)
+            return EyepetizerService2.api.getPageData(page_label = "daily_issue", page_type = "card")
         }
 
         override fun getSetBannerList(card: PageDataBean.Card, metroList: List<PageDataBean.Card.CardData.Body.Metro>?): List<PageDataBean.Card.CardData.Body.Metro> {
