@@ -32,6 +32,7 @@ abstract class MetroPagingSource<Item : Any> :
                         valueList.addAll(getSetBannerList(it, it.cardData.body.metroList))
                     }
 
+                    EyepetizerService2.CardType.SET_WATERFALL_METRO_LIST,
                     EyepetizerService2.CardType.SET_METRO_LIST -> {
                         valueList.addAll(getSetMetroList(it.cardData.body.metroList))
                     }

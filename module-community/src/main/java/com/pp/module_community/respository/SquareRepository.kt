@@ -32,6 +32,7 @@ object SquareRepository {
             metroList?.let {
                 bannerList.add(SquareBannerListViewModel(card, it))
             }
+            Log.e(TAG, "bannerList size：${bannerList.size}")
             return bannerList
         }
 
@@ -41,6 +42,7 @@ object SquareRepository {
                 val style = metro.style.tplLabel
                 when (style) {
                     EyepetizerService2.MetroType.Style.feed_cover_small_video,
+                    EyepetizerService2.MetroType.Style.waterfall_cover_small_image,
                     EyepetizerService2.MetroType.Style.waterfall_cover_small_video -> {
                         itemModels.add(SquareVideoSmallItemViewModel(metro))
                     }
@@ -54,6 +56,7 @@ object SquareRepository {
                     }
                 }
             }
+            Log.e(TAG, "SetMetroList size：${itemModels.size}")
             return itemModels
         }
 

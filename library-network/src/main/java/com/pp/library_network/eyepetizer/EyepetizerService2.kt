@@ -153,6 +153,7 @@ interface EyepetizerService2 {
             const val slide_user = "slide_user"
             // 社区 宫格
             const val waterfall_cover_small_video = "waterfall_cover_small_video"
+            const val waterfall_cover_small_image = "waterfall_cover_small_image"
             // 社区 精选热门话题
             const val slide_cover_image_with_title = "slide_cover_image_with_title"
         }
