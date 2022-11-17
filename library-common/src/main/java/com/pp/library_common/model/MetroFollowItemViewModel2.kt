@@ -4,10 +4,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ObservableField
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_ui.R
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_router_service.services.RouterPath
+import com.pp.library_ui.R
 import com.pp.library_ui.adapter.BindingAdapter
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemImageVideoBinding
@@ -15,7 +15,7 @@ import com.pp.library_ui.model.FollowCardItemViewModel
 import com.pp.library_ui.model.ImageVideoItemViewModel
 
 open class MetroFollowItemViewModel2(
-    item: PageDataBean.Card.CardData.Body.Metro?,
+    item: Metro?,
 ) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
     companion object {
@@ -25,14 +25,18 @@ open class MetroFollowItemViewModel2(
     var resourceId: Long? = null
     var resourceType: String? = null
 
-    var metro: PageDataBean.Card.CardData.Body.Metro? = null
+    var metro: Metro? = null
         set(value) {
             field = value
 
             val metroData = field?.metroData
-            this.isVideo  = metroData?.type == EyepetizerService2.MetroType.VIDEO
+            this.isVideo = metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.pgc_video
 
-            this.drawableFolow.set(if (metroData?.isMine?:false) R.drawable.ic_more_vert_24 else R.drawable.layer_follow)
+            this.drawableFolow.set(
+                if (metroData?.isMine
+                        ?: false
+                ) R.drawable.ic_more_vert_24 else R.drawable.layer_follow
+            )
 
             resourceId = metroData?.resourceId
             resourceType = metroData?.resourceType

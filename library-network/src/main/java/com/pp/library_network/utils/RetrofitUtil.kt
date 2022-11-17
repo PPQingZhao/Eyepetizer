@@ -1,7 +1,7 @@
 package com.pp.library_network.utils
 
 import com.google.gson.Gson
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.Metro
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -20,10 +20,12 @@ object RetrofitUtil {
 
         val gson = Gson().newBuilder()
             .registerTypeHierarchyAdapter(
-                PageDataBean.Card.CardData.Body.Metro.TrackingParams::class.java,
+                Metro.TrackingParams::class.java,
                 TrackingParamsAdapter()
             )
             .create()
+
+
         val gsonConverter = GsonConverterFactory.create(gson)
 
         val builder = Retrofit.Builder()

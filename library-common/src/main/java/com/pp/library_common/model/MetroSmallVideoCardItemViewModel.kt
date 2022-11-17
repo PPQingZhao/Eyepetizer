@@ -2,15 +2,15 @@ package com.pp.library_common.model
 
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.model.VideoSmallCardItemViewModel
 
-class MetroSmallVideoCardItemViewModel(item: PageDataBean.Card.CardData.Body.Metro?) :
+class MetroSmallVideoCardItemViewModel(item: Metro?) :
     VideoSmallCardItemViewModel() {
     private var resourceId: Long? = null
     private var resourceType: String? = null
-    var metro: PageDataBean.Card.CardData.Body.Metro? = null
+    var metro: Metro? = null
         set(value) {
             field = value
 

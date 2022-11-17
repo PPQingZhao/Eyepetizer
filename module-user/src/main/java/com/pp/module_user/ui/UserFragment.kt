@@ -2,8 +2,6 @@ package com.pp.module_user.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
@@ -11,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_common.model.MetroFollowItemViewModel2
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.PageDataBean
@@ -65,58 +64,10 @@ class UserFragment : LifecycleFragment<FragmentUserBinding, UserViewModel>() {
     }
 
     private val mAdapter by lazy {
-        val diffCallback = object : DiffUtil.ItemCallback<PageDataBean.Card.CardData.Body.Metro>() {
-            override fun areItemsTheSame(
-                oldItem: PageDataBean.Card.CardData.Body.Metro,
-                newItem: PageDataBean.Card.CardData.Body.Metro
-            ): Boolean {
-                return oldItem.metroId == newItem.metroId
-            }
+        val adapter = MultiBindingPagingDataAdapter(MetroPagingDataAdapterType.DIFF_CALLBACK)
 
-            override fun areContentsTheSame(
-                oldItem: PageDataBean.Card.CardData.Body.Metro,
-                newItem: PageDataBean.Card.CardData.Body.Metro
-            ): Boolean {
-                return oldItem.metroData.resourceId == newItem.metroData.resourceId
-            }
-
-        }
-        val adapter =
-            MultiBindingPagingDataAdapter<PageDataBean.Card.CardData.Body.Metro>(diffCallback)
-        val item_type_text = 0;
-        val item_type_ = item_type_text + 1;
-        adapter.addBindingItem(
-            DefaultViewBindingItem<PageDataBean.Card.CardData.Body.Metro>(
-                item_type_text,
-                {
-                    it?.style?.tplLabel == EyepetizerService2.MetroType.Style.description_text
-                },
-                {
-                    val binding = ItemToBeDevelopedBindingImpl.inflate(layoutInflater, it, false)
-                    binding.root.visibility = View.GONE
-                    binding
-                },
-                { binding, item, cacheItemViewModel ->
-                    item?.metroData?.text
-                })
-        )
-        adapter.addBindingItem(
-            DefaultViewBindingItem<PageDataBean.Card.CardData.Body.Metro>(
-                item_type_,
-                {
-                    it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_item_detail
-                },
-                {
-                    ItemFollowCardBindingImpl.inflate(layoutInflater, it, false)
-                },
-                { binding, item, cacheItemViewModel ->
-                    if (cacheItemViewModel is MetroFollowItemViewModel2) {
-                        cacheItemViewModel.metro = item
-                    } else {
-                        MetroFollowItemViewModel2(item)
-                    }
-                })
-        )
+        adapter.addBindingItem(MetroPagingDataAdapterType.description_text(layoutInflater))
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail(layoutInflater))
 
         adapter
     }

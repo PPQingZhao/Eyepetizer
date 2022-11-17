@@ -5,6 +5,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
+import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_common.adapter.MetroPagingDataAdapterType
+import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.module_home.adapter.FollowPagingDataAdapter
 import com.pp.module_home.databinding.FragmentFollowBinding
 import com.pp.mvvm.LifecycleFragment
@@ -41,7 +44,13 @@ class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>
         }
     }
 
-    private val followAdapter: FollowPagingDataAdapter by lazy { FollowPagingDataAdapter() }
+    private val followAdapter by lazy {
+        val adapter = MultiBindingPagingDataAdapter(MetroPagingDataAdapterType.DIFF_CALLBACK)
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail(layoutInflater))
+
+        adapter
+    }
+
     private fun initRecyclerView() {
         mBinding.followRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.followRecyclerview.adapter =

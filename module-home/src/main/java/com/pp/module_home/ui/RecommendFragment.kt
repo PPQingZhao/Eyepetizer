@@ -14,7 +14,7 @@ import com.pp.library_common.model.MetroLargeVideoCardItemViewModel
 import com.pp.library_common.model.MetroSmallVideoCardItemViewModel
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.PageDataBean
-import com.pp.library_network.eyepetizer.bean.PageDataBean.Card.CardData.Body.Metro
+import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.ItemBannerBinding
 import com.pp.library_ui.databinding.ItemVideoCardBinding

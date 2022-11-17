@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.Metro
 import kotlinx.coroutines.flow.Flow
 
 
@@ -14,8 +14,8 @@ object NvaTabRepository {
         uid: Int,
         pageType: String,
         pageLabel: String
-    ): Flow<PagingData<PageDataBean.Card.CardData.Body.Metro>> {
-        return Pager<Param, PageDataBean.Card.CardData.Body.Metro>(PagingConfig(10),
+    ): Flow<PagingData<Metro>> {
+        return Pager<Param, Metro>(PagingConfig(10),
             initialKey = Param(uid, pageType, pageLabel, false),
             pagingSourceFactory = { NvaTabPagingSource() }).flow
     }
@@ -28,8 +28,8 @@ object NvaTabRepository {
     )
 
     private class NvaTabPagingSource :
-        PagingSource<Param, PageDataBean.Card.CardData.Body.Metro>() {
-        override suspend fun load(params: LoadParams<Param>): LoadResult<Param, PageDataBean.Card.CardData.Body.Metro> {
+        PagingSource<Param, Metro>() {
+        override suspend fun load(params: LoadParams<Param>): LoadResult<Param, Metro> {
             return try {
                 val key = params.key
                 if (key?.end == true) {
@@ -41,7 +41,7 @@ object NvaTabRepository {
                 }
 
                 val dataList = response?.result?.run {
-                    val list = mutableListOf<PageDataBean.Card.CardData.Body.Metro>()
+                    val list = mutableListOf<Metro>()
                     cardList.forEach {
                         it.cardData.body.metroList?.forEach {
                             list.add(it)

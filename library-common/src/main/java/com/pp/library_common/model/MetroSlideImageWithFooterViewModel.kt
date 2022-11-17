@@ -1,6 +1,6 @@
 package com.pp.library_common.model
 
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.Metro
 
-class MetroSlideImageWithFooterViewModel(val metroList: List<PageDataBean.Card.CardData.Body.Metro>?) {
+class MetroSlideImageWithFooterViewModel(val metroList: List<Metro>?) {
 }

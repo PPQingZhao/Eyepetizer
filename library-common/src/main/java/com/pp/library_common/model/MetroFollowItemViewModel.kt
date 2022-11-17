@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.adapter.BindingAdapter
 import com.pp.library_ui.adapter.BindingHolder
@@ -17,7 +17,7 @@ import kotlinx.coroutines.*
 
 @OptIn(DelicateCoroutinesApi::class)
 open class MetroFollowItemViewModel(
-    item: PageDataBean.Card.CardData.Body.Metro?,
+    item: Metro?,
 ) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
     companion object {
@@ -27,7 +27,7 @@ open class MetroFollowItemViewModel(
     var resourceId: Long? = null
     var resourceType: String? = null
 
-    var metro: PageDataBean.Card.CardData.Body.Metro? = null
+    var metro: Metro? = null
         set(value) {
             field = value
             val metroData = field?.metroData

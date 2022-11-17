@@ -1,21 +1,16 @@
 package com.pp.module_user.ui
 
 import android.app.Application
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import com.pp.library_common.app.App
-import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_network.eyepetizer.bean.UserInfoBean
 import com.pp.library_ui.R
 import com.pp.module_user.manager.UserManager
 import com.pp.module_user.repositoy.NvaTabRepository
 import com.pp.mvvm.LifecycleViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class UserViewModel(app: Application) : LifecycleViewModel(app) {
     val icon = ObservableField<String>()
@@ -52,7 +47,7 @@ class UserViewModel(app: Application) : LifecycleViewModel(app) {
         uid: Int,
         pageType: String,
         pageLabel: String
-    ): LiveData<PagingData<PageDataBean.Card.CardData.Body.Metro>> {
+    ): LiveData<PagingData<Metro>> {
         return NvaTabRepository.getPagingData(uid, pageType, pageLabel).asLiveData()
     }
 

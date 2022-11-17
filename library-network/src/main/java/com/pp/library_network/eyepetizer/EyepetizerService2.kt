@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.pp.library_network.eyepetizer.bean.Header
 import com.pp.library_network.eyepetizer.bean.ItemApi
 import com.pp.library_network.utils.RetrofitUtil
+import retrofit2.Retrofit
 
 interface EyepetizerService2 {
     companion object {
@@ -38,6 +39,7 @@ interface EyepetizerService2 {
 
         // url
         private const val BASE_URL_V1 = "http://api.eyepetizer.net/"
+        const val BASE_URL_GET_PAGE = "${BASE_URL_V1}v1/card/page/get_page"
         const val URL_GET_PAGE = "/v1/card/page/get_page"
         const val BASE_URL_TOPIC_HOT = "${URL_GET_PAGE}?page_type=card"
 
@@ -45,12 +47,12 @@ interface EyepetizerService2 {
           用户密码登录
           http://api.eyepetizer.net/v1/user/oauth/password_login?username=17820460461&password=zpq940220&user_type=ugc
          */
-        const val BASE_URL_PASSWORD_LOGIN = "${BASE_URL_V1}/v1/user/oauth/password_login"
+        const val BASE_URL_PASSWORD_LOGIN = "${BASE_URL_V1}v1/user/oauth/password_login"
 
         /**
          * 获取用户信息:http://api.eyepetizer.net/v1/user/center/get_user_info?uid=304922815
          */
-        const val BASE_URL_GET_USER_INFO = "${BASE_URL_V1}/v1/user/center/get_user_info"
+        const val BASE_URL_GET_USER_INFO = "${BASE_URL_V1}v1/user/center/get_user_info"
 
         const val URL_FOLLOW = "${URL_GET_PAGE}?page_type=card&page_label=follow"
         const val URL_DISCOVERY = "${URL_GET_PAGE}?page_type=card&page_label=/discover_v2"
@@ -97,6 +99,32 @@ interface EyepetizerService2 {
         val userApi: UserApi by lazy { retrofit.create(UserApi::class.java) }
         val itemApi: ItemApi by lazy { retrofit.create(ItemApi::class.java) }
 
+
+        val apiTest: EyepetizerApi by lazy { retrofit.create(EyepetizerApi::class.java) }
+
+        private val apiMap = mutableMapOf<String, Pair<Class<*>, Any>>()
+        fun <clazz : Any> getApi(url: String, c: Class<clazz>): clazz {
+            val api = apiMap[url]
+            if (null != api && api.first == c) {
+                return api.second as clazz
+            }
+
+            val createEyeRetrofit = RetrofitUtil.createEyeRetrofit(
+                url, "x-api-key" to header.xApiKey,
+                "X-THEFAIR-APPID" to header.xTHEFAIRAPPID,
+                "X-THEFAIR-CID" to header.xTHEFAIRCID,
+                "X-THEFAIR-AUTH" to header.xTHEFAIRAUTH,
+                "X-THEFAIR-UA" to header.xTHEFAIRUA,
+                "User-Agent" to header.userAgent,
+                "Cookie" to header.cookie,
+                "Host" to header.host,
+            )
+
+            val tarApi = createEyeRetrofit.create(c)
+            apiMap.put(url, c to tarApi)
+
+            return tarApi
+        }
     }
 
     object ErrorCode {
@@ -126,6 +154,7 @@ interface EyepetizerService2 {
     object MetroType {
         const val VIDEO = "video"
         const val IMAGE = "image"
+        const val item = "item"
 
         class Data {
             // title
@@ -138,8 +167,10 @@ interface EyepetizerService2 {
             // author  uid   nick  followed type  avatar.url
         }
 
-        class ResourceType {
+        object ResourceType {
             // pgc_video
+            const val pgc_video = "pgc_video"
+            const val pgc_picture = "pgc_picture"
         }
 
         object Style {
@@ -151,9 +182,11 @@ interface EyepetizerService2 {
             const val description_text = "description_text"
             const val feed_item_detail = "feed_item_detail"
             const val slide_user = "slide_user"
+
             // 社区 宫格
             const val waterfall_cover_small_video = "waterfall_cover_small_video"
             const val waterfall_cover_small_image = "waterfall_cover_small_image"
+
             // 社区 精选热门话题
             const val slide_cover_image_with_title = "slide_cover_image_with_title"
         }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.library_ui.databinding.ItemBannerContentBinding
 import com.pp.library_ui.model.BannerContentItemViewModel
@@ -12,7 +13,7 @@ import com.pp.library_ui.widget.banner.BaseBannerAdapter
 
 open class MetroBannerItemViewModel(
     val card: PageDataBean.Card? = null,
-    val metroList: List<PageDataBean.Card.CardData.Body.Metro>?
+    val metroList: List<Metro>?
 ) : BannerListItemViewModel<BannerContentItemViewModel, MetroBannerItemViewModel.BannerViewHolder<ItemBannerContentBinding>>() {
     val itemList = mutableListOf<BannerContentItemViewModel>()
 
