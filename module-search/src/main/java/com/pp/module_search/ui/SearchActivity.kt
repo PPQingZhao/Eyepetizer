@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import com.pp.library_common.result.Result
 import com.pp.module_search.adapter.SearchRankAdapter
+import com.pp.module_search.model.SearchRankItemModel
 import com.pp.module_search.model.SearchRankItemTitleModel
 
 @Route(path = RouterPath.Search.activity_search)
@@ -60,18 +61,32 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
     }
 
     private fun initRankRecycler() {
-        mBinding.recyclerTag.layoutManager = LinearLayoutManager(baseContext)
+        mBinding.recyclerRank.layoutManager = LinearLayoutManager(baseContext)
 
         mRankAdapter = SearchRankAdapter().apply {
-            /*addBindingItem(DefaultViewBindingItem<SearchRankItemTitleModel>(
+            addBindingItem(DefaultViewBindingItem<SearchRankItemTitleModel>(
                 SearchViewModel.TYPE_RANK_TITLE,
                 { it?.itemType == SearchViewModel.TYPE_RANK_TITLE },
                 { parent ->
-                    //ItemSearchRankBinding.
+                    ItemSearchRankTitleBinding.inflate(layoutInflater, parent, false)
+                },
+                { binding, item, cacheItemViewModel ->
+                    item
                 }
-            ))*/
-//            ItemSearch
+            ))
+            addBindingItem(DefaultViewBindingItem<SearchRankItemModel>(
+                SearchViewModel.TYPE_RANK,
+                { it?.itemType == SearchViewModel.TYPE_RANK },
+                { parent ->
+                    ItemSearchRankBinding.inflate(layoutInflater, parent, false)
+                },
+                { binding, item, cacheItemViewModel ->
+                    item
+                }
+            ))
         }
+
+        mBinding.recyclerRank.adapter = mRankAdapter!!
     }
 
     private fun initHotRecycler() {
@@ -180,7 +195,8 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
                             mList.clear()
                             historyList.clear()
 
-                            val size = if (items.size > MAX_HISTORY_COUNT) MAX_HISTORY_COUNT else items.size
+                            val size =
+                                if (items.size > MAX_HISTORY_COUNT) MAX_HISTORY_COUNT else items.size
                             if (size > 0) {
                                 historyList.add(historyTitle)
                             }
@@ -210,6 +226,8 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
 
         mViewModel.hotQueriesData.observe(this) { t ->
             hotList.addAll(t)
+            mList.addAll(hotList)
+            mAdapter?.setDataList(mList)
         }
 
         mViewModel.getHot(mItemClickListener)
@@ -221,7 +239,7 @@ class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>
 
                     }
                     is Result.Success -> {
-                        it.data
+                        mRankAdapter?.setDataList(it.data)
                     }
                     else -> {
 
