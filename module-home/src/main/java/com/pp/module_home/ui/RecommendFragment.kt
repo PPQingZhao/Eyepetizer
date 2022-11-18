@@ -13,7 +13,7 @@ import com.pp.library_common.model.MetroBannerItemViewModel
 import com.pp.library_common.model.MetroLargeVideoCardItemViewModel
 import com.pp.library_common.model.MetroSmallVideoCardItemViewModel
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.ItemBannerBinding
@@ -60,7 +60,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                     if (oldItem is Metro && newItem is Metro) {
                         oldItem.metroId == newItem.metroId
                     } else if (oldItem is ItemModel<*> && newItem is ItemModel<*>) {
-                        (oldItem.data as PageDataBean.Card).cardUniqueId == (newItem.data as PageDataBean.Card).cardUniqueId
+                        (oldItem.data as Card).cardUniqueId == (newItem.data as Card).cardUniqueId
                     } else {
                         oldItem == newItem
                     }
@@ -75,7 +75,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                     if (oldItem is Metro && newItem is Metro) {
                         oldItem.metroData.resourceId == newItem.metroData.resourceId
                     } else if (oldItem is ItemModel<*> && newItem is ItemModel<*>) {
-                        (oldItem.data as PageDataBean.Card).cardUniqueId == (newItem.data as PageDataBean.Card).cardUniqueId
+                        (oldItem.data as Card).cardUniqueId == (newItem.data as Card).cardUniqueId
                     } else {
                         oldItem == newItem
                     }
@@ -118,7 +118,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
         // slide_cover_image_with_footer 轮播图类型 (数据源:set_banner_list)
         adapter.addBindingItem(
-            DefaultViewBindingItem<ItemModel<PageDataBean.Card>>(
+            DefaultViewBindingItem<ItemModel<Card>>(
                 type_small_slide_image,
                 { it?.type == EyepetizerService2.CardType.SET_BANNER_LIST },
                 { ItemBannerBinding.inflate(layoutInflater, it, false) },

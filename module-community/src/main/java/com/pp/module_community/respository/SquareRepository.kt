@@ -8,9 +8,8 @@ import com.pp.library_common.model.MultiItemEntity
 import com.pp.library_common.pagingsource.Key
 import com.pp.library_common.pagingsource.MetroPagingSource
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.BaseResponse
+import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.Metro
-import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.module_community.model.SquareBannerListViewModel
 import com.pp.module_community.model.SquareVideoLargeItemViewModel
 import com.pp.module_community.model.SquareVideoSmallItemViewModel
@@ -21,9 +20,9 @@ object SquareRepository {
     private const val TAG = "SquareRepository"
 
     fun getPagingData(): Flow<PagingData<MultiItemEntity>> {
-        val key = Key()
+        val key = Key<MultiItemEntity>()
         key.url = EyepetizerService2.BASE_URL_GET_PAGE
-        key.params = mutableMapOf(
+        key.paramMap = mutableMapOf(
             "page_label" to "community",
             "page_type" to "card"
         )
@@ -36,7 +35,7 @@ object SquareRepository {
     private class SquarePagingSource :
         MetroPagingSource<MultiItemEntity>() {
         override fun getSetBannerList(
-            card: PageDataBean.Card,
+            card: Card,
             metroList: List<Metro>?
         ): List<MultiItemEntity> {
             val bannerList = mutableListOf<SquareBannerListViewModel>()
@@ -71,7 +70,7 @@ object SquareRepository {
             return itemModels
         }
 
-        override fun getLoadMoreList(itemList: List<Metro>): List<MultiItemEntity> {
+        override fun getLoadMoreMetroList(itemList: List<Metro>): List<MultiItemEntity> {
             val itemModels = mutableListOf<MultiItemEntity>()
             itemList?.forEach { metro ->
                 val style = metro.style.tplLabel

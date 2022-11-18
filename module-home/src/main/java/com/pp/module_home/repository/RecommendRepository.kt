@@ -7,18 +7,17 @@ import com.pp.library_common.model.ItemModel
 import com.pp.library_common.pagingsource.Key
 import com.pp.library_common.pagingsource.MetroPagingSource
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.BaseResponse
+import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.Metro
-import com.pp.library_network.eyepetizer.bean.PageDataBean
 import kotlinx.coroutines.flow.Flow
 
 object RecommendRepository {
 
     fun getPagingData(): Flow<PagingData<Any>> {
 
-        val key = Key()
+        val key = Key<Any>()
         key.url = EyepetizerService2.BASE_URL_GET_PAGE
-        key.params = mutableMapOf(
+        key.paramMap = mutableMapOf(
             "page_label" to "recommend",
             "page_type" to "card"
         )
@@ -30,7 +29,7 @@ object RecommendRepository {
 
     private class RecommendPagingSource : MetroPagingSource<Any>() {
 
-        override fun getSetBannerList(card: PageDataBean.Card, metroList: List<Metro>?): List<Any> {
+        override fun getSetBannerList(card: Card, metroList: List<Metro>?): List<Any> {
             val itemModels = mutableListOf<Any>()
             itemModels.add(ItemModel(EyepetizerService2.CardType.SET_BANNER_LIST, card))
             return itemModels
@@ -50,7 +49,7 @@ object RecommendRepository {
             return itemModels
         }
 
-        override fun getLoadMoreList(itemList: List<Metro>): List<Any> {
+        override fun getLoadMoreMetroList(itemList: List<Metro>): List<Any> {
             val itemModels = mutableListOf<Metro>()
             itemList?.forEach {
 

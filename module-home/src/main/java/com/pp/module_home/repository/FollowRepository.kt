@@ -1,20 +1,21 @@
 package com.pp.module_home.repository
 
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.pp.library_common.pagingsource.Key
 import com.pp.library_common.pagingsource.MetroPagingSource
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.BaseResponse
+import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.Metro
-import com.pp.library_network.eyepetizer.bean.PageDataBean
 import kotlinx.coroutines.flow.Flow
 
 object FollowRepository {
 
     fun getPagingData(): Flow<PagingData<Metro>> {
-        val key = Key()
+        val key = Key<Metro>()
         key.url = EyepetizerService2.BASE_URL_GET_PAGE
-        key.params = mutableMapOf(
+        key.paramMap = mutableMapOf(
             "page_label" to "follow",
             "page_type" to "card"
         )
@@ -26,7 +27,7 @@ object FollowRepository {
 
     private class FollowPagingSource : MetroPagingSource<Metro>() {
 
-        override fun getSetBannerList(card: PageDataBean.Card, metroList: List<Metro>?): List<Metro> {
+        override fun getSetBannerList(card: Card, metroList: List<Metro>?): List<Metro> {
             return mutableListOf()
         }
 
@@ -42,7 +43,7 @@ object FollowRepository {
             return itemModels
         }
 
-        override fun getLoadMoreList(itemList: List<Metro>): List<Metro> {
+        override fun getLoadMoreMetroList(itemList: List<Metro>): List<Metro> {
             val itemModels = mutableListOf<Metro>()
             itemList?.forEach {
 //                Log.e("TAG","type: ${it.type}  style typ: ${it.style.tplLabel}")

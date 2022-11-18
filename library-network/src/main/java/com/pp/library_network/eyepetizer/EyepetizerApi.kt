@@ -1,12 +1,7 @@
 package com.pp.library_network.eyepetizer
 
-import com.pp.library_network.eyepetizer.bean.BaseResponse
-import com.pp.library_network.eyepetizer.bean.HotQueriesBean
-import com.pp.library_network.eyepetizer.bean.LoadMorePageBean
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.*
 import okhttp3.ResponseBody
-import org.json.JSONObject
-import retrofit2.Call
 import retrofit2.http.*
 
 interface EyepetizerApi {
@@ -56,15 +51,36 @@ interface EyepetizerApi {
 
     @FormUrlEncoded
     @POST
-    suspend fun getLoadMorePageData(
+    suspend fun getLoadMoreMetroData(
         @Url url: String,
-        @FieldMap map: Map<String, String>?
-    ): BaseResponse<LoadMorePageBean>
+        @FieldMap map: Map<String, String?>?
+    ): BaseResponse<LoadMoreBean<Metro>>
+
+    @FormUrlEncoded
+    @POST
+    suspend fun getLoadMoreCardData(
+        @Url url: String,
+        @FieldMap map: Map<String, String?>?
+    ): BaseResponse<LoadMoreBean<Card>>
+
+    @FormUrlEncoded
+    @POST
+    suspend fun getLoadMorePageData2(
+        @Url url: String,
+        @FieldMap map: Map<String, String?>?
+    ): ResponseBody
 
     @FormUrlEncoded
     @POST
     suspend fun getPageData2(
         @Url url: String,
-        @FieldMap map: Map<String, String>?
+        @FieldMap map: Map<String, String?>?
     ): BaseResponse<PageDataBean>
+
+    @FormUrlEncoded
+    @POST
+    suspend fun getPageData3(
+        @Url url: String,
+        @FieldMap map: Map<String, String>?
+    ): ResponseBody
 }

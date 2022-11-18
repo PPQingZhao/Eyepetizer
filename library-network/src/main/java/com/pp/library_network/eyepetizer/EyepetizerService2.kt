@@ -147,6 +147,7 @@ interface EyepetizerService2 {
         const val SET_METRO_LIST = "set_metro_list"
         const val SET_BANNER_LIST = "set_banner_list"
         const val CALL_METRO_LIST = "call_metro_list"
+        const val CALL_CARD_LIST = "call_card_list"
         const val SET_SLIDE_METRO_LIST = "set_slide_metro_list"
         const val SET_WATERFALL_METRO_LIST = "set_waterfall_metro_list"
     }

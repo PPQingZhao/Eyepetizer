@@ -3,7 +3,6 @@ package com.pp.module_home.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.BindingPagingDataAdapter
 import com.pp.library_base.adapter.SelfLoadStateAdapter
 import com.pp.library_common.model.MetroFollowItemViewModel
