@@ -141,7 +141,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
     override fun onFirstResume() {
 
-        mViewModel.getPageData().observe(this@RecommendFragment) {
+        mViewModel.getPageData().observe(this) {
             lifecycleScope.launch {
                 multiAdapter.submitData(it)
             }

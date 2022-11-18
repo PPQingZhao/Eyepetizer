@@ -31,7 +31,7 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun getViewPager(): ViewPager2 {
         mBinding.mainViewpager.isUserInputEnabled = false
-//        mBinding.mainViewpager.offscreenPageLimit = 1
+        mBinding.mainViewpager.offscreenPageLimit = 3
         return mBinding.mainViewpager
     }
 
