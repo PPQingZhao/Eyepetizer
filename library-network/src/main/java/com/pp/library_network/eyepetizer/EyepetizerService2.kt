@@ -100,8 +100,6 @@ interface EyepetizerService2 {
         val itemApi: ItemApi by lazy { retrofit.create(ItemApi::class.java) }
 
 
-        val apiTest: EyepetizerApi by lazy { retrofit.create(EyepetizerApi::class.java) }
-
         private val apiMap = mutableMapOf<String, Pair<Class<*>, Any>>()
         fun <clazz : Any> getApi(url: String, c: Class<clazz>): clazz {
             val api = apiMap[url]
@@ -121,7 +119,7 @@ interface EyepetizerService2 {
             )
 
             val tarApi = createEyeRetrofit.create(c)
-            apiMap.put(url, c to tarApi)
+            apiMap[url] = c to tarApi
 
             return tarApi
         }

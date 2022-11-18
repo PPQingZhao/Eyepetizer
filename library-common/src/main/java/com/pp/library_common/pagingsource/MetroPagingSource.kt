@@ -44,7 +44,7 @@ abstract class MetroPagingSource<Item : Any> :
                             nextKey.paramMap = it.cardData.body.apiRequest?.params
                             nextKey.isLoadMore = true
 
-                            // 加载更多实现  call_metro_list
+                            // 加载更多实现  call_card_list
                             nextKey.loadMore = object : LoadMore<Item> {
                                 override suspend fun load(
                                     url: String?,
@@ -58,6 +58,9 @@ abstract class MetroPagingSource<Item : Any> :
                                             EyepetizerService2.api.getLoadMoreCardData(url!!, param)
 
                                         loadMoreBean.result?.run {
+                                            val toMutableMap = nextKey.paramMap?.toMutableMap()
+                                            toMutableMap?.put("last_item_id",lastItemId.toString())
+                                            nextKey.paramMap = toMutableMap
                                             // 数据加载完毕
                                             if (itemList == null || itemList.isEmpty()) {
                                                 return LoadResult.Page(data, null, null)
@@ -67,6 +70,11 @@ abstract class MetroPagingSource<Item : Any> :
                                                 data.addAll(getLoadMoreMetroList(it.cardData.body.metroList?: mutableListOf()))
                                             }
                                         }
+                                    }
+
+                                    Log.e("TAG", nextKey.url ?: "")
+                                    nextKey.paramMap?.forEach {
+                                        Log.e("TAG", "key: ${it.key} value: ${it.value}")
                                     }
                                     Log.e("TAG", "call_card_list data: ${data.size}")
                                     return LoadResult.Page(data, null, nextKey)
@@ -97,12 +105,20 @@ abstract class MetroPagingSource<Item : Any> :
                                             )
 
                                         loadMoreBean.result?.run {
+                                            val toMutableMap = nextKey.paramMap?.toMutableMap()
+                                            toMutableMap?.put("last_item_id",lastItemId.toString())
+                                            nextKey.paramMap = toMutableMap
                                             // 数据加载完毕
                                             if (itemList == null || itemList.isEmpty()) {
                                                 return LoadResult.Page(data, null, null)
                                             }
                                             data.addAll(getLoadMoreMetroList(itemList))
                                         }
+                                    }
+
+                                    Log.e("TAG", nextKey.url ?: "")
+                                    nextKey.paramMap?.forEach {
+                                        Log.e("TAG", "key: ${it.key} value: ${it.value}")
                                     }
                                     Log.e("TAG", "call_metro_list data: ${data.size}")
                                     return LoadResult.Page(data, null, nextKey)
