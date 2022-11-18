@@ -25,6 +25,7 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
                 app:contentScrim="@color/white"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:statusBarScrim="@color/white"
@@ -34,6 +35,7 @@
                     layout="@layout/include_userinfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
                     app:layout_collapseMode="none"
                     app:viewModel="@{viewModel}" />
 
