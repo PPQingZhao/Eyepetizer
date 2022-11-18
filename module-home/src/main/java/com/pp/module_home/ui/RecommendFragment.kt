@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_common.model.ItemModel
 import com.pp.library_common.model.MetroBannerItemViewModel
 import com.pp.library_common.model.MetroLargeVideoCardItemViewModel
@@ -85,37 +86,13 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
         }
         val adapter = MultiBindingPagingDataAdapter<Any>(call)
         // item type (唯一)
-        val type_large_video = 1
-        val type_small_video = type_large_video + 1
-        val type_small_slide_image = type_small_video + 1
         // feed_cover_large_video 类型
-        adapter.addBindingItem(
-            DefaultViewBindingItem<Metro>(
-                type_large_video,
-                { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_large_video },
-                { ItemVideoCardBinding.inflate(layoutInflater, it, false) },
-                { binding, item, cacheItemViewModel ->
-                    if (cacheItemViewModel is MetroLargeVideoCardItemViewModel) {
-                        cacheItemViewModel.metro = item
-                        cacheItemViewModel
-                    } else MetroLargeVideoCardItemViewModel(item)
-                })
-        )
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_cover_large_video(layoutInflater))
 
         // feed_cover_small_video 类型
-        adapter.addBindingItem(
-            DefaultViewBindingItem<Metro>(
-                type_small_video,
-                { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_small_video },
-                { ItemVideoSmallCardBinding.inflate(layoutInflater, it, false) },
-                { binding, item, cacheItemViewModel ->
-                    if (cacheItemViewModel is MetroSmallVideoCardItemViewModel) {
-                        cacheItemViewModel.metro = item
-                        cacheItemViewModel
-                    } else MetroSmallVideoCardItemViewModel(item)
-                })
-        )
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_cover_small_video(layoutInflater))
 
+        val type_small_slide_image = MetroPagingDataAdapterType.type_end_value + 1
         // slide_cover_image_with_footer 轮播图类型 (数据源:set_banner_list)
         adapter.addBindingItem(
             DefaultViewBindingItem<ItemModel<Card>>(

@@ -4,20 +4,19 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.DefaultBindingPagingDataAdapter
-import com.pp.library_common.model.MetroFollowItemViewModel2
-import com.pp.library_common.model.MetroLargeVideoCardItemViewModel
-import com.pp.library_common.model.MetroSmallVideoCardItemViewModel
+import com.pp.library_common.model.*
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.adapter.DefaultViewBindingItem
-import com.pp.library_ui.databinding.ItemFollowCardBindingImpl
-import com.pp.library_ui.databinding.ItemToBeDevelopedBindingImpl
-import com.pp.library_ui.databinding.ItemVideoCardBinding
-import com.pp.library_ui.databinding.ItemVideoSmallCardBinding
+import com.pp.library_ui.databinding.*
 
 object MetroPagingDataAdapterType {
     const val type_description_text = 0
     const val type_feed_item_detail = type_description_text + 1
+    const val type_feed_cover_large_video = type_feed_item_detail + 1
+    const val type_feed_cover_small_video = type_feed_cover_large_video + 1
+
+    const val type_end_value = type_feed_cover_small_video
 
     val DIFF_CALLBACK by lazy {
 
@@ -63,7 +62,6 @@ object MetroPagingDataAdapterType {
             { _, item, cacheItemViewModel ->
                 if (null != cacheItemViewModel) {
                     cacheItemViewModel.metro = item
-
                     cacheItemViewModel
                 } else {
                     MetroSmallVideoCardItemViewModel(item)
@@ -103,9 +101,34 @@ object MetroPagingDataAdapterType {
             { binding, item, cacheItemViewModel ->
                 if (cacheItemViewModel is MetroFollowItemViewModel2) {
                     cacheItemViewModel.metro = item
+                    cacheItemViewModel
                 } else {
                     MetroFollowItemViewModel2(item)
                 }
             })
+
+    fun feed_cover_large_video(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
+        type_feed_cover_large_video,
+        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_large_video },
+        { ItemVideoCardBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroLargeVideoCardItemViewModel) {
+                cacheItemViewModel.metro = item
+                cacheItemViewModel
+            } else {
+                MetroLargeVideoCardItemViewModel(item)
+            }
+        })
+
+    fun feed_cover_small_video(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
+        type_feed_cover_small_video,
+        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_small_video },
+        { ItemVideoSmallCardBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroSmallVideoCardItemViewModel) {
+                cacheItemViewModel.metro = item
+                cacheItemViewModel
+            } else MetroSmallVideoCardItemViewModel(item)
+        })
 
 }
