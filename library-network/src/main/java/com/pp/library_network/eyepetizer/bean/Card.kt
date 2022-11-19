@@ -45,7 +45,7 @@ data class Card(
         ) {
             data class ApiRequest(
                 @SerializedName("params")
-                val params: Map<String,String>,
+                val params: Map<String, String>,
                 @SerializedName("url")
                 val url: String
             ) {
@@ -85,14 +85,42 @@ data class Card(
 
         data class Header(
             @SerializedName("center")
-            val center: List<Any>,
+            val center: List<CardHeadData>,
             @SerializedName("left")
-            val left: List<Any>,
+            val left: List<CardHeadData>,
             @SerializedName("right")
-            val right: List<Any>,
+            val right: List<CardHeadData>,
             @SerializedName("style")
             val style: Style
-        )
+        ) {
+            data class CardHeadData(
+                @SerializedName("alias_name")
+                val aliasName: String,
+                @SerializedName("allow_insert_above")
+                val allowInsertAbove: Int,
+                @SerializedName("metro_data")
+                val metroData: MetroData,
+                @SerializedName("metro_id")
+                val metroId: Int,
+                @SerializedName("metro_unique_id")
+                val metroUniqueId: String,
+                @SerializedName("style")
+                val style: Style,
+                @SerializedName("tracking_data")
+                val trackingData: TrackingData,
+                @SerializedName("tracking_params")
+                val trackingParams: Metro.TrackingParams,
+                @SerializedName("type")
+                val type: String
+            ) {
+                data class MetroData(
+                    @SerializedName("limit_rows")
+                    val limitRows: Boolean,
+                    @SerializedName("text")
+                    val text: String
+                )
+            }
+        }
     }
 
     data class Interaction(

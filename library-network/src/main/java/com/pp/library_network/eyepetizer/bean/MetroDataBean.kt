@@ -65,6 +65,8 @@ data class MetroDataBean(
     val cover: Cover,
     @SerializedName("duration")
     val duration: Duration?,
+    @SerializedName("icons")
+    val icons: List<IconBean>?,
 ) : Serializable {
 
     data class Tag(

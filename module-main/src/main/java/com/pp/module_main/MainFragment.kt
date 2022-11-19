@@ -48,6 +48,8 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
                         .navigation() as Fragment
                     1 -> ARouter.getInstance().build(RouterPath.Community.fragment_community)
                         .navigation() as Fragment
+                    2 -> ARouter.getInstance().build(RouterPath.Discovery.fragment_discovery)
+                        .navigation() as Fragment
                     3 -> ARouter.getInstance().build(RouterPath.User.fragment_user)
                         .navigation() as Fragment
 

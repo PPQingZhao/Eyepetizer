@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.DefaultBindingPagingDataAdapter
 import com.pp.library_common.model.*
 import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_network.eyepetizer.bean.Card
+import com.pp.library_network.eyepetizer.bean.IconBean
 import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.*
@@ -16,7 +18,12 @@ object MetroPagingDataAdapterType {
     const val type_feed_cover_large_video = type_feed_item_detail + 1
     const val type_feed_cover_small_video = type_feed_cover_large_video + 1
 
-    const val type_end_value = type_feed_cover_small_video
+    const val type_icon_grid = type_feed_cover_small_video + 1
+    const val type_slide_cover_image_with_title = type_icon_grid + 1
+    const val type_slide_cover_image = type_slide_cover_image_with_title + 1
+    const val type_set_slide_metro_list = type_slide_cover_image + 1
+
+    const val type_end_value = type_set_slide_metro_list
 
     val DIFF_CALLBACK by lazy {
 
@@ -131,4 +138,63 @@ object MetroPagingDataAdapterType {
             } else MetroSmallVideoCardItemViewModel(item)
         })
 
+    fun icon_grid(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
+        type_icon_grid,
+        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.icon_grid },
+        { ItemRecyclerBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroIconGridItemViewModel) {
+                cacheItemViewModel.metro = item
+                cacheItemViewModel
+            } else MetroIconGridItemViewModel(item, binding.root.context)
+        }
+    )
+
+    fun icon_item(layoutInflater: LayoutInflater) = DefaultViewBindingItem<IconBean>(
+        type_icon_grid,
+        { true },
+        { ItemIconBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroIconItemViewModel) {
+                cacheItemViewModel.icon = item
+                cacheItemViewModel
+            } else MetroIconItemViewModel(item)
+        }
+    )
+
+    fun slide_cover_image_with_title(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
+        type_slide_cover_image_with_title,
+        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.slide_cover_image_with_title },
+        { ItemSlideCoverWithTitleBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroSlideCoverTitleItemViewModel) {
+                cacheItemViewModel.metro = item
+                cacheItemViewModel
+            } else MetroSlideCoverTitleItemViewModel(item)
+        }
+    )
+
+    fun slide_cover_image(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
+        type_slide_cover_image,
+        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.slide_cover_image },
+        { ItemSlideCoverBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroSlideCoverItemViewModel) {
+                cacheItemViewModel.metro = item
+                cacheItemViewModel
+            } else MetroSlideCoverItemViewModel(item)
+        }
+    )
+
+    fun set_slide_metro_list(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Card>(
+        type_set_slide_metro_list,
+        { it?.type == EyepetizerService2.CardType.SET_SLIDE_METRO_LIST },
+        { ItemRecyclerBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is CardRecyclerViewModel) {
+                cacheItemViewModel.card = item
+                cacheItemViewModel
+            } else CardRecyclerViewModel(item, binding.root.context)
+        }
+    )
 }

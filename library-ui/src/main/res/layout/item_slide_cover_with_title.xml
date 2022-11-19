@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.pp.library_ui.model.SlideCoverViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/padding_normal"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_normal">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
+            android:bindSrc="@{viewModel.cover}"
+            tools:background="@drawable/ic_launcher_background"
+            />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.title}"
+            android:textSize="12sp"
+            android:textColor="@color/color_text_normal"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            app:layout_constraintStart_toStartOf="@+id/iv_cover"
+            app:layout_constraintEnd_toEndOf="@+id/iv_cover"
+            app:layout_constraintTop_toBottomOf="@+id/iv_cover"
+            tools:text="融入冰天雪地,「哈」出你的冬日计划"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

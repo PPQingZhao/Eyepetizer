@@ -52,6 +52,7 @@ dependencies {
         implementation(projects.moduleComments)
         implementation(projects.moduleSearch)
         implementation(projects.moduleUser)
+        implementation(projects.moduleDiscovery)
     }
 //    print(libs.plugins.android.module.get().pluginId)
 

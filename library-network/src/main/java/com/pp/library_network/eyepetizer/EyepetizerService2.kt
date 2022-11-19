@@ -188,6 +188,13 @@ interface EyepetizerService2 {
 
             // 社区 精选热门话题
             const val slide_cover_image_with_title = "slide_cover_image_with_title"
+
+            const val icon_grid = "icon_grid"
+            const val more_link = "more_link"
+            const val card_title = "card_title"
+            const val default_web = "default_web"
+            const val stacked_slide_cover_image = "stacked_slide_cover_image"
+            const val slide_cover_image = "slide_cover_image"
         }
     }
 

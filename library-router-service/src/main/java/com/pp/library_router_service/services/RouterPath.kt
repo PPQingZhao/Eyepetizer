@@ -25,4 +25,8 @@ object RouterPath {
     object Search {
         const val activity_search = "/search/activity_search"
     }
+
+    object Discovery {
+        const val fragment_discovery = "/discovery/fragment_discovery"
+    }
 }
