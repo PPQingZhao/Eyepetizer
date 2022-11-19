@@ -15,15 +15,15 @@ open class DividerDecoration(
     private val dividerSize: Int = 1,
     @ColorInt colorInt: Int = Color.GRAY,
     @Orientation orientation: Int,
-    private val canDraw: (viewHolder: RecyclerView.ViewHolder?, type: Int) -> Boolean
+    private val canDraw: (viewHolder: RecyclerView.ViewHolder?, type:@DivideType Int) -> Boolean
 ) :
     ItemDecoration() {
-    private val dividerDawer: DividerDrawer
+    private val dividerDrawer: DividerDrawer
 
     private val paint: Paint
 
     init {
-        dividerDawer = if (orientation == RecyclerView.VERTICAL) VerticalDividerDrawer()
+        dividerDrawer = if (orientation == RecyclerView.VERTICAL) VerticalDividerDrawer()
         else HorizontalDividerDrawer()
 
         paint = Paint()
@@ -38,6 +38,7 @@ open class DividerDecoration(
         const val DIVIDER_BOTTOM = 3
     }
 
+    @Target(AnnotationTarget.TYPE, AnnotationTarget.VALUE_PARAMETER)
     @IntDef(value = [DIVIDER_LEFT, DIVIDER_TOP, DIVIDER_RIGHT, DIVIDER_BOTTOM])
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class DivideType {
@@ -89,25 +90,25 @@ open class DividerDecoration(
             // draw left divider
             if (leftDividerSize > 0) {
                 paint.strokeWidth = leftDividerSize.toFloat()
-                dividerDawer.drawLeftDivider(c, paint, view, outRect)
+                dividerDrawer.drawLeftDivider(c, paint, view, outRect)
             }
 
             // draw top divider
             if (topDividerSize > 0) {
                 paint.strokeWidth = topDividerSize.toFloat()
-                dividerDawer.drawTopDivider(c, paint, view, outRect)
+                dividerDrawer.drawTopDivider(c, paint, view, outRect)
             }
 
             //draw right divider
             if (rightDividerSize > 0) {
                 paint.strokeWidth = rightDividerSize.toFloat()
-                dividerDawer.drawRightDivider(c, paint, view, outRect)
+                dividerDrawer.drawRightDivider(c, paint, view, outRect)
             }
 
             // draw bottom divider
             if (bottomDividerSize > 0) {
                 paint.strokeWidth = bottomDividerSize.toFloat()
-                dividerDawer.drawBottomDivider(c, paint, view, outRect)
+                dividerDrawer.drawBottomDivider(c, paint, view, outRect)
             }
             index++
         }

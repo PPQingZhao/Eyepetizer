@@ -11,18 +11,16 @@ class CommentItemViewModel(comment: CommentsBean.Item, @ColorInt val color: Int)
     var commentItem: CommentsBean.Item? = null
         set(value) {
             field = value
-            value?.run {
-                replyList.forEach {
-                    val replyItemViewModel = ReplyItemViewModel(it, color)
-                    addNode(replyItemViewModel)
-                }
-                this@CommentItemViewModel.icon.set(user.avatar)
-                this@CommentItemViewModel.nick.set(user.nick)
-                this@CommentItemViewModel.favorite.set(countSummary.favorite.count.toString())
-                val commentResult =
-                    CommentUtil.getComment(commentContent, commentTime, location, 0.6f, color)
-                this@CommentItemViewModel.comment.set(commentResult)
+            value?.replyList?.forEach {
+                val replyItemViewModel = ReplyItemViewModel(it, color)
+                addNode(replyItemViewModel)
             }
+            this@CommentItemViewModel.icon.set(value?.user?.avatar)
+            this@CommentItemViewModel.nick.set(value?.user?.nick)
+            this@CommentItemViewModel.favorite.set(value?.countSummary?.favorite?.count.toString())
+            val commentResult =
+                CommentUtil.getComment(value?.commentContent, value?.commentTime, value?.location, 0.6f, color)
+            this@CommentItemViewModel.comment.set(commentResult)
         }
 
     init {

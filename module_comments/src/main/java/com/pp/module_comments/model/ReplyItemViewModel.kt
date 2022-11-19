@@ -10,29 +10,33 @@ class ReplyItemViewModel(reply: CommentsBean.Item.Reply, @ColorInt val color: In
     var replyItem: CommentsBean.Item.Reply? = null
         set(value) {
             field = value
-            replyItem?.run {
-                this@ReplyItemViewModel.icon.set(user.avatar)
-                this@ReplyItemViewModel.nick.set(user.nick)
-                this@ReplyItemViewModel.favorite.set(countSummary.favorite.count.toString())
-                val commentResult: CharSequence
-                if (atUser.uid > 0) {
-                    // 回复类型
-                    commentResult =
-                        CommentUtil.getReply(
-                            atUser.nick,
-                            commentContent,
-                            commentTime,
-                            location,
-                            0.6f,
-                            color
-                        )
-                } else {
-                    commentResult =
-                        CommentUtil.getComment(commentContent, commentTime, location, 0.6f, color)
-                }
-                this@ReplyItemViewModel.comment.set(commentResult)
-
+            this@ReplyItemViewModel.icon.set(value?.user?.avatar)
+            this@ReplyItemViewModel.nick.set(value?.user?.nick)
+            this@ReplyItemViewModel.favorite.set(value?.countSummary?.favorite?.count.toString())
+            val commentResult: CharSequence
+            if ((value?.atUser?.uid ?: 0) > 0) {
+                // 回复类型
+                commentResult =
+                    CommentUtil.getReply(
+                        value?.atUser?.nick,
+                        value?.commentContent,
+                        value?.commentTime,
+                        value?.location,
+                        0.6f,
+                        color
+                    )
+            } else {
+                commentResult =
+                    CommentUtil.getComment(
+                        value?.commentContent,
+                        value?.commentTime,
+                        value?.location,
+                        0.6f,
+                        color
+                    )
             }
+            this@ReplyItemViewModel.comment.set(commentResult)
+
         }
 
     init {

@@ -11,17 +11,14 @@ import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_common.model.ItemModel
 import com.pp.library_common.model.MetroBannerItemViewModel
-import com.pp.library_common.model.MetroLargeVideoCardItemViewModel
-import com.pp.library_common.model.MetroSmallVideoCardItemViewModel
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.ItemBannerBinding
-import com.pp.library_ui.databinding.ItemVideoCardBinding
-import com.pp.library_ui.databinding.ItemVideoSmallCardBinding
 import com.pp.module_home.databinding.FragmentRecommendBinding
 import com.pp.mvvm.LifecycleFragment
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -118,8 +115,8 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
     override fun onFirstResume() {
 
-        mViewModel.getPageData().observe(this) {
-            lifecycleScope.launch {
+        lifecycleScope.launch {
+            mViewModel.getPageData().collect {
                 multiAdapter.submitData(it)
             }
         }

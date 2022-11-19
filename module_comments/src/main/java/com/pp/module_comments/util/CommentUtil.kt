@@ -12,13 +12,13 @@ object CommentUtil {
      * 构建评论内容
      */
     fun getComment(
-        comment: String,
-        commentTime: String,
-        location: String,
+        comment: String?,
+        commentTime: String?,
+        location: String?,
         @FloatRange(from = 0.0) proportion: Float,
         @ColorInt color: Int
     ): CharSequence {
-        val locationContent = if (location.length == 0) "" else " ${location}"
+        val locationContent = if (location?.length == 0) "" else " ${location}"
         val commentSpannable = SpannableStringBuilder(comment)
             .append("  ${commentTime}${locationContent}")
         // 字体相对大小
@@ -26,7 +26,7 @@ object CommentUtil {
         // 字体颜色
         val foregroundColorSpan = ForegroundColorSpan(color)
 
-        val start = comment.length
+        val start = comment?.length?:0
         val end = commentSpannable.length
         commentSpannable.setSpan(relativeSizeSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         commentSpannable.setSpan(
@@ -42,10 +42,10 @@ object CommentUtil {
      * 构建回复内容
      */
     fun getReply(
-        at_user: String,
-        comment: String,
-        location: String,
-        commentTime: String,
+        at_user: String?,
+        comment: String?,
+        location: String?,
+        commentTime: String?,
         @FloatRange(from = 0.0) proportion: Float,
         @ColorInt color: Int
     ): CharSequence {
