@@ -6,6 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.pp.library_common.pagingsource.Key
 import com.pp.library_common.pagingsource.MetroPagingSource
+import com.pp.library_common.routerservice.RouterServices
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.Metro
@@ -35,8 +36,8 @@ object FollowRepository {
         override fun getSetMetroList(metroList: List<Metro>?): List<Metro> {
             val itemModels = mutableListOf<Metro>()
             metroList?.forEach {
-                Log.e("TAG","type: ${it.type}  style typ: ${it.style.tplLabel}")
-                if (it.style.tplLabel == EyepetizerService2.MetroType.Style.feed_item_detail){
+                Log.e("TAG", "type: ${it.type}  style typ: ${it.style.tplLabel}")
+                if (it.style.tplLabel == EyepetizerService2.MetroType.Style.feed_item_detail) {
                     itemModels.add(it)
                 }
             }
@@ -48,12 +49,20 @@ object FollowRepository {
             val itemModels = mutableListOf<Metro>()
             itemList?.forEach {
 //                Log.e("TAG","type: ${it.type}  style typ: ${it.style.tplLabel}")
-                if (it.style.tplLabel == EyepetizerService2.MetroType.Style.feed_item_detail){
+                if (it.style.tplLabel == EyepetizerService2.MetroType.Style.feed_item_detail) {
                     itemModels.add(it)
                 }
             }
 
             return itemModels
+        }
+
+        override fun extPageParams(): Map<out String, String?> {
+            return mutableMapOf("uid" to RouterServices.userService.getUid().toString())
+        }
+
+        override fun extLoadMoreParams(): Map<out String, String?> {
+            return mutableMapOf("uid" to RouterServices.userService.getUid().toString())
         }
 
     }

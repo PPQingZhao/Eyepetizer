@@ -16,7 +16,6 @@ object UserManager {
         return userModel
     }
 
-
     fun login(userName: String?, password: String?): LiveData<BaseResponse<LoginBean>> {
         val loginPair = UserRepository.login(userName, password)
 
@@ -30,5 +29,9 @@ object UserManager {
         })
 
         return loginPair.second
+    }
+
+    fun hasUser(): Boolean {
+        return false
     }
 }

@@ -12,17 +12,29 @@ import com.pp.library_ui.model.BannerListItemViewModel
 import com.pp.library_ui.widget.banner.BaseBannerAdapter
 
 open class MetroBannerItemViewModel(
-    val card: Card? = null,
-    val metroList: List<Metro>?
+    card: Card? = null,
+    metroList: List<Metro>?
 ) : BannerListItemViewModel<BannerContentItemViewModel, MetroBannerItemViewModel.BannerViewHolder<ItemBannerContentBinding>>() {
-    val itemList = mutableListOf<BannerContentItemViewModel>()
+    var card: Card? = null
+    set(value) {
+        field = value
 
-    init {
+    }
+    var metroList: List<Metro>? = null
+    set(value) {
+        field = value
 
-        metroList?.forEach { metro ->
+        itemList.clear()
+
+        value?.forEach { metro ->
             itemList.add(BannerContentItemViewModel(metro.metroData.cover.url))
         }
 
+        bannerAdapter?.setData(itemList)
+    }
+
+    private val itemList = mutableListOf<BannerContentItemViewModel>()
+    init {
         bannerAdapter = object :
             BaseBannerAdapter<BannerContentItemViewModel, BannerViewHolder<ItemBannerContentBinding>>() {
 
@@ -45,10 +57,10 @@ open class MetroBannerItemViewModel(
                 val binding = ItemBannerContentBinding.inflate(inflater, parent, false)
                 return BannerViewHolder(binding)
             }
-
         }
 
-        bannerAdapter!!.setData(itemList)
+        // 初始化数据
+        this.metroList = metroList
 
     }
 

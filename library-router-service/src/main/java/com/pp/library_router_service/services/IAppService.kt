@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.facade.template.IProvider
 /**
  * app 生命周期
  */
-interface IAppservice : IProvider {
+interface IAppService : IProvider {
 
     fun onCreate(application: Application)
 }

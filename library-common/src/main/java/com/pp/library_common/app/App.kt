@@ -5,7 +5,7 @@ import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.common.BuildConfig
-import com.pp.library_router_service.services.IAppservice
+import com.pp.library_router_service.services.IAppService
 import com.pp.library_router_service.services.RouterServiceImpl
 import kotlin.properties.Delegates
 
@@ -20,7 +20,7 @@ open class App : Application() {
     }
 
     @Autowired(name = RouterServiceImpl.DataBase.DATABASE_APP)
-    lateinit var dataBaseAppService: IAppservice
+    lateinit var dataBaseAppService: IAppService
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)

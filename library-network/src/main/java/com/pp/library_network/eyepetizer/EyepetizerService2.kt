@@ -78,7 +78,7 @@ interface EyepetizerService2 {
            	"X-THEFAIR-AUTH": "Ee17OewjhONMFg7wu3+DMjYJ0+7BnnkF6VmMpTPvIUPmdBFN1esyXOPChQuxOgeeYU9Xg1w65fTNRjaSFCef7L11uxUVeN+sVTltut5ZRrkpgcYq7NXODEs/QObe36cdpCK/q6VgJmyngs5L2mQq/RNGsAjAY881y64hHnW9ZQ9kgNZOm01QqwbaptVqSAe9PQojEoUiiFCK0Hf3meOP+5kc/kBuLz/tum4/2miAz7hjNTRg3IyJdD87mAH5jA6FdnLIRlfJkF4JT+bhqE1HLw==",
            	"X-THEFAIR-CID": "2248c7390ffd3039d84a554301e0fd73",
            	"X-THEFAIR-UA": "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0",
-           	"Cookie": "ky_udid=074347ace25d41df856528937c4a3804eb4fea22;ky_auth=;APPID=ahpagrcrf2p7m6rg;PHPSESSID=a6776649d6a1ab71d5ff78680f36cccc",
+           	"Cookie": "ky_udid=074347ace25d41df856528937c4a3804eb4fea22;ky_auth=_V1MTc4MjA0NjA0NjE6MTY5OTk2NjUwNzA4NDo5ZTc1NzU4MGZmOGFhMjViMDcyODc0YThlNGUwMzliZg;PHPSESSID=c9636e1428190f8852b9a169668cd133;APPID=ahpagrcrf2p7m6rg;uid=304922815;login_date=20221119-205507;login_type=mobile",
            	"Host": "api.eyepetizer.net"
            }
         """.trimIndent()

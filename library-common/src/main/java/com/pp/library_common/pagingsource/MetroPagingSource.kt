@@ -54,12 +54,17 @@ abstract class MetroPagingSource<Item : Any> :
                                     val data = mutableListOf<Item>()
 
                                     if (!TextUtils.isEmpty(url)) {
+                                        val resultParam = param?.toMutableMap()
+                                        resultParam?.putAll(extLoadMoreParams())
                                         val loadMoreBean =
-                                            EyepetizerService2.api.getLoadMoreCardData(url!!, param)
+                                            EyepetizerService2.api.getLoadMoreCardData(
+                                                url!!,
+                                                resultParam
+                                            )
 
                                         loadMoreBean.result?.run {
                                             val toMutableMap = nextKey.paramMap?.toMutableMap()
-                                            toMutableMap?.put("last_item_id",lastItemId.toString())
+                                            toMutableMap?.put("last_item_id", lastItemId.toString())
                                             nextKey.paramMap = toMutableMap
                                             // 数据加载完毕
                                             if (itemList == null || itemList.isEmpty()) {
@@ -67,7 +72,12 @@ abstract class MetroPagingSource<Item : Any> :
                                             }
 
                                             itemList.forEach {
-                                                data.addAll(getLoadMoreMetroList(it.cardData.body.metroList?: mutableListOf()))
+                                                data.addAll(
+                                                    getLoadMoreMetroList(
+                                                        it.cardData.body.metroList
+                                                            ?: mutableListOf()
+                                                    )
+                                                )
                                             }
                                         }
                                     }
@@ -98,15 +108,18 @@ abstract class MetroPagingSource<Item : Any> :
 
                                     val data = mutableListOf<Item>()
                                     if (!TextUtils.isEmpty(url)) {
+
+                                        val resultParam = param?.toMutableMap()
+                                        resultParam?.putAll(extLoadMoreParams())
                                         val loadMoreBean =
                                             EyepetizerService2.api.getLoadMoreMetroData(
                                                 url!!,
-                                                param
+                                                resultParam
                                             )
 
                                         loadMoreBean.result?.run {
                                             val toMutableMap = nextKey.paramMap?.toMutableMap()
-                                            toMutableMap?.put("last_item_id",lastItemId.toString())
+                                            toMutableMap?.put("last_item_id", lastItemId.toString())
                                             nextKey.paramMap = toMutableMap
                                             // 数据加载完毕
                                             if (itemList == null || itemList.isEmpty()) {
@@ -180,9 +193,21 @@ abstract class MetroPagingSource<Item : Any> :
      */
     suspend fun loadPageData(key: Key<Item>?): BaseResponse<PageDataBean>? {
         return key?.run {
-            EyepetizerService2.api.getPageData2(url ?: "", paramMap)
+            val param = paramMap?.toMutableMap()
+            param?.putAll(extPageParams())
+            EyepetizerService2.api.getPageData2(url ?: "", param)
         }
     }
+
+    open protected fun extPageParams(): Map<out String, String?> {
+        return mutableMapOf()
+    }
+
+    open protected fun extLoadMoreParams(): Map<out String, String?> {
+        return mutableMapOf()
+    }
+
+
 }
 
 interface LoadMore<Item : Any> {

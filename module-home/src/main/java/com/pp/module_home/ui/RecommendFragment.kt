@@ -97,8 +97,10 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
                 { it?.type == EyepetizerService2.CardType.SET_BANNER_LIST },
                 { ItemBannerBinding.inflate(layoutInflater, it, false) },
                 { binding, item, cacheItemViewModel ->
-                    if (cacheItemViewModel is MetroBannerItemViewModel) cacheItemViewModel
-                    else MetroBannerItemViewModel(metroList = item?.data?.cardData?.body?.metroList)
+                    if (cacheItemViewModel is MetroBannerItemViewModel) {
+                        cacheItemViewModel.metroList = item?.data?.cardData?.body?.metroList
+                        cacheItemViewModel
+                    } else MetroBannerItemViewModel(metroList = item?.data?.cardData?.body?.metroList)
                 })
         )
         adapter
