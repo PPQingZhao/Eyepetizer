@@ -32,7 +32,7 @@ object NvaTabRepository {
         override suspend fun load(params: LoadParams<Param>): LoadResult<Param, Metro> {
             return try {
                 val key = params.key
-                if (key?.end == true) {
+                if (key?.end == true || key?.uid == 0) {
                     return LoadResult.Page(mutableListOf(), null, null)
                 }
 

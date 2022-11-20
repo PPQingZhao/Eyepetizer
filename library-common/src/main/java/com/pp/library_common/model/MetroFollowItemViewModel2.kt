@@ -33,9 +33,7 @@ open class MetroFollowItemViewModel2(
             this.isVideo = metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.pgc_video
 
             this.drawableFolow.set(
-                if (metroData?.isMine
-                        ?: false
-                ) R.drawable.ic_more_vert_24 else R.drawable.layer_follow
+                if (metroData?.isMine == true) R.drawable.ic_more_vert_24 else R.drawable.layer_follow
             )
 
             resourceId = metroData?.resourceId

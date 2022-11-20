@@ -48,7 +48,6 @@ interface EyepetizerApi {
     @POST("v1/search/search/get_search_recommend_card_list")
     suspend fun getSearchRecommend(): BaseResponse<PageDataBean>
 
-
     @FormUrlEncoded
     @POST
     suspend fun getLoadMoreMetroData(
@@ -65,22 +64,10 @@ interface EyepetizerApi {
 
     @FormUrlEncoded
     @POST
-    suspend fun getLoadMorePageData2(
-        @Url url: String,
-        @FieldMap map: Map<String, String?>?
-    ): ResponseBody
-
-    @FormUrlEncoded
-    @POST
     suspend fun getPageData2(
         @Url url: String,
         @FieldMap map: Map<String, String?>?
     ): BaseResponse<PageDataBean>
 
-    @FormUrlEncoded
-    @POST
-    suspend fun getPageData3(
-        @Url url: String,
-        @FieldMap map: Map<String, String>?
-    ): ResponseBody
+
 }

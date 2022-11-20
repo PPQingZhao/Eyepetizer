@@ -57,14 +57,6 @@ object FollowRepository {
             return itemModels
         }
 
-        override fun extPageParams(): Map<out String, String?> {
-            return mutableMapOf("uid" to RouterServices.userService.getUid().toString())
-        }
-
-        override fun extLoadMoreParams(): Map<out String, String?> {
-            return mutableMapOf("uid" to RouterServices.userService.getUid().toString())
-        }
-
     }
 
 }

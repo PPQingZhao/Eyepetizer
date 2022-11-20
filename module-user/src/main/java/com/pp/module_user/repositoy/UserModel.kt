@@ -9,33 +9,14 @@ import com.pp.library_network.eyepetizer.bean.LoginBean
 import com.pp.library_network.eyepetizer.bean.Message
 import com.pp.library_network.eyepetizer.bean.UserInfoBean
 import kotlinx.coroutines.*
-import kotlinx.coroutines.withContext as withContext1
+import kotlinx.coroutines.withContext
 
-@OptIn(DelicateCoroutinesApi::class)
 class UserModel(private val user: User) {
 
     private val isLogin = MutableLiveData<Boolean>()
     private val loginBean = MutableLiveData<LoginBean>()
     private val userInfoBean = MutableLiveData<UserInfoBean>()
-    private var loginJob: Job? = null
-    private var getInfoJob: Job? = null
 
-    init {
-        loginBean.observeForever {
-            if (null == it) {
-                return@observeForever
-            }
-
-            getInfoJob = GlobalScope.launch(Dispatchers.Main) {
-                val response = withContext1(Dispatchers.IO) {
-                    EyepetizerService2.userApi.getUserInfo(it.userInfo.uid)
-                }
-
-                userInfoBean.value = response.result
-
-            }
-        }
-    }
 
     fun userInfo(): LiveData<UserInfoBean> {
         return userInfoBean
@@ -45,14 +26,18 @@ class UserModel(private val user: User) {
         return isLogin
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    fun login(): LiveData<BaseResponse<LoginBean>> {
-        loginJob?.cancel()
-        getInfoJob?.cancel()
+    fun getName(): String? {
+        return user.name
+    }
 
-        val result = MutableLiveData<BaseResponse<LoginBean>>()
-        loginJob = GlobalScope.launch(Dispatchers.Main) {
-            val response: BaseResponse<LoginBean> = withContext1(Dispatchers.IO) {
+    fun getPassword(): String? {
+        return user.password
+    }
+
+    suspend fun login(): BaseResponse<LoginBean> {
+
+        return withContext(Dispatchers.Main) {
+            val response: BaseResponse<LoginBean> = withContext(Dispatchers.IO) {
                 try {
                     EyepetizerService2.userApi.passwordLogin(user.name, user.password)
                 } catch (e: Exception) {
@@ -60,16 +45,19 @@ class UserModel(private val user: User) {
                     BaseResponse(-1, Message(e.message, ""), null)
                 }
             }
-
             if (response.code == EyepetizerService2.ErrorCode.SUCCESS) {
                 isLogin.value = true
                 loginBean.value = response.result
+
+                val getUserInfo =
+                    withContext(Dispatchers.IO) { EyepetizerService2.userApi.getUserInfo(loginBean.value?.userInfo?.uid) }
+                userInfoBean.value = getUserInfo.result
             } else {
                 isLogin.value = false
                 loginBean.value = null
             }
-            result.value = response
+
+            response
         }
-        return result
     }
 }

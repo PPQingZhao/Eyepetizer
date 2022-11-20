@@ -4,11 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -18,6 +15,7 @@ import com.google.android.material.tabs.TabLayout
 import com.pp.library_base.base.Pager
 import com.pp.library_base.base.TabPager
 import com.pp.library_base.base.TabPagerFragment
+import com.pp.library_common.routerservice.RouterServices
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_main.databinding.FragmentMainBinding
 import com.pp.module_main.databinding.ViewTabBinding
@@ -30,6 +28,7 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     override fun getViewPager(): ViewPager2 {
+        // todo: 待解决bug:  isUserInputEnabled = false 会导致懒加载失效(界面可见时,没有执行生命周期 onResume)
         mBinding.mainViewpager.isUserInputEnabled = false
         mBinding.mainViewpager.offscreenPageLimit = 3
         return mBinding.mainViewpager
@@ -83,6 +82,13 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
                 if (resourcePair.first != R.drawable.selector_mine) {
                     return@setOnTouchListener false
                 }
+
+                // 存在用户
+                if (RouterServices.userService.hasUser()) {
+                    return@setOnTouchListener false
+                }
+
+                //不存在用户,跳转登录
                 val postcard = ARouter.getInstance().build(RouterPath.User.activity_login)
                 LogisticsCenter.completion(postcard)
                 // 跳转登录
@@ -92,7 +98,6 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
                         postcard.destination
                     )
                 )
-
                 true
             }
 
@@ -106,7 +111,7 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
 
     private val loginLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode != Activity.RESULT_OK){
+            if (it.resultCode != Activity.RESULT_OK) {
                 return@registerForActivityResult
             }
             mBinding.mainViewpager.currentItem = 3
@@ -114,6 +119,7 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onFirstResume() {

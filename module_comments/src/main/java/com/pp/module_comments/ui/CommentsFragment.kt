@@ -2,6 +2,7 @@ package com.pp.module_comments.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -163,7 +164,8 @@ class CommentsFragment :
             }
         )
         mBinding.commentsHotRecyclerview.adapter =
-            treeAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(R.color.mediaTextColor) {
+            treeAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(R.color.mediaTextColor,
+                Color.WHITE) {
                 treeAdapter.retry()
             })
     }

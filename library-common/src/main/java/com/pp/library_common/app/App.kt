@@ -22,6 +22,9 @@ open class App : Application() {
     @Autowired(name = RouterServiceImpl.DataBase.DATABASE_APP)
     lateinit var dataBaseAppService: IAppService
 
+    @Autowired(name = RouterServiceImpl.User.SERVICE_APP)
+    lateinit var userAppService: IAppService
+
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         mInstance = this
@@ -38,5 +41,7 @@ open class App : Application() {
         super.onCreate()
         // 数据库模块
         dataBaseAppService.onCreate(this)
+        // user
+        userAppService.onCreate(this)
     }
 }

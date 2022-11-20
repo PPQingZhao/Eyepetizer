@@ -21,10 +21,11 @@
     </style>
 
     <style name="Style_textinputlayout">
-        <item name="hintAnimationEnabled">true</item>
-        <item name="boxStrokeColor">@color/blue</item>
+
+        <item name="hintTextColor">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/color_text_normal</item>
+        <item name="boxStrokeColor">@color/colorAccent</item>
         <item name="boxStrokeWidth">1dp</item>
-        <item name="boxBackgroundMode">filled</item>
         <item name="boxStrokeWidthFocused">1dp</item>
         <item name="boxBackgroundColor">@color/transparent</item>
     </style>

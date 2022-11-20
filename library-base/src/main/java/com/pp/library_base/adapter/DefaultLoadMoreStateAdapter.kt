@@ -1,8 +1,11 @@
 package com.pp.library_base.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
@@ -11,6 +14,7 @@ import com.pp.library_ui.databinding.ItemDefaultLoadMoreBinding
 
 class DefaultLoadMoreStateAdapter(
     @ColorRes val textColor: Int = com.pp.library_ui.R.color.color_text_selected,
+    @ColorInt val tint: Int = Color.BLACK,
     val retry: () -> Unit
 ) :
     LoadStateAdapter<BindingHolder<ItemDefaultLoadMoreBinding>>() {
@@ -23,6 +27,7 @@ class DefaultLoadMoreStateAdapter(
         holder.binding.loading.visibility =
             if (loadState is LoadState.Loading) View.VISIBLE else View.GONE
 
+        holder.binding.loadIvError.imageTintList = ColorStateList.valueOf(tint)
         holder.binding.loadError.visibility =
             if (loadState is LoadState.Error) View.VISIBLE else View.GONE
         // 错误重试
@@ -30,6 +35,7 @@ class DefaultLoadMoreStateAdapter(
             retry()
         }
 
+        holder.binding.loadDataEmpty.imageTintList = ColorStateList.valueOf(tint)
         holder.binding.loadDataEmpty.visibility =
             if (loadState is LoadState.NotLoading && loadState.endOfPaginationReached) View.VISIBLE else View.GONE
 

@@ -3,6 +3,7 @@ package com.pp.library_common.pagingsource
 import android.text.TextUtils
 import android.util.Log
 import androidx.paging.PagingSource
+import com.pp.library_common.routerservice.RouterServices
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.Card
@@ -199,14 +200,13 @@ abstract class MetroPagingSource<Item : Any> :
         }
     }
 
-    open protected fun extPageParams(): Map<out String, String?> {
-        return mutableMapOf()
+    protected open fun extPageParams(): Map<out String, String?> {
+        return mutableMapOf("uid" to RouterServices.userService.getUid().toString())
     }
 
-    open protected fun extLoadMoreParams(): Map<out String, String?> {
-        return mutableMapOf()
+    protected open fun extLoadMoreParams(): Map<out String, String?> {
+        return mutableMapOf("uid" to RouterServices.userService.getUid().toString())
     }
-
 
 }
 

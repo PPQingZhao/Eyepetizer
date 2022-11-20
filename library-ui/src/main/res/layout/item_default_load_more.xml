@@ -45,37 +45,52 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/load_error"
             android:layout_width="0dp"
-            app:cardElevation="0dp"
             android:layout_height="0dp"
-            android:layout_gravity="center"
-            app:cardBackgroundColor="@android:color/transparent"
             app:layout_constraintDimensionRatio="3:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/loading">
 
             <ImageView
+                android:id="@+id/load_iv_error"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_eye_black_error"
+                app:layout_constraintBottom_toTopOf="@id/load_tv_error"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/load_tv_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:maxWidth="80dp"
-                android:maxHeight="80dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/load_err" />
-        </androidx.cardview.widget.CardView>
+                android:text="@string/loading_retry"
+                android:textColor="@{textColor}"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/load_iv_error" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+        <ImageView
             android:id="@+id/load_data_empty"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/data_empty"
-            android:textColor="@{textColor}"
-            android:textSize="13sp"
+            android:scaleType="center"
+            android:src="@mipmap/icon_the_end"
             app:layout_constraintDimensionRatio="3:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

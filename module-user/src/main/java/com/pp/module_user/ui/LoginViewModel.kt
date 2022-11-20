@@ -1,37 +1,37 @@
 package com.pp.module_user.ui
 
 import android.app.Application
+import android.content.Context
 import android.text.TextUtils
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.observe
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.LoginBean
-import com.pp.library_network.eyepetizer.bean.Message
 import com.pp.module_user.manager.UserManager
-import com.pp.module_user.repositoy.UserModel
-import com.pp.module_user.repositoy.UserRepository
 import com.pp.mvvm.LifecycleViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
+@Suppress("COMPATIBILITY_WARNING")
 class LoginViewModel(app: Application) : LifecycleViewModel(app) {
 
-    val userName = MutableLiveData<String>("17820460461")
-    val password = MutableLiveData<String>("zpq940220")
+    val userName = MutableLiveData<String>()
+    val password = MutableLiveData<String>()
     val loginEnable = ObservableBoolean(false)
 
-
     override fun onCreate(owner: LifecycleOwner) {
-        userName.observe(owner) {
+        userName.value = UserManager.userModel().value?.getName()
+        password.value = UserManager.userModel().value?.getPassword()
+
+        val observer = { v: String? ->
             loginEnable.set(!TextUtils.isEmpty(userName.value) && !TextUtils.isEmpty(password.value))
         }
-        password.observe(owner) {
-            loginEnable.set(!TextUtils.isEmpty(userName.value) && !TextUtils.isEmpty(password.value))
-        }
+        userName.observe(owner, observer)
+        password.observe(owner, observer)
     }
 
-    fun login(): LiveData<BaseResponse<LoginBean>> {
-        return UserManager.login(userName.value, password.value)
+
+    suspend fun login(context: Context): BaseResponse<LoginBean> {
+        return UserManager.login(context,userName.value, password.value)
     }
 }

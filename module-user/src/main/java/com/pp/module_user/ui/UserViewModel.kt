@@ -11,6 +11,7 @@ import com.pp.library_ui.R
 import com.pp.module_user.manager.UserManager
 import com.pp.module_user.repositoy.NvaTabRepository
 import com.pp.mvvm.LifecycleViewModel
+import kotlinx.coroutines.flow.Flow
 
 class UserViewModel(app: Application) : LifecycleViewModel(app) {
     val icon = ObservableField<String>()
@@ -22,23 +23,36 @@ class UserViewModel(app: Application) : LifecycleViewModel(app) {
     val badge = ObservableField<String>("0")
     val location = ObservableField<String>()
 
-    val userInfo = MutableLiveData<UserInfoBean>()
+    val userInfo = MutableLiveData<UserInfoBean?>()
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
+        userInfo.observe(owner) {
+
+            icon.set(it?.avatar?.url)
+            nickName.set(it?.nick)
+            if (null == it) {
+                gender.set("")
+            } else {
+                gender.set(getApplication<App>().resources.getText(if ("male" == it?.gender) R.string.male else R.string.female))
+            }
+            city.set(it?.city)
+            fan.set(it?.fansCount.toString())
+            follow.set(it?.followCount.toString())
+            badge.set(it?.medalCount.toString())
+            location.set(it?.location)
+        }
+
+
         UserManager.userModel().observe(owner) {
+
+            if (it == null) {
+                userInfo.value = null
+                return@observe
+            }
+
             it.userInfo().observe(owner) {
                 userInfo.value = it
-
-                icon.set(it.avatar.url)
-                nickName.set(it.nick)
-                gender.set(getApplication<App>().resources.getText(if ("male" == it.gender) R.string.male else R.string.female))
-                city.set(it.city)
-                fan.set(it.fansCount.toString())
-                follow.set(it.followCount.toString())
-                badge.set(it.medalCount.toString())
-                location.set(it.location)
-
             }
         }
     }
@@ -47,8 +61,8 @@ class UserViewModel(app: Application) : LifecycleViewModel(app) {
         uid: Int,
         pageType: String,
         pageLabel: String
-    ): LiveData<PagingData<Metro>> {
-        return NvaTabRepository.getPagingData(uid, pageType, pageLabel).asLiveData()
+    ): Flow<PagingData<Metro>> {
+        return NvaTabRepository.getPagingData(uid, pageType, pageLabel)
     }
 
 }
