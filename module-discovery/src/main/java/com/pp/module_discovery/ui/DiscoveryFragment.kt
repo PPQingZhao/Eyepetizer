@@ -32,6 +32,9 @@ class DiscoveryFragment : LifecycleFragment<FragmentDiscoveryBinding, DiscoveryV
 
         adapter.addBindingItem(MetroPagingDataAdapterType.icon_grid(layoutInflater))
         adapter.addBindingItem(MetroPagingDataAdapterType.set_slide_metro_list(layoutInflater))
+        adapter.addBindingItem(MetroPagingDataAdapterType.stacked_slide_cover_image(layoutInflater))
+        adapter.addBindingItem(MetroPagingDataAdapterType.default_web(layoutInflater))
+        adapter.addBindingItem(MetroPagingDataAdapterType.head_item(layoutInflater))
 
         adapter
     }

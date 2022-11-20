@@ -1,6 +1,8 @@
 package com.pp.library_ui.databinding
 
+import android.annotation.SuppressLint
 import android.view.View
+import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
@@ -75,5 +77,13 @@ object BindingAdapter {
         constraintSet.clone(cl)
         constraintSet.setDimensionRatio(view.id,dimension)
         constraintSet.applyTo(cl)
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("loadUrl", requireAll = false)
+    fun loadUrl(webView: WebView, url: String) {
+        webView.settings.javaScriptEnabled = true
+        webView.loadUrl(url)
     }
 }

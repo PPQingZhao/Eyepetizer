@@ -9,6 +9,7 @@ import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.IconBean
 import com.pp.library_network.eyepetizer.bean.Metro
+import com.pp.library_network.eyepetizer.bean.MetroDataBean
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.*
 
@@ -22,8 +23,13 @@ object MetroPagingDataAdapterType {
     const val type_slide_cover_image_with_title = type_icon_grid + 1
     const val type_slide_cover_image = type_slide_cover_image_with_title + 1
     const val type_set_slide_metro_list = type_slide_cover_image + 1
+    const val type_stacked_slide_cover_image = type_set_slide_metro_list + 1
+    const val type_default_web = type_stacked_slide_cover_image + 1
 
-    const val type_end_value = type_set_slide_metro_list
+    const val type_head_item = type_default_web + 1
+    const val type_stacked_slide_cover_item = type_head_item + 1
+
+    const val type_end_value = type_stacked_slide_cover_item
 
     val DIFF_CALLBACK by lazy {
 
@@ -195,6 +201,54 @@ object MetroPagingDataAdapterType {
                 cacheItemViewModel.card = item
                 cacheItemViewModel
             } else CardRecyclerViewModel(item, binding.root.context)
+        }
+    )
+
+    fun stacked_slide_cover_image(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
+        type_stacked_slide_cover_image,
+        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.stacked_slide_cover_image },
+        { ItemRecyclerCardBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroCardRecyclerViewModel) {
+                cacheItemViewModel.metro = item
+                cacheItemViewModel
+            } else MetroCardRecyclerViewModel(item, binding.root.context)
+        }
+    )
+
+    fun stacked_slide_item(layoutInflater: LayoutInflater) = DefaultViewBindingItem<MetroDataBean.Item>(
+        type_stacked_slide_cover_item,
+        { true },
+        { ItemStackedSlideCoverBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroItemSlideCoverViewModel) {
+                cacheItemViewModel.metroItem = item
+                cacheItemViewModel
+            } else MetroItemSlideCoverViewModel(item)
+        }
+    )
+
+    fun default_web(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
+        type_default_web,
+        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.default_web },
+        { ItemWebviewBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroWebViewItemViewModel) {
+                cacheItemViewModel.metro = item
+                cacheItemViewModel
+            } else MetroWebViewItemViewModel(item)
+        }
+    )
+
+    fun head_item(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Card.CardData.Header>(
+        type_head_item,
+        { it is Card.CardData.Header },
+        { ItemHeaderBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroHeadItemViewModel) {
+                cacheItemViewModel.head = item
+                cacheItemViewModel
+            } else MetroHeadItemViewModel(item)
         }
     )
 }

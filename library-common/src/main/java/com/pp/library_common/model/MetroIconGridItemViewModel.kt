@@ -32,7 +32,7 @@ class MetroIconGridItemViewModel(m: Metro?, context: Context): ItemRecyclerViewM
         adapter!!.addBindingItem(MetroPagingDataAdapterType.icon_item(layoutInflater))
 
         metro = m
-        bg.set(R.color.color_list_item_bg)
+        bg.set(R.drawable.shape_rectangle_gradient_white)
     }
 
     override fun getLayoutManager(context: Context): LayoutManager {

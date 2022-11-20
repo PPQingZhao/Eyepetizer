@@ -67,6 +67,10 @@ data class MetroDataBean(
     val duration: Duration?,
     @SerializedName("icons")
     val icons: List<IconBean>?,
+    @SerializedName("item_list")
+    val itemList: List<Item>?,
+    @SerializedName("url")
+    val url: String?,
 ) : Serializable {
 
     data class Tag(
@@ -279,4 +283,19 @@ data class MetroDataBean(
             val title: String
         )
     }
+
+    data class Item(
+        @SerializedName("cover")
+        val cover: Cover,
+//        @SerializedName("image_id")
+//        val imageId: Int,
+        @SerializedName("link")
+        val link: String,
+        @SerializedName("resource_id")
+        val resourceId: Long,
+        @SerializedName("resource_type")
+        val resourceType: String,
+        @SerializedName("title")
+        val title: String
+    )
 }

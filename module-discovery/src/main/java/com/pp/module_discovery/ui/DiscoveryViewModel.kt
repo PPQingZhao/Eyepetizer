@@ -22,9 +22,11 @@ class DiscoveryViewModel(app: Application) : LifecycleViewModel(app) {
                     response.result?.cardList?.forEach { card ->
                         when (card.type) {
                             EyepetizerService2.CardType.SET_METRO_LIST -> {
-//                                list.add(card.cardData.header)
+                                list.add(card.cardData.header)
                                 card.cardData.body.metroList?.forEach {
                                     when (it.style.tplLabel) {
+                                        EyepetizerService2.MetroType.Style.default_web,
+                                        EyepetizerService2.MetroType.Style.stacked_slide_cover_image,
                                         EyepetizerService2.MetroType.Style.icon_grid -> {
                                             list.add(it)
                                         }
@@ -33,7 +35,7 @@ class DiscoveryViewModel(app: Application) : LifecycleViewModel(app) {
                                 }
                             }
                             EyepetizerService2.CardType.SET_SLIDE_METRO_LIST -> {
-//                                list.add(card.cardData.header)
+                                list.add(card.cardData.header)
                                 list.add(card)
                             }
                         }

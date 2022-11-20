@@ -25,9 +25,7 @@ class CardRecyclerViewModel(cardBean: Card?, context: Context): ItemRecyclerView
                     }
                 }
             }
-            adapter?.run {
-                this as MultiBindingAdapter<Metro>
-            }?.setDataList(list)
+            adapter?.setDataList(list)
         }
 
     init {

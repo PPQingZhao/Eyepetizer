@@ -10,7 +10,7 @@ import com.pp.library_ui.R
 import com.pp.library_ui.adapter.MultiBindingAdapter
 
 abstract class ItemRecyclerViewModel {
-    val bg = ObservableInt(R.color.white)
+    val bg = ObservableInt(R.drawable.shape_rectangle_white)
     open var adapter: MultiBindingAdapter<Any>? = null
 
     abstract fun getLayoutManager(context: Context): RecyclerView.LayoutManager

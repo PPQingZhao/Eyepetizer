@@ -124,7 +124,7 @@ class CardLayoutManager : RecyclerView.LayoutManager() {
     }
 
     object CardConfig {
-        const val DEFAULT_SHOW_ITEM = 4
+        const val DEFAULT_SHOW_ITEM = 3
         const val DEFAULT_SCALE = 0.1f
         const val DEFAULT_TRANSLATE_X = 80f
     }
