@@ -33,9 +33,11 @@ class MetroIconGridItemViewModel(m: Metro?, context: Context): ItemRecyclerViewM
 
         metro = m
         bg.set(R.drawable.shape_rectangle_gradient_white)
+        dimensionRatio.set("1:0.82")
     }
 
     override fun getLayoutManager(context: Context): LayoutManager {
         return GridLayoutManager(context, 3)
     }
+
 }

@@ -86,4 +86,22 @@ object BindingAdapter {
         webView.settings.javaScriptEnabled = true
         webView.loadUrl(url)
     }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("onTouch", requireAll = false)
+    fun onTouch(v: View, l: View.OnTouchListener) {
+        v.setOnTouchListener(l)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("setPageOffsetLimit", requireAll = false)
+    fun setPageOffsetLimit(vp2: ViewPager2, limit: Int) {
+        vp2.offscreenPageLimit = limit
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("setPageTransform", requireAll = false)
+    fun setPageTransform(vp2: ViewPager2, transform: ViewPager2.PageTransformer) {
+        vp2.setPageTransformer(transform)
+    }
 }

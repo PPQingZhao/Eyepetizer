@@ -30,6 +30,7 @@ class CardRecyclerViewModel(cardBean: Card?, context: Context) : ItemRecyclerVie
 
     init {
         adapter = MultiBindingAdapter<Any>()
+
         val layoutInflater = LayoutInflater.from(context)
         adapter!!.addBindingItem(
             MetroPagingDataAdapterType.slide_cover_image_with_title(
