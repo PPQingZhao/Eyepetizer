@@ -9,9 +9,10 @@ import com.pp.library_common.model.MultiItemEntity
 import com.pp.library_ui.databinding.ItemBannerBinding
 import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemToBeDevelopedBinding
-import com.pp.module_community.model.SquareBannerListViewModel
 import com.pp.module_community.databinding.ItemFollowSmallVideoBinding
-import com.pp.module_community.model.*
+import com.pp.module_community.model.SquareBannerListViewModel
+import com.pp.module_community.model.SquareVideoLargeItemViewModel
+import com.pp.module_community.model.SquareVideoSmallItemViewModel
 import com.pp.module_community.respository.SquareType
 
 class SquareAdapter :
@@ -65,16 +66,16 @@ class SquareAdapter :
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
             SquareType.TYPE_BANNER_LIST -> {
-                ItemBannerBinding.inflate(layoutInflater, parent, false)
+                ItemBannerBinding.inflate(layoutInflater!!, parent, false)
             }
             SquareType.TYPE_VIDEO_SMALL -> {
-                ItemFollowSmallVideoBinding.inflate(layoutInflater, parent, false)
+                ItemFollowSmallVideoBinding.inflate(layoutInflater!!, parent, false)
             }
             SquareType.TYPE_VIDEO_LARGE -> {
-                ItemFollowCardBinding.inflate(layoutInflater, parent, false)
+                ItemFollowCardBinding.inflate(layoutInflater!!, parent, false)
             }
             else -> {
-                ItemToBeDevelopedBinding.inflate(layoutInflater, parent, false)
+                ItemToBeDevelopedBinding.inflate(layoutInflater!!, parent, false)
             }
         }
     }

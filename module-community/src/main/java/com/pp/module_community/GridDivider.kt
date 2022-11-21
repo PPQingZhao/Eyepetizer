@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 class GridDivider(private val space: Int = 20, private val column: Int = 2) :
     RecyclerView.ItemDecoration() {
 
-    private var maxSpanGroupIndex = 0
+//    private var maxSpanGroupIndex = 0
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -26,8 +26,7 @@ class GridDivider(private val space: Int = 20, private val column: Int = 2) :
             val spanSizeLookup = layoutManager.spanSizeLookup
             val spanCount = layoutManager.spanCount
 
-            maxSpanGroupIndex =
-                spanSizeLookup.getSpanGroupIndex(parent.adapter!!.itemCount - 1, spanCount)
+//            maxSpanGroupIndex = spanSizeLookup.getSpanGroupIndex(parent.adapter!!.itemCount - 1, spanCount)
 
             val spanSize = spanSizeLookup.getSpanSize(position)
             val spanIndex = spanSizeLookup.getSpanIndex(position, spanCount)

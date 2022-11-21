@@ -16,7 +16,7 @@ class DefaultBindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>(
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): VB {
-        return onCreateBinding.invoke(parent, viewType, layoutInflater)
+        return onCreateBinding.invoke(parent, viewType, layoutInflater!!)
     }
 
 }
