@@ -2,6 +2,6 @@
     <string name="app_name">module_main</string>
     <string name="main_tab_pager">首页</string>
     <string name="main_tab_community">社区</string>
-    <string name="main_tab_notification">通知</string>
+    <string name="main_tab_notification">发现</string>
     <string name="main_tab_mine">我的</string>
 </resources>

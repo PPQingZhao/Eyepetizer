@@ -7,31 +7,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.Card
-import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.adapter.MultiBindingAdapter
 import com.pp.library_ui.model.ItemRecyclerViewModel
 
-class CardRecyclerViewModel(cardBean: Card?, context: Context): ItemRecyclerViewModel() {
+class CardRecyclerViewModel(cardBean: Card?, context: Context) : ItemRecyclerViewModel() {
 
     var card: Card? = null
         set(value) {
             field = value
-            val list = mutableListOf<Metro>()
             card?.cardData?.body?.metroList?.forEach {
                 when (it.style.tplLabel) {
-                    EyepetizerService2.MetroType.Style.slide_cover_image_with_title,
+                    EyepetizerService2.MetroType.Style.slide_cover_image_with_title -> {
+                        dimensionRatio.set("16:9")
+                    }
                     EyepetizerService2.MetroType.Style.slide_cover_image -> {
-                        list.add(it)
+                        dimensionRatio.set("4:3")
                     }
                 }
             }
-            adapter?.setDataList(list)
+            adapter?.setDataList(card?.cardData?.body?.metroList ?: mutableListOf())
         }
 
     init {
         adapter = MultiBindingAdapter<Any>()
         val layoutInflater = LayoutInflater.from(context)
-        adapter!!.addBindingItem(MetroPagingDataAdapterType.slide_cover_image_with_title(layoutInflater))
+        adapter!!.addBindingItem(
+            MetroPagingDataAdapterType.slide_cover_image_with_title(
+                layoutInflater
+            )
+        )
         adapter!!.addBindingItem(MetroPagingDataAdapterType.slide_cover_image(layoutInflater))
         card = cardBean
     }

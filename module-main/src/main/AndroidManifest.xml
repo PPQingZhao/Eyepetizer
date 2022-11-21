@@ -2,14 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <application
-        android:name=".EyeptizerApp">
+    <application>
+
         <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale"
+            android:name=".SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThem">
+            android:theme="@style/SplashThem">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,6 +19,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThem"/>
     </application>
 
 </manifest>

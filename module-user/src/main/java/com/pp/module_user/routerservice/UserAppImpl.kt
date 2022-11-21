@@ -14,7 +14,7 @@ class UserAppImpl : IAppService {
     override fun onCreate(application: Application) {
         // 登录记录的用户
         GlobalScope.launch {
-            UserManager.loginExistUser(application)
+            UserManager.loginExistUser()
         }
     }
 

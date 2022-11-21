@@ -31,7 +31,7 @@ class LoginViewModel(app: Application) : LifecycleViewModel(app) {
     }
 
 
-    suspend fun login(context: Context): BaseResponse<LoginBean> {
-        return UserManager.login(context,userName.value, password.value)
+    suspend fun login(): BaseResponse<LoginBean> {
+        return UserManager.login(userName.value, password.value)
     }
 }

@@ -38,6 +38,7 @@ class VideoDetailsActivity :
     override fun isLightStatusBar(): Boolean {
         return false
     }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         Log.e("TAG", "onConfigurationChanged")
@@ -84,7 +85,7 @@ class VideoDetailsActivity :
         videoView.start()
     }
 
-    val videoView by lazy { VideoView(this) }
+    private val videoView by lazy { VideoView(this) }
 
     fun onBack(view: View) {
         onBackPressed()

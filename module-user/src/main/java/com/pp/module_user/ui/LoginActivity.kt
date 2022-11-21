@@ -35,7 +35,7 @@ class LoginActivity : LifecycleActivity<ActivityLoginBinding, LoginViewModel>() 
     fun onLogin(view: View) {
         enable = false
         lifecycleScope.launch {
-            val response = mViewModel.login(context = baseContext)
+            val response = mViewModel.login()
             if (response.code != EyepetizerService2.ErrorCode.SUCCESS) {
                 Toast.makeText(baseContext, response.message?.content, Toast.LENGTH_SHORT).show()
             } else {

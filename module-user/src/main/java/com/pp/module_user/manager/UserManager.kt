@@ -28,7 +28,7 @@ object UserManager {
         return userModel
     }
 
-    suspend fun loginExistUser(context: Context) {
+    suspend fun loginExistUser() {
         App.getInstance().baseContext.dataStore.data.first().apply {
             val userName = get(userNameKey)
             val password = get(passwordKey)
@@ -40,16 +40,15 @@ object UserManager {
                 return
             }
 
-            login(context,userName,password)
+            login(userName,password)
         }
     }
 
     suspend fun login(
-        context: Context,
         userName: String?,
         password: String?
     ): BaseResponse<LoginBean> {
-        logout(context)
+        logout()
         val loginPair = UserRepository.login(userName, password)
         if (loginPair.second.code == EyepetizerService2.ErrorCode.SUCCESS) {
             val model = loginPair.first
@@ -66,7 +65,7 @@ object UserManager {
         return loginPair.second
     }
 
-    suspend fun logout(context: Context) {
+    suspend fun logout() {
         withContext(Dispatchers.Main) {
             userModel.value = null
         }

@@ -1,6 +1,9 @@
-package com.pp.library_network.eyepetizer.bean
+package com.pp.library_network.eyepetizer
 
-import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_network.eyepetizer.bean.BaseResponse
+import com.pp.library_network.eyepetizer.bean.CommentsBean
+import com.pp.library_network.eyepetizer.bean.MetroDataBean
+import com.pp.library_network.eyepetizer.bean.RelatedRecommendBean
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET

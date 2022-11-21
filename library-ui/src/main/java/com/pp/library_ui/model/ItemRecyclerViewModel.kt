@@ -11,6 +11,7 @@ import com.pp.library_ui.adapter.MultiBindingAdapter
 
 abstract class ItemRecyclerViewModel {
     val bg = ObservableInt(R.drawable.shape_rectangle_white)
+    val dimensionRatio = ObservableField<String>("4:3")
     open var adapter: MultiBindingAdapter<Any>? = null
 
     abstract fun getLayoutManager(context: Context): RecyclerView.LayoutManager

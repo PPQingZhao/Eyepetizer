@@ -3,17 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.pp.library_ui.model.ItemRecyclerViewModel" />
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adapter="@{viewModel.adapter}"
-        app:layoutManager="@{viewModel.getLayoutManager(context)}"
-        android:background="@{context.getDrawable(viewModel.bg)}"
-        />
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            constraintLayout="@{parent}"
+            dimensionRatio='@{viewModel.dimensionRatio}'
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:adapter="@{viewModel.adapter}"
+            android:background="@{context.getDrawable(viewModel.bg)}"
+            app:layoutManager="@{viewModel.getLayoutManager(context)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

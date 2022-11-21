@@ -2,9 +2,7 @@ package com.pp.library_network.eyepetizer
 
 import com.google.gson.Gson
 import com.pp.library_network.eyepetizer.bean.Header
-import com.pp.library_network.eyepetizer.bean.ItemApi
 import com.pp.library_network.utils.RetrofitUtil
-import retrofit2.Retrofit
 
 interface EyepetizerService2 {
     companion object {

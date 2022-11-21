@@ -12,11 +12,15 @@
         <item name="windowNoTitle">true</item>
 
         <item name="android:windowBackground">@color/colorWindowBackground</item>
+
     </style>
 
     <style name="MediaTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/colorMediaTheme</item>
     </style>
 
+    <style name="SplashThem" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/layer_splash</item>
+    </style>
 
 </resources>

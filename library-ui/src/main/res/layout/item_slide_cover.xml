@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.pp.library_ui.model.SlideCoverViewModel" />
@@ -11,17 +12,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/padding_normal"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="4dp"
         android:layout_marginTop="@dimen/padding_normal"
         android:layout_marginBottom="@dimen/padding_normal">
 
         <ImageView
             android:id="@+id/iv_cover"
-            android:layout_width="340dp"
-            android:layout_height="300dp"
-            android:scaleType="fitXY"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:bindSrc="@{viewModel.cover}"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="3.5:3"
+            app:layout_constraintStart_toStartOf="parent"
             tools:background="@drawable/ic_launcher_background"
             tools:ignore="MissingConstraints" />
 
