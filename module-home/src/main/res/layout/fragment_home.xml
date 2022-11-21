@@ -10,28 +10,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/home_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:fitsSystemWindows="true"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="0dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="@dimen/padding_normal"
+                android:src="@drawable/logo_eyepeziter_black"
+                app:layout_constraintBottom_toBottomOf="@id/home_tab_layout"
+                app:layout_constraintDimensionRatio="440:87"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/home_tab_layout" />
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/home_tab_layout"
                 style="@style/Style_tab"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_logo"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="2dp" />
-        </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/home_viewpager"

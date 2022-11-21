@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Style_tab">
-        <item name="android:textSize">12sp</item>
+    <style name="TextAppearance_tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Style_tab" parent="TextAppearance.Design.Tab">
         <item name="tabTextColor">@color/selector_tab_text</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="tabIndicatorColor">@color/color_text_selected</item>
         <item name="tabIndicator">@drawable/layer_tab_indicator</item>
-
+        <item name="tabTextAppearance">@style/TextAppearance_tab</item>
     </style>
 
     <style name="Style_edittext">
@@ -27,6 +30,6 @@
         <item name="boxStrokeColor">@color/colorAccent</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeWidthFocused">1dp</item>
-        <item name="boxBackgroundColor">@color/transparent</item>
+        <item name="boxBackgroundColor">@color/colorWindowBackground</item>
     </style>
 </resources>

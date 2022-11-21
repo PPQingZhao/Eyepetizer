@@ -10,8 +10,8 @@
         android:id="@+id/iv_start"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingEnd="12dp"
         android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:src="@drawable/ic_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,29 +21,23 @@
         android:id="@+id/iv_end"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingEnd="12dp"
         android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:src="@drawable/ic_bell"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
+    <ImageView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        android:text="@string/eyepetizer"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="italic"
+        android:layout_height="0dp"
+        android:src="@drawable/logo_eyepeziter_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/iv_end"
+        app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toEndOf="@+id/iv_start"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="eyepetizer" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

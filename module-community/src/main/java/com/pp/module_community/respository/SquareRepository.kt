@@ -28,7 +28,7 @@ object SquareRepository {
         )
         return Pager(
             initialKey = key,
-            config = PagingConfig(10,5),
+            config = PagingConfig(15),
             pagingSourceFactory = { SquarePagingSource() }).flow
     }
 
