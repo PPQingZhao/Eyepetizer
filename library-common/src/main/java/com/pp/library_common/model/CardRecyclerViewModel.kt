@@ -15,13 +15,17 @@ class CardRecyclerViewModel(cardBean: Card?, context: Context) : ItemRecyclerVie
     var card: Card? = null
         set(value) {
             field = value
-            card?.cardData?.body?.metroList?.forEach {
-                when (it.style.tplLabel) {
-                    EyepetizerService2.MetroType.Style.slide_cover_image_with_title -> {
-                        dimensionRatio.set("16:9")
-                    }
-                    EyepetizerService2.MetroType.Style.slide_cover_image -> {
-                        dimensionRatio.set("4:3")
+            apply {
+                card?.cardData?.body?.metroList?.forEach {
+                    when (it.style.tplLabel) {
+                        EyepetizerService2.MetroType.Style.slide_cover_image_with_title -> {
+                            dimensionRatio.set("16:9")
+                            return@apply
+                        }
+                        EyepetizerService2.MetroType.Style.slide_cover_image -> {
+                            dimensionRatio.set("4:3")
+                            return@apply
+                        }
                     }
                 }
             }

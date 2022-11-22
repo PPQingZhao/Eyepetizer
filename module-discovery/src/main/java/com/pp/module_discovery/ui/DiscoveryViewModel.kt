@@ -20,9 +20,15 @@ class DiscoveryViewModel(app: Application) : LifecycleViewModel(app) {
                 if (response.code == 0) {
                     val list = mutableListOf<Any>()
                     response.result?.cardList?.forEach { card ->
+                        if (card.cardData.header.left.isNotEmpty()
+                            || card.cardData.header.right.isNotEmpty()
+                            || card.cardData.header.center.isNotEmpty()
+                        ) {
+                            list.add(card.cardData.header)
+                        }
                         when (card.type) {
                             EyepetizerService2.CardType.SET_METRO_LIST -> {
-                                list.add(card.cardData.header)
+
                                 card.cardData.body.metroList?.forEach {
                                     when (it.style.tplLabel) {
                                         EyepetizerService2.MetroType.Style.default_web,
@@ -35,7 +41,6 @@ class DiscoveryViewModel(app: Application) : LifecycleViewModel(app) {
                                 }
                             }
                             EyepetizerService2.CardType.SET_SLIDE_METRO_LIST -> {
-                                list.add(card.cardData.header)
                                 list.add(card)
                             }
                         }
