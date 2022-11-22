@@ -164,15 +164,22 @@ class CommentsFragment :
             }
         )
         mBinding.commentsHotRecyclerview.adapter =
-            treeAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(R.color.mediaTextColor,
-                Color.WHITE) {
+            treeAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(
+                textColor = R.color.mediaTextColor,
+                tint = Color.WHITE,
+                lifecycle = lifecycle,
+            ) {
                 treeAdapter.retry()
             })
     }
 
     override fun onFirstResume() {
         lifecycleScope.launch {
-            mViewModel.getPageData(resourceId, resourceType, EyepetizerService2.SortType.SORT_TYPE_HOT)
+            mViewModel.getPageData(
+                resourceId,
+                resourceType,
+                EyepetizerService2.SortType.SORT_TYPE_HOT
+            )
                 .collect {
                     treeAdapter.submitData(it)
                 }

@@ -70,7 +70,7 @@ class UserFragment : LifecycleFragment<FragmentUserBinding, UserViewModel>() {
     private fun initRecyclerView() {
         mBinding.userRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.userRecyclerview.adapter =
-            mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
+            mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
                 mAdapter.retry()
             })
 

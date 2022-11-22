@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import com.pp.library_ui.adapter.BindingHolder
@@ -15,9 +18,20 @@ import com.pp.library_ui.databinding.ItemDefaultLoadMoreBinding
 class DefaultLoadMoreStateAdapter(
     @ColorRes val textColor: Int = com.pp.library_ui.R.color.color_text_selected,
     @ColorInt val tint: Int = Color.BLACK,
-    val retry: () -> Unit
+    lifecycle: Lifecycle? = null,
+    var retry: (() -> Unit)? = null,
 ) :
     LoadStateAdapter<BindingHolder<ItemDefaultLoadMoreBinding>>() {
+
+    init {
+
+        lifecycle?.addObserver(object : DefaultLifecycleObserver {
+            override fun onDestroy(owner: LifecycleOwner) {
+                retry = null
+            }
+        })
+    }
+
     override fun onBindViewHolder(
         holder: BindingHolder<ItemDefaultLoadMoreBinding>,
         loadState: LoadState
@@ -32,7 +46,7 @@ class DefaultLoadMoreStateAdapter(
             if (loadState is LoadState.Error) View.VISIBLE else View.GONE
         // 错误重试
         holder.binding.loadError.setOnClickListener {
-            retry()
+            retry?.invoke()
         }
 
         holder.binding.loadDataEmpty.imageTintList = ColorStateList.valueOf(tint)

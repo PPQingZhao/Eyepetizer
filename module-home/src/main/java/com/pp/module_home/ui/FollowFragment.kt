@@ -62,7 +62,7 @@ class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>
     override fun onFirstResume() {
         lifecycleScope.launch(Dispatchers.IO) {
             mViewModel.getData().collect {
-                followAdapter.submitData(it)
+                followAdapter.submitData(lifecycle,it)
             }
         }
     }

@@ -91,7 +91,7 @@ open class MetroFollowItemViewModel(
         }
 
         override fun createBinding(parent: ViewGroup, viewType: Int): ItemImageVideoBinding {
-            return ItemImageVideoBinding.inflate(layoutInflater, parent, false)
+            return ItemImageVideoBinding.inflate(layoutInflater!!, parent, false)
         }
 
     }

@@ -110,7 +110,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
         mBinding.recommendRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.recommendRecyclerview.adapter =
-            multiAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
+            multiAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
                 multiAdapter.retry()
             })
     }
@@ -119,7 +119,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
 
         lifecycleScope.launch {
             mViewModel.getPageData().collect {
-                multiAdapter.submitData(it)
+                multiAdapter.submitData(lifecycle, it)
             }
         }
     }

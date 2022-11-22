@@ -82,7 +82,7 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
         mBinding.rv.layoutManager = layoutManager
         mBinding.rv.addItemDecoration(GridDivider())
 
-        mBinding.rv.adapter = mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
+        mBinding.rv.adapter = mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
             mAdapter.retry()
         })
     }

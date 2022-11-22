@@ -31,10 +31,10 @@ class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() 
     }
 
     private fun initRefreshView() {
-        mBinding.dailyRefresh.setOnRefreshListener {
+
+        mBinding.dailyRefresh.setOnRefreshListener{
             dailyAdapter.refresh()
         }
-
         lifecycleScope.launch {
             dailyAdapter.loadStateFlow.collectLatest {
                 mBinding.dailyRefresh.isRefreshing = it.refresh is LoadState.Loading
@@ -55,7 +55,7 @@ class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() 
     override fun onFirstResume() {
         lifecycleScope.launch {
             mViewModel.getData().collect {
-                dailyAdapter.submitData(it)
+                dailyAdapter.submitData(lifecycle, it)
             }
         }
     }

@@ -18,7 +18,6 @@ open class MetroBannerItemViewModel(
     var card: Card? = null
     set(value) {
         field = value
-
     }
     var metroList: List<Metro>? = null
     set(value) {
