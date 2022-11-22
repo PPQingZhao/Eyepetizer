@@ -12,38 +12,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_normal"
-            android:paddingBottom="@dimen/padding_small"
             android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small"
             android:text="@string/for_detail"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/banner_vp2"
             tools:text="了解详情" />
 
-        <TextView
-            android:id="@+id/tv_index"
+        <com.pp.library_ui.utils.RoundIndicatorView
+            android:id="@+id/indicatorView"
+            autoVisibility="@{true}"
+            initIndicator="@{viewModel.indicatorCount}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/padding_normal"
-            android:background="@drawable/shape_circle_text_bg"
-            android:gravity="center"
+            android:layout_height="20dp"
             android:layout_marginTop="@dimen/padding_small"
-            android:text="@{`` + viewModel.index}"
-            android:textColor="@color/black"
+            android:layout_marginEnd="@dimen/padding_normal"
+            app:layout_constraintBottom_toBottomOf="@id/tv_sub_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/banner_vp2"
-            tools:text="2" />
+            app:layout_constraintTop_toTopOf="@id/tv_sub_title" />
 
         <com.pp.library_ui.widget.banner.BannerViewPager
             android:id="@+id/banner_vp2"
+            setInitIndicator="@{indicatorView}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:setAdapter="@{viewModel.bannerAdapter}"
-            app:onPageCallback="@{viewModel.onPageChangeCallback}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setAdapter="@{viewModel.bannerAdapter}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

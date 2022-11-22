@@ -167,6 +167,7 @@ interface EyepetizerService2 {
         object ResourceType {
             // pgc_video
             const val pgc_video = "pgc_video"
+            const val ugc_video = "ugc_video"
             const val pgc_picture = "pgc_picture"
         }
 

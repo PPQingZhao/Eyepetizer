@@ -1,5 +1,6 @@
 package com.pp.library_common.model
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ObservableField
@@ -16,6 +17,7 @@ import com.pp.library_ui.model.ImageVideoItemViewModel
 
 open class MetroFollowItemViewModel2(
     item: Metro?,
+    val mine: Boolean = false
 ) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
     companion object {
@@ -30,10 +32,16 @@ open class MetroFollowItemViewModel2(
             field = value
 
             val metroData = field?.metroData
-            this.isVideo = metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.pgc_video
+            this.isVideo =
+                metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.pgc_video
+                        || metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.ugc_video
 
+            Log.e("TAG", "type: ${metroData?.resourceType}")
             this.drawableFolow.set(
-                if (metroData?.isMine == true) R.drawable.ic_more_vert_24 else R.drawable.layer_follow
+                if (mine && metroData?.isMine == true)
+                    R.drawable.ic_more_vert_24
+                else if (metroData?.author?.followed == false) R.drawable.layer_follow
+                else R.drawable.layer_followed
             )
 
             resourceId = metroData?.resourceId
@@ -61,6 +69,7 @@ open class MetroFollowItemViewModel2(
                 coverList.add(ImageVideoItemViewModel(ObservableField(url), true))
             }
 
+            indicatorCount.set(coverList.size)
             mAdapter.setDataList(coverList)
         }
 

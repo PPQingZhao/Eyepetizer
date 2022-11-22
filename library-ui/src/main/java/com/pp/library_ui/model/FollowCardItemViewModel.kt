@@ -3,6 +3,7 @@ package com.pp.library_ui.model
 import android.content.Context
 import android.view.View
 import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -25,7 +26,7 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
     val replyCount = ObservableField<String>()
     val constraintDimensionRatio = ObservableField<String>()
     val drawableFolow = ObservableField<Int>(R.drawable.layer_follow)
-
+    val indicatorCount = ObservableInt()
     var adapter: RecyclerView.Adapter<VH>? = null
 
     open fun getLayoutManager(context: Context): RecyclerView.LayoutManager {

@@ -99,6 +99,7 @@
             android:id="@+id/viewpager"
             constraintLayout="@{parent}"
             dimensionRatio='@{viewModel.video ? "16:9" : "1:1"}'
+            setInitIndicator="@{indicator}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_normal"
@@ -110,6 +111,16 @@
             tools:itemCount="1"
             tools:layout_constraintDimensionRatio="16:9"
             tools:listitem="@layout/item_image_video" />
+
+        <com.pp.library_ui.utils.RoundIndicatorView
+            android:id="@+id/indicator"
+            autoVisibility="@{true}"
+            initIndicator="@{viewModel.indicatorCount}"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_margin="12dp"
+            app:layout_constraintEnd_toEndOf="@id/viewpager"
+            app:layout_constraintTop_toTopOf="@id/viewpager" />
 
         <TextView
             android:id="@+id/tv_content"

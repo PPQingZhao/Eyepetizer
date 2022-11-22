@@ -5,6 +5,7 @@ import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.pp.library_ui.utils.ExpandTextWatcher
 import com.pp.library_ui.utils.ImageLoader
+import com.pp.library_ui.utils.IndicatorView
 import com.pp.library_ui.widget.banner.BannerViewPager
 import com.pp.library_ui.widget.banner.BaseBannerAdapter
 
@@ -42,7 +44,7 @@ object BindingAdapter {
     fun expandText(textView: TextView, expandText: String) {
 
         // todo
-        textView.addTextChangedListener(ExpandTextWatcher(textView, expandText,"收起"))
+        textView.addTextChangedListener(ExpandTextWatcher(textView, expandText, "收起"))
 
     }
 
@@ -53,6 +55,60 @@ object BindingAdapter {
         callback: ViewPager2.OnPageChangeCallback
     ) {
         bannerViewPager.setOnPageChangedCallback(callback)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("setInitIndicator")
+    fun <T> setInitIndicator(
+        bannerViewPager: BannerViewPager<T>,
+        indicatorView: IndicatorView
+    ) {
+        bannerViewPager.setOnPageChangedCallback(indicatorView.onPageChangeCallback)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("setInitIndicator")
+    fun <T> setInitIndicator(
+        pager: ViewPager2,
+        indicatorView: IndicatorView
+    ) {
+        pager.registerOnPageChangeCallback(indicatorView.onPageChangeCallback)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter(
+        value = ["initIndicator", "autoVisibility"],
+        requireAll = true
+    )
+    fun initIndicator(
+        indicatorView: IndicatorView,
+        count: Int,
+        autoVisibility: Boolean
+    ) {
+        indicatorView.initIndicator(count)
+        indicatorView.visibility = if (autoVisibility && count > 1) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter(
+        value = ["indicatorSelectedColor"],
+    )
+    fun indicatorSelectedColor(
+        indicatorView: IndicatorView,
+        @ColorRes color: Int
+    ) {
+        // todo: 待实现
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter(
+        value = ["indicatorNormalColor"],
+    )
+    fun indicatorNormalColor(
+        indicatorView: IndicatorView,
+        color: Int
+    ) {
+        // todo: 待实现
     }
 
     @JvmStatic
@@ -71,11 +127,14 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @androidx.databinding.BindingAdapter(value =  ["constraintLayout","dimensionRatio"], requireAll = true)
-    fun setConstraintDimensionRatio(view:View, cl:ConstraintLayout, dimension:String){
+    @androidx.databinding.BindingAdapter(
+        value = ["constraintLayout", "dimensionRatio"],
+        requireAll = true
+    )
+    fun setConstraintDimensionRatio(view: View, cl: ConstraintLayout, dimension: String) {
         val constraintSet = ConstraintSet()
         constraintSet.clone(cl)
-        constraintSet.setDimensionRatio(view.id,dimension)
+        constraintSet.setDimensionRatio(view.id, dimension)
         constraintSet.applyTo(cl)
     }
 

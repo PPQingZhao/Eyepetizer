@@ -62,7 +62,7 @@ class UserFragment : LifecycleFragment<FragmentUserBinding, UserViewModel>() {
         val adapter = MultiBindingPagingDataAdapter(MetroPagingDataAdapterType.DIFF_CALLBACK)
 
         adapter.addBindingItem(MetroPagingDataAdapterType.description_text(layoutInflater))
-        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail(layoutInflater))
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail(layoutInflater, true))
 
         adapter
     }

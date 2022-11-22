@@ -102,7 +102,7 @@ object MetroPagingDataAdapterType {
                 item?.metroData?.text
             })
 
-    fun feed_item_detail(layoutInflater: LayoutInflater) =
+    fun feed_item_detail(layoutInflater: LayoutInflater, mine: Boolean = false) =
         DefaultViewBindingItem<Metro>(
             type_feed_item_detail,
             {
@@ -116,7 +116,7 @@ object MetroPagingDataAdapterType {
                     cacheItemViewModel.metro = item
                     cacheItemViewModel
                 } else {
-                    MetroFollowItemViewModel2(item)
+                    MetroFollowItemViewModel2(item,mine)
                 }
             })
 
@@ -168,17 +168,18 @@ object MetroPagingDataAdapterType {
         }
     )
 
-    fun slide_cover_image_with_title(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
-        type_slide_cover_image_with_title,
-        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.slide_cover_image_with_title },
-        { ItemSlideCoverWithTitleBinding.inflate(layoutInflater, it, false) },
-        { binding, item, cacheItemViewModel ->
-            if (cacheItemViewModel is MetroSlideCoverTitleItemViewModel) {
-                cacheItemViewModel.metro = item
-                cacheItemViewModel
-            } else MetroSlideCoverTitleItemViewModel(item)
-        }
-    )
+    fun slide_cover_image_with_title(layoutInflater: LayoutInflater) =
+        DefaultViewBindingItem<Metro>(
+            type_slide_cover_image_with_title,
+            { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.slide_cover_image_with_title },
+            { ItemSlideCoverWithTitleBinding.inflate(layoutInflater, it, false) },
+            { binding, item, cacheItemViewModel ->
+                if (cacheItemViewModel is MetroSlideCoverTitleItemViewModel) {
+                    cacheItemViewModel.metro = item
+                    cacheItemViewModel
+                } else MetroSlideCoverTitleItemViewModel(item)
+            }
+        )
 
     fun slide_cover_image(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
         type_slide_cover_image,
@@ -216,17 +217,18 @@ object MetroPagingDataAdapterType {
         }
     )
 
-    fun stacked_slide_item(layoutInflater: LayoutInflater) = DefaultViewBindingItem<MetroDataBean.Item>(
-        type_stacked_slide_cover_item,
-        { true },
-        { ItemStackedSlideCoverBinding.inflate(layoutInflater, it, false) },
-        { binding, item, cacheItemViewModel ->
-            if (cacheItemViewModel is MetroItemSlideCoverViewModel) {
-                cacheItemViewModel.metroItem = item
-                cacheItemViewModel
-            } else MetroItemSlideCoverViewModel(item)
-        }
-    )
+    fun stacked_slide_item(layoutInflater: LayoutInflater) =
+        DefaultViewBindingItem<MetroDataBean.Item>(
+            type_stacked_slide_cover_item,
+            { true },
+            { ItemStackedSlideCoverBinding.inflate(layoutInflater, it, false) },
+            { binding, item, cacheItemViewModel ->
+                if (cacheItemViewModel is MetroItemSlideCoverViewModel) {
+                    cacheItemViewModel.metroItem = item
+                    cacheItemViewModel
+                } else MetroItemSlideCoverViewModel(item)
+            }
+        )
 
     fun default_web(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
         type_default_web,

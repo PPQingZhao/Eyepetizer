@@ -29,6 +29,7 @@ open class MetroBannerItemViewModel(
             itemList.add(BannerContentItemViewModel(metro.metroData.cover.url))
         }
 
+        indicatorCount.set(itemList.size)
         bannerAdapter?.setData(itemList)
     }
 
