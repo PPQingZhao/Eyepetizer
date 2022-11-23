@@ -2,6 +2,7 @@ package com.pp.library_base.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.IntRange
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -32,7 +33,7 @@ abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>
 
         }
     }
-
+    fun getItemData(@IntRange(from = 0) position: Int) = getItem(position)
     open fun onSetVariable(binding: VB, viewModel: VM?): Boolean {
         return false
     }

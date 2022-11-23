@@ -130,13 +130,13 @@ class CommentsFragment :
                 1,
                 resources.getColor(R.color.mediaTextColorSecondary),
                 RecyclerView.VERTICAL
-            ) { viewHolder, type ->
-                if (viewHolder == null) {
+            ) { position, type ->
+                if (position == null) {
                     return@DividerDecoration false
                 }
 
                 // 过滤 加载更多
-                if (viewHolder.position >= treeAdapter.itemCount) {
+                if (position >= treeAdapter.itemCount) {
                     return@DividerDecoration false
                 }
 
@@ -146,7 +146,7 @@ class CommentsFragment :
                 }
 
                 // 绘制 comment item bottom divider
-                val itemData = treeAdapter.getItemData(viewHolder.adapterPosition)
+                val itemData = treeAdapter.getItemData(position)
                 when (itemData) {
                     is CommentItemViewModel -> {
                         itemData.getChildNodes().isEmpty()

@@ -80,11 +80,17 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
             }
         }
         mBinding.rv.layoutManager = layoutManager
-        mBinding.rv.addItemDecoration(GridDivider())
 
-        mBinding.rv.adapter = mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
-            mAdapter.retry()
+        // 只绘制 TYPE_VIDEO_SMALL
+        mBinding.rv.addItemDecoration(GridDivider {
+            val itemData = mAdapter.getItemData(position = it)
+            itemData?.itemType == SquareType.TYPE_VIDEO_SMALL
         })
+
+        mBinding.rv.adapter =
+            mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
+                mAdapter.retry()
+            })
     }
 
     override fun onFirstResume() {
@@ -101,7 +107,4 @@ class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 }

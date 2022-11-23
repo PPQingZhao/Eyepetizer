@@ -15,7 +15,7 @@ open class DividerDecoration(
     private val dividerSize: Int = 1,
     @ColorInt colorInt: Int = Color.GRAY,
     @Orientation orientation: Int,
-    private val canDraw: (viewHolder: RecyclerView.ViewHolder?, type:@DivideType Int) -> Boolean
+    private val canDraw: (pos:Int, type:@DivideType Int) -> Boolean
 ) :
     ItemDecoration() {
     private val dividerDrawer: DividerDrawer
@@ -50,11 +50,11 @@ open class DividerDecoration(
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        val viewHolder = parent.getChildViewHolder(view)
-        val drawLeft = canDraw(viewHolder, DIVIDER_LEFT)
-        val drawTop = canDraw(viewHolder, DIVIDER_TOP)
-        val drawRight = canDraw(viewHolder, DIVIDER_RIGHT)
-        val drawBottom = canDraw(viewHolder, DIVIDER_BOTTOM)
+        val position = parent.getChildAdapterPosition(view)
+        val drawLeft = canDraw(position, DIVIDER_LEFT)
+        val drawTop = canDraw(position, DIVIDER_TOP)
+        val drawRight = canDraw(position, DIVIDER_RIGHT)
+        val drawBottom = canDraw(position, DIVIDER_BOTTOM)
 
         outRect.set(
             if (drawLeft) dividerSize else 0,

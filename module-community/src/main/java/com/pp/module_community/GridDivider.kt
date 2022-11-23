@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class GridDivider(private val space: Int = 20, private val column: Int = 2) :
+class GridDivider(private val space: Int = 20, private val column: Int = 2,val canDraw:(pos:Int)->Boolean) :
     RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
@@ -18,6 +18,9 @@ class GridDivider(private val space: Int = 20, private val column: Int = 2) :
         val position = parent.getChildAdapterPosition(view)
         view.setTag(position)
 
+        if(!canDraw.invoke(position)){
+            return
+        }
         val layoutManager = parent.layoutManager
 
         if (layoutManager is GridLayoutManager) {
