@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
-import com.pp.library_network.eyepetizer.bean.PageDataBean
-import com.pp.module_home.adapter.FollowPagingDataAdapter
 import com.pp.module_home.databinding.FragmentFollowBinding
 import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.Dispatchers

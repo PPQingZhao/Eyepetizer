@@ -1,17 +1,16 @@
 package com.pp.library_base.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.IntRange
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.pp.library_ui.adapter.AdapterBindingHelper
 import com.pp.library_ui.adapter.BindingHolder
 
-abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>(diffCallback: DiffUtil.ItemCallback<T>) :
-    PagingDataAdapter<T, BindingHolder<VB>>(diffCallback) {
+abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>(
+    diffCallback: DiffUtil.ItemCallback<T>
+) : PagingDataAdapter<T, BindingHolder<VB>>(diffCallback) {
 
     private val bindingHelper: AdapterBindingHelper<VB, VM, T> by lazy {
         object : AdapterBindingHelper<VB, VM, T>() {
@@ -33,6 +32,7 @@ abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>
 
         }
     }
+
     fun getItemData(@IntRange(from = 0) position: Int) = getItem(position)
     open fun onSetVariable(binding: VB, viewModel: VM?): Boolean {
         return false
@@ -44,15 +44,6 @@ abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>
 
     abstract fun createViewModel(binding: VB, item: T?, cacheItemViewModel: VM?): VM?
     abstract fun createBinding(parent: ViewGroup, viewType: Int): VB
-
-    var layoutInflater: LayoutInflater? = null
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        layoutInflater = LayoutInflater.from(recyclerView.context)
-    }
-
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-        layoutInflater = null
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<VB> {
         return BindingHolder<VB>(bindingHelper.createBinding(parent, viewType))

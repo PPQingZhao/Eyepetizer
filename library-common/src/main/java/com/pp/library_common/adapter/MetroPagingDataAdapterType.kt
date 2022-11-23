@@ -116,7 +116,7 @@ object MetroPagingDataAdapterType {
                     cacheItemViewModel.metro = item
                     cacheItemViewModel
                 } else {
-                    MetroFollowItemViewModel2(item,mine)
+                    MetroFollowItemViewModel2(item, mine)
                 }
             })
 

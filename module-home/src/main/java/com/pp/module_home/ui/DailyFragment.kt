@@ -32,7 +32,7 @@ class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() 
 
     private fun initRefreshView() {
 
-        mBinding.dailyRefresh.setOnRefreshListener{
+        mBinding.dailyRefresh.setOnRefreshListener {
             dailyAdapter.refresh()
         }
         lifecycleScope.launch {
@@ -46,7 +46,7 @@ class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() 
     private fun initRecyclerView() {
         mBinding.dailyRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.dailyRecyclerview.adapter =
-            dailyAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
+            dailyAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
                 dailyAdapter.retry()
             })
 

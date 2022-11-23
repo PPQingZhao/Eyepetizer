@@ -1,6 +1,7 @@
 package com.pp.module_community.adapter
 
 import android.annotation.SuppressLint
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
@@ -66,16 +67,20 @@ class SquareAdapter :
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         return when (viewType) {
             SquareType.TYPE_BANNER_LIST -> {
-                ItemBannerBinding.inflate(layoutInflater!!, parent, false)
+                ItemBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             }
             SquareType.TYPE_VIDEO_SMALL -> {
-                ItemFollowSmallVideoBinding.inflate(layoutInflater!!, parent, false)
+                ItemFollowSmallVideoBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             }
             SquareType.TYPE_VIDEO_LARGE -> {
-                ItemFollowCardBinding.inflate(layoutInflater!!, parent, false)
+                ItemFollowCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             }
             else -> {
-                ItemToBeDevelopedBinding.inflate(layoutInflater!!, parent, false)
+                ItemToBeDevelopedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.pp.library_common.model
 
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ObservableField
@@ -90,7 +90,7 @@ open class MetroFollowItemViewModel2(
         }
 
         override fun createBinding(parent: ViewGroup, viewType: Int): ItemImageVideoBinding {
-            return ItemImageVideoBinding.inflate(layoutInflater!!, parent, false)
+            return ItemImageVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         }
 
     }
