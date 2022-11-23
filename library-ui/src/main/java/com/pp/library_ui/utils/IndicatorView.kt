@@ -1,14 +1,15 @@
 package com.pp.library_ui.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.ColorInt
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.pp.library_ui.R
 
-abstract class IndicatorView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+abstract class IndicatorView : View {
     private var mIndicatorCount = 0
         set(value) {
             field = value
@@ -22,12 +23,34 @@ abstract class IndicatorView(context: Context, attrs: AttributeSet) : View(conte
         return mIndicatorCount
     }
 
-    init {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    @SuppressLint("Recycle")
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         if (isInEditMode) {
             mIndicatorCount = 3
             selectedPos = 0
         }
+        // 解析自定义属性
+        val typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.IndicatorView)
+        normalColor =
+            typedArray.getColor(R.styleable.IndicatorView_indicatorNormalColor, normalColor)
+
+        selectedColor =
+            typedArray.getColor(R.styleable.IndicatorView_indicatorSelectedColor, selectedColor)
+
+
+        // 释放
+        typedArray.recycle()
     }
+
 
     @ColorInt
     var selectedColor = Color.BLACK
@@ -46,7 +69,11 @@ abstract class IndicatorView(context: Context, attrs: AttributeSet) : View(conte
         val h: Int = calculateHeight(heightMeasureSpec)
         val wMeasureSpec = MeasureSpec.makeMeasureSpec(w, MeasureSpec.getMode(widthMeasureSpec))
         val hMeasureSpec = MeasureSpec.makeMeasureSpec(h, MeasureSpec.getMode(heightMeasureSpec))
-        super.onMeasure(wMeasureSpec, hMeasureSpec)
+        setMeasuredDimension(
+            getDefaultSize(w, wMeasureSpec),
+            getDefaultSize(h, hMeasureSpec)
+        );
+
     }
 
     abstract fun calculateHeight(heightMeasureSpec: Int): Int

@@ -36,12 +36,11 @@ open class MetroFollowItemViewModel2(
                 metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.pgc_video
                         || metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.ugc_video
 
-            Log.e("TAG", "type: ${metroData?.resourceType}")
             this.drawableFolow.set(
                 if (mine && metroData?.isMine == true)
                     R.drawable.ic_more_vert_24
-                else if (metroData?.author?.followed == false) R.drawable.layer_follow
-                else R.drawable.layer_followed
+                else if (metroData?.author?.followed == true || metroData?.isMine == true) R.drawable.layer_followed
+                else R.drawable.layer_follow
             )
 
             resourceId = metroData?.resourceId

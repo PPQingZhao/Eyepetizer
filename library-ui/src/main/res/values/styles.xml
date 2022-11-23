@@ -11,6 +11,11 @@
         <item name="tabIndicatorColor">@color/color_text_selected</item>
         <item name="tabIndicator">@drawable/layer_tab_indicator</item>
         <item name="tabTextAppearance">@style/TextAppearance_tab</item>
+        <item name="tabPadding">0dp</item>
+        <item name="tabPaddingStart">10dp</item>
+        <item name="tabPaddingTop">0dp</item>
+        <item name="tabPaddingEnd">10dp</item>
+        <item name="tabPaddingBottom">0dp</item>
     </style>
 
     <style name="Style_edittext">

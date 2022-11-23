@@ -117,8 +117,10 @@
             autoVisibility="@{true}"
             initIndicator="@{viewModel.indicatorCount}"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_margin="12dp"
+            app:indicatorNormalColor="@color/color_button_bg"
+            app:indicatorSelectedColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/viewpager"
             app:layout_constraintTop_toTopOf="@id/viewpager" />
 

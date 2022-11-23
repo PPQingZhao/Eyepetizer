@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IndicatorView">
+        <attr name="indicatorSelectedColor" format="color" />
+        <attr name="indicatorNormalColor" format="color" />
+    </declare-styleable>
+</resources>

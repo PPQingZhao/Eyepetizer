@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.pp.library_ui.utils.ExpandTextWatcher
 import com.pp.library_ui.utils.ImageLoader
 import com.pp.library_ui.utils.IndicatorView
@@ -63,7 +64,7 @@ object BindingAdapter {
         bannerViewPager: BannerViewPager<T>,
         indicatorView: IndicatorView
     ) {
-        bannerViewPager.setOnPageChangedCallback(indicatorView.onPageChangeCallback)
+        bannerViewPager.setOnPageChangedCallback(indicatorView.onPageChangeCallback as OnPageChangeCallback)
     }
 
     @JvmStatic
@@ -72,7 +73,7 @@ object BindingAdapter {
         pager: ViewPager2,
         indicatorView: IndicatorView
     ) {
-        pager.registerOnPageChangeCallback(indicatorView.onPageChangeCallback)
+        pager.registerOnPageChangeCallback(indicatorView.onPageChangeCallback as OnPageChangeCallback)
     }
 
     @JvmStatic
@@ -87,28 +88,6 @@ object BindingAdapter {
     ) {
         indicatorView.initIndicator(count)
         indicatorView.visibility = if (autoVisibility && count > 1) View.VISIBLE else View.GONE
-    }
-
-    @JvmStatic
-    @androidx.databinding.BindingAdapter(
-        value = ["indicatorSelectedColor"],
-    )
-    fun indicatorSelectedColor(
-        indicatorView: IndicatorView,
-        @ColorRes color: Int
-    ) {
-        // todo: 待实现
-    }
-
-    @JvmStatic
-    @androidx.databinding.BindingAdapter(
-        value = ["indicatorNormalColor"],
-    )
-    fun indicatorNormalColor(
-        indicatorView: IndicatorView,
-        color: Int
-    ) {
-        // todo: 待实现
     }
 
     @JvmStatic

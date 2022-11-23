@@ -5,7 +5,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:background="@drawable/layer_divider">
 
         <TextView
             android:id="@+id/tv_sub_title"
@@ -16,6 +18,7 @@
             android:paddingBottom="@dimen/padding_small"
             android:text="@string/for_detail"
             android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/banner_vp2"
             tools:text="了解详情" />
@@ -25,9 +28,10 @@
             autoVisibility="@{true}"
             initIndicator="@{viewModel.indicatorCount}"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginTop="@dimen/padding_small"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/padding_normal"
+            app:indicatorNormalColor="@color/color_button_bg"
+            app:indicatorSelectedColor="@color/color_text_selected"
             app:layout_constraintBottom_toBottomOf="@id/tv_sub_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_sub_title" />
@@ -36,12 +40,14 @@
             android:id="@+id/banner_vp2"
             setInitIndicator="@{indicatorView}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="horizontal"
+            app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setAdapter="@{viewModel.bannerAdapter}" />
+            app:setAdapter="@{viewModel.bannerAdapter}"
+            tools:background="@drawable/ic_launcher_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
