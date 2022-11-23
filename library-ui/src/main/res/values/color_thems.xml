@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorWindowBackground">#FFFFFFFF</color>
     <color name="colorPrimary">#FFFFFFFF</color>
     <color name="colorOnPrimary">#FFFFFFFF</color>
     <color name="colorAccent">#FF9C27B0</color>
     <color name="colorPrimaryVariant">#FFFFFFFF</color>
+    <color name="colorControlHighlight">#40929292</color>
+    <color name="colorControlNormal">#929292</color>
+    <color name="textColor">#323232</color>
+    <color name="textColorSecondary">#929292</color>
+    <color name="hintTextColor">#929292</color>
+    <color name="editTextColor">#323232</color>
     <color name="colorMediaTheme">#000000</color>
     <color name="mediaTextColor">#EFEFEF</color>
     <color name="mediaTextColorSecondary">#6F6767</color>
