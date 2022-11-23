@@ -13,7 +13,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_normal"
+        android:layout_marginStart="@dimen/padding_normal"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:layout_marginEnd="@dimen/padding_normal"
         android:foreground="@drawable/shape_round_rectangle_stroke"
         android:onClick="@{viewModel.onVideo}"
         app:cardBackgroundColor="@android:color/transparent"

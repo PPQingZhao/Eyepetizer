@@ -28,7 +28,7 @@
             android:layout_height="?actionBarSize"
             android:background="@color/colorPrimary"
             app:tabBackground="@null"
-            app:tabGravity="center"
+            app:tabGravity="fill"
             app:tabIndicator="@null"
             app:tabMode="fixed"
             app:tabRippleColor="@android:color/transparent"
