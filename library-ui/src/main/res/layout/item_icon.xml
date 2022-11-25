@@ -20,6 +20,7 @@
         android:layout_marginBottom="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
+        android:onClick="@{v -> viewModel.onIcon()}"
         android:background="@drawable/shape_round_rectangle_white">
 
         <ImageView

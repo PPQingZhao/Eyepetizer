@@ -83,3 +83,41 @@ HTML Form URL Encoded: application/x-www-form-urlencoded
     Form item: "page_label" = "discover_v2"
 
 
+
+
+发现 tag 标签
+
+GET /api/v6/tag/index?id=1022&udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78&vc=7051610&vn=7.5.161&size=1080X2261&first_channel=xiaomi&last_channel=xiaomi&system_version_code=29&deviceModel=RedmiK305G HTTP/1.1
+
+Frame 15: 561 bytes on wire (4488 bits), 561 bytes captured (4488 bits) on interface en0, id 0
+Ethernet II, Src: XiaomiCo_7a:62:1e (9c:28:f7:7a:62:1e), Dst: ae:95:83:84:45:64 (ae:95:83:84:45:64)
+Internet Protocol Version 4, Src: 192.168.2.2, Dst: 106.14.250.111
+Transmission Control Protocol, Src Port: 40492, Dst Port: 80, Seq: 1, Ack: 1, Len: 495
+Hypertext Transfer Protocol
+    GET /api/v6/tag/index?id=1022&udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78&vc=7051610&vn=7.5.161&size=1080X2261&first_channel=xiaomi&last_channel=xiaomi&system_version_code=29&deviceModel=RedmiK305G HTTP/1.1\r\n
+        [ [truncated]Expert Info (Chat/Sequence): GET /api/v6/tag/index?id=1022&udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78&vc=7051610&vn=7.5.161&size=1080X2261&first_channel=xiaomi&last_channel=xiaomi&system_version_code=29&deviceModel=RedmiK30]
+        Request Method: GET
+        Request URI: /api/v6/tag/index?id=1022&udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78&vc=7051610&vn=7.5.161&size=1080X2261&first_channel=xiaomi&last_channel=xiaomi&system_version_code=29&deviceModel=RedmiK305G
+        Request Version: HTTP/1.1
+    Cookie: ky_auth=_V1MTg1NjYyNDg3NTE6MTY5ODgwODkyMDE4NjpmMzBhNmE0MTIwN2QwYTQyNjExYjZjZGViNjA1ODIzNQ;sdk=29\r\n
+    <Cookie: ky_auth=_V1MTg1NjYyNDg3NTE6MTY5ODgwODkyMDE4NjpmMzBhNmE0MTIwN2QwYTQyNjExYjZjZGViNjA1ODIzNQ;sdk=29\r\n>
+    model: Android\r\n
+    User-Agent: Dalvik/2.1.0 (Linux; U; Android 10; Redmi K30 5G MIUI/V12.0.7.0.QGICNXM)\r\n
+    <User-Agent: Dalvik/2.1.0 (Linux; U; Android 10; Redmi K30 5G MIUI/V12.0.7.0.QGICNXM)\r\n>
+    Host: baobab.kaiyanapp.com\r\n
+    <Host: baobab.kaiyanapp.com\r\n>
+    Connection: Keep-Alive\r\n
+    <Connection: Keep-Alive\r\n>
+    Accept-Encoding: gzip\r\n
+    <Accept-Encoding: gzip\r\n>
+    \r\n
+    [Full request URI [truncated]: http://baobab.kaiyanapp.com/api/v6/tag/index?id=1022&udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78&vc=7051610&vn=7.5.161&size=1080X2261&first_channel=xiaomi&last_channel=xiaomi&system_version_code=29&deviceMo]
+    <Request: True>
+    [HTTP request 1/2]
+    [Response in frame: 18]
+    [Next request in frame: 22]
+
+
+
+http://baobab.kaiyanapp.com/api/v6/tag/index?id=1022&udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78&vc=7051610&vn=7.5.161&size=1080X2261&first_channel=xiaomi&last_channel=xiaomi&system_version_code=29&deviceMo
+

@@ -42,9 +42,11 @@ interface EyepetizerService {
         // 社区 推荐
         const val URL_COMMUNITY_REC = "${BASE_URL}api/v7/community/tab/rec"
 
+        const val URL_TAG = "api/v6/tag/index"
+
         val retrofit = RetrofitUtil.create(BASE_URL)
 
-
+        val discoverApi: DiscoverApi by lazy { retrofit.create(DiscoverApi::class.java) }
     }
 
     /**
