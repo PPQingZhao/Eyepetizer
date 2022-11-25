@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--此模块定义主题样式,由library_ui模块通过implementation方法引入,屏蔽上层模块-->
+
     <!--day theme-->
     <color name="colorWindowBackground">#FFFFFFFF</color>
     <color name="colorPrimary">#FFFFFFFF</color>

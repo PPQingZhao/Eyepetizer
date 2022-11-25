@@ -81,7 +81,7 @@ object CommentRepository {
                         CommentItemViewModel(
                             it, App.getInstance()
                                 .resources
-                                .getColor(R.color.nightTextColorSecondary)
+                                .getColor(R.color.gray)
                         )
                     )
                 }

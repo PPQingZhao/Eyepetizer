@@ -48,4 +48,7 @@ dependencies {
 
     api(libs.glide)
     kapt(libs.glide.compiler)
+
+    implementation(projects.libraryTheme)
+
 }

@@ -57,10 +57,10 @@ class CommentsFragment :
         initRefreshLayout()
     }
 
+    @SuppressLint("ResourceType")
     private fun initRefreshLayout() {
         // todo:暂时禁用 待解决bug：下拉过程中一直触发recyclerview onBindViewHolder
         mBinding.commentRefresh.isEnabled = false
-        mBinding.commentRefresh.setColorSchemeResources(R.color.colorAccent)
         mBinding.commentRefresh.setOnRefreshListener {
             treeAdapter.refresh()
         }
@@ -127,7 +127,7 @@ class CommentsFragment :
         mBinding.commentsHotRecyclerview.addItemDecoration(
             DividerDecoration(
                 1,
-                resources.getColor(R.color.nightTextColorSecondary),
+                resources.getColor(R.color.gray),
                 RecyclerView.VERTICAL
             ) { position, type ->
                 if (position == null) {
