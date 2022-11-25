@@ -14,15 +14,13 @@ class MetroLargeVideoCardItemViewModel(item: Metro?) :
         set(value) {
             field = value
 
-            field?.apply {
-                resourceId = metroData.resourceId
-                resourceType = metroData.resourceType
-                title.set(metroData.title)
-                category.set("${metroData.author?.nick} ${metroData.tags?.get(0)?.title}")
-                imagePath.set(metroData.cover?.url)
-                icon.set(metroData.author?.avatar?.url)
-                duration.set(metroData.duration?.text)
-            }
+            resourceId = value?.metroData?.resourceId
+            resourceType = value?.metroData?.resourceType
+            title.set(value?.metroData?.title)
+            category.set("${value?.metroData?.author?.nick} ${value?.metroData?.tags?.get(0)?.title}")
+            imagePath.set(value?.metroData?.cover?.url)
+            icon.set(value?.metroData?.author?.avatar?.url)
+            duration.set(value?.metroData?.duration?.text)
         }
 
     init {

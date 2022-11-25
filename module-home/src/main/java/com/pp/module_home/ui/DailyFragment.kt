@@ -5,15 +5,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
+import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.module_home.databinding.FragmentDailyBinding
-import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
-class DailyFragment : LifecycleFragment<FragmentDailyBinding, DailyViewModel>() {
+class DailyFragment : ThemeFragment<FragmentDailyBinding, DailyViewModel>() {
     override val mBinding: FragmentDailyBinding by lazy {
         FragmentDailyBinding.inflate(
             layoutInflater

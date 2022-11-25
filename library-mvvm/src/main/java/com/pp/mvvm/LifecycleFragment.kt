@@ -39,10 +39,7 @@ abstract class LifecycleFragment<VB : ViewDataBinding, VM : LifecycleViewModel> 
         }
     }
 
-    open fun onSetVariable(binding: VB, viewModel: VM): Boolean {
-
-        return false
-    }
+    open fun onSetVariable(binding: VB, viewModel: VM): Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,

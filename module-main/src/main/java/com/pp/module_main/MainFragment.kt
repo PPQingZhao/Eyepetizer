@@ -4,13 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.Gravity
 import android.view.MotionEvent
-import android.widget.FrameLayout
 import android.widget.ImageSwitcher
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -20,8 +21,10 @@ import com.google.android.material.tabs.TabLayout
 import com.pp.library_base.base.Pager
 import com.pp.library_base.base.TabPager
 import com.pp.library_base.base.TabPagerFragment
+import com.pp.library_base.base.ThemeActivity
 import com.pp.library_common.routerservice.RouterServices
 import com.pp.library_router_service.services.RouterPath
+import com.pp.library_ui.R
 import com.pp.module_main.databinding.FragmentMainBinding
 
 class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
@@ -42,19 +45,19 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
         return MainViewModel::class.java
     }
 
+    // tab 资源
+    val tabImageSwitchers by lazy { createTabImageSwitcher() }
+
     @SuppressLint("ClickableViewAccessibility")
     fun getPager(): TabPager {
 
-        // tab 资源
-        val tabImageSwitchers = createTabImageSwitcher()
         val factory = object : Pager.FragmentFactory {
 
             var selectedTabImageSwitcher: TabImageSwitcher? = null
             override fun create(position: Int): Fragment {
-
                 val tabImageSwitcher = tabImageSwitchers[position]
                 if (tabImageSwitcher != selectedTabImageSwitcher) {
-                    selectedTabImageSwitcher?.isSelected = false
+                    selectedTabImageSwitcher?.isSelected = true
                     selectedTabImageSwitcher = tabImageSwitcher
                     selectedTabImageSwitcher?.isSelected = true
                 }
@@ -73,6 +76,7 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
             }
         }
 
+        var curThemeId = 0
         // 创建 pager
         val tabPager = TabPager(tabImageSwitchers.size, factory)
         // 创建 tab
@@ -80,10 +84,18 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
             val tabImageSwitcher = tabImageSwitchers[position]
             tabImageSwitcher.setOnTouchListener { v, event ->
 
+                if (position == mBinding.mainViewpager.currentItem) {
+                    curThemeId =
+                        if (curThemeId == R.style.Theme_Night) R.style.AppTheme else R.style.Theme_Night
+
+                    (requireActivity() as ThemeActivity<*, *>).requireLightStatsBar(curThemeId == R.style.AppTheme)
+                    requireActivity().setTheme(curThemeId)
+                }
+
                 if (event.action != MotionEvent.ACTION_DOWN) {
                     return@setOnTouchListener false
                 }
-                if (tabImageSwitcher.selectedIcon != com.pp.library_ui.R.mipmap.icon_tab_mine_select) {
+                if (tabImageSwitcher.selectedIcon != R.drawable.ic_tab_selected_mine_black) {
                     return@setOnTouchListener false
                 }
 
@@ -129,32 +141,44 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
         imageSwitchers.add(
             TabImageSwitcher(
                 requireContext(),
-                com.pp.library_ui.R.mipmap.icon_tab_home_unselect,
-                com.pp.library_ui.R.mipmap.icon_tab_home_select
+                R.drawable.ic_tab_unselected_home_black,
+                R.drawable.ic_tab_selected_home_black
             )
         )
 
         imageSwitchers.add(
             TabImageSwitcher(
                 requireContext(),
-                com.pp.library_ui.R.mipmap.icon_tab_social_unselect,
-                com.pp.library_ui.R.mipmap.icon_tab_social_select
+                R.drawable.ic_tab_unselected_social_black,
+                R.drawable.ic_tab_selected_social_black
             )
         )
         imageSwitchers.add(
             TabImageSwitcher(
                 requireContext(),
-                com.pp.library_ui.R.mipmap.icon_tab_discover_unselect,
-                com.pp.library_ui.R.mipmap.icon_tab_discover_select
+                R.drawable.ic_tab_unselected_discovery_black,
+                R.drawable.ic_tab_selected_discovery_black
             )
         )
         imageSwitchers.add(
             TabImageSwitcher(
                 requireContext(),
-                com.pp.library_ui.R.mipmap.icon_tab_mine_unselect,
-                com.pp.library_ui.R.mipmap.icon_tab_mine_select
+                R.drawable.ic_tab_unselected_mine_black,
+                R.drawable.ic_tab_selected_mine_black
             )
         )
+
+        requireTheme().windowBackground.observe(this) { color ->
+            imageSwitchers.forEach {
+                it.setImageBackground(color)
+            }
+        }
+
+        requireTheme().themeTint.observe(this) { tint ->
+            imageSwitchers.forEach {
+                it.setImageTintList(tint)
+            }
+        }
 
         return imageSwitchers
     }
@@ -167,15 +191,44 @@ class TabImageSwitcher(
     @DrawableRes val unSelectedIcon: Int,
     @DrawableRes val selectedIcon: Int
 ) : ImageSwitcher(context) {
+
+    var imageTintList = ColorStateList.valueOf(Color.TRANSPARENT)
+    var curImageBackgroundColor = Color.TRANSPARENT
+
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         setFactory {
             val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
             layoutParams.gravity = Gravity.CENTER
-            val imageView = ImageView(context)
-            imageView.layoutParams = layoutParams
-            imageView.setPadding(10, 10, 10, 10)
-            imageView
+            ImageView(context).apply {
+                scaleType = ImageView.ScaleType.CENTER_CROP
+                this.layoutParams = layoutParams
+                imageTintList = imageTintList
+                scaleX = 0.8f
+                scaleY = 0.8f
+                setBackgroundColor(curImageBackgroundColor)
+            }
+        }
+    }
+
+    fun setImageBackground(@ColorInt color: Int) {
+        curImageBackgroundColor = color
+
+        for (i in 0 until childCount) {
+            getChildAt(i).setBackgroundColor(color)
+        }
+    }
+
+    fun setImageTintList(@ColorInt tint: Int) {
+        val states = arrayOfNulls<IntArray>(2)
+        states[0] = intArrayOf(android.R.attr.state_selected)
+        states[1] = intArrayOf()
+
+        val colors = intArrayOf(tint, tint)
+        imageTintList = ColorStateList(states, colors)
+
+        for (i in 0 until childCount) {
+            (getChildAt(i) as ImageView).imageTintList = imageTintList
         }
     }
 
@@ -186,12 +239,12 @@ class TabImageSwitcher(
             return
         }
         if (selected) {
-            setInAnimation(context, com.pp.library_ui.R.anim.anim_tab_selected_in)
-            setOutAnimation(context, com.pp.library_ui.R.anim.anim_tab_unselected_out)
+            setInAnimation(context, R.anim.anim_tab_selected_in)
+            setOutAnimation(context, R.anim.anim_tab_unselected_out)
             setImageResource(selectedIcon)
         } else {
-            setInAnimation(context, com.pp.library_ui.R.anim.anim_tab_unselected_in)
-            setOutAnimation(context, com.pp.library_ui.R.anim.anim_tab_selected_out)
+            setInAnimation(context, R.anim.anim_tab_unselected_in)
+            setOutAnimation(context, R.anim.anim_tab_selected_out)
             setImageResource(unSelectedIcon)
         }
         super.setSelected(selected)

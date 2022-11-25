@@ -1,16 +1,16 @@
 package com.pp.module_main
 
+import com.pp.library_base.base.ThemeFragment
 import com.pp.module_main.databinding.FragmentTestBinding
-import com.pp.mvvm.LifecycleFragment
-import com.pp.mvvm.LifecycleViewModel
+import com.pp.library_base.base.ThemeViewModel
 
-class TestFragment : LifecycleFragment<FragmentTestBinding, LifecycleViewModel>() {
+class TestFragment : ThemeFragment<FragmentTestBinding, ThemeViewModel>() {
     override val mBinding: FragmentTestBinding by lazy {
         FragmentTestBinding.inflate(layoutInflater)
     }
 
-    override fun getModelClazz(): Class<LifecycleViewModel> {
-        return LifecycleViewModel::class.java
+    override fun getModelClazz(): Class<ThemeViewModel> {
+        return ThemeViewModel::class.java
     }
 
     override fun onFirstResume() {

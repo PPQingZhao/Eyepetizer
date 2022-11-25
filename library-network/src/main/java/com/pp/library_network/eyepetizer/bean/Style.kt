@@ -1,19 +1,20 @@
 package com.pp.library_network.eyepetizer.bean
 
 import com.google.gson.annotations.SerializedName
+
 data class Style(
     @SerializedName("across_column")
-    val acrossColumn: Boolean?,
+    val acrossColumn: Boolean? = false,
     @SerializedName("background")
-    val background: Background,
+    val background: Background? = null,
     @SerializedName("banner_padding")
-    val bannerPadding: Int?,
+    val bannerPadding: Int? = 0,
     @SerializedName("padding")
-    val padding: Padding,
+    val padding: Padding? = null,
     @SerializedName("separator_line")
-    val separatorLine: SeparatorLine,
+    val separatorLine: SeparatorLine? = null,
     @SerializedName("tpl_label")
-    val tplLabel: String
+    val tplLabel: String = ""
 ) {
     data class Background(
         @SerializedName("color")

@@ -3,14 +3,15 @@ package com.pp.library_base.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorRes
+import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
+import com.pp.library_ui.BR
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemDefaultLoadMoreBinding
+import com.pp.library_ui.utils.AppThemeViewModel
 
 class CustomLoadMoreStateAdapter(
-    @ColorRes val textColor: Int = com.pp.library_ui.R.color.color_text_selected,
     val onRetry: () -> Unit
 ) :
     SelfLoadStateAdapter<BindingHolder<ItemDefaultLoadMoreBinding>>() {
@@ -20,7 +21,6 @@ class CustomLoadMoreStateAdapter(
     ) {
 //        Log.e("DefaultLoadStateAdapter", loadState.toString())
 
-        holder.binding.textColor = holder.binding.root.resources.getColor(textColor)
         holder.binding.loading.visibility =
             if (!loadStates.append .endOfPaginationReached && loadStates.refresh is LoadState.Loading) View.VISIBLE else View.GONE
 
@@ -58,5 +58,12 @@ class CustomLoadMoreStateAdapter(
         return true //super.displayLoadStateAsItem(loadStates)
     }
 
+    override fun onViewAttachedToWindow(holder: BindingHolder<ItemDefaultLoadMoreBinding>) {
+        val lifecycleOwner = ViewTreeLifecycleOwner.get( holder.binding.root)
+        holder.binding.lifecycleOwner = lifecycleOwner
+
+        val appTheme = AppThemeViewModel.get( holder.binding.root)
+        holder.binding.setVariable(BR.themeViewModel, appTheme)
+    }
 
 }

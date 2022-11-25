@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.module_discovery.repository.DiscoveryRepository
-import com.pp.mvvm.LifecycleViewModel
+import com.pp.library_base.base.ThemeViewModel
 import kotlinx.coroutines.launch
 
-class DiscoveryViewModel(app: Application) : LifecycleViewModel(app) {
+class DiscoveryViewModel(app: Application) : ThemeViewModel(app) {
 
     private val _dataList = MutableLiveData<List<Any>>()
     val dataList = _dataList

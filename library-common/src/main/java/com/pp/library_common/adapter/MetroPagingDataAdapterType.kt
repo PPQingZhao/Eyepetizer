@@ -2,6 +2,7 @@ package com.pp.library_common.adapter
 
 import android.view.LayoutInflater
 import android.view.View
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.DefaultBindingPagingDataAdapter
 import com.pp.library_common.model.*
@@ -12,6 +13,7 @@ import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_network.eyepetizer.bean.MetroDataBean
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.*
+import com.pp.library_ui.utils.AppTheme
 
 object MetroPagingDataAdapterType {
     const val type_description_text = 0
@@ -39,7 +41,7 @@ object MetroPagingDataAdapterType {
             }
 
             override fun areContentsTheSame(oldItem: Metro, newItem: Metro): Boolean {
-                return oldItem.metroData.resourceId == newItem.metroData.resourceId
+                return oldItem.metroData?.resourceId == newItem.metroData?.resourceId
             }
 
         }
@@ -147,7 +149,7 @@ object MetroPagingDataAdapterType {
     fun icon_grid(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
         type_icon_grid,
         { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.icon_grid },
-        { ItemRecyclerBinding.inflate(layoutInflater, it, false) },
+        { ItemRecyclerWrapContentBinding.inflate(layoutInflater, it, false) },
         { binding, item, cacheItemViewModel ->
             if (cacheItemViewModel is MetroIconGridItemViewModel) {
                 cacheItemViewModel.metro = item

@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.Flow
 object CommentRepository {
 
     fun getPagingData(
-        resourceId: Int?,
+        resourceId: Long?,
         resourceType: String?,
         sort_type: String,
         refresh: () -> String?
@@ -33,7 +33,7 @@ object CommentRepository {
     }
 
     private class Param(
-        val resourceId: Int? = null,
+        val resourceId: Long? = null,
         val resourceType: String? = null,
         val sort_type: String? = null,
         val last_item_id: Int? = null
@@ -66,12 +66,13 @@ object CommentRepository {
                     )
                 }
 
-                val response: BaseResponse<CommentsBean> = EyepetizerService2.itemApi.getCMSCommentList(
-                    key.resourceId,
-                    key.resourceType,
-                    key.sort_type,
-                    key.last_item_id
-                )
+                val response: BaseResponse<CommentsBean> =
+                    EyepetizerService2.itemApi.getCMSCommentList(
+                        key.resourceId,
+                        key.resourceType,
+                        key.sort_type,
+                        key.last_item_id
+                    )
 
                 val commentsBean = response.result
                 val commentList = mutableListOf<CommentItemViewModel>()
@@ -80,7 +81,7 @@ object CommentRepository {
                         CommentItemViewModel(
                             it, App.getInstance()
                                 .resources
-                                .getColor(R.color.mediaTextColorSecondary)
+                                .getColor(R.color.nightTextColorSecondary)
                         )
                     )
                 }

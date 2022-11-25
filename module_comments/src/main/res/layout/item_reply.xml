@@ -7,6 +7,10 @@
     <data>
 
         <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
             name="viewModel"
             type="com.pp.module_comments.model.CommentItemModel" />
     </data>
@@ -54,13 +58,14 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{viewModel.nick}"
-            android:textColor="@color/mediaTextColor"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/iv_favorite"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/fl_icon"
             app:layout_constraintTop_toTopOf="@id/fl_icon"
-            tools:text="用户1223333" />
+            tools:text="用户1223333"
+            tools:textColor="?attr/color" />
 
         <ImageView
             android:id="@+id/iv_favorite"
@@ -81,13 +86,14 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@{viewModel.favorite}"
-            android:textColor="@color/mediaTextColor"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_content"
             app:layout_constraintEnd_toEndOf="@id/iv_favorite"
             app:layout_constraintStart_toStartOf="@id/iv_favorite"
             app:layout_constraintTop_toBottomOf="@id/iv_favorite"
-            tools:text="77" />
+            tools:text="77"
+            tools:textColor="?attr/color" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -96,13 +102,14 @@
             android:layout_marginEnd="@dimen/padding_normal"
             android:gravity="start"
             android:text="@{viewModel.comment}"
-            android:textColor="@color/mediaTextColor"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="12sp"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@id/tv_favorite"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/tv_nick"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
-            tools:text="作为信用会来到身边就是,而且你们就是这样的人们，我们就是111111没。你们大大大大大大" />
+            tools:text="作为信用会来到身边就是,而且你们就是这样的人们，我们就是111111没。你们大大大大大大"
+            tools:textColor="?attr/color" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

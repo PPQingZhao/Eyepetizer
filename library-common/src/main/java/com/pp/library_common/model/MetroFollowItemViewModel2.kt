@@ -51,7 +51,13 @@ open class MetroFollowItemViewModel2(
             this.date.set(metroData?.rawPublishTime)
             this.area.set(metroData?.realLocation)
             this.content.set(metroData?.text)
-            this.category.set(metroData?.category?.name)
+
+            var topic = ""
+            metroData?.topics?.forEach {
+                topic = "${topic}${it.title} "
+            }
+
+            this.category.set(topic)
             this.collectionCount
                 .set(metroData?.consumption?.likeCount.toString())
             this.realCollectionCount

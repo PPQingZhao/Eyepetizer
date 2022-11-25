@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.pp.library_ui.model.ItemRecyclerViewModel" />
@@ -12,11 +13,9 @@
         android:id="@+id/vp2"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:adapter="@{viewModel.adapter}"
         android:layout_marginStart="@dimen/padding_normal"
         android:layout_marginEnd="@dimen/padding_normal"
+        android:adapter="@{viewModel.adapter}"
         app:setPageOffsetLimit="@{viewModel.limit}"
-        app:setPageTransform="@{viewModel.transform}"
-        android:background="@{context.getDrawable(viewModel.bg)}"
-        />
+        app:setPageTransform="@{viewModel.transform}" />
 </layout>

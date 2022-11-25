@@ -3,11 +3,14 @@ package com.pp.library_base.adapter
 import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.IntRange
+import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.pp.library_ui.BR
 import com.pp.library_ui.adapter.MultiItemViewHolder
 import com.pp.library_ui.adapter.ViewBindingItem
+import com.pp.library_ui.utils.AppThemeViewModel
 
 open class MultiBindingPagingDataAdapter<Data : Any>(
     diffCallback: DiffUtil.ItemCallback<Data>
@@ -42,7 +45,6 @@ open class MultiBindingPagingDataAdapter<Data : Any>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultiItemViewHolder<Data> {
         val viewBindingItem = mViewTypeAdapterMap[viewType]!!
-//        Log.e("PagingDataAdapter","onCreateViewHolder viewType: ${viewType}")
         return MultiItemViewHolder(
             viewBindingItem,
             viewBindingItem.adapterBindingHelper.createBinding(parent, viewType)
@@ -50,9 +52,11 @@ open class MultiBindingPagingDataAdapter<Data : Any>(
     }
 
     override fun onBindViewHolder(holder: MultiItemViewHolder<Data>, position: Int) {
-//        Log.e("PagingDataAdapter","onBindViewHolder pos: ${position}  item: ${getItem(position)}")
-//        Thread.dumpStack()
         holder.viewBindingItem.adapterBindingHelper.bind(holder, position, getItem(position))
+    }
+
+    override fun onViewAttachedToWindow(holder: MultiItemViewHolder<Data>) {
+       holder.viewBindingItem.adapterBindingHelper.onViewAttachedToWindow(holder)
     }
 
     fun withLoadStateFooter(

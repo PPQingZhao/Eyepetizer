@@ -1,7 +1,7 @@
 package com.pp.module_main
 
 import android.app.Application
-import com.pp.mvvm.LifecycleViewModel
+import com.pp.library_base.base.ThemeViewModel
 
-class MainViewModel(app:Application) : LifecycleViewModel(app) {
+class MainViewModel(app:Application) : ThemeViewModel(app) {
 }

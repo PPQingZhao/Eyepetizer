@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
             name="viewModel"
             type="com.pp.module_main.MainViewModel" />
     </data>
@@ -23,10 +27,9 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tab_layout"
-            style="@style/Style_tab"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/transparent"
             app:tabBackground="@null"
             app:tabGravity="fill"
             app:tabIndicator="@null"

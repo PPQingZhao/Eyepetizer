@@ -14,13 +14,14 @@
             android:layout_marginTop="@dimen/padding_normal"
             android:bindSrc="@{viewModel.imgUrl}"
             android:scaleType="centerCrop"
-            tools:src="@drawable/ic_launcher_background"
             app:layout_constraintDimensionRatio="16:9"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            tools:src="@drawable/ic_launcher_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
+
 
         <variable
             name="viewModel"

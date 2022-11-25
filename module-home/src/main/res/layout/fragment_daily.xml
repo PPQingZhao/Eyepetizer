@@ -4,6 +4,9 @@
     <data>
 
         <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+        <variable
             name="viewModel"
             type="com.pp.module_home.ui.DailyViewModel" />
     </data>

@@ -19,13 +19,16 @@
             android:paddingTop="3dp"
             android:onClick="@{v -> viewModel.onSelect()}"
             android:text="@{viewModel.data}"
-            android:textColor="@color/color_text_normal"
+            android:textColor="@{themeViewModel.textColorSecondary}"
             tools:text="1111" />
 
     </RelativeLayout>
 
     <data>
 
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
         <variable
             name="viewModel"
             type="com.pp.module_search.model.SearchItemModel" />

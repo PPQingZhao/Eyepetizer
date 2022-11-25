@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
             name="viewModel"
             type="com.pp.module_comments.ui.CommentsViewModel" />
     </data>
@@ -21,12 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_normal"
             android:text="@{viewModel.title}"
-            android:textColor="@color/mediaTextColor"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/comment_hot" />
+            tools:text="@string/comment_hot"
+            tools:textColor="?attr/color" />
 
         <TextView
             android:id="@+id/tv_type"
@@ -36,12 +41,13 @@
             android:drawableStart="@drawable/ic_menu_24"
             android:onClick="@{viewModel.onCommentType}"
             android:text="@{viewModel.comment_sort_type}"
-            android:textColor="@color/mediaTextColor"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/sort_type_hot" />
+            tools:text="@string/sort_type_hot"
+            tools:textColor="?attr/color" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/comment_refresh"

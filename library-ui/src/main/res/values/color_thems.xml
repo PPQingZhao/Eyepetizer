@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--day theme-->
     <color name="colorWindowBackground">#FFFFFFFF</color>
     <color name="colorPrimary">#FFFFFFFF</color>
     <color name="colorOnPrimary">#FFFFFFFF</color>
@@ -8,22 +9,32 @@
     <color name="colorPrimaryVariant">#FFFFFFFF</color>
     <color name="colorControlHighlight">#40929292</color>
     <color name="colorControlNormal">#929292</color>
+    <color name="drawableTint">#000000</color>
     <color name="textColor">#323232</color>
     <color name="textColorSecondary">#929292</color>
     <color name="hintTextColor">#929292</color>
     <color name="editTextColor">#323232</color>
-    <color name="colorMediaTheme">#000000</color>
-    <color name="mediaTextColor">#EFEFEF</color>
-    <color name="mediaTextColorSecondary">#6F6767</color>
+    <color name="dividerColor">#929292</color>
+    <color name="indicatorNormalColor">#40929292</color>
+    <color name="indicatorSelectedColor">#323232</color>
+    <!--end-->
 
-    <color name="color_text_selected">#323232</color>
-    <color name="color_text_normal">#929292</color>
-    <color name="color_button_bg">#40929292</color>
-    <color name="color_list_item_bg">#22000000</color>
+    <!--Night theme-->
+    <color name="nightColorWindowBackground">#000000</color>
+    <color name="nightColorPrimary">#000000</color>
+    <color name="nightColorOnPrimary">#000000</color>
+    <color name="nightColorAccent">#FF9C27B0</color>
+    <color name="nightColorPrimaryVariant">#000000</color>
+    <color name="nightColorControlHighlight">#40929292</color>
+    <color name="nightColorControlNormal">#929292</color>
+    <color name="nightDrawableTint">#ffffff</color>
+    <color name="nightTextColor">#EFEFEF</color>
+    <color name="nightTextColorSecondary">#6F6767</color>
+    <color name="nightHintTextColor">#929292</color>
+    <color name="nightEditTextColor">#40929292</color>
+    <color name="nightDividerColor">#6F6767</color>
+    <color name="nightIndicatorNormalColor">#40929292</color>
+    <color name="nightIndicatorSelectedColor">#EFEFEF</color>
+    <!--end-->
 
-    <color name="transparent">#00000000</color>
-    <color name="blue">#0096FF</color>
-    <color name="login_bg">#B3AFAF</color>
-    <color name="enable_true">#000000</color>
-    <color name="enable_false">#B3AFAF</color>
 </resources>

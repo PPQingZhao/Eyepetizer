@@ -1,7 +1,6 @@
 package com.pp.module_user.ui
 
 import android.app.Application
-import android.content.Context
 import android.text.TextUtils
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LifecycleOwner
@@ -10,10 +9,10 @@ import androidx.lifecycle.observe
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.LoginBean
 import com.pp.module_user.manager.UserManager
-import com.pp.mvvm.LifecycleViewModel
+import com.pp.library_base.base.ThemeViewModel
 
 @Suppress("COMPATIBILITY_WARNING")
-class LoginViewModel(app: Application) : LifecycleViewModel(app) {
+class LoginViewModel(app: Application) : ThemeViewModel(app) {
 
     val userName = MutableLiveData<String>()
     val password = MutableLiveData<String>()

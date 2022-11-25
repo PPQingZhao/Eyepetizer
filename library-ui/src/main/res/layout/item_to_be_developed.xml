@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="待开放,敬请期待"
-            android:textColor="@color/color_text_selected"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +28,6 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
-            android:textColor="@color/color_text_selected"
             android:text="@{viewModel}"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="follow" />

@@ -1,12 +1,10 @@
 package com.pp.module_home.ui
 
 import android.app.Application
-import android.os.Build
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import com.pp.mvvm.LifecycleViewModel
+import com.pp.library_base.base.ThemeViewModel
 
-class HomeViewModel(app: Application) : LifecycleViewModel(app) {
+class HomeViewModel(app: Application) : ThemeViewModel(app) {
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)

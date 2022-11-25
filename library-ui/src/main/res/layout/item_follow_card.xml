@@ -10,6 +10,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
             name="viewModel"
             type="com.pp.library_ui.model.FollowCardItemViewModel" />
     </data>
@@ -48,7 +52,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{viewModel.author}"
-            android:textColor="@color/color_text_selected"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="@dimen/content_title"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@id/iv_follow"
@@ -63,11 +67,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="@{viewModel.date}"
-            android:textColor="@color/color_text_normal"
+            android:textColor="@{themeViewModel.textColorSecondary}"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:text="2022.10.07" />
+            tools:text="2022.10.07"
+            tools:textColor="?android:textColorSecondary" />
 
         <TextView
             android:id="@+id/tv_area"
@@ -76,11 +81,12 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="2dp"
             android:text="@{viewModel.area}"
-            android:textColor="@color/color_text_normal"
+            android:textColor="@{themeViewModel.textColorSecondary}"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tv_date"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:text="北京市" />
+            tools:text="北京市"
+            tools:textColor="?android:textColorSecondary" />
 
         <ImageView
             android:id="@+id/iv_follow"
@@ -108,18 +114,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
+            tools:background="@drawable/ic_launcher_background"
             tools:itemCount="1"
             tools:layout_constraintDimensionRatio="16:9"
             tools:listitem="@layout/item_image_video" />
 
-        <com.pp.library_ui.utils.RoundIndicatorView
+        <com.pp.library_ui.widget.indicator.RoundIndicatorView
             android:id="@+id/indicator"
             autoVisibility="@{true}"
             initIndicator="@{viewModel.indicatorCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            app:indicatorNormalColor="@color/color_button_bg"
+            app:indicatorNormalColor="@color/indicatorNormalColor"
             app:indicatorSelectedColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/viewpager"
             app:layout_constraintTop_toTopOf="@id/viewpager" />
@@ -132,7 +139,7 @@
             android:ellipsize="end"
             android:maxLines="@{viewModel.expand ? 10:3}"
             android:text="@{viewModel.content}"
-            android:textColor="@color/color_text_selected"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="@id/iv_follow"
             app:layout_constraintStart_toStartOf="@id/fl_icon"
@@ -140,7 +147,8 @@
             tools:maxLines="3"
             tools:text="社恐的最高境界是什么样的?
             自己跟自己下棋还有滋有味,就算受伤也不用别人帮忙，包扎、借钱、去医院，
-            破了也自己搞定轮胎,提供车贷房贷及时来不到就是零零零零，二七十九世纪就，点击aadd" />
+            破了也自己搞定轮胎,提供车贷房贷及时来不到就是零零零零，二七十九世纪就，点击aadd"
+            tools:textColor="?android:textColor" />
 
         <TextView
             android:id="@+id/tv_expand"
@@ -175,11 +183,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:text="@{viewModel.category}"
-            android:textColor="@color/color_text_selected"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="@dimen/content_title"
             app:layout_constraintBottom_toBottomOf="@id/tv_text_image"
             app:layout_constraintStart_toEndOf="@id/tv_text_image"
-            tools:text="动画梦工厂" />
+            tools:text="动画梦工厂"
+            tools:textColor="?android:textColor" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_bottom_bar"
@@ -191,62 +200,73 @@
             app:layout_constraintTop_toBottomOf="@id/tv_text_image"
             app:layout_constraintWidth_percent="0.55">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_thumb"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:drawableLeft="@drawable/selector_thumb_up"
                 android:drawablePadding="5dp"
+                android:drawableTint="@{themeViewModel.textColorSecondary}"
                 android:gravity="center"
                 android:text="@{viewModel.collectionCount}"
-                android:textColor="@color/color_text_normal"
+                android:textColor="@{themeViewModel.textColorSecondary}"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_star"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="68" />
+                tools:drawableTint="?android:textColorSecondary"
+                tools:text="68"
+                tools:textColor="?android:textColorSecondary" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_star"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:drawableLeft="@drawable/selector_star"
                 android:drawablePadding="5dp"
+                android:drawableTint="@{themeViewModel.textColorSecondary}"
                 android:gravity="center"
                 android:text="@{viewModel.realCollectionCount}"
-                android:textColor="@color/color_text_normal"
+                android:textColor="@{themeViewModel.textColorSecondary}"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_comment"
                 app:layout_constraintStart_toEndOf="@id/tv_thumb"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="68" />
+                tools:drawableTint="?android:textColorSecondary"
+                tools:text="68"
+                tools:textColor="?android:textColorSecondary" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:drawableLeft="@drawable/ic_comment_24"
                 android:drawablePadding="5dp"
+                android:drawableTint="@{themeViewModel.textColorSecondary}"
                 android:gravity="center"
                 android:text="@{viewModel.replyCount}"
-                android:textColor="@color/color_text_normal"
+                android:textColor="@{themeViewModel.textColorSecondary}"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_star"
                 app:layout_constraintTop_toTopOf="@id/tv_star"
-                tools:text="68" />
+                tools:drawableTint="?android:textColorSecondary"
+                tools:text="68"
+                tools:textColor="?android:textColorSecondary" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/iv_share"
+            tint="@{themeViewModel.textColorSecondary}"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="3dp"
             android:src="@drawable/ic_share"
             app:layout_constraintBottom_toBottomOf="@id/cl_bottom_bar"
             app:layout_constraintEnd_toEndOf="@id/tv_expand"
-            app:layout_constraintTop_toTopOf="@id/cl_bottom_bar" />
+            app:layout_constraintTop_toTopOf="@id/cl_bottom_bar"
+            tools:tint="?android:textColorSecondary" />
 
 
         <View
@@ -254,7 +274,8 @@
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
             android:layout_marginTop="@dimen/padding_normal"
-            android:background="@color/color_text_normal"
-            app:layout_constraintTop_toBottomOf="@id/cl_bottom_bar" />
+            android:background="@{themeViewModel.textColorSecondary}"
+            app:layout_constraintTop_toBottomOf="@id/cl_bottom_bar"
+            tools:background="?android:textColorSecondary" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

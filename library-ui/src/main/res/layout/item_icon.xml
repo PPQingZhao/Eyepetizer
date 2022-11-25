@@ -11,42 +11,38 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginVertical="4dp"
         android:onClick="@{v -> viewModel.onIcon()}"
-        android:background="@drawable/shape_round_rectangle_white">
+        android:background="@drawable/shape_round_rectangle_white"
+        android:padding="@dimen/padding_small">
 
         <ImageView
             android:id="@+id/iv_icon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:bindSrc="@{viewModel.iconUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_element"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:bindSrc="@{viewModel.iconUrl}"
-            tools:src="@drawable/ic_thumb_up_24"/>
+            tools:src="@drawable/ic_thumb_up_24" />
 
         <TextView
             android:id="@+id/tv_element"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_normal"
-            android:paddingEnd="@dimen/padding_small"
+            android:layout_marginStart="@dimen/padding_small"
             android:text="@{viewModel.name}"
             android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_icon"
-            tools:text="广告"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="广告" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

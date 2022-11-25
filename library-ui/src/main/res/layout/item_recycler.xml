@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:adapter="@{viewModel.adapter}"
-            android:background="@{context.getDrawable(viewModel.bg)}"
             app:layoutManager="@{viewModel.getLayoutManager(context)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

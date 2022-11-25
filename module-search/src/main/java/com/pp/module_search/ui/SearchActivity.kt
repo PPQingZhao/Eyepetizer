@@ -11,24 +11,24 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.pp.library_base.base.ThemeActivity
 import com.pp.library_common.datastore.dataStore
+import com.pp.library_common.result.Result
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.module_search.R
 import com.pp.module_search.adapter.SearchAdapter
+import com.pp.module_search.adapter.SearchRankAdapter
 import com.pp.module_search.databinding.*
 import com.pp.module_search.listener.OnItemClickListener
 import com.pp.module_search.model.SearchItemModel
-import com.pp.mvvm.LifecycleActivity
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import com.pp.library_common.result.Result
-import com.pp.module_search.adapter.SearchRankAdapter
 import com.pp.module_search.model.SearchRankItemModel
 import com.pp.module_search.model.SearchRankItemTitleModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Search.activity_search)
-class SearchActivity : LifecycleActivity<ActivitySearchBinding, SearchViewModel>() {
+class SearchActivity : ThemeActivity<ActivitySearchBinding, SearchViewModel>() {
     override val mBinding: ActivitySearchBinding by lazy {
         ActivitySearchBinding.inflate(layoutInflater)
     }

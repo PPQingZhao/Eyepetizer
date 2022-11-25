@@ -94,6 +94,10 @@ open class MultiBindingAdapter<Data : Any> : Adapter<MultiItemViewHolder<Data>>(
         holder.viewBindingItem.adapterBindingHelper.bind(holder, position, getItem(position))
     }
 
+    override fun onViewAttachedToWindow(holder: MultiItemViewHolder<Data>) {
+        holder.viewBindingItem.adapterBindingHelper.onViewAttachedToWindow(holder)
+    }
+
     fun removeDataList(removeDatas: MutableList<Data?>) {
         removeDatas.onEach {
             removeData(it)

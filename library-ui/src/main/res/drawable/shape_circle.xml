@@ -4,5 +4,5 @@
 
     <stroke
         android:width="0.5dp"
-        android:color="@color/color_text_normal" />
+        android:color="#929292" />
 </shape>

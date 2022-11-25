@@ -6,15 +6,15 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.module_home.databinding.FragmentFollowBinding
-import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class FollowFragment : LifecycleFragment<FragmentFollowBinding, FollowViewModel>() {
+class FollowFragment : ThemeFragment<FragmentFollowBinding, FollowViewModel>() {
     override val mBinding: FragmentFollowBinding by lazy {
         FragmentFollowBinding.inflate(
             layoutInflater

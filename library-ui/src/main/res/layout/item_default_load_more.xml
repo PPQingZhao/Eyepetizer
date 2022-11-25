@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="textColor"
-            type="Integer" />
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
-                android:indeterminateTint="@color/colorAccent"
+                android:indeterminateTint="?colorAccent"
                 android:padding="5dp" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/padding_normal"
                 android:text="@string/loading"
-                android:textColor="@{textColor}"
+                android:textColor="@{themeViewModel.textColor}"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -56,6 +56,7 @@
 
             <ImageView
                 android:id="@+id/load_iv_error"
+                tint="@{themeViewModel.themeTint}"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
@@ -68,24 +69,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.3"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:ignore="UseAppTint"
+                tools:tint="?attr/themeTint" />
 
             <TextView
                 android:id="@+id/load_tv_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/loading_retry"
-                android:textColor="@{textColor}"
+                android:textColor="@{themeViewModel.textColor}"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/load_iv_error" />
+                app:layout_constraintTop_toBottomOf="@id/load_iv_error"
+                tools:textColor="?android:textColor" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/load_data_empty"
+            tint="@{themeViewModel.themeTint}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
@@ -98,7 +103,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/load_error"
-            tools:textColor="@color/color_text_selected" />
+            tools:ignore="UseAppTint"
+            tools:tint="?attr/themeTint" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

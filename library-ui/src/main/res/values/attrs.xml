@@ -4,4 +4,8 @@
         <attr name="indicatorSelectedColor" format="color" />
         <attr name="indicatorNormalColor" format="color" />
     </declare-styleable>
+
+    <!--用于适应主题 drawable tint-->
+    <attr name="themeTint" format="color" />
+    <attr name="dividerColor" format="color" />
 </resources>

@@ -14,10 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_arrow_right"
-            android:paddingBottom="4dp"
             android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="@{viewModel.title}"
-            android:textColor="@color/color_text_selected"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +28,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
+
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
 
         <variable
             name="viewModel"

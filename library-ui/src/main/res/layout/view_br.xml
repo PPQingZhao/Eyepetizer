@@ -2,12 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <!--color theme-->
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
 
+        <!--default viewModel-->
         <variable
             name="viewModel"
             type="androidx.lifecycle.ViewModel" />
     </data>
+
     <View
         android:layout_width="0dp"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp" />
 </layout>

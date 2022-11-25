@@ -7,18 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.pp.library_common.model.MultiItemEntity
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.HotQueriesBean
-import com.pp.library_network.eyepetizer.bean.PageDataBean
 import com.pp.module_search.repository.SearchRepository
-import com.pp.mvvm.LifecycleViewModel
+import com.pp.library_base.base.ThemeViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import com.pp.library_common.result.Result
 import com.pp.module_search.listener.OnItemClickListener
 import com.pp.module_search.model.SearchItemModel
 import com.pp.module_search.model.SearchRankItemModel
-import com.pp.module_search.model.SearchRankItemTitleModel
 
-class SearchViewModel(app: Application): LifecycleViewModel(app) {
+class SearchViewModel(app: Application): ThemeViewModel(app) {
 
     private val _hotQuery = MutableLiveData<List<SearchItemModel>>()
     val hotQueriesData = _hotQuery

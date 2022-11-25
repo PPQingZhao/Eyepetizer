@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
             name="viewModel"
             type="com.pp.module_video_details.ui.VideoDetailsVideoModel" />
     </data>
@@ -18,6 +22,7 @@
 
         <ImageView
             android:id="@+id/iv_video_back"
+            tint="@{themeViewModel.themeTint}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="15dp"
@@ -29,7 +34,9 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_video_icon"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_video_icon" />
+            app:layout_constraintTop_toTopOf="@id/iv_video_icon"
+            tools:ignore="UseAppTint"
+            tools:tint="?attr/themeTint" />
 
         <FrameLayout
             android:id="@+id/iv_video_icon"
@@ -58,13 +65,14 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{viewModel.nick}"
-            android:textColor="@color/mediaTextColor"
+            android:textColor="@{themeViewModel.textColor}"
             app:layout_constraintBottom_toBottomOf="@id/iv_video_icon"
             app:layout_constraintStart_toEndOf="@id/iv_video_icon"
             app:layout_constraintTop_toTopOf="@id/iv_video_icon"
             tools:text="小猴肚子疼" />
 
         <ImageView
+            tint="@{themeViewModel.themeTint}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="20dp"
@@ -75,7 +83,8 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_video_icon"
-            app:layout_constraintWidth_percent="0.06" />
+            app:layout_constraintWidth_percent="0.06"
+            tools:tint="?attr/themeTint" />
 
         <FrameLayout
             android:id="@+id/video"

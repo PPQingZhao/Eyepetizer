@@ -11,8 +11,8 @@ class SearchRankItemModel(val metro: Metro,
     val title = ObservableField<String>()
 
     init {
-        img.set(metro.metroData.cover.url)
-        title.set(metro.metroData.title)
+        img.set(metro.metroData?.cover?.url)
+        title.set(metro.metroData?.title)
     }
 
     fun onClickItem() {

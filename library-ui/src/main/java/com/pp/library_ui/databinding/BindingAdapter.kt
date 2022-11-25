@@ -1,11 +1,13 @@
 package com.pp.library_ui.databinding
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.ColorRes
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -14,7 +16,7 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.pp.library_ui.utils.ExpandTextWatcher
 import com.pp.library_ui.utils.ImageLoader
-import com.pp.library_ui.utils.IndicatorView
+import com.pp.library_ui.widget.indicator.IndicatorView
 import com.pp.library_ui.widget.banner.BannerViewPager
 import com.pp.library_ui.widget.banner.BaseBannerAdapter
 
@@ -141,5 +143,11 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter("setPageTransform", requireAll = false)
     fun setPageTransform(vp2: ViewPager2, transform: ViewPager2.PageTransformer) {
         vp2.setPageTransformer(transform)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("android:background")
+    fun setBackground(view: View, @ColorInt color: Int) {
+        view.setBackgroundColor(color)
     }
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_common.model.ItemModel
 import com.pp.library_common.model.MetroBannerItemViewModel
@@ -17,12 +18,11 @@ import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.ItemBannerBinding
 import com.pp.module_home.databinding.FragmentRecommendBinding
-import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendViewModel>() {
+class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewModel>() {
     override val mBinding: FragmentRecommendBinding by lazy {
         FragmentRecommendBinding.inflate(
             layoutInflater
@@ -71,7 +71,7 @@ class RecommendFragment : LifecycleFragment<FragmentRecommendBinding, RecommendV
             override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
                 val result =
                     if (oldItem is Metro && newItem is Metro) {
-                        oldItem.metroData.resourceId == newItem.metroData.resourceId
+                        oldItem.metroData?.resourceId == newItem.metroData?.resourceId
                     } else if (oldItem is ItemModel<*> && newItem is ItemModel<*>) {
                         (oldItem.data as Card).cardUniqueId == (newItem.data as Card).cardUniqueId
                     } else {

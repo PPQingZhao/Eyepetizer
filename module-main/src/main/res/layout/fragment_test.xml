@@ -24,7 +24,6 @@
                 android:layout_height="?actionBarSize"
                 android:gravity="center"
                 android:text="@{text}"
-                android:textColor="@color/color_text_selected"
                 tools:text="test" />
         </FrameLayout>
     </LinearLayout>

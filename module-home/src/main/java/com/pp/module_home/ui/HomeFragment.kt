@@ -12,7 +12,7 @@ import com.pp.module_home.R
 import com.pp.module_home.databinding.FragmentHomeBinding
 
 @Route(path = RouterPath.Home.fragment_home)
-class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>(){
+class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override val mBinding: FragmentHomeBinding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
 
@@ -57,7 +57,6 @@ class HomeFragment : TabPagerFragment<FragmentHomeBinding, HomeViewModel>(){
         }
         return tabPager;
     }
-
 
 
 }

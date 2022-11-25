@@ -7,13 +7,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.MetroDataBean
-import com.pp.mvvm.LifecycleViewModel
+import com.pp.library_base.base.ThemeViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class VideoDetailsVideoModel(app: Application) : LifecycleViewModel(app) {
+class VideoDetailsVideoModel(app: Application) : ThemeViewModel(app) {
 
     private val itemDetails = MutableLiveData<MetroDataBean?>()
     val icon = ObservableField<String>()

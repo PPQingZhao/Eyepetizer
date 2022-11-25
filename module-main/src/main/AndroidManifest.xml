@@ -8,7 +8,7 @@
             android:name=".SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashThem">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThem"/>
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

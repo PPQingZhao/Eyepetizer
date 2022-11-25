@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,17 +16,20 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/details_tab_layout"
+            tabIndicatorSelectedColor="@{themeViewModel.textColor}"
+            tabNormalTextColor="@{themeViewModel.textColor}"
+            tabSelectedTextColor="@{themeViewModel.textColor}"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:background="@color/colorMediaTheme"
+            android:background="@color/transparent"
             android:minWidth="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tabBackground="@color/transparent"
             app:tabGravity="start"
             app:tabIndicator="@drawable/layer_tab_indicator_media"
-            app:tabIndicatorColor="@color/mediaTextColor"
             app:tabRippleColor="@android:color/transparent"
-            app:tabTextColor="@color/mediaTextColor" />
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/details_viewpager"

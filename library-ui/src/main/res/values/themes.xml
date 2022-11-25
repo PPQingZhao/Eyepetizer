@@ -19,7 +19,8 @@
       17.colorSwitchThumbNormal: switch thumbs 默认状态的颜色. (switch off)
   -->
     <!-- Base application theme. -->
-    <style name="AppThem" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -32,6 +33,11 @@
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:editTextColor">@color/editTextColor</item>
         <item name="android:textColorHint">@color/hintTextColor</item>
+        <item name="themeTint">@color/drawableTint</item>
+        <item name="dividerColor">@color/dividerColor</item>
+        <item name="indicatorNormalColor">@color/indicatorNormalColor</item>
+        <item name="indicatorSelectedColor">@color/indicatorSelectedColor</item>
+
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -40,11 +46,34 @@
 
     </style>
 
-    <style name="MediaTheme" parent="AppThem">
-        <item name="android:windowBackground">@color/colorMediaTheme</item>
+    <style name="Theme.Night" parent="AppTheme">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/nightColorPrimary</item>
+        <item name="colorPrimaryVariant">@color/nightColorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/nightColorOnPrimary</item>
+        <item name="colorAccent">@color/nightColorAccent</item>
+        <item name="colorControlHighlight">@color/nightColorControlHighlight</item>
+        <item name="colorControlNormal">@color/nightColorControlNormal</item>
+        <item name="android:textColor">@color/nightTextColor</item>
+        <item name="hintTextColor">@color/nightHintTextColor</item>
+        <item name="android:textColorSecondary">@color/nightTextColorSecondary</item>
+        <item name="android:editTextColor">@color/nightEditTextColor</item>
+        <item name="android:textColorHint">@color/nightHintTextColor</item>
+        <item name="themeTint">@color/nightDrawableTint</item>
+        <item name="dividerColor">@color/nightDividerColor</item>
+        <item name="indicatorNormalColor">@color/nightIndicatorNormalColor</item>
+        <item name="indicatorSelectedColor">@color/nightIndicatorSelectedColor</item>
+
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowBackground">@color/nightColorWindowBackground</item>
+
     </style>
 
-    <style name="SplashThem" parent="AppThem">
+
+    <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowBackground">@drawable/layer_splash</item>
     </style>

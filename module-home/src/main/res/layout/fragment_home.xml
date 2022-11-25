@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +18,6 @@
             android:id="@+id/home_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:fitsSystemWindows="true"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +26,7 @@
 
             <ImageView
                 android:id="@+id/iv_logo"
+                tint="@{themeViewModel.themeTint}"
                 android:layout_width="0dp"
                 android:layout_height="18dp"
                 android:layout_marginStart="@dimen/padding_normal"
@@ -30,20 +34,30 @@
                 app:layout_constraintBottom_toBottomOf="@id/home_tab_layout"
                 app:layout_constraintDimensionRatio="440:87"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/home_tab_layout" />
+                app:layout_constraintTop_toTopOf="@id/home_tab_layout"
+                tools:tint="?attr/themeTint" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/home_tab_layout"
-                style="@style/Style_tab"
+                tabIndicatorSelectedColor="@{themeViewModel.textColor}"
+                tabNormalTextColor="@{themeViewModel.textColorSecondary}"
+                tabSelectedTextColor="@{themeViewModel.textColor}"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginBottom="2dp"
+                android:background="@color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_logo"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tabGravity="center"
-                app:tabIndicatorHeight="2dp" />
+                app:tabIndicator="@drawable/layer_tab_indicator_media"
+                app:tabIndicatorHeight="2dp"
+                app:tabPaddingBottom="0dp"
+                app:tabPaddingEnd="10dp"
+                app:tabPaddingStart="10dp"
+                app:tabPaddingTop="0dp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -55,5 +69,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/home_title" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

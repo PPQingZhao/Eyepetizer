@@ -8,15 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_user.databinding.FragmentUserBinding
-import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.User.fragment_user)
-class UserFragment : LifecycleFragment<FragmentUserBinding, UserViewModel>() {
+class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
     override val mBinding by lazy {
         FragmentUserBinding.inflate(layoutInflater)
     }

@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
+import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.adapter.MultiBindingAdapter
 import com.pp.module_discovery.databinding.FragmentDiscoveryBinding
-import com.pp.mvvm.LifecycleFragment
 
 @Route(path = RouterPath.Discovery.fragment_discovery)
-class DiscoveryFragment : LifecycleFragment<FragmentDiscoveryBinding, DiscoveryViewModel>() {
+class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewModel>() {
     override val mBinding: FragmentDiscoveryBinding by lazy {
         FragmentDiscoveryBinding.inflate(layoutInflater)
     }

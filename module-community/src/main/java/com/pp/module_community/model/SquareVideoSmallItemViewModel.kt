@@ -22,13 +22,13 @@ class SquareVideoSmallItemViewModel(val metro: Metro?) :
         }
 
         metro?.apply {
-            imagePath.set(metroData.cover.url)
-            description.set(metroData.title)
-            metroData.author?.avatar?.url?.let {
+            imagePath.set(metroData?.cover?.url)
+            description.set(metroData?.title)
+            metroData?.author?.avatar?.url?.let {
                 avatarPath.set(it)
             }
 
-            nickname.set(metroData.author?.nick)
+            nickname.set(metroData?.author?.nick)
         }
     }
 

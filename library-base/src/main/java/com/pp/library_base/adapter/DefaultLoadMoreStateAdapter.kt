@@ -1,23 +1,20 @@
 package com.pp.library_base.adapter
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
+import com.pp.library_ui.BR
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemDefaultLoadMoreBinding
+import com.pp.library_ui.utils.AppThemeViewModel
 
 class DefaultLoadMoreStateAdapter(
-    @ColorRes val textColor: Int = com.pp.library_ui.R.color.color_text_selected,
-    @ColorInt val tint: Int = Color.BLACK,
     lifecycle: Lifecycle? = null,
     var retry: (() -> Unit)? = null,
 ) :
@@ -37,11 +34,9 @@ class DefaultLoadMoreStateAdapter(
         loadState: LoadState
     ) {
 //        Log.e("DefaultLoadStateAdapter", loadState.toString())
-        holder.binding.textColor = holder.binding.root.resources.getColor(textColor)
         holder.binding.loading.visibility =
             if (loadState is LoadState.Loading) View.VISIBLE else View.GONE
 
-        holder.binding.loadIvError.imageTintList = ColorStateList.valueOf(tint)
         holder.binding.loadError.visibility =
             if (loadState is LoadState.Error) View.VISIBLE else View.GONE
         // 错误重试
@@ -49,7 +44,6 @@ class DefaultLoadMoreStateAdapter(
             retry?.invoke()
         }
 
-        holder.binding.loadDataEmpty.imageTintList = ColorStateList.valueOf(tint)
         holder.binding.loadDataEmpty.visibility =
             if (loadState is LoadState.NotLoading && loadState.endOfPaginationReached) View.VISIBLE else View.GONE
 
@@ -76,6 +70,14 @@ class DefaultLoadMoreStateAdapter(
         return super.displayLoadStateAsItem(loadState)
                 // no data: not loading 并且 已到底部 (endOfPaginationReached) 显示
                 || (loadState is LoadState.NotLoading && loadState.endOfPaginationReached)
+    }
+
+    override fun onViewAttachedToWindow(holder: BindingHolder<ItemDefaultLoadMoreBinding>) {
+        val lifecycleOwner = ViewTreeLifecycleOwner.get( holder.binding.root)
+        holder.binding.lifecycleOwner = lifecycleOwner
+
+        val appTheme = AppThemeViewModel.get( holder.binding.root)
+        holder.binding.setVariable(BR.themeViewModel, appTheme)
     }
 
 

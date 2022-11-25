@@ -6,26 +6,26 @@ import com.pp.library_network.utils.TrackingDataAdapter
 
 data class Metro(
     @SerializedName("alias_name")
-    val aliasName: String?,
+    val aliasName: String = "",
     @SerializedName("allow_insert_above")
-    val allowInsertAbove: Int?,
+    val allowInsertAbove: Int = 0,
     @SerializedName("link")
-    val link: String,
+    val link: String = "",
     @SerializedName("metro_data")
-    val metroData: MetroDataBean,
+    val metroData: MetroDataBean? = null,
     @SerializedName("metro_id")
-    val metroId: Int,
+    val metroId: Int = 0,
     @SerializedName("metro_unique_id")
-    val metroUniqueId: String,
+    val metroUniqueId: String = "",
     @SerializedName("style")
-    val style: Style,
+    val style: Style = Style(),
     @JsonAdapter(TrackingDataAdapter::class)
     @SerializedName("tracking_data")
-    val trackingData: TrackingData,
+    val trackingData: TrackingData? = null,
     @SerializedName("tracking_params")
-    val trackingParams: TrackingParams,
+    val trackingParams: TrackingParams? = null,
     @SerializedName("type")
-    val type: String
+    val type: String = ""
 ) {
 
     class TrackingParams() {

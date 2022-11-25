@@ -6,9 +6,9 @@
     </style>
 
     <style name="Style_tab" parent="TextAppearance.Design.Tab">
-        <item name="tabTextColor">@color/selector_tab_text</item>
+        <item name="tabTextColor">@color/textColor</item>
         <item name="android:background">@android:color/transparent</item>
-        <item name="tabIndicatorColor">@color/color_text_selected</item>
+        <item name="tabIndicatorColor">@color/textColor</item>
         <item name="tabIndicator">@drawable/layer_tab_indicator</item>
         <item name="tabTextAppearance">@style/TextAppearance_tab</item>
         <item name="tabPadding">0dp</item>
@@ -31,7 +31,7 @@
     <style name="Style_textinputlayout">
 
         <item name="hintTextColor">@color/colorAccent</item>
-        <item name="android:textColorHint">@color/color_text_normal</item>
+        <item name="android:textColorHint">@color/hintTextColor</item>
         <item name="boxStrokeColor">@color/colorAccent</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeWidthFocused">1dp</item>

@@ -5,14 +5,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.pp.library_base.base.ThemeActivity
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_user.databinding.ActivityLoginBinding
-import com.pp.mvvm.LifecycleActivity
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.User.activity_login)
-class LoginActivity : LifecycleActivity<ActivityLoginBinding, LoginViewModel>() {
+class LoginActivity : ThemeActivity<ActivityLoginBinding, LoginViewModel>() {
     override fun getModelClazz(): Class<LoginViewModel> {
         return LoginViewModel::class.java
     }

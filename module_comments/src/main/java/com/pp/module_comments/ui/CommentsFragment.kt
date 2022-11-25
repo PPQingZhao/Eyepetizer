@@ -2,7 +2,6 @@ package com.pp.module_comments.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -14,6 +13,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.TreeNodeAdapter
+import com.pp.library_base.base.ThemeFragment
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.R
@@ -25,14 +25,13 @@ import com.pp.module_comments.databinding.ItemCommentBindingImpl
 import com.pp.module_comments.databinding.ItemReplyBindingImpl
 import com.pp.module_comments.model.CommentItemViewModel
 import com.pp.module_comments.model.ReplyItemViewModel
-import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Comments.fragment_comments)
 class CommentsFragment :
-    LifecycleFragment<FragmentCommentsBinding, CommentsViewModel>() {
+    ThemeFragment<FragmentCommentsBinding, CommentsViewModel>() {
     override val mBinding by lazy { FragmentCommentsBinding.inflate(layoutInflater) }
 
     override fun getModelClazz(): Class<CommentsViewModel> {
@@ -41,7 +40,7 @@ class CommentsFragment :
 
     @JvmField
     @Autowired(name = "resourceId")
-    var resourceId: Int? = 0
+    var resourceId: Long? = 0
 
     @JvmField
     @Autowired(name = "resourceType")
@@ -128,7 +127,7 @@ class CommentsFragment :
         mBinding.commentsHotRecyclerview.addItemDecoration(
             DividerDecoration(
                 1,
-                resources.getColor(R.color.mediaTextColorSecondary),
+                resources.getColor(R.color.nightTextColorSecondary),
                 RecyclerView.VERTICAL
             ) { position, type ->
                 if (position == null) {
@@ -165,8 +164,6 @@ class CommentsFragment :
         )
         mBinding.commentsHotRecyclerview.adapter =
             treeAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(
-                textColor = R.color.mediaTextColor,
-                tint = Color.WHITE,
                 lifecycle = lifecycle,
             ) {
                 treeAdapter.retry()

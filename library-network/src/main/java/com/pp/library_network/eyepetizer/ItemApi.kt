@@ -4,6 +4,7 @@ import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.CommentsBean
 import com.pp.library_network.eyepetizer.bean.MetroDataBean
 import com.pp.library_network.eyepetizer.bean.RelatedRecommendBean
+import okhttp3.ResponseBody
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -17,7 +18,7 @@ interface ItemApi {
     @FormUrlEncoded
     @POST("v1/item/comment/get_cms_comment_list")
     suspend fun getCMSCommentList(
-        @Field("resource_id") resource_id: Int?,
+        @Field("resource_id") resource_id: Long?,
         @Field("resource_type") resource_type: String?,
         @Field("sort_type") sort_type: String? = EyepetizerService2.SortType.SORT_TYPE_HOT,
         @Field("last_item_id") last_item_id: Int?
@@ -55,4 +56,11 @@ interface ItemApi {
         @Field("resource_id") resource_id: Long?,
         @Field("resource_type") resource_type: String?
     ): BaseResponse<RelatedRecommendBean>
+
+    @FormUrlEncoded
+    @POST("v1/content/item/get_related_recommend")
+    suspend fun getRelatedRecommend2(
+        @Field("resource_id") resource_id: Long?,
+        @Field("resource_type") resource_type: String?
+    ): ResponseBody
 }

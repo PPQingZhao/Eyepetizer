@@ -10,10 +10,10 @@ import com.pp.library_network.eyepetizer.bean.UserInfoBean
 import com.pp.library_ui.R
 import com.pp.module_user.manager.UserManager
 import com.pp.module_user.repositoy.NvaTabRepository
-import com.pp.mvvm.LifecycleViewModel
+import com.pp.library_base.base.ThemeViewModel
 import kotlinx.coroutines.flow.Flow
 
-class UserViewModel(app: Application) : LifecycleViewModel(app) {
+class UserViewModel(app: Application) : ThemeViewModel(app) {
     val icon = ObservableField<String>()
     val nickName = ObservableField<String>()
     val gender = ObservableField<CharSequence>()

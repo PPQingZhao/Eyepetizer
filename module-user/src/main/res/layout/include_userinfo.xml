@@ -7,14 +7,18 @@
     <data>
 
         <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
             name="viewModel"
             type="com.pp.module_user.ui.UserViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         android:paddingBottom="@dimen/padding_normal">
 
         <ImageView
@@ -56,12 +60,13 @@
             android:layout_marginTop="20dp"
             android:maxLines="1"
             android:text="@{viewModel.nickName}"
-            android:textColor="@color/black"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/iv_icon"
             app:layout_constraintTop_toBottomOf="@id/iv_icon"
-            tools:text="User name" />
+            tools:text="User name"
+            tools:textColor="?android:textColor" />
 
         <TextView
             android:id="@+id/tv_sex"
@@ -72,11 +77,12 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:text="@{viewModel.gender}"
-            android:textColor="@color/black"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@id/tv_username"
             app:layout_constraintTop_toBottomOf="@id/tv_username"
-            tools:text="男" />
+            tools:text="男"
+            tools:textColor="?android:textColor" />
 
         <TextView
             android:id="@+id/tv_location"
@@ -88,11 +94,12 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:text="@{viewModel.city}"
-            android:textColor="@color/black"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@id/tv_sex"
             app:layout_constraintTop_toBottomOf="@id/tv_username"
-            tools:text="广州" />
+            tools:text="广州"
+            tools:textColor="?android:textColor" />
 
         <TextView
             android:id="@+id/tv_fan"
@@ -100,21 +107,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@{viewModel.fan}"
-            android:textColor="@color/black"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_username"
             app:layout_constraintTop_toBottomOf="@id/tv_sex"
-            tools:text="0" />
+            tools:text="0"
+            tools:textColor="?android:textColor" />
 
         <TextView
             android:id="@+id/tv_fan_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fan"
-            android:textColor="@color/mediaTextColorSecondary"
+            android:textColor="@{themeViewModel.textColorSecondary}"
             app:layout_constraintBottom_toBottomOf="@id/tv_fan"
-            app:layout_constraintStart_toEndOf="@id/tv_fan" />
+            app:layout_constraintStart_toEndOf="@id/tv_fan"
+            tools:textColor="?android:textColorSecondary" />
 
         <TextView
             android:id="@+id/tv_follow"
@@ -123,21 +132,23 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:text="@{viewModel.follow}"
-            android:textColor="@color/black"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/tv_fan_text"
             app:layout_constraintTop_toBottomOf="@id/tv_sex"
-            tools:text="1" />
+            tools:text="1"
+            tools:textColor="?android:textColor" />
 
         <TextView
             android:id="@+id/tv_follow_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/follow"
-            android:textColor="@color/mediaTextColorSecondary"
+            android:textColor="@{themeViewModel.textColorSecondary}"
             app:layout_constraintBottom_toBottomOf="@id/tv_follow"
-            app:layout_constraintStart_toEndOf="@id/tv_follow" />
+            app:layout_constraintStart_toEndOf="@id/tv_follow"
+            tools:textColor="?android:textColorSecondary" />
 
         <TextView
             android:id="@+id/tv_badge"
@@ -146,21 +157,23 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:text="@{viewModel.badge}"
-            android:textColor="@color/black"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/tv_follow_text"
             app:layout_constraintTop_toBottomOf="@id/tv_sex"
-            tools:text="0" />
+            tools:text="0"
+            tools:textColor="?android:textColor" />
 
         <TextView
             android:id="@+id/tv_badge_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/badge"
-            android:textColor="@color/mediaTextColorSecondary"
+            android:textColor="@{themeViewModel.textColorSecondary}"
             app:layout_constraintBottom_toBottomOf="@id/tv_badge"
-            app:layout_constraintStart_toEndOf="@id/tv_badge" />
+            app:layout_constraintStart_toEndOf="@id/tv_badge"
+            tools:textColor="?android:textColorSecondary" />
 
         <TextView
             android:id="@+id/tv_ip"
@@ -168,21 +181,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="@string/IP"
-            android:textColor="@color/mediaTextColorSecondary"
+
+            android:textColor="@{themeViewModel.textColorSecondary}"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@id/tv_fan"
-            app:layout_constraintTop_toBottomOf="@id/tv_fan" />
+            app:layout_constraintTop_toBottomOf="@id/tv_fan"
+            tools:textColor="?android:textColorSecondary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_normal"
             android:text="@{viewModel.location}"
-            android:textColor="@color/mediaTextColorSecondary"
+            android:textColor="@{themeViewModel.textColorSecondary}"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_ip"
             app:layout_constraintStart_toEndOf="@id/tv_ip"
-            tools:text="广东" />
+            tools:text="广东"
+            tools:textColor="?android:textColorSecondary" />
 
         <TextView
             android:id="@+id/tv_cache"
@@ -190,22 +206,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/cache"
-            android:textColor="@color/black"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@id/view1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_ip" />
+            app:layout_constraintTop_toBottomOf="@id/tv_ip"
+            tools:textColor="?android:textColor" />
 
 
         <View
             android:id="@+id/view1"
             android:layout_width="1dp"
             android:layout_height="0dp"
-            android:background="@color/mediaTextColorSecondary"
+            android:background="@{themeViewModel.textColorSecondary}"
             app:layout_constraintBottom_toBottomOf="@id/tv_cache"
             app:layout_constraintEnd_toStartOf="@id/tv_collection"
             app:layout_constraintStart_toEndOf="@id/tv_cache"
-            app:layout_constraintTop_toTopOf="@id/tv_cache" />
+            app:layout_constraintTop_toTopOf="@id/tv_cache"
+            tools:background="?android:textColorSecondary" />
 
 
         <TextView
@@ -214,21 +232,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/collection"
-            android:textColor="@color/black"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@id/view2"
             app:layout_constraintStart_toEndOf="@id/view1"
-            app:layout_constraintTop_toBottomOf="@id/tv_ip" />
+            app:layout_constraintTop_toBottomOf="@id/tv_ip"
+            tools:textColor="?android:textColor" />
 
         <View
             android:id="@+id/view2"
             android:layout_width="1dp"
             android:layout_height="0dp"
-            android:background="@color/mediaTextColorSecondary"
+            android:background="@{themeViewModel.textColorSecondary}"
             app:layout_constraintBottom_toBottomOf="@id/tv_cache"
             app:layout_constraintEnd_toStartOf="@id/tv_record_of_viewing"
             app:layout_constraintStart_toEndOf="@id/tv_collection"
-            app:layout_constraintTop_toTopOf="@id/tv_cache" />
+            app:layout_constraintTop_toTopOf="@id/tv_cache"
+            tools:background="?android:textColorSecondary" />
 
         <TextView
             android:id="@+id/tv_record_of_viewing"
@@ -236,11 +256,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/record_of_viewing"
-            android:textColor="@color/black"
+            android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/view2"
-            app:layout_constraintTop_toBottomOf="@id/tv_ip" />
+            app:layout_constraintTop_toBottomOf="@id/tv_ip"
+            tools:textColor="?android:textColor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

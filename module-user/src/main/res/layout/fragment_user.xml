@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
             name="viewModel"
             type="com.pp.module_user.ui.UserViewModel" />
     </data>
@@ -27,9 +31,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
-                app:contentScrim="@color/white"
+                app:contentScrim="@{themeViewModel.windowBackground}"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:statusBarScrim="@color/white"
+                app:statusBarScrim="@{themeViewModel.windowBackground}"
                 app:titleEnabled="false">
 
                 <include
@@ -38,6 +42,7 @@
                     android:layout_height="wrap_content"
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="none"
+                    app:themeViewModel="@{themeViewModel}"
                     app:viewModel="@{viewModel}" />
 
                 <androidx.appcompat.widget.Toolbar
@@ -53,7 +58,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="@{viewModel.nickName}"
-                        android:textColor="@color/black"
+                        android:textColor="@{themeViewModel.textColor}"
                         android:textSize="15sp" />
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>

@@ -54,6 +54,10 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any> :
         return BindingHolder<VB>(createBinding(parent, viewType))
     }
 
+    override fun onViewAttachedToWindow(holder: BindingHolder<VB>) {
+        bindingHelper.onViewAttachedToWindow(holder)
+    }
+
     /**
      * 在这里设置 ViewDataBinding::setVariable(int variableId, @Nullable Object value);
      */

@@ -66,7 +66,7 @@ class DetailsFragment(details: MetroDataBean?) :
                     }
                     else -> ARouter.getInstance()
                         .build(RouterPath.Comments.fragment_comments)
-                        .withInt("resourceId", mViewModel.details?.resourceId?.toInt() ?: 0)
+                        .withLong("resourceId", mViewModel.details?.resourceId?: 0)
                         .withString("resourceType", mViewModel.details?.resourceType)
                         .navigation() as Fragment
                 }

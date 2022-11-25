@@ -48,4 +48,8 @@ abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<VB> {
         return BindingHolder<VB>(bindingHelper.createBinding(parent, viewType))
     }
+
+    override fun onViewAttachedToWindow(holder: BindingHolder<VB>) {
+        bindingHelper.onViewAttachedToWindow(holder)
+    }
 }

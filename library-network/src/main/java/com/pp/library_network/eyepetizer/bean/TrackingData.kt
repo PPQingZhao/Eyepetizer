@@ -3,9 +3,9 @@ package com.pp.library_network.eyepetizer.bean
 import com.google.gson.annotations.SerializedName
 data class TrackingData(
     @SerializedName("click")
-    val click: List<Click>,
+    val click: List<Click> = mutableListOf(),
     @SerializedName("show")
-    val show: List<Show>
+    val show: List<Show> = mutableListOf()
 ) {
     data class Click(
         @SerializedName("child")

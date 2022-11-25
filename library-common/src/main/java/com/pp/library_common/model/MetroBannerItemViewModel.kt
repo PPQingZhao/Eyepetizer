@@ -26,7 +26,7 @@ open class MetroBannerItemViewModel(
         itemList.clear()
 
         value?.forEach { metro ->
-            itemList.add(BannerContentItemViewModel(metro.metroData.cover.url))
+            itemList.add(BannerContentItemViewModel(metro.metroData?.cover?.url))
         }
 
         indicatorCount.set(itemList.size)

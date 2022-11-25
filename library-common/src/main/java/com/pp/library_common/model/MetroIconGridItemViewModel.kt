@@ -12,14 +12,14 @@ import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.adapter.MultiBindingAdapter
 import com.pp.library_ui.model.ItemRecyclerViewModel
 
-class MetroIconGridItemViewModel(m: Metro?, context: Context): ItemRecyclerViewModel() {
+class MetroIconGridItemViewModel(m: Metro?, context: Context) : ItemRecyclerViewModel() {
 
     var metro: Metro? = null
         set(value) {
             field = value
             val list = mutableListOf<IconBean>()
             if (value?.style?.tplLabel == EyepetizerService2.MetroType.Style.icon_grid) {
-                value.metroData.icons?.forEach {
+                value.metroData?.icons?.forEach {
                     list.add(it)
                 }
             }

@@ -7,7 +7,7 @@
             android:configChanges="keyboardHidden|locale|keyboard|screenSize|orientation"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/MediaTheme">
+            android:theme="@style/Theme.Night">
 
             <meta-data
                 android:name="android.app.lib_name"

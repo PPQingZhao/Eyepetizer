@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
             name="viewModel"
             type="com.pp.library_ui.model.VideoSmallCardItemViewModel" />
     </data>
@@ -60,13 +64,14 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{viewModel.title}"
-                android:textColor="@color/color_text_selected"
+                android:textColor="@{themeViewModel.textColor}"
                 android:textSize="@dimen/content_title"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_feed"
                 app:layout_constraintTop_toTopOf="@id/iv_feed"
-                tools:text="是和平结束了他，最后的纹身艺匠" />
+                tools:text="是和平结束了他，最后的纹身艺匠"
+                tools:textColor="?android:textColor" />
 
             <TextView
                 android:id="@+id/tv_category"
@@ -74,11 +79,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_normal"
                 android:text="@{viewModel.category}"
-                android:textColor="@color/color_text_selected"
+                android:textColor="@{themeViewModel.textColor}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_title"
-                tools:text="# 影视" />
+                tools:text="# 影视"
+                tools:textColor="?android:textColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,12 +94,13 @@
                 android:paddingStart="@dimen/padding_normal"
                 android:paddingEnd="@dimen/padding_normal"
                 android:text="@{viewModel.duration}"
-                android:textColor="@color/color_text_selected"
+                android:textColor="@{themeViewModel.textColor}"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_category"
                 app:layout_constraintEnd_toEndOf="@id/tv_title"
                 app:layout_constraintTop_toTopOf="@id/tv_category"
-                tools:text="02:14" />
+                tools:text="02:14"
+                tools:textColor="?android:textColor" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

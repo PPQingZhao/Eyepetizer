@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
+import com.pp.library_base.base.ThemeFragment
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_community.GridDivider
 import com.pp.module_community.adapter.SquareAdapter
 import com.pp.module_community.databinding.FragmentSquareBinding
 import com.pp.module_community.respository.SquareType
-import com.pp.mvvm.LifecycleFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Community.fragment_community)
-class SquareFragment : LifecycleFragment<FragmentSquareBinding, SquareViewModel>() {
+class SquareFragment : ThemeFragment<FragmentSquareBinding, SquareViewModel>() {
 
     override val mBinding: FragmentSquareBinding by lazy {
         FragmentSquareBinding.inflate(

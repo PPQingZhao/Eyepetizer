@@ -4,11 +4,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.pp.library_base.base.helper.TabPagerFragmentHelper
-import com.pp.mvvm.LifecycleFragment
-import com.pp.mvvm.LifecycleViewModel
 
-abstract class TabPagerFragment<VB : ViewDataBinding, VM : LifecycleViewModel> :
-    LifecycleFragment<VB, VM>() {
+abstract class TabPagerFragment<VB : ViewDataBinding, VM : ThemeViewModel> :
+    ThemeFragment<VB, VM>() {
     val mHelper: TabPagerFragmentHelper by lazy {
         TabPagerFragmentHelper(
             this,
