@@ -16,11 +16,36 @@ class MetroLargeVideoCardItemViewModel(item: Metro?) :
 
             resourceId = value?.metroData?.resourceId
             resourceType = value?.metroData?.resourceType
+
             title.set(value?.metroData?.title)
-            category.set("${value?.metroData?.author?.nick} ${value?.metroData?.tags?.get(0)?.title}")
+
+            if (title.get()?.isEmpty() != false) {
+                title.set(value?.metroData?.video?.title)
+            }
+
+            var tags = ""
+            value?.metroData?.tags?.forEach {
+                tags = "${tags}${it.title} "
+            }
+
+            if (tags.isEmpty()) {
+                value?.metroData?.video?.tags?.forEach {
+                    tags = "${tags}${it.title} "
+                }
+            }
+
+            category.set("${value?.metroData?.author?.nick} ${tags}")
+
             imagePath.set(value?.metroData?.cover?.url)
+            if (imagePath.get()?.isEmpty() != false){
+                imagePath.set(value?.metroData?.video?.cover?.url)
+            }
+
             icon.set(value?.metroData?.author?.avatar?.url)
             duration.set(value?.metroData?.duration?.text)
+            if (duration.get()?.isEmpty() != false) {
+                duration.set(value?.metroData?.video?.duration?.text)
+            }
         }
 
     init {

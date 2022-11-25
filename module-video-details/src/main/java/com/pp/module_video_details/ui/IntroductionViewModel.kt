@@ -1,7 +1,6 @@
 package com.pp.module_video_details.ui
 
 import android.app.Application
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.paging.PagingData
 import com.pp.library_network.eyepetizer.bean.Metro
@@ -25,12 +24,23 @@ class IntroductionViewModel(val details: MetroDataBean?, app: Application) :
         details?.let {
             title.set(it.video.title)
 
-            var topic = ""
-            it.topics.forEach {
-                topic = "${topic}${it.title} "
+            var tags = ""
+            it.tags?.forEach {
+                tags = "${tags}${it.title} "
             }
 
-            category.set(topic)
+            if (tags.isEmpty()) {
+                it.video.tags.forEach {
+                    tags = "${tags}${it.title} "
+                }
+            }
+
+            var topics = ""
+            it.topics.forEach {
+                topics = "${topics}${it.title} "
+            }
+
+            category.set("${tags} ${topics}")
             content.set(it.text)
             collectionCount.set(it.consumption.likeCount.toString())
             replyCount.set(it.consumption.commentCount.toString())
