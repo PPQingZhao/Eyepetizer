@@ -42,7 +42,7 @@ class DailyFragment : ThemeFragment<FragmentDailyBinding, DailyViewModel>() {
         }
     }
 
-    private val dailyAdapter by lazy { MetroPagingDataAdapterType.largeVideoCardPagingDataAdapter }
+    private val dailyAdapter by lazy { MetroPagingDataAdapterType.largeVideoCardPagingDataAdapter() }
     private fun initRecyclerView() {
         mBinding.dailyRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.dailyRecyclerview.adapter =

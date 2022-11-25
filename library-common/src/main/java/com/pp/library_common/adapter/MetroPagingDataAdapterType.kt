@@ -50,7 +50,7 @@ object MetroPagingDataAdapterType {
     /**
      * large video card
      */
-    val largeVideoCardPagingDataAdapter by lazy {
+    fun largeVideoCardPagingDataAdapter() =
 
         DefaultBindingPagingDataAdapter<ItemVideoCardBinding, MetroLargeVideoCardItemViewModel, Metro>(
             { _, item, cacheItemViewModel ->
@@ -66,12 +66,12 @@ object MetroPagingDataAdapterType {
             },
             DIFF_CALLBACK
         )
-    }
+
 
     /**
      * small video card
      */
-    val smallVideoCardPagingDataAdapter by lazy {
+    fun smallVideoCardPagingDataAdapter() =
 
         DefaultBindingPagingDataAdapter<ItemVideoSmallCardBinding, MetroSmallVideoCardItemViewModel, Metro>(
             { _, item, cacheItemViewModel ->
@@ -87,7 +87,7 @@ object MetroPagingDataAdapterType {
             },
             DIFF_CALLBACK
         )
-    }
+
 
     fun description_text(layoutInflater: LayoutInflater) =
         DefaultViewBindingItem<Metro>(

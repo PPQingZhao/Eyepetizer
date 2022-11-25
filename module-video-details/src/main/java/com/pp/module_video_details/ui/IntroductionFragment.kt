@@ -57,7 +57,7 @@ class IntroductionFragment(details: MetroDataBean?) :
         }
     }
 
-    val mAdapter = MetroPagingDataAdapterType.largeVideoCardPagingDataAdapter
+    val mAdapter = MetroPagingDataAdapterType.largeVideoCardPagingDataAdapter()
 
     private fun initRecyclerView() {
         mBinding.introductionRecyclerview.layoutManager = LinearLayoutManager(context)
