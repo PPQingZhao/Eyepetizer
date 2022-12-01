@@ -68,8 +68,6 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
 //            Log.e("TAG", "setOnApplyWindowInsetsListener")
             windowInsets = WindowInsets(insets)
 
-//            //
-//            if (!dispatchApplyWindowInsetsForFragment(supportFragmentManager, windowInsets)) {
             mBinding.root.dispatchApplyWindowInsets(windowInsets)
 //            }
 
@@ -136,24 +134,6 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
 
             window.addFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS)
         }
-    }
-
-    private fun dispatchApplyWindowInsetsForFragment(
-        manager: FragmentManager,
-        insets: WindowInsets
-    ): Boolean {
-        val consume: Boolean = false
-        manager.fragments.forEach { f ->
-            f.view?.let { view ->
-                ViewCompat.dispatchApplyWindowInsets(
-                    view,
-                    WindowInsetsCompat.toWindowInsetsCompat(insets)
-                ).isConsumed
-            }?.let { consume.or(it) }
-
-            consume.or(dispatchApplyWindowInsetsForFragment(f.childFragmentManager, insets))
-        }
-        return consume
     }
 
 }

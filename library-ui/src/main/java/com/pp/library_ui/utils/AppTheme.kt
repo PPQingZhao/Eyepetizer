@@ -20,6 +20,8 @@ class AppTheme : Theme {
     val indicatorNormalColor = MutableLiveData<Int>()
     val indicatorSelectedColor = MutableLiveData<Int>()
     val dividerColor = MutableLiveData<Int>()
+    val progressTint = MutableLiveData<Int>()
+    val secondaryProgressTint = MutableLiveData<Int>()
 
     @SuppressLint("ResourceType", "Recycle")
     override fun setTheme(theme: Resources.Theme) {
@@ -36,6 +38,8 @@ class AppTheme : Theme {
             indicatorNormalColor to com.pp.library_ui.R.attr.indicatorNormalColor,
             indicatorSelectedColor to com.pp.library_ui.R.attr.indicatorSelectedColor,
             dividerColor to com.pp.library_ui.R.attr.dividerColor,
+            progressTint to R.attr.progressTint,
+            secondaryProgressTint to R.attr.secondaryProgressTint,
         )
 
         val attrArr = attrMap.values.toIntArray()

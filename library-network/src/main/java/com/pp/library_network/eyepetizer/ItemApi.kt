@@ -1,9 +1,6 @@
 package com.pp.library_network.eyepetizer
 
-import com.pp.library_network.eyepetizer.bean.BaseResponse
-import com.pp.library_network.eyepetizer.bean.CommentsBean
-import com.pp.library_network.eyepetizer.bean.MetroDataBean
-import com.pp.library_network.eyepetizer.bean.RelatedRecommendBean
+import com.pp.library_network.eyepetizer.bean.*
 import okhttp3.ResponseBody
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -22,7 +19,7 @@ interface ItemApi {
         @Field("resource_type") resource_type: String?,
         @Field("sort_type") sort_type: String? = EyepetizerService2.SortType.SORT_TYPE_HOT,
         @Field("last_item_id") last_item_id: Int?
-    ): BaseResponse<CommentsBean>
+    ): BaseResponse<LoadMoreBean<Comment>>
 
 
     /*

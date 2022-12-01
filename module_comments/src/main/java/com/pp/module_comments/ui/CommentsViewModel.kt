@@ -2,14 +2,15 @@ package com.pp.module_comments.ui
 
 import android.app.Application
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingData
+import com.pp.library_base.base.ThemeViewModel
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_ui.R
 import com.pp.library_ui.adapter.TreeNode
 import com.pp.module_comments.repository.CommentRepository
-import com.pp.library_base.base.ThemeViewModel
 import kotlinx.coroutines.flow.Flow
 
 class CommentsViewModel(app: Application) : ThemeViewModel(app) {
@@ -25,12 +26,14 @@ class CommentsViewModel(app: Application) : ThemeViewModel(app) {
     fun getPageData(
         resourceId: Long?,
         resourceType: String?,
-        sort_type: String
+        sort_type: String,
+        @ColorInt color: Int
     ): Flow<PagingData<TreeNode>> {
         return CommentRepository.getPagingData(
             resourceId,
             resourceType,
-            sort_type
+            sort_type,
+            color
         ) { this.sort_type.value }
     }
 

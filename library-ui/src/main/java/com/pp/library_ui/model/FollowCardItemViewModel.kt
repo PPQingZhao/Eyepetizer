@@ -25,7 +25,7 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
     val realCollectionCount = ObservableField<String>()
     val replyCount = ObservableField<String>()
     val constraintDimensionRatio = ObservableField<String>()
-    val drawableFolow = ObservableField<Int>(R.drawable.layer_follow)
+    val drawableFollow = ObservableField<Int>(R.drawable.layer_follow)
     val indicatorCount = ObservableInt()
     var adapter: RecyclerView.Adapter<VH>? = null
 

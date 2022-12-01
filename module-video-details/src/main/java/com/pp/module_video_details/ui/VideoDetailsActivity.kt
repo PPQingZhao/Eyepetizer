@@ -1,14 +1,10 @@
 package com.pp.module_video_details.ui
 
-import android.content.res.Configuration
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.VideoView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -35,28 +31,39 @@ class VideoDetailsActivity :
     @Autowired(name = "resourceType")
     var resourceType: String? = ""
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        Log.e("TAG", "onConfigurationChanged")
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        requireLightStatsBar(false)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        resourceId = intent?.getLongExtra("resourceId", 0)
+        resourceType = intent?.getStringExtra("resourceType")
+
+        mViewModel.getItemDetails(resourceId, resourceType)
+            .observe(this, detailsObserver)
+    }
+
+    val detailsObserver = Observer { it: MetroDataBean? ->
+
+        mBinding.video.setCover(it?.cover?.url)
+        mBinding.video.startPlay(it?.video?.playUrl)
+        showDetailsFragment(it)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requireLightStatsBar(false)
         ARouter.getInstance().inject(this)
 //        Log.e("TAG", "==>resourceType: ${resourceType}")
-
-        mViewModel.getItemDetails(resourceId, resourceType)
-            .observe(this) {
-
-                startPlay(it?.video?.playUrl)
-                showDetailsFragment(it)
-            }
+        mViewModel.getItemDetailsWithCache(resourceId, resourceType)
+            .observe(this, detailsObserver)
     }
 
     private fun showDetailsFragment(itemDetailsBean: MetroDataBean?) {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fl_container, getDetailsFragment(itemDetailsBean))
+            .replace(R.id.fl_container, getDetailsFragment(itemDetailsBean))
             .commitNow()
     }
 
@@ -64,27 +71,10 @@ class VideoDetailsActivity :
         return DetailsFragment(itemDetailsBean)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        videoView.stopPlayback()
-    }
-
-    private fun startPlay(playUrl: String?) {
-
-        val layoutParams = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
-        )
-        layoutParams.gravity = Gravity.CENTER
-        mBinding.video.addView(videoView, layoutParams)
-
-        videoView.setVideoURI(Uri.parse(playUrl))
-        videoView.start()
-    }
-
-    private val videoView by lazy { VideoView(this) }
-
     fun onBack(view: View) {
-        onBackPressed()
+        finish()
+    }
+
+    fun onFollow(view: View) {
     }
 }

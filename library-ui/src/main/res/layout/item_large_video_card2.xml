@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
+            name="viewModel"
+            type="com.pp.library_ui.model.VideoCardItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/padding_small"
+        android:onClick="@{viewModel.onVideo}">
+
+
+        <!--兼容 android:foreground-->
+        <FrameLayout
+            android:id="@+id/iv_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:foreground="@drawable/shape_circle"
+            android:onClick="@{viewModel.onIcon}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.1">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:bindSrc="@{viewModel.icon}"
+                android:scaleType="centerCrop"
+                app:roundPercent="1"
+                tools:src="@drawable/ic_launcher_background" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.title}"
+            android:textColor="@{themeViewModel.textColor}"
+            android:textSize="@dimen/content_title"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_icon"
+            tools:text="直面恐惧,看完感觉不能呼吸了了了了了了了了" />
+
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginEnd="60dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.category}"
+            android:textColor="@{themeViewModel.textColor}"
+            android:textSize="13sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="开眼记录精选 # 记录" />
+
+        <ImageView
+            android:id="@+id/iv_play"
+            tint="@{themeViewModel.themeTint}"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:src="@drawable/ic_play_arrow_24"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="@id/tv_category"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintHeight_percent="0.58"
+            app:layout_constraintStart_toEndOf="@id/tv_category"
+            app:layout_constraintTop_toTopOf="@id/tv_category"
+            tools:ignore="ContentDescription,UseAppTint"
+            tools:tint="?attr/themeTint" />
+
+        <TextView
+            android:id="@+id/tv_time_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{viewModel.duration}"
+            android:textColor="@{themeViewModel.textColor}"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_category"
+            app:layout_constraintStart_toEndOf="@id/iv_play"
+            app:layout_constraintTop_toTopOf="@id/tv_category"
+            tools:text="02:00" />
+
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/padding_small"
+            android:bindSrc="@{viewModel.imagePath}"
+            android:gravity="center_vertical"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_category"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_play_arrow_white"
+            app:layout_constraintBottom_toBottomOf="@id/iv_image"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/iv_image"
+            app:layout_constraintStart_toStartOf="@id/iv_image"
+            app:layout_constraintTop_toTopOf="@id/iv_image"
+            app:layout_constraintWidth_percent="0.12" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

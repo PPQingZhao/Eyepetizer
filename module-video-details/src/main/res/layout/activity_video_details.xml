@@ -75,6 +75,7 @@
             tint="@{themeViewModel.themeTint}"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:onClick="onFollow"
             android:layout_marginEnd="20dp"
             android:background="@drawable/shape_round_rectangle_stroke_white"
             android:padding="3dp"
@@ -86,7 +87,7 @@
             app:layout_constraintWidth_percent="0.06"
             tools:tint="?attr/themeTint" />
 
-        <FrameLayout
+        <com.pp.library_ui.widget.videoviewer.VideoViewer
             android:id="@+id/video"
             android:layout_width="match_parent"
             android:layout_height="0dp"

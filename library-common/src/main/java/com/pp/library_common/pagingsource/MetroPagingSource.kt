@@ -15,7 +15,6 @@ abstract class MetroPagingSource<Item : Any> :
 
     override suspend fun load(params: LoadParams<Key<Item>>): LoadResult<Key<Item>, Item> {
         return try {
-
             val valueList = mutableListOf<Item>()
             // 数据加载完毕
             if (params.key == null || params.key?.url == null) {
@@ -33,6 +32,7 @@ abstract class MetroPagingSource<Item : Any> :
                 } ?: LoadResult.Page(mutableListOf(), null, null)
 
             } else {
+
                 val response: BaseResponse<PageDataBean>? = loadPageData(params.key)
 
                 response?.result?.cardList?.forEach {

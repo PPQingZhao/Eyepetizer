@@ -2,9 +2,11 @@ package com.pp.module_comments.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.paging.map
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +29,7 @@ import com.pp.module_comments.model.CommentItemViewModel
 import com.pp.module_comments.model.ReplyItemViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Comments.fragment_comments)
@@ -175,11 +178,11 @@ class CommentsFragment :
             mViewModel.getPageData(
                 resourceId,
                 resourceType,
-                EyepetizerService2.SortType.SORT_TYPE_HOT
-            )
-                .collect {
-                    treeAdapter.submitData(it)
-                }
+                EyepetizerService2.SortType.SORT_TYPE_HOT,
+                requireTheme().textColorSecondary.value ?: Color.GRAY
+            ).collect {
+                treeAdapter.submitData(it)
+            }
         }
 
         lifecycleScope.launch {

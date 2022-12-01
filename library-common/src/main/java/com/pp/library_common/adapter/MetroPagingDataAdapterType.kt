@@ -2,7 +2,6 @@ package com.pp.library_common.adapter
 
 import android.view.LayoutInflater
 import android.view.View
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.DiffUtil
 import com.pp.library_base.adapter.DefaultBindingPagingDataAdapter
 import com.pp.library_common.model.*
@@ -13,7 +12,6 @@ import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_network.eyepetizer.bean.MetroDataBean
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.*
-import com.pp.library_ui.utils.AppTheme
 
 object MetroPagingDataAdapterType {
     const val type_description_text = 0
@@ -63,6 +61,26 @@ object MetroPagingDataAdapterType {
             },
             { parent, _, inflater ->
                 ItemVideoCardBinding.inflate(inflater, parent, false)
+            },
+            DIFF_CALLBACK
+        )
+
+    /**
+     * large video card
+     */
+    fun largeVideoCard2PagingDataAdapter() =
+
+        DefaultBindingPagingDataAdapter<ItemLargeVideoCard2Binding, MetroLargeVideoCard2ItemViewModel, Metro>(
+            { _, item, cacheItemViewModel ->
+                if (null != cacheItemViewModel) {
+                    cacheItemViewModel.metro = item
+                    cacheItemViewModel
+                } else {
+                    MetroLargeVideoCard2ItemViewModel(item)
+                }
+            },
+            { parent, _, inflater ->
+                ItemLargeVideoCard2Binding.inflate(inflater, parent, false)
             },
             DIFF_CALLBACK
         )

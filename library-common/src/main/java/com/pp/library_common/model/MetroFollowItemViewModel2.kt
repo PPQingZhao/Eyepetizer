@@ -36,7 +36,7 @@ open class MetroFollowItemViewModel2(
                 metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.pgc_video
                         || metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.ugc_video
 
-            this.drawableFolow.set(
+            this.drawableFollow.set(
                 if (mine && metroData?.isMine == true)
                     R.drawable.ic_more_vert_24
                 else if (metroData?.author?.followed == true || metroData?.isMine == true) R.drawable.layer_followed

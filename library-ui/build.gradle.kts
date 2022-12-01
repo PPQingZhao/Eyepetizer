@@ -50,5 +50,6 @@ dependencies {
     kapt(libs.glide.compiler)
 
     implementation(projects.libraryTheme)
+    api(libs.exoplayer)
 
 }

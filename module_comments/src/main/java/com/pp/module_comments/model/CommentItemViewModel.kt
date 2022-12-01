@@ -1,14 +1,14 @@
 package com.pp.module_comments.model
 
 import androidx.annotation.ColorInt
-import com.pp.library_network.eyepetizer.bean.CommentsBean
+import com.pp.library_network.eyepetizer.bean.Comment
 import com.pp.module_comments.util.CommentUtil
 
-class CommentItemViewModel(comment: CommentsBean.Item, @ColorInt val color: Int) :
+class CommentItemViewModel(comment: Comment, @ColorInt val color: Int) :
     CommentItemModel(expand = true) {
 
 
-    var commentItem: CommentsBean.Item? = null
+    var commentItem: Comment? = null
         set(value) {
             field = value
             value?.replyList?.forEach {
@@ -19,7 +19,13 @@ class CommentItemViewModel(comment: CommentsBean.Item, @ColorInt val color: Int)
             this@CommentItemViewModel.nick.set(value?.user?.nick)
             this@CommentItemViewModel.favorite.set(value?.countSummary?.favorite?.count.toString())
             val commentResult =
-                CommentUtil.getComment(value?.commentContent, value?.commentTime, value?.location, 0.6f, color)
+                CommentUtil.getComment(
+                    value?.commentContent,
+                    value?.commentTime,
+                    value?.location,
+                    0.6f,
+                    color
+                )
             this@CommentItemViewModel.comment.set(commentResult)
         }
 

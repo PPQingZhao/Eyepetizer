@@ -9,5 +9,11 @@ data class LoadMoreBean<Item>(
     @SerializedName("item_list")
     val itemList: List<Item>,
     @SerializedName("last_item_id")
-    val lastItemId: Int
+    val lastItemId: Int,
+
+    @SerializedName("item_per_page")
+    val itemPerPage: Int,
+    @SerializedName("page_count")
+    val pageCount: Int
+
 )

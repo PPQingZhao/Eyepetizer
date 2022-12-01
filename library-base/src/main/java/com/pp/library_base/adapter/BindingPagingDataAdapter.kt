@@ -33,7 +33,7 @@ abstract class BindingPagingDataAdapter<VB : ViewDataBinding, VM : Any, T : Any>
         }
     }
 
-    fun getItemData(@IntRange(from = 0) position: Int) = getItem(position)
+    fun getItemData(@IntRange(from = 0) position: Int) = peek(position)
     open fun onSetVariable(binding: VB, viewModel: VM?): Boolean {
         return false
     }

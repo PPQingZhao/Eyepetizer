@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="themeViewModel"
             type="com.pp.library_ui.utils.AppTheme" />
@@ -15,23 +16,23 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="@dimen/padding_normal"
-        android:paddingTop="15dp"
-        android:paddingEnd="@dimen/padding_normal">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingEnd="@dimen/padding_normal"
             app:elevation="0dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_scrollFlags="scroll">
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -46,7 +47,7 @@
                     android:textSize="15sp"
                     tools:text="复古风拼贴广告,ASICS的欲火重生,合作退出了复刻巴拿球鞋,鬼冢而而且" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:id="@+id/tv_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +59,7 @@
                     tools:text="#广告"
                     tools:textColor="?attr/colorSecondary" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -75,17 +76,17 @@
                     android:layout_marginTop="20dp"
                     android:paddingBottom="5dp">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_thumb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackgroundBorderless"
                         android:drawableTop="@drawable/selector_thumb_up"
-                        android:drawableTint="@{themeViewModel.themeTint}"
                         android:gravity="center"
                         android:text="@{viewModel.collectionCount}"
                         android:textColor="@{themeViewModel.textColor}"
                         android:textSize="12sp"
+                        app:drawableTint="@{themeViewModel.themeTint}"
                         app:layout_constraintEnd_toStartOf="@id/tv_star"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +94,7 @@
                         tools:drawableTint="?attr/themeTint"
                         tools:text="68" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -109,12 +110,13 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:drawableTint="?attr/themeTint" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackgroundBorderless"
                         android:drawableTop="@drawable/ic_comment_24"
+                        android:drawableTint="@{themeViewModel.themeTint}"
                         android:gravity="center"
                         android:text="@{viewModel.replyCount}"
                         android:textColor="@{themeViewModel.textColor}"
@@ -125,7 +127,7 @@
                         tools:drawableTint="?attr/themeTint"
                         tools:text="68" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_download"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -141,7 +143,7 @@
                         app:layout_constraintTop_toTopOf="@id/tv_star"
                         tools:drawableTint="?attr/themeTint" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_share"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -173,7 +175,6 @@
             android:id="@+id/introduction_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             tools:listitem="@layout/item_video_card" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

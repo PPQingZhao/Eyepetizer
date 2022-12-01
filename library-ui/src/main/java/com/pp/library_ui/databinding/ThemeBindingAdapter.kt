@@ -1,14 +1,12 @@
 package com.pp.library_ui.databinding
 
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.appcompat.widget.AppCompatTextView
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.pp.library_ui.widget.indicator.IndicatorView
@@ -52,14 +50,30 @@ object ThemeBindingAdapter {
         view.setTextColor(color)
     }
 
-    @SuppressLint("RestrictedApi")
     @JvmStatic
-    @androidx.databinding.BindingAdapter("android:drawableTint")
+    @androidx.databinding.BindingAdapter(
+        "android:drawableTint"
+    )
     fun setDrawableTint(
-        view: AppCompatTextView,
+        view: TextView,
         @ColorInt color: Int,
     ) {
-        view.supportCompoundDrawablesTintList = ColorStateList.valueOf(color)
+        view.compoundDrawables.forEach {
+            it?.setTint(color)
+        }
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter(
+        "app:drawableTint"
+    )
+    fun setAppDrawableTint(
+        view: TextView,
+        @ColorInt color: Int,
+    ) {
+        view.compoundDrawables.forEach {
+            it?.setTint(color)
+        }
     }
 
     @JvmStatic
@@ -98,6 +112,42 @@ object ThemeBindingAdapter {
         @ColorInt color: Int,
     ) {
         view.statusBarScrim = ColorDrawable(color)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("android:progressTint")
+    fun setProgressTint(
+        view: ProgressBar,
+        @ColorInt color: Int,
+    ) {
+        view.progressTintList = ColorStateList.valueOf(color)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("android:secondaryProgressTint")
+    fun setSecondaryProgressTint(
+        view: ProgressBar,
+        @ColorInt color: Int,
+    ) {
+        view.secondaryProgressTintList = ColorStateList.valueOf(color)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("android:indeterminateTint")
+    fun setIndeterminateTint(
+        view: ProgressBar,
+        @ColorInt color: Int,
+    ) {
+        view.indeterminateTintList = ColorStateList.valueOf(color)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("android:thumbTint")
+    fun setThumbTint(
+        view: SeekBar,
+        @ColorInt color: Int,
+    ) {
+        view.thumbTintList = ColorStateList.valueOf(color)
     }
 
 }

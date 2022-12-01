@@ -1,16 +1,12 @@
 package com.pp.library_base.adapter
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.IntRange
-import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.pp.library_ui.BR
 import com.pp.library_ui.adapter.MultiItemViewHolder
 import com.pp.library_ui.adapter.ViewBindingItem
-import com.pp.library_ui.utils.AppThemeViewModel
 
 open class MultiBindingPagingDataAdapter<Data : Any>(
     diffCallback: DiffUtil.ItemCallback<Data>
@@ -28,11 +24,11 @@ open class MultiBindingPagingDataAdapter<Data : Any>(
         mViewTypeAdapterMap[type] = item
     }
 
-     fun getItemData(@IntRange(from = 0) position: Int) = getItem(position)
+     fun getItemData(@IntRange(from = 0) position: Int) = peek(position)
 
     override fun getItemViewType(position: Int): Int {
 
-        val item = getItem(position)
+        val item = peek(position)
         // 查找 item type
         for (entry in mViewTypeAdapterMap) {
             if (entry.key == entry.value.getItemType(position, item)) {

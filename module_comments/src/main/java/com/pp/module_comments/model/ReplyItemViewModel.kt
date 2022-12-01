@@ -1,13 +1,13 @@
 package com.pp.module_comments.model
 
 import androidx.annotation.ColorInt
-import com.pp.library_network.eyepetizer.bean.CommentsBean
+import com.pp.library_network.eyepetizer.bean.Comment
 import com.pp.module_comments.util.CommentUtil
 
-class ReplyItemViewModel(reply: CommentsBean.Item.Reply, @ColorInt val color: Int) :
+class ReplyItemViewModel(reply: Comment, @ColorInt val color: Int) :
     CommentItemModel() {
 
-    var replyItem: CommentsBean.Item.Reply? = null
+    var replyItem: Comment? = null
         set(value) {
             field = value
             this@ReplyItemViewModel.icon.set(value?.user?.avatar)

@@ -121,6 +121,7 @@ class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewM
             mViewModel.getPageData().collect {
                 multiAdapter.submitData(lifecycle, it)
             }
+
         }
     }
 

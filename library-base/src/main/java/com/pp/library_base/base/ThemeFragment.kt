@@ -32,7 +32,7 @@ abstract class ThemeFragment<VB : ViewDataBinding, VM : ThemeViewModel> :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        AppThemeViewModel.set(mBinding.root, requireTheme())
+        AppThemeViewModel[mBinding.root] = requireTheme()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

@@ -73,10 +73,10 @@ interface EyepetizerService2 {
            	"x-api-key": "0530ee4341324ce2b26c23fcece80ea2",
            	"User-Agent": "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0",
            	"X-THEFAIR-APPID": "ahpagrcrf2p7m6rg",
-           	"X-THEFAIR-AUTH": "Ee17OewjhONMFg7wu3+DMjYJ0+7BnnkF6VmMpTPvIUPmdBFN1esyXOPChQuxOgeeYU9Xg1w65fTNRjaSFCef7L11uxUVeN+sVTltut5ZRrkpgcYq7NXODEs/QObe36cdpCK/q6VgJmyngs5L2mQq/RNGsAjAY881y64hHnW9ZQ9kgNZOm01QqwbaptVqSAe9PQojEoUiiFCK0Hf3meOP+5kc/kBuLz/tum4/2miAz7jF5/d3duskCP+H5SW0hgqoO/ru5rn4eq86qvPPwou/Yw==",
+           	"X-THEFAIR-AUTH": "Ee17OewjhONMFg7wu3+DMjYJ0+7BnnkF6VmMpTPvIUPmdBFN1esyXOPChQuxOgeeYU9Xg1w65fTNRjaSFCef7L11uxUVeN+sVTltut5ZRrkpgcYq7NXODEs/QObe36cdpCK/q6VgJmyngs5L2mQq/RNGsAjAY881y64hHnW9ZQ9kgNZOm01QqwbaptVqSAe9PQojEoUiiFCK0Hf3meOP+5kc/kBuLz/tum4/2miAz7igUnP5iWQasNOobdaZ9KhndIZoDSWGmYNFUjfqq9BxTg==",
            	"X-THEFAIR-CID": "2248c7390ffd3039d84a554301e0fd73",
            	"X-THEFAIR-UA": "EYEPETIZER/7051610 (ELS-AN00;android;10;zh_CN_#Hans;android;7.5.161;cn-bj;huawei;2248c7390ffd3039d84a554301e0fd73;WIFI;1200*2499) native/1.0",
-           	"Cookie": "ky_udid=074347ace25d41df856528937c4a3804eb4fea22;ky_auth=_V1MTc4MjA0NjA0NjE6MTcwMDQ3NTc0MzQxNDowNTA2M2Q1NmQ3YjVlMjA4YzQwOGRjM2UxZjM2YjkyOQ;PHPSESSID=48ddb561ee9dcfc8262c1fe2364eea24;uid=304922815;login_type=mobile;login_date=20221125-182223;APPID=ahpagrcrf2p7m6rg",
+           	"Cookie": "ky_udid=074347ace25d41df856528937c4a3804eb4fea22;ky_auth=_V1MTc4MjA0NjA0NjE6MTcwMDQ3NTc0MzQxNDowNTA2M2Q1NmQ3YjVlMjA4YzQwOGRjM2UxZjM2YjkyOQ;APPID=ahpagrcrf2p7m6rg;PHPSESSID=0798bdaf2bbe911cc65d7c10e82d7f6e",
            	"Host": "api.eyepetizer.net"
            }
         """.trimIndent()

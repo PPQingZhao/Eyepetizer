@@ -51,6 +51,10 @@ open class DividerDecoration(
         state: RecyclerView.State
     ) {
         val position = parent.getChildAdapterPosition(view)
+        if (position == RecyclerView.NO_POSITION){
+            return
+        }
+
         val drawLeft = canDraw(position, DIVIDER_LEFT)
         val drawTop = canDraw(position, DIVIDER_TOP)
         val drawRight = canDraw(position, DIVIDER_RIGHT)

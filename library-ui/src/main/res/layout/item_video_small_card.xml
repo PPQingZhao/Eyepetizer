@@ -65,7 +65,7 @@
                 android:maxLines="2"
                 android:text="@{viewModel.title}"
                 android:textColor="@{themeViewModel.textColor}"
-                android:textSize="@dimen/content_title"
+                android:textSize="@dimen/content_sub_title"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_feed"

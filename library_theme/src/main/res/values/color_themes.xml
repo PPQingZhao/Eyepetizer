@@ -19,6 +19,8 @@
     <color name="dividerColor">#929292</color>
     <color name="indicatorNormalColor">#40929292</color>
     <color name="indicatorSelectedColor">#323232</color>
+    <color name="progressTint">#2196F3</color>
+    <color name="secondaryProgressTint">#929292</color>
     <!--end-->
 
     <!--Night theme-->
@@ -37,6 +39,8 @@
     <color name="nightDividerColor">#6F6767</color>
     <color name="nightIndicatorNormalColor">#40929292</color>
     <color name="nightIndicatorSelectedColor">#EFEFEF</color>
+    <color name="nightProgressTint">#2196F3</color>
+    <color name="nightSecondaryProgressTint">#929292</color>
     <!--end-->
 
 </resources>

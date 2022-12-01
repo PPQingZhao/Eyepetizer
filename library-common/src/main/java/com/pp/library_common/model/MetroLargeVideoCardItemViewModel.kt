@@ -6,10 +6,10 @@ import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.model.VideoCardItemViewModel
 
-class MetroLargeVideoCardItemViewModel(item: Metro?) :
+open class MetroLargeVideoCardItemViewModel(item: Metro?) :
     VideoCardItemViewModel() {
-    private var resourceId: Long? = null
-    private var resourceType: String? = null
+    protected var resourceId: Long? = null
+    protected var resourceType: String? = null
     var metro: Metro? = null
         set(value) {
             field = value

@@ -23,11 +23,13 @@
             android:layout_height="40dp"
             android:background="@color/transparent"
             android:minWidth="50dp"
+            android:paddingBottom="2dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabBackground="@color/transparent"
             app:tabGravity="start"
             app:tabIndicator="@drawable/layer_tab_indicator_media"
+            app:tabIndicatorHeight="1.5dp"
             app:tabRippleColor="@android:color/transparent"
             tools:ignore="SpeakableTextPresentCheck" />
 

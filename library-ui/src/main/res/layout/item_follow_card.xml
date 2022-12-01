@@ -94,7 +94,7 @@
             android:layout_height="25dp"
             android:layout_marginEnd="@dimen/padding_normal"
             android:padding="3dp"
-            android:src="@{viewModel.drawableFolow}"
+            android:src="@{viewModel.drawableFollow}"
             app:layout_constraintBottom_toBottomOf="@id/fl_icon"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -200,7 +200,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_text_image"
             app:layout_constraintWidth_percent="0.55">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/tv_thumb"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -219,7 +219,7 @@
                 tools:text="68"
                 tools:textColor="?android:textColorSecondary" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/tv_star"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -237,7 +237,7 @@
                 tools:text="68"
                 tools:textColor="?android:textColorSecondary" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/tv_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"

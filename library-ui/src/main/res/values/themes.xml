@@ -37,6 +37,8 @@
         <item name="dividerColor">@color/dividerColor</item>
         <item name="indicatorNormalColor">@color/indicatorNormalColor</item>
         <item name="indicatorSelectedColor">@color/indicatorSelectedColor</item>
+        <item name="android:progressTint">@color/progressTint</item>
+        <item name="android:secondaryProgressTint">@color/secondaryProgressTint</item>
 
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
@@ -63,6 +65,8 @@
         <item name="dividerColor">@color/nightDividerColor</item>
         <item name="indicatorNormalColor">@color/nightIndicatorNormalColor</item>
         <item name="indicatorSelectedColor">@color/nightIndicatorSelectedColor</item>
+        <item name="android:progressTint">@color/nightProgressTint</item>
+        <item name="android:secondaryProgressTint">@color/nightSecondaryProgressTint</item>
 
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
