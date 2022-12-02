@@ -1,8 +1,6 @@
 package com.pp.library_ui.databinding
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
@@ -15,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.pp.library_ui.utils.ExpandTextWatcher
-import com.pp.library_ui.utils.ImageLoader
-import com.pp.library_ui.widget.indicator.IndicatorView
+import com.pp.library_ui.utils.load
 import com.pp.library_ui.widget.banner.BannerViewPager
 import com.pp.library_ui.widget.banner.BaseBannerAdapter
+import com.pp.library_ui.widget.indicator.IndicatorView
 
 object BindingAdapter {
 
@@ -33,7 +31,7 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter("android:bindSrc", requireAll = false)
     fun setImageResource(imageView: ImageView, path: String?) {
 //        Log.e("TAG","path: $path")
-        ImageLoader.load(imageView, path)
+        imageView.load(path)
     }
 
     @JvmStatic

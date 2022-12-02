@@ -8,4 +8,10 @@
     <!--用于适应主题 drawable tint-->
     <attr name="themeTint" format="color" />
     <attr name="dividerColor" format="color" />
+
+    <declare-styleable name="StateView">
+        <attr name="loading_layout_id" format="reference" />
+        <attr name="error_layout_id" format="reference" />
+        <attr name="empty_layout_id" format="reference" />
+    </declare-styleable>
 </resources>

@@ -49,7 +49,7 @@ class VideoDetailsActivity :
     val detailsObserver = Observer { it: MetroDataBean? ->
 
         mBinding.video.setCover(it?.cover?.url)
-        mBinding.video.startPlay(it?.video?.playUrl)
+        mBinding.video.startPlayWhenReady(it?.video?.playUrl)
         showDetailsFragment(it)
     }
 

@@ -2,8 +2,11 @@ package com.pp.module_home.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
@@ -17,7 +20,9 @@ import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.ItemBannerBinding
+import com.pp.library_ui.utils.StateView
 import com.pp.module_home.databinding.FragmentRecommendBinding
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -35,8 +40,40 @@ class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initStateView()
         initRecyclerView()
         initRefreshView()
+    }
+
+    private fun initStateView() {
+
+        val stateView = StateView.DefaultBuilder(mBinding.recommendRecyclerview)
+            .build()
+        lifecycleScope.launch {
+            multiAdapter.loadStateFlow.collectLatest {
+                if (multiAdapter.itemCount > 0) {
+                    stateView.showContent()
+                    return@collectLatest
+                }
+
+                if (it.append.endOfPaginationReached) {
+                    stateView.showEmpty()
+                    return@collectLatest
+                }
+
+                when (val refresh = it.refresh) {
+                    is LoadState.Loading -> stateView.showLoading()
+                    is LoadState.Error -> stateView.showError(refresh.error)
+                    else -> {
+                        stateView.showContent()
+                    }
+                }
+            }
+        }
     }
 
     private fun initRefreshView() {
@@ -46,7 +83,8 @@ class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewM
 
         lifecycleScope.launch {
             multiAdapter.loadStateFlow.collectLatest {
-                mBinding.recommendRefresh.isRefreshing = it.refresh is LoadState.Loading
+                mBinding.recommendRefresh.isRefreshing =
+                    multiAdapter.itemCount > 0 && it.refresh is LoadState.Loading
             }
         }
     }

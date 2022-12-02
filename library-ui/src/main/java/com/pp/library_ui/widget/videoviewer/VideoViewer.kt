@@ -16,9 +16,8 @@ import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.pp.library_ui.R
 import com.pp.library_ui.databinding.ViewVideoviewerBinding
-import com.pp.library_ui.utils.AppTheme
 import com.pp.library_ui.utils.AppThemeViewModel
-import com.pp.library_ui.utils.ImageLoader
+import com.pp.library_ui.utils.load
 
 class VideoViewer : FrameLayout {
 
@@ -72,10 +71,11 @@ class VideoViewer : FrameLayout {
     private var cover: String? = null
     fun setCover(cover: String?) {
         this.cover = cover
-        ImageLoader.load(videoviewerBinding.videoCover, cover)
+
+        videoviewerBinding.videoCover.load(cover)
     }
 
-    fun startPlay(url: String?) {
+    fun startPlayWhenReady(url: String?) {
 
         videoviewerBinding.controllerLoading.visibility = View.VISIBLE
         videoviewerBinding.playerview.player?.release()

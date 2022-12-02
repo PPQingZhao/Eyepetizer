@@ -14,8 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
             android:id="@+id/loading"
+            layout="@layout/layout_loading"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="center"
@@ -25,131 +26,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:themeViewModel="@{themeViewModel}" />
 
-
-            <ImageView
-                android:id="@+id/iv_loading1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_eye_black_outer"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.15" />
-
-            <ImageView
-                android:id="@+id/iv_loading2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_eye_black_outer"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.15" />
-
-            <ImageView
-                android:id="@+id/iv_loading3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_eye_black_outer"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.15" />
-
-            <ImageView
-                android:id="@+id/iv_loading4"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_eye_black_outer"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.15" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_eye_black_inner"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.15" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
             android:id="@+id/load_error"
+            layout="@layout/layout_load_error"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="3:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loading">
+            app:layout_constraintTop_toBottomOf="@id/loading"
+            app:themeViewModel="@{themeViewModel}">
 
-            <ImageView
-                android:id="@+id/load_iv_error"
-                tint="@{themeViewModel.themeTint}"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_eye_black_error"
-                app:layout_constraintBottom_toTopOf="@id/load_tv_error"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.3"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:ignore="UseAppTint"
-                tools:tint="?attr/themeTint" />
+        </include>
 
-            <TextView
-                android:id="@+id/load_tv_error"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/loading_retry"
-                android:textColor="@{themeViewModel.textColor}"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/load_iv_error"
-                tools:textColor="?android:textColor" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
+        <include
             android:id="@+id/load_data_empty"
-            tint="@{themeViewModel.themeTint}"
+            layout="@layout/layout_load_empty"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingTop="30dp"
-            android:scaleType="center"
-            android:scaleX="0.6"
-            android:scaleY="0.6"
-            android:src="@drawable/ic_the_end"
             app:layout_constraintDimensionRatio="3:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/load_error"
-            tools:ignore="UseAppTint"
-            tools:tint="?attr/themeTint" />
+            app:themeViewModel="@{themeViewModel}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

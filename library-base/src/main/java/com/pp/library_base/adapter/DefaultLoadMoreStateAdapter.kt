@@ -3,7 +3,6 @@ package com.pp.library_base.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -11,11 +10,9 @@ import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import com.pp.library_ui.BR
-import com.pp.library_ui.R
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemDefaultLoadMoreBinding
-import com.pp.library_ui.utils.AppThemeViewModel
-import com.pp.library_ui.utils.DefaultAnimationListener
+import com.pp.library_ui.utils.*
 
 class DefaultLoadMoreStateAdapter(
     lifecycle: Lifecycle? = null,
@@ -38,63 +35,28 @@ class DefaultLoadMoreStateAdapter(
     ) {
 //        Log.e("DefaultLoadStateAdapter", loadState.toString())
         if (loadState is LoadState.Loading) {
-            holder.binding.loading.visibility = View.VISIBLE
-            val load1 =
-                AnimationUtils.loadAnimation(holder.binding.root.context, R.anim.anim_loading1)
-            val load2 =
-                AnimationUtils.loadAnimation(holder.binding.root.context, R.anim.anim_loading2)
-            val load3 =
-                AnimationUtils.loadAnimation(holder.binding.root.context, R.anim.anim_loading3)
-            val load4 =
-                AnimationUtils.loadAnimation(holder.binding.root.context, R.anim.anim_loading4)
-            load2.setAnimationListener(DefaultAnimationListener(onAnimationEnd = {
-                holder.binding.ivLoading2
-                    .startAnimation(
-                        AnimationUtils.loadAnimation(
-                            holder.binding.root.context,
-                            R.anim.anim_loading1
-                        )
-                    )
-            }))
 
-            load3.setAnimationListener(DefaultAnimationListener(onAnimationEnd = {
-                holder.binding.ivLoading3.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        holder.binding.root.context,
-                        R.anim.anim_loading1
-                    )
-                )
-            }))
-
-            load4.setAnimationListener(DefaultAnimationListener(onAnimationEnd = {
-                holder.binding.ivLoading4.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        holder.binding.root.context,
-                        R.anim.anim_loading1
-                    )
-                )
-            }))
-            holder.binding.ivLoading1.startAnimation(load1)
-            holder.binding.ivLoading2.startAnimation(load2)
-            holder.binding.ivLoading3.startAnimation(load3)
-            holder.binding.ivLoading4.startAnimation(load4)
+            holder.binding.loading.ivLoading1.startLoading1()
+            holder.binding.loading.ivLoading2.startLoading2()
+            holder.binding.loading.ivLoading3.startLoading3()
+            holder.binding.loading.ivLoading4.startLoading4()
 
         } else {
-            holder.binding.ivLoading1.animation?.cancel()
-            holder.binding.ivLoading2.animation?.cancel()
-            holder.binding.ivLoading3.animation?.cancel()
-            holder.binding.ivLoading4.animation?.cancel()
-            holder.binding.loading.visibility = View.GONE
+            holder.binding.loading.ivLoading1.animation?.cancel()
+            holder.binding.loading.ivLoading2.animation?.cancel()
+            holder.binding.loading.ivLoading3.animation?.cancel()
+            holder.binding.loading.ivLoading4.animation?.cancel()
+            holder.binding.loading.root.visibility = View.GONE
         }
 
-        holder.binding.loadError.visibility =
+        holder.binding.loadError.root.visibility =
             if (loadState is LoadState.Error) View.VISIBLE else View.GONE
         // 错误重试
-        holder.binding.loadError.setOnClickListener {
+        holder.binding.loadError.root.setOnClickListener {
             retry?.invoke()
         }
 
-        holder.binding.loadDataEmpty.visibility =
+        holder.binding.loadDataEmpty.root.visibility =
             if (loadState is LoadState.NotLoading && loadState.endOfPaginationReached) View.VISIBLE else View.GONE
 
     }

@@ -20,6 +20,7 @@ class CustomLoadMoreStateAdapter(
         loadStates: CombinedLoadStates
     ) {
 //        Log.e("DefaultLoadStateAdapter", loadState.toString())
+/*
 
         holder.binding.loading.visibility =
             if (!loadStates.append .endOfPaginationReached && loadStates.refresh is LoadState.Loading) View.VISIBLE else View.GONE
@@ -36,6 +37,7 @@ class CustomLoadMoreStateAdapter(
                 && loadStates.append.endOfPaginationReached
                 && (loadStates.refresh is LoadState.NotLoading)
             ) View.VISIBLE else View.GONE
+*/
 
     }
 
