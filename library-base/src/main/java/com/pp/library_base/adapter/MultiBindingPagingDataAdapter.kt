@@ -36,7 +36,8 @@ open class MultiBindingPagingDataAdapter<Data : Any>(
             }
         }
 
-        throw RuntimeException("ViewBindingItem not found for {position: ${position} item: ${item}}")
+        return 0
+//        throw RuntimeException("ViewBindingItem not found for {position: ${position} item: ${item}}")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultiItemViewHolder<Data> {

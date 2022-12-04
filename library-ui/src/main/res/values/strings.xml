@@ -30,5 +30,6 @@
     <string name="record_of_viewing">观看记录</string>
     <string name="male">男</string>
     <string name="female">女</string>
+    <string name="add_follow">+关注</string>
 
 </resources>

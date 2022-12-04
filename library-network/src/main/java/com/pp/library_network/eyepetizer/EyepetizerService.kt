@@ -63,6 +63,7 @@ interface EyepetizerService {
         const val AUTO_PLAY_FOLLO_WCARD = VIDEO_SMALL_CARD + 1
         const val HORIZONTAL_SCROLL_CARD = AUTO_PLAY_FOLLO_WCARD + 1
         const val COMMUNITY_COLUMN_CARD = HORIZONTAL_SCROLL_CARD + 1
+        const val PICTURE_FOLLOW_CARD = COMMUNITY_COLUMN_CARD + 1
 
         const val ITEM_END = COMMUNITY_COLUMN_CARD
         const val UNKNOWN = -1
@@ -76,6 +77,7 @@ interface EyepetizerService {
         const val video = "video"
         private const val horizontalScrollCard = "horizontalScrollCard"
         private const val communityColumnsCard = "communityColumnsCard"
+        const val pictureFollowCard = "pictureFollowCard"
 
         private val map by lazy { mutableMapOf<String, Int>() }
 
@@ -90,6 +92,7 @@ interface EyepetizerService {
             map[video] = VIDEO
             map[horizontalScrollCard] = HORIZONTAL_SCROLL_CARD
             map[communityColumnsCard] = COMMUNITY_COLUMN_CARD
+            map[pictureFollowCard] = PICTURE_FOLLOW_CARD
         }
 
         /**

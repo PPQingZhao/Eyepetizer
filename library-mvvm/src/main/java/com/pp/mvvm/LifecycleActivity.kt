@@ -7,18 +7,18 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager.LayoutParams
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.ViewTreeViewModelStoreOwner
 
 abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> :
-    FragmentActivity() {
+    AppCompatActivity() {
     abstract val mBinding: VB
 
     val mViewModel by lazy { ViewModelProvider(this)[(getModelClazz())] }

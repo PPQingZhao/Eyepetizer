@@ -9,11 +9,13 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
@@ -22,35 +24,81 @@
                 app:statusBarScrim="@color/white"
                 app:titleEnabled="false">
 
+                <ImageView
+                    android:id="@+id/iv_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:bindSrc="@{viewModel.bgPicture}"
+                    tools:ignore="MissingConstraints" />
+
+                <include
+                    layout="@layout/include_tag_detail_title"
+                    app:viewModel="@{viewModel}" />
+
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/tag_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    app:contentInsetStart="0dp"
                     app:layout_collapseMode="pin">
+
+                    <ImageView
+                        android:id="@+id/iv_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_normal"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"
+                        android:background="@drawable/ic_arrow_left"
+                        app:tint="@color/black" />
 
                     <TextView
                         android:id="@+id/tv_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
                         android:text="@{viewModel.title}"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 
-                </androidx.appcompat.widget.Toolbar>
+                    <ImageView
+                        android:id="@+id/iv_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/padding_normal"
+                        android:layout_gravity="end|center_vertical"
+                        android:visibility="gone"
+                        android:background="@drawable/ic_share_black"
+                        app:tint="@color/black" />
 
-                <include
-                    layout="@layout/include_tag_detail_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true"
-                    app:layout_collapseMode="none"
-                    app:viewModel="@{viewModel}" />
+                </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                tabIndicatorSelectedColor="@{themeViewModel.textColor}"
+                tabNormalTextColor="@{themeViewModel.textColorSecondary}"
+                tabSelectedTextColor="@{themeViewModel.textColor}"
+                android:layout_marginBottom="2dp"
+                android:background="@color/transparent"
+                app:tabMode="fixed"
+                app:tabIndicatorHeight="0dp"
+                app:tabPaddingBottom="0dp"
+                app:tabPaddingEnd="10dp"
+                app:tabPaddingStart="10dp"
+                app:tabPaddingTop="0dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
         </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -59,5 +107,9 @@
         <variable
             name="viewModel"
             type="com.pp.module_discovery.ui.TagDetailViewModel" />
+
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
     </data>
 </layout>

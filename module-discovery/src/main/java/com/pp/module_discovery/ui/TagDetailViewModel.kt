@@ -4,13 +4,12 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.pp.library_common.app.App
-import com.pp.module_discovery.R
-import com.pp.module_discovery.repository.DiscoveryRepository
-import com.pp.mvvm.LifecycleViewModel
+import com.pp.library_base.base.ThemeViewModel
+import com.pp.library_network.eyepetizer.bean.detail.TagDetailBean
+import com.pp.module_discovery.repository.TagDetailRepository
 import kotlinx.coroutines.launch
 
-class TagDetailViewModel(app: Application): LifecycleViewModel(app) {
+class TagDetailViewModel(app: Application): ThemeViewModel(app) {
 
     companion object {
         private const val TAG = "TagDetailViewModel"
@@ -22,11 +21,14 @@ class TagDetailViewModel(app: Application): LifecycleViewModel(app) {
     val countText by lazy { MutableLiveData("") }
     val followed by lazy { MutableLiveData(false) }
 
+    val tabInfoData by lazy { MutableLiveData<TagDetailBean.TabInfo>() }
+
+    private var shareLink = ""
+
     fun getDetail(id: String) {
-//        App.getInstance().getString(R.string.)
         viewModelScope.launch {
             try {
-                val response = DiscoveryRepository.getTagDetail(id)
+                val response = TagDetailRepository.getTagDetail(id)
                 response.run {
                     bgPicture.value = tagInfo.bgPicture
                     title.value = tagInfo.name
@@ -34,8 +36,12 @@ class TagDetailViewModel(app: Application): LifecycleViewModel(app) {
                     followed.value = tagInfo.follow.followed
                     val followCount = tagInfo.tagFollowCount
                     val lookCount = tagInfo.lookCount
+                    shareLink = tagInfo.shareLinkUrl
 
-//                    countText.value =
+                    countText.value = "$followCount 人关注| $lookCount 人参与"
+
+                    tabInfoData.value = tabInfo
+
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "getDetail err: ${e.message}")

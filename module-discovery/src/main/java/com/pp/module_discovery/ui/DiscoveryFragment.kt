@@ -24,7 +24,14 @@ class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewM
         super.onViewCreated(view, savedInstanceState)
 
         initRecycler()
+        initRefreshView()
         addObserver()
+    }
+
+    private fun initRefreshView() {
+        mBinding.discoveryRefresh.setOnRefreshListener {
+            mViewModel.getData()
+        }
     }
 
     private val mAdapter: MultiBindingAdapter<Any> by lazy {
@@ -48,7 +55,8 @@ class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewM
 
     private fun addObserver() {
         mViewModel.dataList.observe(viewLifecycleOwner) {
-            mAdapter.addDatas(it)
+            mBinding.discoveryRefresh.isRefreshing = false
+            mAdapter.setDataList(it)
         }
     }
 

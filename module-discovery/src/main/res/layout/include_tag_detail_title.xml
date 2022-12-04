@@ -3,105 +3,100 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <import type="android.view.View" />
-        <variable
-            name="viewModel"
-            type="com.pp.module_discovery.ui.TagDetailViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/padding_normal"
+        android:layout_marginTop="@dimen/padding_normal"
         >
-
-        <ImageView
-            android:id="@+id/iv_bg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:bindSrc="@{viewModel.bgPicture}"/>
 
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_arrow_back_24"
             android:layout_marginStart="@dimen/padding_normal"
             android:layout_marginTop="@dimen/padding_normal"
+            android:background="@drawable/ic_arrow_back_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_share"
             android:layout_marginEnd="@dimen/padding_normal"
             android:layout_marginTop="@dimen/padding_normal"
+            android:background="@drawable/ic_share"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.title}"
-            android:textSize="18sp"
-            android:textColor="@color/white"
             android:layout_marginTop="60dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{viewModel.title}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="运动"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="运动" />
 
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.description}"
-            android:textSize="16sp"
-            android:textColor="@color/white"
             android:layout_marginTop="@dimen/padding_normal"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{viewModel.description}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            tools:text="冲浪、滑板、健身、跑酷，我过着停不下来的生活"
-            />
+            tools:text="冲浪、滑板、健身、跑酷，我过着停不下来的生活" />
 
         <TextView
             android:id="@+id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.countText}"
-            android:textSize="14sp"
-            android:textColor="@color/white"
             android:layout_marginTop="@dimen/padding_normal"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{viewModel.countText}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_description"
-            tools:text="75096 人关注| 778578 人参与"
-            />
+            tools:text="75096 人关注| 778578 人参与" />
 
         <TextView
             android:id="@+id/tv_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/follow"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:background="@drawable/shape_round_rectangle_stroke_white"
-            android:visibility="@{viewModel.followed ? View.GONE : View.VISIBLE}"
             android:layout_marginBottom="@dimen/padding_normal"
             android:layout_marginTop="@dimen/padding_normal"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/shape_round_rectangle_stroke_white"
+            android:paddingBottom="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_normal"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingTop="@dimen/padding_small"
+            android:text="@string/add_follow"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="@{viewModel.followed ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_count"
-            tools:text="+关注"
-            />
+            tools:text="+关注" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.pp.module_discovery.ui.TagDetailViewModel" />
+    </data>
 </layout>

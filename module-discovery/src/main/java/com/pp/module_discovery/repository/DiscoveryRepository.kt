@@ -1,10 +1,8 @@
 package com.pp.module_discovery.repository
 
-import com.pp.library_network.eyepetizer.EyepetizerService
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.PageDataBean
-import com.pp.library_network.eyepetizer.bean.detail.TagDetailBean
 
 object DiscoveryRepository {
 
@@ -14,9 +12,5 @@ object DiscoveryRepository {
             "page_type" to "card"
         )
         return EyepetizerService2.api.getPageData(params)
-    }
-
-    suspend fun getTagDetail(id: String): TagDetailBean {
-        return EyepetizerService.discoverApi.getTagDetail(EyepetizerService.URL_TAG, id)
     }
 }
