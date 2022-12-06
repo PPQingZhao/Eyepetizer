@@ -132,11 +132,11 @@ object MetroPagingDataAdapterType {
                 ItemFollowCardBindingImpl.inflate(layoutInflater, it, false)
             },
             { binding, item, cacheItemViewModel ->
-                if (cacheItemViewModel is MetroFollowItemViewModel2) {
+                if (cacheItemViewModel is MetroFollowItemViewModel) {
                     cacheItemViewModel.metro = item
                     cacheItemViewModel
                 } else {
-                    MetroFollowItemViewModel2(item, mine)
+                    MetroFollowItemViewModel(item, mine)
                 }
             })
 

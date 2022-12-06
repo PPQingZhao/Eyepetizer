@@ -1,10 +1,8 @@
 package com.pp.library_ui.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.pp.library_ui.BR
 
 abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any> :
     RecyclerView.Adapter<BindingHolder<VB>>() {

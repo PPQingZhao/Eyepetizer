@@ -9,6 +9,10 @@ import com.pp.library_ui.utils.AppThemeViewModel
 abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any?> {
     private val itemViewModelCaches by lazy { mutableMapOf<Int, VM?>() }
 
+    fun clear() {
+        itemViewModelCaches.clear()
+    }
+
     fun bind(holder: BindingHolder<VB>, position: Int, item: T?) {
         // position 位置缓存的 item viewModel
         val cacheItemViewModel = itemViewModelCaches[position]
@@ -38,12 +42,12 @@ abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any?> {
     }
 
 
-    fun onViewAttachedToWindow(holder:  BindingHolder<VB>) {
+    fun onViewAttachedToWindow(holder: BindingHolder<VB>) {
 
-        val lifecycleOwner = ViewTreeLifecycleOwner.get( holder.binding.root)
+        val lifecycleOwner = ViewTreeLifecycleOwner.get(holder.binding.root)
         holder.binding.lifecycleOwner = lifecycleOwner
 
-        val appTheme = AppThemeViewModel.get( holder.binding.root)
+        val appTheme = AppThemeViewModel.get(holder.binding.root)
         holder.binding.setVariable(BR.themeViewModel, appTheme)
     }
 

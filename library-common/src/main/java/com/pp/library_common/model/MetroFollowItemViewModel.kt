@@ -4,21 +4,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ObservableField
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_router_service.services.RouterPath
+import com.pp.library_ui.R
 import com.pp.library_ui.adapter.BindingAdapter
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemImageVideoBinding
 import com.pp.library_ui.model.FollowCardItemViewModel
 import com.pp.library_ui.model.ImageVideoItemViewModel
-import kotlinx.coroutines.*
 
-
-@OptIn(DelicateCoroutinesApi::class)
 open class MetroFollowItemViewModel(
     item: Metro?,
+    val mine: Boolean = false
 ) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
 
     companion object {
@@ -31,47 +31,53 @@ open class MetroFollowItemViewModel(
     var metro: Metro? = null
         set(value) {
             field = value
-            val metroData = field?.metroData
 
-            this.isVideo  = metroData?.type == EyepetizerService2.MetroType.VIDEO
+            val metroData = value?.metroData
+            this.isVideo =
+                metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.pgc_video
+                        || metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.ugc_video
+
+            this.drawableFollow.set(
+                if (mine && metroData?.isMine == true)
+                    R.drawable.ic_more_vert_24
+                else if (metroData?.author?.followed == true || metroData?.isMine == true) R.drawable.layer_followed
+                else R.drawable.layer_follow
+            )
+
             resourceId = metroData?.resourceId
             resourceType = metroData?.resourceType
 
-            GlobalScope.launch(Dispatchers.IO) {
+            this.icon.set(metroData?.author?.avatar?.url)
+            this.author.set(metroData?.author?.nick)
+            this.date.set(metroData?.rawPublishTime)
+            this.area.set(metroData?.realLocation)
+            this.content.set(metroData?.text)
 
-                try {
-                    val response =
-                        EyepetizerService2.itemApi.getItemDetails(resourceId, resourceType)
-
-//                {"code":40001,"message":{"content":"当前作品不可见","action":"toast"},"result":{"status":false}}
-                    if (response.code != EyepetizerService2.ErrorCode.SUCCESS) {
-                        this@MetroFollowItemViewModel.content.set(response.message?.content)
-                        cancel()
-                        return@launch
-                    }
-                    response.result?.run {
-
-                        this@MetroFollowItemViewModel.icon.set(this.author.avatar.url)
-                        this@MetroFollowItemViewModel.author.set(this.author.nick)
-                        this@MetroFollowItemViewModel.cover.set(this.video.cover.url)
-                        this@MetroFollowItemViewModel.date.set(this.rawPublishTime)
-                        this@MetroFollowItemViewModel.area.set(this.realLocation)
-                        this@MetroFollowItemViewModel.content.set(this.text)
-                        this@MetroFollowItemViewModel.category.set(this.category.name)
-
-
-                        this@MetroFollowItemViewModel.collectionCount
-                            .set(this.consumption.likeCount.toString())
-                        this@MetroFollowItemViewModel.realCollectionCount
-                            .set(this.consumption.collectionCount.toString())
-                        this@MetroFollowItemViewModel.replyCount
-                            .set(this.consumption.commentCount.toString())
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "err: ${e.message}")
-                }
+            var topic = ""
+            metroData?.topics?.forEach {
+                topic = "${topic}${it.title} "
             }
-            mAdapter.setDataList(listOf(ImageVideoItemViewModel(cover, true)))
+
+            this.category.set(topic)
+            this.collectionCount
+                .set(metroData?.consumption?.likeCount.toString())
+            this.realCollectionCount
+                .set(metroData?.consumption?.collectionCount.toString())
+            this.replyCount
+                .set(metroData?.consumption?.commentCount.toString())
+
+            val coverList = mutableListOf<ImageVideoItemViewModel>()
+            metroData?.images?.forEach { it ->
+                coverList.add(ImageVideoItemViewModel(ObservableField(it?.cover?.url), false))
+            }
+
+            metroData?.video?.cover?.apply {
+                Log.e(TAG,"$url")
+                coverList.add(ImageVideoItemViewModel(ObservableField(this.url), true))
+            }
+
+            indicatorCount.set(coverList.size)
+            mAdapter.setDataList(coverList)
         }
 
     private val mAdapter by lazy { Adapter() }
@@ -88,12 +94,13 @@ open class MetroFollowItemViewModel(
             item: ImageVideoItemViewModel?,
             cacheItemViewModel: ImageVideoItemViewModel?
         ): ImageVideoItemViewModel? {
-            return cacheItemViewModel ?: item
+            return item
         }
 
         override fun createBinding(parent: ViewGroup, viewType: Int): ItemImageVideoBinding {
             return ItemImageVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         }
+
     }
 
     override fun onVideo(view: View) {
