@@ -6,6 +6,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_base.adapter.onErrorListener
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.module_home.databinding.FragmentFollowBinding
@@ -52,9 +53,9 @@ class FollowFragment : ThemeFragment<FragmentFollowBinding, FollowViewModel>() {
     private fun initRecyclerView() {
         mBinding.followRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.followRecyclerview.adapter =
-            followAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter {
-                followAdapter.retry()
-            })
+            followAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle,
+                followAdapter.onErrorListener()
+            ))
     }
 
     override fun onFirstResume() {

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
+import com.pp.library_base.adapter.onErrorListener
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_network.eyepetizer.bean.MetroDataBean
@@ -52,7 +53,7 @@ class IntroductionFragment(details: MetroDataBean?) :
     override fun onFirstResume() {
         lifecycleScope.launch(Dispatchers.IO) {
             mViewModel.getRelatedRecommend().collect {
-                mAdapter.submitData(lifecycle,it)
+                mAdapter.submitData(lifecycle, it)
             }
         }
     }
@@ -62,11 +63,12 @@ class IntroductionFragment(details: MetroDataBean?) :
     private fun initRecyclerView() {
         mBinding.introductionRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.introductionRecyclerview.adapter =
-            mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(
-                lifecycle = lifecycle,
-            ) {
-                mAdapter.retry()
-            })
+            mAdapter.withLoadStateFooter(
+                DefaultLoadMoreStateAdapter(
+                    lifecycle = lifecycle,
+                    mAdapter.onErrorListener()
+                )
+            )
 
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
+import com.pp.library_base.adapter.onErrorListener
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.module_home.databinding.FragmentDailyBinding
@@ -46,9 +47,11 @@ class DailyFragment : ThemeFragment<FragmentDailyBinding, DailyViewModel>() {
     private fun initRecyclerView() {
         mBinding.dailyRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.dailyRecyclerview.adapter =
-            dailyAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
-                dailyAdapter.retry()
-            })
+            dailyAdapter.withLoadStateFooter(
+                DefaultLoadMoreStateAdapter(
+                    lifecycle = lifecycle,
+                    dailyAdapter.onErrorListener()
+                ))
 
     }
 

@@ -22,7 +22,7 @@
         android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginVertical="@dimen/padding_small"
         android:onClick="@{viewModel.onVideo}">
 
         <FrameLayout
@@ -104,6 +104,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager"
             constraintLayout="@{parent}"
+            nestedScrollingEnabled="@{false}"
             dimensionRatio='@{viewModel.video ? "16:9" : "1:1"}'
             setInitIndicator="@{indicator}"
             android:layout_width="match_parent"

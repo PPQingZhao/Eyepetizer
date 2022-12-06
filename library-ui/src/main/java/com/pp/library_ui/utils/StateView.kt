@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
+import androidx.lifecycle.Lifecycle
+import com.pp.library_ui.R
 
 class StateView {
 
@@ -44,11 +46,12 @@ class StateView {
             contentParent.removeView(view)
         }
 
+        val oldStateView = curViewState
         curViewState = target
 
         contentParent.addView(target.view, indexOfContentView, contentLayoutParams)
 
-        onShowStateView(target)
+        onShowStateView(target, oldStateView)
     }
 
     private val mViewStateListener by lazy {
@@ -68,11 +71,11 @@ class StateView {
     }
 
     @CallSuper
-    protected fun onShowStateView(viewState: ViewState) {
+    protected fun onShowStateView(viewState: ViewState, oldStateView: ViewState?) {
 
 //        Log.e("TAG", "show: ${viewState}")
         mViewStateListener.onEach {
-            it.onChanged(viewState)
+            it.onChanged(viewState, oldStateView)
         }
     }
 
@@ -156,7 +159,7 @@ class StateView {
     }
 
     interface OnViewStateListener {
-        fun onChanged(state: ViewState)
+        fun onChanged(state: ViewState, oldStateView: ViewState?)
     }
 
     open class Builder {
@@ -224,22 +227,50 @@ class StateView {
 
     class DefaultBuilder : Builder {
 
-        constructor(contentView: View) : super(contentView) {
-            setLoadingLayoutId(com.pp.library_ui.R.layout.layout_loading)
-                .setErrorLayoutId(com.pp.library_ui.R.layout.layout_load_error)
-                .setEmptyLayoutId(com.pp.library_ui.R.layout.layout_data_empty)
+        private var onErrorClickListener: OnErrorClickListener? = null
+
+        constructor(lifecycle: Lifecycle, contentView: View) : super(contentView) {
+
+            setLoadingLayoutId(R.layout.layout_loading)
+                .setErrorLayoutId(R.layout.layout_load_error)
+                .setEmptyLayoutId(R.layout.layout_data_empty)
                 .addOnViewStateListener(object : OnViewStateListener {
-                    override fun onChanged(state: ViewState) {
+                    override fun onChanged(state: ViewState, oldStateView: ViewState?) {
+                        if (oldStateView is ViewState.Loading) {
+                            oldStateView.view?.apply {
+                                findViewById<ImageView>(R.id.iv_loading1).animate().cancel()
+                                findViewById<ImageView>(R.id.iv_loading2).animate().cancel()
+                                findViewById<ImageView>(R.id.iv_loading3).animate().cancel()
+                                findViewById<ImageView>(R.id.iv_loading4).animate().cancel()
+                            }
+                        }
+
                         if (state is ViewState.Loading) {
                             state.view?.apply {
-                                findViewById<ImageView>(com.pp.library_ui.R.id.iv_loading1).startLoading1()
-                                findViewById<ImageView>(com.pp.library_ui.R.id.iv_loading2).startLoading2()
-                                findViewById<ImageView>(com.pp.library_ui.R.id.iv_loading3).startLoading3()
-                                findViewById<ImageView>(com.pp.library_ui.R.id.iv_loading4).startLoading4()
+                                findViewById<ImageView>(R.id.iv_loading1)
+                                    .starAnimator(lifecycle, R.animator.animator_loading1)
+                                findViewById<ImageView>(R.id.iv_loading2)
+                                    .starAnimator(lifecycle, R.animator.animator_loading2)
+                                findViewById<ImageView>(R.id.iv_loading3)
+                                    .starAnimator(lifecycle, R.animator.animator_loading3)
+                                findViewById<ImageView>(R.id.iv_loading4)
+                                    .starAnimator(lifecycle, R.animator.animator_loading4)
+                            }
+                        } else if (state is ViewState.Error) {
+                            state.view?.apply {
+                                setOnClickListener {
+                                    onErrorClickListener?.onErrorCLick(state.error)
+                                }
                             }
                         }
                     }
                 })
         }
+
+        fun setOnErrorClickListener(listener: OnErrorClickListener): Builder {
+            this.onErrorClickListener = listener
+            return this
+        }
+
     }
 }

@@ -1,7 +1,12 @@
 package com.pp.library_ui.utils
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.widget.ImageView
+import androidx.annotation.AnimatorRes
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.vectordrawable.graphics.drawable.AnimatorInflaterCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -22,55 +27,28 @@ fun ImageView.startRepeatLoading() {
 }
 
 /**
- * 动画 loading1
+ * 动画
  */
 @SuppressLint("RestrictedApi")
-fun ImageView.startLoading1() {
-    val loadAnimator1 = AnimatorInflaterCompat.loadAnimator(context, R.animator.animator_loading1)
-    loadAnimator1.setTarget(this)
-    loadAnimator1.addListener(DefaultAnimatorListener(onAnimationEnd = {
-        startRepeatLoading()
-    }))
-    loadAnimator1.start()
+fun ImageView.starAnimator(lifecycle: Lifecycle, @AnimatorRes id: Int) {
+    var animator = starAnimator(id)
+    lifecycle.addObserver(object : DefaultLifecycleObserver {
+        override fun onDestroy(owner: LifecycleOwner) {
+            animator?.cancel()
+            animator = null
+        }
+    })
 }
 
 /**
- * 动画 loading2
+ * 动画
  */
 @SuppressLint("RestrictedApi")
-fun ImageView.startLoading2() {
-    val loadAnimator2 = AnimatorInflaterCompat.loadAnimator(context, R.animator.animator_loading2)
-    loadAnimator2.setTarget(this)
-    loadAnimator2.addListener(DefaultAnimatorListener(onAnimationEnd = {
-        startRepeatLoading()
-    }))
-    loadAnimator2.start()
-}
-
-/**
- * 动画 loading3
- */
-@SuppressLint("RestrictedApi")
-fun ImageView.startLoading3() {
-    val loadAnimator3 = AnimatorInflaterCompat.loadAnimator(context, R.animator.animator_loading3)
-    loadAnimator3.setTarget(this)
-    loadAnimator3.addListener(DefaultAnimatorListener(onAnimationEnd = {
-        startRepeatLoading()
-    }))
-    loadAnimator3.start()
-}
-
-/**
- * 动画 loading4
- */
-@SuppressLint("RestrictedApi")
-fun ImageView.startLoading4() {
-    val loadAnimator = AnimatorInflaterCompat.loadAnimator(context, R.animator.animator_loading4)
+fun ImageView.starAnimator(@AnimatorRes id: Int): Animator? {
+    val loadAnimator = AnimatorInflaterCompat.loadAnimator(context, id)
     loadAnimator.setTarget(this)
-    loadAnimator.addListener(DefaultAnimatorListener(onAnimationEnd = {
-        startRepeatLoading()
-    }))
     loadAnimator.start()
+    return loadAnimator
 }
 
 /**

@@ -1,13 +1,13 @@
 package com.pp.module_user.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_base.adapter.onErrorListener
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_router_service.services.RouterPath
@@ -31,13 +31,17 @@ class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
         initRecyclerView()
 
         mViewModel.userInfo.observe(this) {
+            if (null == it) {
+                return@observe
+            }
+
             lifecycleScope.launch {
                 mViewModel.getNvaTabData(
                     it?.uid ?: 0,
                     it?.navTabs?.navList?.get(0)?.pageType ?: "",
                     it?.navTabs?.navList?.get(0)?.pageLabel ?: "",
                 ).collect {
-                    mAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                    mAdapter.submitData(it)
                 }
             }
         }
@@ -45,16 +49,25 @@ class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
     }
 
     private fun initTitle() {
+        // 自定义分发 windowInsets
+        // 拦截 appBarLayout WindowInsets, 分发给toolbar，实现沉浸式状态栏
+        mBinding.userAbl.setOnApplyWindowInsetsListener { v, insets ->
+            mBinding.userToolbar.dispatchApplyWindowInsets(insets)
+        }
         mBinding.userAbl.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             val offset = Math.abs(verticalOffset)
 
-            // 展开
-            if (offset == 0) {
-                mBinding.userTvTitle.visibility = View.GONE
-                // 折叠
-            } else if (offset == appBarLayout.totalScrollRange) {
-                mBinding.userTvTitle.visibility = View.VISIBLE
-            }
+            // toolbar 透明度跟随滚动变化
+            mBinding.userToolbar.alpha = offset * 1.0F / appBarLayout.totalScrollRange
+
+            /* // 展开
+             if (offset == 0) {
+                 mBinding.userTvTitle.visibility = View.GONE
+                 // 折叠
+             } else if (offset == appBarLayout.totalScrollRange) {
+                 mBinding.userTvTitle.visibility = View.VISIBLE
+             }*/
+
         }
     }
 
@@ -70,9 +83,12 @@ class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
     private fun initRecyclerView() {
         mBinding.userRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.userRecyclerview.adapter =
-            mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
-                mAdapter.retry()
-            })
+            mAdapter.withLoadStateFooter(
+                DefaultLoadMoreStateAdapter(
+                    lifecycle = lifecycle,
+                    mAdapter.onErrorListener()
+                )
+            )
 
     }
 }

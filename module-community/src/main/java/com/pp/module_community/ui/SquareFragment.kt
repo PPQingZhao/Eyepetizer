@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
+import com.pp.library_base.adapter.onErrorListener
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_router_service.services.RouterPath
 import com.pp.module_community.GridDivider
@@ -88,9 +89,12 @@ class SquareFragment : ThemeFragment<FragmentSquareBinding, SquareViewModel>() {
         })
 
         mBinding.rv.adapter =
-            mAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
-                mAdapter.retry()
-            })
+            mAdapter.withLoadStateFooter(
+                DefaultLoadMoreStateAdapter(
+                    lifecycle = lifecycle,
+                    mAdapter.onErrorListener()
+                )
+            )
     }
 
     override fun onFirstResume() {

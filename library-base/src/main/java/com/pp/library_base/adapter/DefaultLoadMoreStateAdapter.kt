@@ -10,21 +10,22 @@ import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import com.pp.library_ui.BR
+import com.pp.library_ui.R
 import com.pp.library_ui.adapter.BindingHolder
 import com.pp.library_ui.databinding.ItemDefaultLoadMoreBinding
 import com.pp.library_ui.utils.*
 
 class DefaultLoadMoreStateAdapter(
-    lifecycle: Lifecycle? = null,
-    var retry: (() -> Unit)? = null,
+    val lifecycle: Lifecycle,
+    var onErrorClickListener: OnErrorClickListener? = null,
 ) :
     LoadStateAdapter<BindingHolder<ItemDefaultLoadMoreBinding>>() {
 
     init {
 
-        lifecycle?.addObserver(object : DefaultLifecycleObserver {
+        lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
-                retry = null
+                onErrorClickListener = null
             }
         })
     }
@@ -36,10 +37,10 @@ class DefaultLoadMoreStateAdapter(
 //        Log.e("DefaultLoadStateAdapter", loadState.toString())
         if (loadState is LoadState.Loading) {
 
-            holder.binding.loading.ivLoading1.startLoading1()
-            holder.binding.loading.ivLoading2.startLoading2()
-            holder.binding.loading.ivLoading3.startLoading3()
-            holder.binding.loading.ivLoading4.startLoading4()
+            holder.binding.loading.ivLoading1.starAnimator(lifecycle, R.animator.animator_loading1)
+            holder.binding.loading.ivLoading2.starAnimator(lifecycle, R.animator.animator_loading2)
+            holder.binding.loading.ivLoading3.starAnimator(lifecycle, R.animator.animator_loading3)
+            holder.binding.loading.ivLoading4.starAnimator(lifecycle, R.animator.animator_loading4)
 
         } else {
             holder.binding.loading.ivLoading1.animation?.cancel()
@@ -53,7 +54,7 @@ class DefaultLoadMoreStateAdapter(
             if (loadState is LoadState.Error) View.VISIBLE else View.GONE
         // 错误重试
         holder.binding.loadError.root.setOnClickListener {
-            retry?.invoke()
+            onErrorClickListener?.onErrorCLick((loadState as LoadState.Error).error)
         }
 
         holder.binding.loadDataEmpty.root.visibility =

@@ -16,7 +16,7 @@ object NvaTabRepository {
         pageLabel: String
     ): Flow<PagingData<Metro>> {
         return Pager<Param, Metro>(PagingConfig(10),
-            initialKey = Param(uid, pageType, pageLabel, false),
+            initialKey = Param(uid, pageType, pageLabel),
             pagingSourceFactory = { NvaTabPagingSource() }).flow
     }
 
@@ -24,23 +24,19 @@ object NvaTabRepository {
         val uid: Int,
         val pageType: String,
         val pageLabel: String,
-        val end: Boolean
     )
 
     private class NvaTabPagingSource :
         PagingSource<Param, Metro>() {
         override suspend fun load(params: LoadParams<Param>): LoadResult<Param, Metro> {
             return try {
-                val key = params.key
-                if (key?.end == true || key?.uid == 0) {
-                    return LoadResult.Page(mutableListOf(), null, null)
-                }
+                val key = params.key ?: return LoadResult.Page(mutableListOf(), null, null)
 
-                val response = key?.run {
+                val response = key.run {
                     EyepetizerService2.api.getPageData(uid, pageType, pageLabel)
                 }
 
-                val dataList = response?.result?.run {
+                val dataList = response.result?.run {
                     val list = mutableListOf<Metro>()
                     cardList.forEach {
                         it.cardData.body.metroList?.forEach {
@@ -51,7 +47,7 @@ object NvaTabRepository {
                     list
                 } ?: mutableListOf()
 
-                LoadResult.Page(dataList, null, Param(-1, "", "", true))
+                LoadResult.Page(dataList, null, null)
             } catch (e: Exception) {
                 LoadResult.Error(e)
             }

@@ -148,4 +148,10 @@ object BindingAdapter {
     fun setBackground(view: View, @ColorInt color: Int) {
         view.setBackgroundColor(color)
     }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("nestedScrollingEnabled")
+    fun setNestedScrollingEnabled(view: ViewPager2, enable: Boolean) {
+        view.getChildAt(0).isNestedScrollingEnabled = enable
+    }
 }

@@ -56,6 +56,6 @@ class RoundIndicatorView(context: Context, attrs: AttributeSet) : IndicatorView(
             canvas.drawRoundRect(borderRectF, roundRadius, roundRadius, mPaint)
         }
 
-        Log.e("TAG","width: ${width}   height: ${height}")
+//        Log.e("TAG","width: ${width}   height: ${height}")
     }
 }

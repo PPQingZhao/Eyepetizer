@@ -2,15 +2,13 @@ package com.pp.module_home.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_base.adapter.onErrorListener
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_common.model.ItemModel
@@ -22,7 +20,6 @@ import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.ItemBannerBinding
 import com.pp.library_ui.utils.StateView
 import com.pp.module_home.databinding.FragmentRecommendBinding
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -40,19 +37,17 @@ class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initRefreshView()
         initStateView()
         initRecyclerView()
-        initRefreshView()
     }
 
     private fun initStateView() {
 
-        val stateView = StateView.DefaultBuilder(mBinding.recommendRecyclerview)
+        val stateView = StateView.DefaultBuilder(lifecycle, mBinding.recommendRecyclerview)
+            .setOnErrorClickListener(multiAdapter.onErrorListener())
             .build()
+        stateView.showLoading()
         lifecycleScope.launch {
             multiAdapter.loadStateFlow.collectLatest {
                 if (multiAdapter.itemCount > 0) {
@@ -148,9 +143,12 @@ class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewM
 
         mBinding.recommendRecyclerview.layoutManager = LinearLayoutManager(context)
         mBinding.recommendRecyclerview.adapter =
-            multiAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle = lifecycle) {
-                multiAdapter.retry()
-            })
+            multiAdapter.withLoadStateFooter(
+                DefaultLoadMoreStateAdapter(
+                    lifecycle = lifecycle,
+                    multiAdapter.onErrorListener()
+                )
+            )
     }
 
     override fun onFirstResume() {

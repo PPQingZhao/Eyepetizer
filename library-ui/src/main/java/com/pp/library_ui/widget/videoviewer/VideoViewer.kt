@@ -44,7 +44,7 @@ class VideoViewer : FrameLayout {
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        val appTheme = AppThemeViewModel.get(this)
+        val appTheme = AppThemeViewModel[this]
         videoviewerBinding.themeViewModel = appTheme
         ViewTreeLifecycleOwner.get(this)?.apply {
             videoviewerBinding.setLifecycleOwner { this.lifecycle }

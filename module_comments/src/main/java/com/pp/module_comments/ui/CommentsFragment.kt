@@ -14,6 +14,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.TreeNodeAdapter
+import com.pp.library_base.adapter.onErrorListener
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_router_service.services.RouterPath
@@ -164,11 +165,12 @@ class CommentsFragment :
             }
         )
         mBinding.commentsHotRecyclerview.adapter =
-            treeAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(
-                lifecycle = lifecycle,
-            ) {
-                treeAdapter.retry()
-            })
+            treeAdapter.withLoadStateFooter(
+                DefaultLoadMoreStateAdapter(
+                    lifecycle = lifecycle,
+                    treeAdapter.onErrorListener()
+                )
+            )
     }
 
     override fun onFirstResume() {

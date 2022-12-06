@@ -30,8 +30,7 @@
                 android:id="@+id/user_collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:contentScrim="@{themeViewModel.windowBackground}"
+                app:contentScrim="@color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:statusBarScrim="@{themeViewModel.windowBackground}"
                 app:titleEnabled="false">
@@ -40,7 +39,6 @@
                     layout="@layout/include_userinfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true"
                     app:layout_collapseMode="none"
                     app:themeViewModel="@{themeViewModel}"
                     app:viewModel="@{viewModel}" />
@@ -48,20 +46,23 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/user_toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
+                    android:layout_height="wrap_content"
+                    android:background="@{themeViewModel.windowBackground}"
+                    android:fitsSystemWindows="true"
                     app:contentInsetStart="0dp"
                     app:layout_collapseMode="pin">
 
                     <TextView
                         android:id="@+id/user_tv_title"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="?actionBarSize"
                         android:gravity="center"
                         android:text="@{viewModel.nickName}"
                         android:textColor="@{themeViewModel.textColor}"
                         android:textSize="15sp" />
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
