@@ -99,7 +99,7 @@ data class Card(
                 @SerializedName("allow_insert_above")
                 val allowInsertAbove: Int,
                 @SerializedName("metro_data")
-                val metroData: MetroData,
+                val metroData: MetroDataBean,
                 @SerializedName("metro_id")
                 val metroId: Int,
                 @SerializedName("metro_unique_id")
@@ -112,14 +112,7 @@ data class Card(
                 val trackingParams: Metro.TrackingParams,
                 @SerializedName("type")
                 val type: String
-            ) {
-                data class MetroData(
-                    @SerializedName("limit_rows")
-                    val limitRows: Boolean,
-                    @SerializedName("text")
-                    val text: String
-                )
-            }
+            )
         }
     }
 

@@ -1,14 +1,9 @@
 package com.pp.module_home.ui
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
-import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
-import com.pp.library_base.adapter.onErrorListener
+import com.pp.library_base.adapter.*
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_common.model.ItemModel
@@ -21,7 +16,6 @@ import com.pp.library_ui.databinding.ItemBannerBinding
 import com.pp.library_ui.utils.StateView
 import com.pp.module_home.databinding.FragmentRecommendBinding
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewModel>() {
@@ -33,55 +27,6 @@ class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewM
 
     override fun getModelClazz(): Class<RecommendViewModel> {
         return RecommendViewModel::class.java
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initRefreshView()
-        initStateView()
-        initRecyclerView()
-    }
-
-    private fun initStateView() {
-
-        val stateView = StateView.DefaultBuilder(lifecycle, mBinding.recommendRecyclerview)
-            .setOnErrorClickListener(multiAdapter.onErrorListener())
-            .build()
-        stateView.showLoading()
-        lifecycleScope.launch {
-            multiAdapter.loadStateFlow.collectLatest {
-                if (multiAdapter.itemCount > 0) {
-                    stateView.showContent()
-                    return@collectLatest
-                }
-
-                if (it.append.endOfPaginationReached) {
-                    stateView.showEmpty()
-                    return@collectLatest
-                }
-
-                when (val refresh = it.refresh) {
-                    is LoadState.Loading -> stateView.showLoading()
-                    is LoadState.Error -> stateView.showError(refresh.error)
-                    else -> {
-                        stateView.showContent()
-                    }
-                }
-            }
-        }
-    }
-
-    private fun initRefreshView() {
-        mBinding.recommendRefresh.setOnRefreshListener {
-            multiAdapter.refresh()
-        }
-
-        lifecycleScope.launch {
-            multiAdapter.loadStateFlow.collectLatest {
-                mBinding.recommendRefresh.isRefreshing =
-                    multiAdapter.itemCount > 0 && it.refresh is LoadState.Loading
-            }
-        }
     }
 
     private val multiAdapter by lazy {
@@ -139,19 +84,21 @@ class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewM
         adapter
     }
 
-    private fun initRecyclerView() {
-
-        mBinding.recommendRecyclerview.layoutManager = LinearLayoutManager(context)
-        mBinding.recommendRecyclerview.adapter =
-            multiAdapter.withLoadStateFooter(
-                DefaultLoadMoreStateAdapter(
-                    lifecycle = lifecycle,
-                    multiAdapter.onErrorListener()
-                )
-            )
-    }
-
     override fun onFirstResume() {
+
+        multiAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle,mBinding.recommendRecyclerview)
+        lifecycleScope.launch {
+            multiAdapter.attachRefreshView(mBinding.recommendRefresh)
+        }
+
+        lifecycleScope.launch {
+            multiAdapter.attachStateView(
+                StateView.DefaultBuilder(lifecycle, mBinding.recommendRecyclerview)
+                    .setOnErrorClickListener(multiAdapter.onErrorListener())
+                    .setThemeViewModel(requireTheme())
+                    .build()
+            )
+        }
 
         lifecycleScope.launch {
             mViewModel.getPageData().collect {
@@ -160,6 +107,7 @@ class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewM
 
         }
     }
+
 
 }
 

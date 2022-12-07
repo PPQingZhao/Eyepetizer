@@ -118,7 +118,7 @@
             tools:background="@drawable/ic_launcher_background"
             tools:itemCount="1"
             tools:layout_constraintDimensionRatio="16:9"
-            tools:listitem="@layout/item_image_video" />
+            tools:listitem="@layout/item_image" />
 
         <com.pp.library_ui.widget.indicator.RoundIndicatorView
             android:id="@+id/indicator"

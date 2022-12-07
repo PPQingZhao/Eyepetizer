@@ -14,16 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.exoplayer2.ui.StyledPlayerView
-            android:id="@+id/playerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:controller_layout_id="@layout/layout_controller" />
-
         <ImageView
             android:id="@+id/video_cover"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
         <ProgressBar
             android:id="@+id/controller_loading"

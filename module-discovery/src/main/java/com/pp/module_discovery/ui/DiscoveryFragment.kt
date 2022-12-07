@@ -1,14 +1,17 @@
 package com.pp.module_discovery.ui
 
-import android.os.Bundle
-import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.annotation.SuppressLint
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DiffUtil
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.pp.library_base.adapter.*
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_router_service.services.RouterPath
-import com.pp.library_ui.adapter.MultiBindingAdapter
+import com.pp.library_ui.utils.StateView
 import com.pp.module_discovery.databinding.FragmentDiscoveryBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Discovery.fragment_discovery)
 class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewModel>() {
@@ -20,22 +23,21 @@ class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewM
         return DiscoveryViewModel::class.java
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private val mAdapter: MultiBindingPagingDataAdapter<Any> by lazy {
 
-        initRecycler()
-        initRefreshView()
-        addObserver()
-    }
+        val itemCallBack = object : DiffUtil.ItemCallback<Any>() {
+            override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+                return oldItem == newItem
+            }
 
-    private fun initRefreshView() {
-        mBinding.discoveryRefresh.setOnRefreshListener {
-            mViewModel.getData()
+            @SuppressLint("DiffUtilEquals")
+            override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
+                return oldItem == newItem
+            }
+
         }
-    }
 
-    private val mAdapter: MultiBindingAdapter<Any> by lazy {
-        val adapter = MultiBindingAdapter<Any>()
+        val adapter = MultiBindingPagingDataAdapter<Any>(itemCallBack)
 
         adapter.addBindingItem(MetroPagingDataAdapterType.icon_grid(layoutInflater))
         adapter.addBindingItem(MetroPagingDataAdapterType.set_slide_metro_list(layoutInflater))
@@ -46,23 +48,25 @@ class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewM
         adapter
     }
 
-    private fun initRecycler() {
-        val layoutManager = LinearLayoutManager(requireContext())
+    override fun onFirstResume() {
+        mAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle, mBinding.recycler)
+        lifecycleScope.launch {
+            mAdapter.attachRefreshView(mBinding.discoveryRefresh)
+        }
 
-        mBinding.recycler.layoutManager = layoutManager
-        mBinding.recycler.adapter = mAdapter
-    }
-
-    private fun addObserver() {
-        mViewModel.dataList.observe(viewLifecycleOwner) {
-            mBinding.discoveryRefresh.isRefreshing = false
-            mAdapter.setDataList(it)
+        lifecycleScope.launch {
+            mAdapter.attachStateView(
+                StateView.DefaultBuilder(viewLifecycleOwner.lifecycle, mBinding.discoveryRefresh)
+                    .setOnErrorClickListener(mAdapter.onErrorListener())
+                    .setThemeViewModel(requireTheme())
+                    .build()
+            )
+        }
+        lifecycleScope.launch {
+            mViewModel.getPagingData().collectLatest {
+                mAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+            }
         }
     }
 
-    override fun onFirstResume() {
-        super.onFirstResume()
-
-        mViewModel.getData()
-    }
 }

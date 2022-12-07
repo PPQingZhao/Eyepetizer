@@ -4,20 +4,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
-import com.pp.library_base.adapter.onErrorListener
+import com.pp.library_base.adapter.*
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_router_service.services.RouterPath
+import com.pp.library_ui.utils.StateView
 import com.pp.module_community.GridDivider
 import com.pp.module_community.adapter.SquareAdapter
 import com.pp.module_community.databinding.FragmentSquareBinding
 import com.pp.module_community.respository.SquareType
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Community.fragment_community)
@@ -35,8 +33,6 @@ class SquareFragment : ThemeFragment<FragmentSquareBinding, SquareViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView()
-        initRefreshView()
         initAppbar()
     }
 
@@ -52,17 +48,6 @@ class SquareFragment : ThemeFragment<FragmentSquareBinding, SquareViewModel>() {
 
     private fun navigateSearch() {
         ARouter.getInstance().build(RouterPath.Search.activity_search).navigation()
-    }
-
-    private fun initRefreshView() {
-        mBinding.communityRefresh.setOnRefreshListener {
-            mAdapter.refresh()
-        }
-        lifecycleScope.launch {
-            mAdapter.loadStateFlow.collectLatest {
-                mBinding.communityRefresh.isRefreshing = it.refresh is LoadState.Loading
-            }
-        }
     }
 
     private val mAdapter: SquareAdapter by lazy { SquareAdapter() }
@@ -90,15 +75,24 @@ class SquareFragment : ThemeFragment<FragmentSquareBinding, SquareViewModel>() {
 
         mBinding.rv.adapter =
             mAdapter.withLoadStateFooter(
-                DefaultLoadMoreStateAdapter(
-                    lifecycle = lifecycle,
-                    mAdapter.onErrorListener()
-                )
+                DefaultLoadMoreStateAdapter(lifecycle = lifecycle, mAdapter.onErrorListener())
             )
     }
 
     override fun onFirstResume() {
-        super.onFirstResume()
+        initRecyclerView()
+        lifecycleScope.launch {
+            mAdapter.attachRefreshView(mBinding.communityRefresh)
+        }
+
+        lifecycleScope.launch {
+            mAdapter.attachStateView(
+                StateView.DefaultBuilder(lifecycle, mBinding.communityRefresh)
+                    .setOnErrorClickListener(mAdapter.onErrorListener())
+                    .setThemeViewModel(requireTheme())
+                    .build()
+            )
+        }
         lifecycleScope.launch {
             try {
                 mViewModel.getData().collect {
@@ -110,5 +104,6 @@ class SquareFragment : ThemeFragment<FragmentSquareBinding, SquareViewModel>() {
         }
 
     }
+
 
 }

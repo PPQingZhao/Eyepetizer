@@ -3,14 +3,15 @@ package com.pp.module_user.ui
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
+import com.pp.library_base.adapter.attachRecyclerView
+import com.pp.library_base.adapter.attachStateView
 import com.pp.library_base.adapter.onErrorListener
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_router_service.services.RouterPath
+import com.pp.library_ui.utils.StateView
 import com.pp.module_user.databinding.FragmentUserBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -28,24 +29,6 @@ class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initTitle()
-        initRecyclerView()
-
-        mViewModel.userInfo.observe(this) {
-            if (null == it) {
-                return@observe
-            }
-
-            lifecycleScope.launch {
-                mViewModel.getNvaTabData(
-                    it?.uid ?: 0,
-                    it?.navTabs?.navList?.get(0)?.pageType ?: "",
-                    it?.navTabs?.navList?.get(0)?.pageLabel ?: "",
-                ).collect {
-                    mAdapter.submitData(it)
-                }
-            }
-        }
-
     }
 
     private fun initTitle() {
@@ -80,15 +63,32 @@ class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
         adapter
     }
 
-    private fun initRecyclerView() {
-        mBinding.userRecyclerview.layoutManager = LinearLayoutManager(context)
-        mBinding.userRecyclerview.adapter =
-            mAdapter.withLoadStateFooter(
-                DefaultLoadMoreStateAdapter(
-                    lifecycle = lifecycle,
-                    mAdapter.onErrorListener()
-                )
-            )
+    override fun onFirstResume() {
+        mAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle, mBinding.userRecyclerview)
 
+
+        lifecycleScope.launch {
+            mAdapter.attachStateView(
+                StateView.DefaultBuilder(lifecycle, mBinding.userRecyclerview)
+                    .setOnErrorClickListener(mAdapter.onErrorListener())
+                    .setThemeViewModel(requireTheme())
+                    .build()
+            )
+        }
+        mViewModel.userInfo.observe(this) {
+            if (null == it) {
+                return@observe
+            }
+
+            lifecycleScope.launch {
+                mViewModel.getNvaTabData(
+                    it.uid,
+                    it.navTabs.navList.get(0).pageType,
+                    it.navTabs.navList.get(0).pageLabel,
+                ).collect {
+                    mAdapter.submitData(it)
+                }
+            }
+        }
     }
 }

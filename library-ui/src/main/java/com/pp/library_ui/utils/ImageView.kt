@@ -13,18 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
-import com.pp.library_ui.R
 
-/**
- * 动画 repeat loading
- */
-@SuppressLint("RestrictedApi")
-fun ImageView.startRepeatLoading() {
-    val loadAnimator =
-        AnimatorInflaterCompat.loadAnimator(context, R.animator.animator_repeat_loading)
-    loadAnimator.setTarget(this)
-    loadAnimator.start()
-}
 
 /**
  * 动画

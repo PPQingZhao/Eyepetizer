@@ -3,18 +3,14 @@ package com.pp.module_comments.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
-import com.pp.library_base.adapter.TreeNodeAdapter
-import com.pp.library_base.adapter.onErrorListener
+import com.pp.library_base.adapter.*
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_router_service.services.RouterPath
@@ -22,13 +18,13 @@ import com.pp.library_ui.R
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.adapter.TreeNode
 import com.pp.library_ui.utils.DividerDecoration
+import com.pp.library_ui.utils.StateView
 import com.pp.module_comments.databinding.FragmentCommentsBinding
 import com.pp.module_comments.databinding.ItemCommentBindingImpl
 import com.pp.module_comments.databinding.ItemReplyBindingImpl
 import com.pp.module_comments.model.CommentItemViewModel
 import com.pp.module_comments.model.ReplyItemViewModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Comments.fragment_comments)
@@ -51,21 +47,6 @@ class CommentsFragment :
     override fun onAttach(context: Context) {
         super.onAttach(context)
         ARouter.getInstance().inject(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initRecyclerView()
-        initRefreshLayout()
-    }
-
-    @SuppressLint("ResourceType")
-    private fun initRefreshLayout() {
-        // todo:暂时禁用 待解决bug：下拉过程中一直触发recyclerview onBindViewHolder
-        mBinding.commentRefresh.isEnabled = false
-        mBinding.commentRefresh.setOnRefreshListener {
-            treeAdapter.refresh()
-        }
     }
 
     private val treeAdapter by lazy {
@@ -174,7 +155,29 @@ class CommentsFragment :
     }
 
     override fun onFirstResume() {
+        // todo:暂时禁用 待解决bug：下拉过程中一直触发recyclerview onBindViewHolder
+        mBinding.commentRefresh.isEnabled = false
+        initRecyclerView()
+
+        lifecycleScope.launch{
+            treeAdapter.attachRefreshView(mBinding.commentRefresh)
+        }
+
+        lifecycleScope.launch{
+
+            treeAdapter.attachStateView(
+                StateView.DefaultBuilder(
+                    viewLifecycleOwner.lifecycle,
+                    mBinding.commentsHotRecyclerview
+                )
+                    .setOnErrorClickListener(treeAdapter.onErrorListener())
+                    .setThemeViewModel(mBinding.themeViewModel)
+                    .build()
+            )
+        }
+
         lifecycleScope.launch {
+
             mViewModel.getPageData(
                 resourceId,
                 resourceType,
@@ -185,17 +188,11 @@ class CommentsFragment :
             }
         }
 
-        lifecycleScope.launch {
-            treeAdapter.loadStateFlow.collectLatest {
-                mBinding.commentRefresh.isRefreshing = it.refresh is LoadState.Loading
-            }
-
-        }
-
         // 评论排序发生改变,重新加载评论数据
         mViewModel.sort_type.observe(this) { type ->
             linearLayoutManager.scrollToPositionWithOffset(0, 0)
             treeAdapter.refresh()
         }
     }
+
 }

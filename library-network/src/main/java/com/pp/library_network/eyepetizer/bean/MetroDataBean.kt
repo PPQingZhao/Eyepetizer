@@ -71,6 +71,8 @@ data class MetroDataBean(
     val itemList: List<Item>?,
     @SerializedName("url")
     val url: String?,
+    @SerializedName("limit_rows")
+    val limitRows: Boolean,
 ) : Serializable {
 
     data class Tag(

@@ -36,14 +36,14 @@
         android:id="@+id/exo_play_pause"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:src="@drawable/exo_controls_play"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.1" />
-
+        app:layout_constraintWidth_percent="0.1"
+        tools:src="@drawable/exo_styled_controls_pause" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

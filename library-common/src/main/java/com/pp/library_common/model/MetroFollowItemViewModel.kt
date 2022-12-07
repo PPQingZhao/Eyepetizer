@@ -1,25 +1,25 @@
 package com.pp.library_common.model
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.ObservableField
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_common.extension.isVideo
 import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.R
-import com.pp.library_ui.adapter.BindingAdapter
-import com.pp.library_ui.adapter.BindingHolder
-import com.pp.library_ui.databinding.ItemImageVideoBinding
+import com.pp.library_ui.adapter.DefaultViewBindingItem
+import com.pp.library_ui.adapter.MultiBindingAdapter
+import com.pp.library_ui.adapter.MultiItemViewHolder
+import com.pp.library_ui.databinding.ItemImageBindingImpl
+import com.pp.library_ui.databinding.ItemVideoBinding
 import com.pp.library_ui.model.FollowCardItemViewModel
 import com.pp.library_ui.model.ImageVideoItemViewModel
 
 open class MetroFollowItemViewModel(
     item: Metro?,
-    val mine: Boolean = false
-) : FollowCardItemViewModel<BindingHolder<ItemImageVideoBinding>>() {
+    private val mine: Boolean = false,
+) : FollowCardItemViewModel<MultiItemViewHolder<ImageVideoItemViewModel>>() {
 
     companion object {
         private const val TAG = "MetroFollowItem"
@@ -33,9 +33,7 @@ open class MetroFollowItemViewModel(
             field = value
 
             val metroData = value?.metroData
-            this.isVideo =
-                metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.pgc_video
-                        || metroData?.resourceType == EyepetizerService2.MetroType.ResourceType.ugc_video
+            this.isVideo = metroData?.isVideo() == true
 
             this.drawableFollow.set(
                 if (mine && metroData?.isMine == true)
@@ -67,41 +65,54 @@ open class MetroFollowItemViewModel(
                 .set(metroData?.consumption?.commentCount.toString())
 
             val coverList = mutableListOf<ImageVideoItemViewModel>()
-            metroData?.images?.forEach { it ->
-                coverList.add(ImageVideoItemViewModel(ObservableField(it?.cover?.url), false))
-            }
-
-            metroData?.video?.cover?.apply {
-                Log.e(TAG,"$url")
-                coverList.add(ImageVideoItemViewModel(ObservableField(this.url), true))
+            if (isVideo) {
+                metroData?.video?.apply {
+                    val coverUrl = ObservableField(this.cover.url)
+                    val playUrl = ObservableField(this.playUrl)
+                    coverList.add(ImageVideoItemViewModel.VideoItemViewModel(coverUrl, playUrl))
+                }
+            } else {
+                metroData?.images?.forEach { it ->
+                    it?.cover?.apply {
+                        coverList.add(ImageVideoItemViewModel.ImageItemViewModel(ObservableField(url)))
+                    }
+                }
             }
 
             indicatorCount.set(coverList.size)
             mAdapter.setDataList(coverList)
         }
 
-    private val mAdapter by lazy { Adapter() }
+    private val mAdapter by lazy {
+        val multiBindingAdapter = MultiBindingAdapter<ImageVideoItemViewModel>()
+        val item_type_image = 0
+        val item_type_video = item_type_image + 1
+        multiBindingAdapter.addBindingItem(DefaultViewBindingItem<ImageVideoItemViewModel.ImageItemViewModel>(
+            item_type_image,
+            { item -> item is ImageVideoItemViewModel.ImageItemViewModel },
+            { ItemImageBindingImpl.inflate(LayoutInflater.from(it.context), it, false) },
+            { binding, item, cacheItemViewModel ->
+                item
+            }
+        ))
+
+        multiBindingAdapter.addBindingItem(DefaultViewBindingItem<ImageVideoItemViewModel.VideoItemViewModel>(
+            item_type_video,
+            { item -> item is ImageVideoItemViewModel.VideoItemViewModel },
+            { ItemVideoBinding.inflate(LayoutInflater.from(it.context), it, false) },
+            { binding, item, cacheItemViewModel ->
+                item
+            }
+        ))
+
+        multiBindingAdapter
+    }
 
     init {
         adapter = mAdapter
         metro = item
     }
 
-    inner class Adapter :
-        BindingAdapter<ItemImageVideoBinding, ImageVideoItemViewModel, ImageVideoItemViewModel>() {
-        override fun createViewModel(
-            binding: ItemImageVideoBinding,
-            item: ImageVideoItemViewModel?,
-            cacheItemViewModel: ImageVideoItemViewModel?
-        ): ImageVideoItemViewModel? {
-            return item
-        }
-
-        override fun createBinding(parent: ViewGroup, viewType: Int): ItemImageVideoBinding {
-            return ItemImageVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        }
-
-    }
 
     override fun onVideo(view: View) {
         ARouter.getInstance()

@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
+import com.pp.library_ui.BR
 import com.pp.library_ui.R
 
 class StateView {
@@ -228,6 +231,7 @@ class StateView {
     class DefaultBuilder : Builder {
 
         private var onErrorClickListener: OnErrorClickListener? = null
+        private var themeViewModel: AppTheme? = null
 
         constructor(lifecycle: Lifecycle, contentView: View) : super(contentView) {
 
@@ -236,6 +240,18 @@ class StateView {
                 .setEmptyLayoutId(R.layout.layout_data_empty)
                 .addOnViewStateListener(object : OnViewStateListener {
                     override fun onChanged(state: ViewState, oldStateView: ViewState?) {
+
+                        state.view?.apply {
+                            try {
+                                themeViewModel?.apply {
+                                    DataBindingUtil.bind<ViewDataBinding>(state.view)
+                                        ?.setVariable(BR.themeViewModel, themeViewModel)
+                                }
+                            } catch (e: java.lang.IllegalArgumentException) {
+                                e.printStackTrace()
+                            }
+                        }
+
                         if (oldStateView is ViewState.Loading) {
                             oldStateView.view?.apply {
                                 findViewById<ImageView>(R.id.iv_loading1).animate().cancel()
@@ -267,8 +283,13 @@ class StateView {
                 })
         }
 
-        fun setOnErrorClickListener(listener: OnErrorClickListener): Builder {
+        fun setOnErrorClickListener(listener: OnErrorClickListener): DefaultBuilder {
             this.onErrorClickListener = listener
+            return this
+        }
+
+        fun setThemeViewModel(theme: AppTheme?): DefaultBuilder {
+            themeViewModel = theme
             return this
         }
 

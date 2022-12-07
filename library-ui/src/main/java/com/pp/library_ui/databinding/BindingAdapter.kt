@@ -17,6 +17,7 @@ import com.pp.library_ui.utils.load
 import com.pp.library_ui.widget.banner.BannerViewPager
 import com.pp.library_ui.widget.banner.BaseBannerAdapter
 import com.pp.library_ui.widget.indicator.IndicatorView
+import com.pp.library_ui.widget.videoviewer.GlobalVideoViewer
 
 object BindingAdapter {
 
@@ -153,5 +154,12 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter("nestedScrollingEnabled")
     fun setNestedScrollingEnabled(view: ViewPager2, enable: Boolean) {
         view.getChildAt(0).isNestedScrollingEnabled = enable
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter(value = ["startGlobalPlay", "setCover"], requireAll = true)
+    fun startGlobalPlay(video: GlobalVideoViewer, playUrl: String, cover: String) {
+        video.setCover(cover)
+        video.setPlayUrl(playUrl)
     }
 }

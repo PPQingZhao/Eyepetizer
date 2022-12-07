@@ -273,4 +273,5 @@ object MetroPagingDataAdapterType {
             } else MetroHeadItemViewModel(item)
         }
     )
+
 }

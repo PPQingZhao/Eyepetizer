@@ -1,18 +1,13 @@
 package com.pp.module_home.ui
 
-import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
-import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
-import com.pp.library_base.adapter.onErrorListener
+import com.pp.library_base.adapter.*
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
+import com.pp.library_ui.utils.StateView
 import com.pp.module_home.databinding.FragmentFollowBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class FollowFragment : ThemeFragment<FragmentFollowBinding, FollowViewModel>() {
@@ -26,23 +21,6 @@ class FollowFragment : ThemeFragment<FragmentFollowBinding, FollowViewModel>() {
         return FollowViewModel::class.java
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initRecyclerView()
-        initRefreshView()
-    }
-
-    private fun initRefreshView() {
-        mBinding.followRefresh.setOnRefreshListener {
-            followAdapter.refresh()
-        }
-        lifecycleScope.launch {
-            followAdapter.loadStateFlow.collectLatest {
-                mBinding.followRefresh.isRefreshing = it.refresh is LoadState.Loading
-            }
-        }
-    }
-
     private val followAdapter by lazy {
         val adapter = MultiBindingPagingDataAdapter(MetroPagingDataAdapterType.DIFF_CALLBACK)
         adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail(layoutInflater))
@@ -50,21 +28,30 @@ class FollowFragment : ThemeFragment<FragmentFollowBinding, FollowViewModel>() {
         adapter
     }
 
-    private fun initRecyclerView() {
-        mBinding.followRecyclerview.layoutManager = LinearLayoutManager(context)
-        mBinding.followRecyclerview.adapter =
-            followAdapter.withLoadStateFooter(DefaultLoadMoreStateAdapter(lifecycle,
-                followAdapter.onErrorListener()
-            ))
-    }
 
     override fun onFirstResume() {
+
+        followAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle, mBinding.followRecyclerview)
+        lifecycleScope.launch {
+            followAdapter.attachRefreshView(mBinding.followRefresh)
+        }
+
+        lifecycleScope.launch {
+            followAdapter.attachStateView(
+                StateView.DefaultBuilder(lifecycle, mBinding.followRecyclerview)
+                    .setOnErrorClickListener(followAdapter.onErrorListener())
+                    .setThemeViewModel(requireTheme())
+                    .build()
+            )
+        }
+
         lifecycleScope.launch(Dispatchers.IO) {
             mViewModel.getData().collect {
-                followAdapter.submitData(lifecycle,it)
+                followAdapter.submitData(lifecycle, it)
             }
         }
     }
+
 
 }
 

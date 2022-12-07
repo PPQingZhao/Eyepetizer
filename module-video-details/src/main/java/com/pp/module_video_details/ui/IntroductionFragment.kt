@@ -1,15 +1,15 @@
 package com.pp.module_video_details.ui
 
-import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
+import com.pp.library_base.adapter.attachRecyclerView
+import com.pp.library_base.adapter.attachStateView
 import com.pp.library_base.adapter.onErrorListener
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_network.eyepetizer.bean.MetroDataBean
+import com.pp.library_ui.utils.StateView
 import com.pp.module_video_details.databinding.FragmentIntroductionBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -43,14 +43,16 @@ class IntroductionFragment(details: MetroDataBean?) :
 
     constructor() : this(null)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        initRecyclerView()
-
-    }
-
     override fun onFirstResume() {
+        mAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle,mBinding.introductionRecyclerview)
+        lifecycleScope.launch {
+            mAdapter.attachStateView(
+                StateView.DefaultBuilder(lifecycle, mBinding.introductionRecyclerview)
+                    .setOnErrorClickListener(mAdapter.onErrorListener())
+                    .setThemeViewModel(requireTheme())
+                    .build()
+            )
+        }
         lifecycleScope.launch(Dispatchers.IO) {
             mViewModel.getRelatedRecommend().collect {
                 mAdapter.submitData(lifecycle, it)
@@ -58,17 +60,6 @@ class IntroductionFragment(details: MetroDataBean?) :
         }
     }
 
-    val mAdapter = MetroPagingDataAdapterType.largeVideoCard2PagingDataAdapter()
+    private val mAdapter = MetroPagingDataAdapterType.largeVideoCard2PagingDataAdapter()
 
-    private fun initRecyclerView() {
-        mBinding.introductionRecyclerview.layoutManager = LinearLayoutManager(context)
-        mBinding.introductionRecyclerview.adapter =
-            mAdapter.withLoadStateFooter(
-                DefaultLoadMoreStateAdapter(
-                    lifecycle = lifecycle,
-                    mAdapter.onErrorListener()
-                )
-            )
-
-    }
 }
