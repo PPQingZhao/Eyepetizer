@@ -1,9 +1,12 @@
 package com.pp.module_discovery.ui
 
 import android.annotation.SuppressLint
+import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.pp.library_base.adapter.*
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
@@ -66,6 +69,24 @@ class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewM
             mViewModel.getPagingData().collectLatest {
                 mAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initToolbar()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initToolbar() {
+        mBinding.includeAppbar.etSearch.setOnTouchListener { v, e ->
+            ARouter.getInstance().build(RouterPath.Search.activity_search).navigation()
+
+            true
+        }
+        mBinding.includeAppbar.ivAlarm.setOnClickListener {
+
         }
     }
 

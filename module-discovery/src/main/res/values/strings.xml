@@ -2,4 +2,5 @@
 <resources>
     <string name="tag_recommend">推荐</string>
     <string name="tag_square">广场</string>
+    <string name="discovery_search_hint">搜索视频、作者、用户及标签</string>
 </resources>
