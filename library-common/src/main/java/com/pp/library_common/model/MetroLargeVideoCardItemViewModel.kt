@@ -37,9 +37,13 @@ open class MetroLargeVideoCardItemViewModel(item: Metro?) :
             category.set("${value?.metroData?.author?.nick} ${tags}")
 
             imagePath.set(value?.metroData?.cover?.url)
-            if (imagePath.get()?.isEmpty() != false){
+            if (imagePath.get()?.isEmpty() != false) {
                 imagePath.set(value?.metroData?.video?.cover?.url)
             }
+
+            playUrl.set(value?.metroData?.playUrl)
+
+            enablePlay.set(!(playUrl.get()?.isEmpty() ?: false))
 
             icon.set(value?.metroData?.author?.avatar?.url)
             duration.set(value?.metroData?.duration?.text)

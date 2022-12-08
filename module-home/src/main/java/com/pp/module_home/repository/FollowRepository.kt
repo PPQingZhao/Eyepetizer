@@ -36,7 +36,7 @@ object FollowRepository {
         override fun getSetMetroList(metroList: List<Metro>?): List<Metro> {
             val itemModels = mutableListOf<Metro>()
             metroList?.forEach {
-                Log.e("TAG", "type: ${it.type}  style typ: ${it.style.tplLabel}")
+//                Log.e("TAG", "type: ${it.type}  style typ: ${it.style.tplLabel}")
                 if (it.style.tplLabel == EyepetizerService2.MetroType.Style.feed_item_detail) {
                     itemModels.add(it)
                 }

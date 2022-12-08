@@ -73,6 +73,10 @@ data class MetroDataBean(
     val url: String?,
     @SerializedName("limit_rows")
     val limitRows: Boolean,
+    @SerializedName("play_url")
+    val playUrl: String,
+    @SerializedName("play_ctrl")
+    val playCtrl: PlayCtrl,
 ) : Serializable {
 
     data class Tag(
@@ -211,17 +215,6 @@ data class MetroDataBean(
                 val width: Int
             )
         }
-
-        data class PlayCtrl(
-            @SerializedName("autoplay")
-            val autoplay: Boolean,
-            @SerializedName("autoplay_times")
-            val autoplayTimes: Int,
-            @SerializedName("need_cellular")
-            val needCellular: Boolean,
-            @SerializedName("need_wifi")
-            val needWifi: Boolean
-        )
 
         data class PlayInfo(
             @SerializedName("height")

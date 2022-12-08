@@ -54,7 +54,7 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter("onPageCallback", requireAll = false)
     fun <T> setOnPageCallback(
         bannerViewPager: BannerViewPager<T>,
-        callback: ViewPager2.OnPageChangeCallback
+        callback: ViewPager2.OnPageChangeCallback,
     ) {
         bannerViewPager.setOnPageChangedCallback(callback)
     }
@@ -63,7 +63,7 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter("setInitIndicator")
     fun <T> setInitIndicator(
         bannerViewPager: BannerViewPager<T>,
-        indicatorView: IndicatorView
+        indicatorView: IndicatorView,
     ) {
         bannerViewPager.setOnPageChangedCallback(indicatorView.onPageChangeCallback as OnPageChangeCallback)
     }
@@ -72,7 +72,7 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter("setInitIndicator")
     fun <T> setInitIndicator(
         pager: ViewPager2,
-        indicatorView: IndicatorView
+        indicatorView: IndicatorView,
     ) {
         pager.registerOnPageChangeCallback(indicatorView.onPageChangeCallback as OnPageChangeCallback)
     }
@@ -85,7 +85,7 @@ object BindingAdapter {
     fun initIndicator(
         indicatorView: IndicatorView,
         count: Int,
-        autoVisibility: Boolean
+        autoVisibility: Boolean,
     ) {
         indicatorView.initIndicator(count)
         indicatorView.visibility = if (autoVisibility && count > 1) View.VISIBLE else View.GONE
@@ -101,7 +101,7 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter("setBannerAdapter", requireAll = false)
     fun <T, VH : RecyclerView.ViewHolder> setBannerAdapter(
         bannerViewPager: BannerViewPager<T>,
-        adapter: BaseBannerAdapter<T, VH>
+        adapter: BaseBannerAdapter<T, VH>,
     ) {
         bannerViewPager.setAdapter(adapter)
     }
@@ -158,8 +158,7 @@ object BindingAdapter {
 
     @JvmStatic
     @androidx.databinding.BindingAdapter(value = ["startGlobalPlay", "setCover"], requireAll = true)
-    fun startGlobalPlay(video: GlobalVideoViewer, playUrl: String, cover: String) {
-        video.setCover(cover)
-        video.setPlayUrl(playUrl)
+    fun startGlobalPlay(video: GlobalVideoViewer, playUrl: String?, cover: String?) {
+        video.setPlayUrlAndCover(playUrl?:"", cover?:"")
     }
 }

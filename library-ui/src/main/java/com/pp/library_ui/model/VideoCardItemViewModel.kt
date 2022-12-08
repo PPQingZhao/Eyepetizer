@@ -8,6 +8,8 @@ open class VideoCardItemViewModel() {
     val title = ObservableField<String>()
     val category = ObservableField<String>()
     val imagePath = ObservableField<String>()
+    val playUrl = ObservableField<String>()
+    val enablePlay = ObservableField<Boolean>()
     val icon = ObservableField<String>()
     val duration = ObservableField<String>()
 

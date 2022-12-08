@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.RadioButton
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -27,7 +28,7 @@ object ThemeBindingAdapter {
     fun setTabTextColor(
         tabLayout: TabLayout,
         @ColorInt colorNormal: Int,
-        @ColorInt colorSelected: Int
+        @ColorInt colorSelected: Int,
     ) {
         tabLayout.setTabTextColors(colorNormal, colorSelected)
     }
@@ -65,15 +66,13 @@ object ThemeBindingAdapter {
 
     @JvmStatic
     @androidx.databinding.BindingAdapter(
-        "app:drawableTint"
+        "android:buttonTint"
     )
-    fun setAppDrawableTint(
-        view: TextView,
+    fun setRadioButtonTint(
+        view: RadioButton,
         @ColorInt color: Int,
     ) {
-        view.compoundDrawables.forEach {
-            it?.setTint(color)
-        }
+        view.buttonTintList = ColorStateList.valueOf(color)
     }
 
     @JvmStatic

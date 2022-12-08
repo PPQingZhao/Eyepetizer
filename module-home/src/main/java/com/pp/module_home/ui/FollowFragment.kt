@@ -6,7 +6,6 @@ import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_ui.utils.StateView
 import com.pp.module_home.databinding.FragmentFollowBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -45,9 +44,9 @@ class FollowFragment : ThemeFragment<FragmentFollowBinding, FollowViewModel>() {
             )
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch {
             mViewModel.getData().collect {
-                followAdapter.submitData(lifecycle, it)
+                followAdapter.submitData(it)
             }
         }
     }

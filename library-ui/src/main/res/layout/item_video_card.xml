@@ -21,30 +21,19 @@
         android:layout_marginBottom="@dimen/item_margin_bottom"
         android:onClick="@{viewModel.onVideo}">
 
-        <ImageView
+        <com.pp.library_ui.widget.videoviewer.GlobalVideoViewer
             android:id="@+id/iv_image"
+            setCover="@{viewModel.imagePath}"
+            startGlobalPlay="@{viewModel.playUrl}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:bindSrc="@{viewModel.imagePath}"
-            android:gravity="center_vertical"
-            android:scaleType="centerCrop"
+            android:clickable="@{viewModel.enablePlay}"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_launcher_background" />
+            tools:background="@drawable/ic_launcher_background" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_play_arrow_white"
-            app:layout_constraintBottom_toBottomOf="@id/iv_image"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/iv_image"
-            app:layout_constraintStart_toStartOf="@id/iv_image"
-            app:layout_constraintTop_toTopOf="@id/iv_image"
-            app:layout_constraintWidth_percent="0.12" />
         <!--兼容 android:foreground-->
         <FrameLayout
             android:id="@+id/iv_icon"

@@ -1,5 +1,6 @@
 package com.pp.library_ui.widget.videoviewer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.media.MediaMetadataRetriever
 import android.net.Uri
@@ -7,10 +8,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewTreeLifecycleOwner
+import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -25,24 +29,36 @@ open class VideoViewer : FrameLayout {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    protected val videoviewerBinding by lazy {
-        DataBindingUtil.inflate<ViewVideoviewerBinding>(
-            LayoutInflater.from(context),
-            R.layout.view_videoviewer,
-            this@VideoViewer,
-            true
-        )
-    }
+    private var controllerLoadingView: ProgressBar? = null
+    private var videoCoverView: ImageView? = null
 
+    private var videoViewerBinding: ViewVideoviewerBinding? = null
+
+    @SuppressLint("WrongViewCast")
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
     ) {
 
-        playerView =
-            LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(context)
+        if (isInEditMode) {
+            inflater.inflate(R.layout.view_videoviewer, this, true)
+
+        } else {
+            videoViewerBinding = DataBindingUtil.inflate<ViewVideoviewerBinding>(inflater,
+                R.layout.view_videoviewer,
+                this,
+                true)
+
+            playerView = inflater
                 .inflate(R.layout.video_styled_player_view, this, false) as StyledPlayerView
+        }
+
+        controllerLoadingView = findViewById<ProgressBar>(R.id.controller_loading)
+        videoCoverView = findViewById<ImageView>(R.id.video_cover)
+
+
     }
 
     private var playerView: StyledPlayerView? = null
@@ -57,7 +73,7 @@ open class VideoViewer : FrameLayout {
         }
 
         override fun onStop(owner: LifecycleOwner) {
-            playerView?.player?.stop()
+//            playerView?.player?.stop()
         }
 
         override fun onResume(owner: LifecycleOwner) {
@@ -69,28 +85,30 @@ open class VideoViewer : FrameLayout {
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        ViewTreeLifecycleOwner.get(this)?.lifecycle?.removeObserver(observer)
+        lifecycleOwner?.lifecycle?.removeObserver(observer)
     }
 
+    protected var lifecycleOwner: LifecycleOwner? = null
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
-        val lifecycleOwner = ViewTreeLifecycleOwner.get(this)
-            ?: throw RuntimeException("you should call ViewTreeLifecycleOwner.set() at first")
+        if (!isInEditMode) {
+            lifecycleOwner = ViewTreeLifecycleOwner.get(this)
+                ?: throw RuntimeException("you should call ViewTreeLifecycleOwner.set() at first")
 
-        val appTheme = AppThemeViewModel[this]
-        videoviewerBinding.themeViewModel = appTheme
-        lifecycleOwner.apply {
-            videoviewerBinding.setLifecycleOwner { this.lifecycle }
-
-            this.lifecycle.addObserver(observer)
+            val appTheme = AppThemeViewModel[this]
+            videoViewerBinding?.themeViewModel = appTheme
+            lifecycleOwner?.apply {
+                videoViewerBinding?.setLifecycleOwner { this.lifecycle }
+                this.lifecycle.addObserver(observer)
+            }
         }
     }
 
     private var cover: String? = null
     fun setCover(cover: String?) {
         this.cover = cover
-        videoviewerBinding.videoCover.load(cover)
+        videoCoverView?.load(cover)
     }
 
     fun startPlayWhenReady(url: String?) {
@@ -100,17 +118,56 @@ open class VideoViewer : FrameLayout {
         )
     }
 
-    fun startPlay(player: Player, url: String?, playWhenReady: Boolean = true) {
+    private val playEventListener = object : Player.EventListener {
 
-        videoviewerBinding.controllerLoading.visibility = View.VISIBLE
-        playerView?.player?.release()
+        override fun onPlayerError(error: ExoPlaybackException) {
+            showLoading(false)
+        }
+
+        override fun onPlaybackStateChanged(state: Int) {
+            when (state) {
+                Player.STATE_READY -> {
+                    showLoading(false)
+                    showCover(false)
+                    if (playerView?.parent != this@VideoViewer) {
+                        playerView?.parent.apply {
+                            removeView(playerView)
+                        }
+                        addView(playerView, 0)
+                    }
+                }
+
+                Player.STATE_IDLE -> {
+                    removeView(playerView)
+                }
+                Player.STATE_BUFFERING -> {
+                }
+                Player.STATE_ENDED -> {
+
+                }
+            }
+
+        }
+    }
+
+    fun showLoading(show: Boolean) {
+        controllerLoadingView?.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    fun showCover(show: Boolean) {
+        videoCoverView?.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    fun startPlay(player: Player, url: String?, playWhenReady: Boolean = true) {
+        showLoading(true)
+        internalRelease()
         try {
             url?.apply {
 
-                if (cover == null) {
+                if (cover?.isEmpty() != false) {
                     val metadataRetriever = MediaMetadataRetriever()
                     metadataRetriever.setDataSource(this, mutableMapOf())
-                    videoviewerBinding.videoCover.setImageBitmap(metadataRetriever.frameAtTime)
+                    videoCoverView?.setImageBitmap(metadataRetriever.frameAtTime)
                 }
 
                 val mediaItem = MediaItem.Builder()
@@ -119,33 +176,7 @@ open class VideoViewer : FrameLayout {
 
                 player.setMediaItem(mediaItem)
 
-                player.addListener(object : Player.EventListener {
-
-                    override fun onPlaybackStateChanged(state: Int) {
-                        when (state) {
-                            Player.STATE_READY -> {
-                                videoviewerBinding.controllerLoading.visibility = GONE
-                                videoviewerBinding.videoCover.visibility = GONE
-                                if (playerView?.parent != this@VideoViewer) {
-                                    playerView?.parent.apply {
-                                        removeView(playerView)
-                                    }
-                                    addView(playerView, 0)
-                                }
-                            }
-
-                            Player.STATE_IDLE -> {
-                                videoviewerBinding.videoCover.visibility = VISIBLE
-                                removeView(playerView)
-                            }
-                            Player.STATE_BUFFERING -> {
-                            }
-                            Player.STATE_ENDED -> {
-                            }
-                        }
-
-                    }
-                })
+                player.addListener(playEventListener)
 
                 playerView?.player = player
                 player.playWhenReady = playWhenReady
@@ -156,10 +187,16 @@ open class VideoViewer : FrameLayout {
         }
     }
 
-    fun release() {
+    private fun internalRelease() {
         playerView?.player?.apply {
             release()
+            removeListener(playEventListener)
+            removeView(playerView)
         }
+    }
+
+    open fun release() {
+        internalRelease()
     }
 
     fun isPlaying(): Boolean {
