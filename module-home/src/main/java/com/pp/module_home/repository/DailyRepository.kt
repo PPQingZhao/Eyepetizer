@@ -6,9 +6,12 @@ import androidx.paging.PagingData
 import com.pp.library_common.pagingsource.Key
 import com.pp.library_common.pagingsource.MetroPagingSource
 import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.Card
+import com.pp.library_network.eyepetizer.bean.LoadMoreBean
 import com.pp.library_network.eyepetizer.bean.Metro
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 object DailyRepository {
 
@@ -52,6 +55,21 @@ object DailyRepository {
                 }
             }
             return itemModels
+        }
+
+        private val today by lazy {
+            val today = Calendar.getInstance()
+
+            today.run {
+                get(Calendar.YEAR) * 10000 + (get(Calendar.MONTH) + 1) * 100 + get(Calendar.DATE)
+            }
+        }
+
+        private var dayCount = 3
+
+        override fun isLoadMoreEnd(loadMoreBean: BaseResponse<LoadMoreBean<Metro>>): Boolean {
+//            Log.e("TAG", "today: ${today}  lastItemId:${loadMoreBean.result?.lastItemId}")
+            return (--dayCount < 0) || super.isLoadMoreEnd(loadMoreBean)
         }
 
     }

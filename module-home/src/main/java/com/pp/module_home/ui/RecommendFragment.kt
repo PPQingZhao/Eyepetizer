@@ -86,14 +86,15 @@ class RecommendFragment : ThemeFragment<FragmentRecommendBinding, RecommendViewM
 
     override fun onFirstResume() {
 
-        multiAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle,mBinding.recommendRecyclerview)
+        multiAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle,
+            mBinding.recommendRecyclerview)
         lifecycleScope.launch {
             multiAdapter.attachRefreshView(mBinding.recommendRefresh)
         }
 
         lifecycleScope.launch {
             multiAdapter.attachStateView(
-                StateView.DefaultBuilder(lifecycle, mBinding.recommendRecyclerview)
+                StateView.DefaultBuilder(lifecycle, mBinding.recommendRefresh)
                     .setOnErrorClickListener(multiAdapter.onErrorListener())
                     .setThemeViewModel(requireTheme())
                     .build()

@@ -30,14 +30,15 @@ class FollowFragment : ThemeFragment<FragmentFollowBinding, FollowViewModel>() {
 
     override fun onFirstResume() {
 
-        followAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle, mBinding.followRecyclerview)
+        followAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle,
+            mBinding.followRecyclerview)
         lifecycleScope.launch {
             followAdapter.attachRefreshView(mBinding.followRefresh)
         }
 
         lifecycleScope.launch {
             followAdapter.attachStateView(
-                StateView.DefaultBuilder(lifecycle, mBinding.followRecyclerview)
+                StateView.DefaultBuilder(lifecycle, mBinding.followRefresh)
                     .setOnErrorClickListener(followAdapter.onErrorListener())
                     .setThemeViewModel(requireTheme())
                     .build()

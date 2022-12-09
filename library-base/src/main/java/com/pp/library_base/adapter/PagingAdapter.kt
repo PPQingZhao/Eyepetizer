@@ -44,16 +44,19 @@ suspend fun <VH : ViewHolder, adapter : PagingDataAdapter<*, VH>> adapter.attach
 
 fun <VH : ViewHolder, adapter : PagingDataAdapter<*, VH>> adapter.attachRecyclerView(
     lifecycle: Lifecycle,
-    recyclerView: RecyclerView
+    recyclerView: RecyclerView,
+    getStateViewType: (loadState: LoadState) -> Int = { 0 },
 ) {
     recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
     recyclerView.adapter = withLoadStateFooter(
-        DefaultLoadMoreStateAdapter(lifecycle, onErrorListener())
+        DefaultLoadMoreStateAdapter(lifecycle,
+            onErrorListener(),
+            getStateViewType = getStateViewType)
     )
 }
 
 suspend fun <VH : ViewHolder, adapter : PagingDataAdapter<*, VH>> adapter.attachRefreshView(
-    refreshLayout: SwipeRefreshLayout
+    refreshLayout: SwipeRefreshLayout,
 ) {
     refreshLayout.setOnRefreshListener {
         refresh()

@@ -16,8 +16,9 @@ import com.pp.library_ui.databinding.ItemDefaultLoadMoreBinding
 import com.pp.library_ui.utils.*
 
 class DefaultLoadMoreStateAdapter(
-    val lifecycle: Lifecycle,
-    var onErrorClickListener: OnErrorClickListener? = null,
+    private val lifecycle: Lifecycle,
+    private var onErrorClickListener: OnErrorClickListener? = null,
+    private val getStateViewType: (loadState: LoadState) -> Int = { 0 },
 ) :
     LoadStateAdapter<BindingHolder<ItemDefaultLoadMoreBinding>>() {
 
@@ -30,9 +31,13 @@ class DefaultLoadMoreStateAdapter(
         })
     }
 
+    override fun getStateViewType(loadState: LoadState): Int {
+        return getStateViewType.invoke(loadState)
+    }
+
     override fun onBindViewHolder(
         holder: BindingHolder<ItemDefaultLoadMoreBinding>,
-        loadState: LoadState
+        loadState: LoadState,
     ) {
 //        Log.e("DefaultLoadStateAdapter", loadState.toString())
         if (loadState is LoadState.Loading) {
@@ -64,7 +69,7 @@ class DefaultLoadMoreStateAdapter(
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        loadState: LoadState
+        loadState: LoadState,
     ): BindingHolder<ItemDefaultLoadMoreBinding> {
 //        Log.e("DefaultLoadStateAdapter", loadState.toString())
         return BindingHolder(

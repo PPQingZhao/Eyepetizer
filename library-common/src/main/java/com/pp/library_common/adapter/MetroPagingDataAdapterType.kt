@@ -3,6 +3,7 @@ package com.pp.library_common.adapter
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.pp.library_base.adapter.DefaultBindingPagingDataAdapter
 import com.pp.library_common.model.*
 import com.pp.library_network.eyepetizer.EyepetizerService2
@@ -14,10 +15,12 @@ import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.*
 
 object MetroPagingDataAdapterType {
-    const val type_description_text = 0
+    const val type_load_more = 0
+    const val type_description_text = type_load_more + 1
     const val type_feed_item_detail = type_description_text + 1
     const val type_feed_cover_large_video = type_feed_item_detail + 1
-    const val type_feed_cover_small_video = type_feed_cover_large_video + 1
+    const val type_feed_cover_large_video2 = type_feed_cover_large_video + 1
+    const val type_feed_cover_small_video = type_feed_cover_large_video2 + 1
 
     const val type_icon_grid = type_feed_cover_small_video + 1
     const val type_slide_cover_image_with_title = type_icon_grid + 1
@@ -46,12 +49,18 @@ object MetroPagingDataAdapterType {
     }
 
     /**
+     * 复用 RecycledViewPool
+     */
+    val recycledViewPool = RecyclerView.RecycledViewPool()
+
+    /**
      * large video card
      */
     fun largeVideoCardPagingDataAdapter() =
 
         DefaultBindingPagingDataAdapter<ItemVideoCardBinding, MetroLargeVideoCardItemViewModel, Metro>(
-            { _, item, cacheItemViewModel ->
+            getItemViewType = { position -> type_feed_cover_large_video },
+            onCreateViewModel = { _, item, cacheItemViewModel ->
                 if (null != cacheItemViewModel) {
                     cacheItemViewModel.metro = item
                     cacheItemViewModel
@@ -59,19 +68,20 @@ object MetroPagingDataAdapterType {
                     MetroLargeVideoCardItemViewModel(item)
                 }
             },
-            { parent, _, inflater ->
+            onCreateBinding = { parent, _, inflater ->
                 ItemVideoCardBinding.inflate(inflater, parent, false)
             },
-            DIFF_CALLBACK
+            diffCallback = DIFF_CALLBACK
         )
 
     /**
-     * large video card
+     * large video card2
      */
     fun largeVideoCard2PagingDataAdapter() =
 
         DefaultBindingPagingDataAdapter<ItemLargeVideoCard2Binding, MetroLargeVideoCard2ItemViewModel, Metro>(
-            { _, item, cacheItemViewModel ->
+            getItemViewType = { type_feed_cover_large_video2 },
+            onCreateViewModel = { _, item, cacheItemViewModel ->
                 if (null != cacheItemViewModel) {
                     cacheItemViewModel.metro = item
                     cacheItemViewModel
@@ -79,10 +89,10 @@ object MetroPagingDataAdapterType {
                     MetroLargeVideoCard2ItemViewModel(item)
                 }
             },
-            { parent, _, inflater ->
+            onCreateBinding = { parent, _, inflater ->
                 ItemLargeVideoCard2Binding.inflate(inflater, parent, false)
             },
-            DIFF_CALLBACK
+            diffCallback = DIFF_CALLBACK
         )
 
 
@@ -92,7 +102,8 @@ object MetroPagingDataAdapterType {
     fun smallVideoCardPagingDataAdapter() =
 
         DefaultBindingPagingDataAdapter<ItemVideoSmallCardBinding, MetroSmallVideoCardItemViewModel, Metro>(
-            { _, item, cacheItemViewModel ->
+            getItemViewType = { type_feed_cover_small_video },
+            onCreateViewModel = { _, item, cacheItemViewModel ->
                 if (null != cacheItemViewModel) {
                     cacheItemViewModel.metro = item
                     cacheItemViewModel
@@ -100,10 +111,10 @@ object MetroPagingDataAdapterType {
                     MetroSmallVideoCardItemViewModel(item)
                 }
             },
-            { parent, _, inflater ->
+            onCreateBinding = { parent, _, inflater ->
                 ItemVideoSmallCardBinding.inflate(inflater, parent, false)
             },
-            DIFF_CALLBACK
+            diffCallback = DIFF_CALLBACK
         )
 
 
@@ -273,5 +284,18 @@ object MetroPagingDataAdapterType {
             } else MetroHeadItemViewModel(item)
         }
     )
+
+    fun feed_cover_large_video2(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
+        type_feed_cover_large_video2,
+        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_large_video },
+        { ItemLargeVideoCard2Binding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroLargeVideoCardItemViewModel) {
+                cacheItemViewModel.metro = item
+                cacheItemViewModel
+            } else {
+                MetroLargeVideoCard2ItemViewModel(item)
+            }
+        })
 
 }

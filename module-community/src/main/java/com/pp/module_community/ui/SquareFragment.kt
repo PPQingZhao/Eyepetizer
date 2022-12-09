@@ -56,7 +56,7 @@ class SquareFragment : ThemeFragment<FragmentSquareBinding, SquareViewModel>() {
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 if (position >= mAdapter.itemCount) {
-                    return 1
+                    return 2
                 }
                 val viewType = mAdapter.getItemViewType(position)
                 if (viewType == SquareType.TYPE_VIDEO_SMALL) {
@@ -69,6 +69,11 @@ class SquareFragment : ThemeFragment<FragmentSquareBinding, SquareViewModel>() {
 
         // 只绘制 TYPE_VIDEO_SMALL
         mBinding.rv.addItemDecoration(GridDivider {
+
+            // 过滤加载更多
+            if (it >= mAdapter.itemCount){
+                return@GridDivider false
+            }
             val itemData = mAdapter.getItemData(position = it)
             itemData?.itemType == SquareType.TYPE_VIDEO_SMALL
         })

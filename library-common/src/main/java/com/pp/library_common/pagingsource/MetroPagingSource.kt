@@ -5,10 +5,7 @@ import android.util.Log
 import androidx.paging.PagingSource
 import com.pp.library_common.routerservice.RouterServices
 import com.pp.library_network.eyepetizer.EyepetizerService2
-import com.pp.library_network.eyepetizer.bean.BaseResponse
-import com.pp.library_network.eyepetizer.bean.Card
-import com.pp.library_network.eyepetizer.bean.Metro
-import com.pp.library_network.eyepetizer.bean.PageDataBean
+import com.pp.library_network.eyepetizer.bean.*
 
 abstract class MetroPagingSource<Item : Any> :
     PagingSource<Key<Item>, Item>() {
@@ -50,7 +47,7 @@ abstract class MetroPagingSource<Item : Any> :
                                 override suspend fun load(
                                     url: String?,
                                     param: Map<String, String?>?,
-                                    nextKey: Key<Item>
+                                    nextKey: Key<Item>,
                                 ): LoadResult.Page<Key<Item>, Item> {
                                     val data = mutableListOf<Item>()
 
@@ -63,14 +60,15 @@ abstract class MetroPagingSource<Item : Any> :
                                                 resultParam
                                             )
 
+                                        // 数据加载完毕
+                                        if (isLoadMoreCardDataEnd(loadMoreBean)) {
+                                            return LoadResult.Page(data, null, null)
+                                        }
+
                                         loadMoreBean.result?.run {
                                             val toMutableMap = nextKey.paramMap?.toMutableMap()
                                             toMutableMap?.put("last_item_id", lastItemId.toString())
                                             nextKey.paramMap = toMutableMap
-                                            // 数据加载完毕
-                                            if (itemList == null || itemList.isEmpty()) {
-                                                return LoadResult.Page(data, null, null)
-                                            }
 
                                             itemList.forEach {
                                                 data.addAll(
@@ -104,7 +102,7 @@ abstract class MetroPagingSource<Item : Any> :
                                 override suspend fun load(
                                     url: String?,
                                     param: Map<String, String?>?,
-                                    nextKey: Key<Item>
+                                    nextKey: Key<Item>,
                                 ): LoadResult.Page<Key<Item>, Item> {
 
                                     val data = mutableListOf<Item>()
@@ -118,14 +116,15 @@ abstract class MetroPagingSource<Item : Any> :
                                                 resultParam
                                             )
 
+                                        // 数据加载完毕
+                                        if (isLoadMoreEnd(loadMoreBean)) {
+                                            return LoadResult.Page(data, null, null)
+                                        }
+
                                         loadMoreBean.result?.run {
                                             val toMutableMap = nextKey.paramMap?.toMutableMap()
                                             toMutableMap?.put("last_item_id", lastItemId.toString())
                                             nextKey.paramMap = toMutableMap
-                                            // 数据加载完毕
-                                            if (itemList == null || itemList.isEmpty()) {
-                                                return LoadResult.Page(data, null, null)
-                                            }
                                             data.addAll(getLoadMoreMetroList(itemList))
                                         }
                                     }
@@ -151,7 +150,8 @@ abstract class MetroPagingSource<Item : Any> :
                         }
 
                         EyepetizerService2.CardType.SET_WATERFALL_METRO_LIST,
-                        EyepetizerService2.CardType.SET_METRO_LIST -> {
+                        EyepetizerService2.CardType.SET_METRO_LIST,
+                        -> {
                             valueList.addAll(getSetMetroList(it.cardData.body.metroList))
                         }
                     }
@@ -171,6 +171,15 @@ abstract class MetroPagingSource<Item : Any> :
         }
     }
 
+    open fun isLoadMoreCardDataEnd(loadMoreBean: BaseResponse<LoadMoreBean<Card>>): Boolean {
+        return loadMoreBean.result?.itemList?.isEmpty()?:true
+    }
+
+    open fun isLoadMoreEnd(loadMoreBean: BaseResponse<LoadMoreBean<Metro>>): Boolean {
+        return loadMoreBean.result?.itemList?.isEmpty() ?: true
+    }
+
+
     /**
      * 加载更多数据处理
      */
@@ -181,7 +190,7 @@ abstract class MetroPagingSource<Item : Any> :
      */
     abstract fun getSetBannerList(
         card: Card,
-        metroList: List<Metro>?
+        metroList: List<Metro>?,
     ): List<Item>
 
     /**
@@ -214,7 +223,7 @@ interface LoadMore<Item : Any> {
     suspend fun load(
         url: String?,
         param: Map<String, String?>?,
-        nextKey: Key<Item>
+        nextKey: Key<Item>,
     ): PagingSource.LoadResult.Page<Key<Item>, Item>
 }
 

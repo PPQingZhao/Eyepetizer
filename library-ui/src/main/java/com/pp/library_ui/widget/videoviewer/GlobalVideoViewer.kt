@@ -86,7 +86,7 @@ class GlobalVideoViewer : VideoViewer {
     private fun startGlobalPlay() {
         playUrl?.apply {
 
-            val player = SimpleExoPlayer.Builder(context).setSkipSilenceEnabled(true).build()
+            val player = SimpleExoPlayer.Builder(context).build()
             player.addListener(object : Player.EventListener {
 
                 override fun onPlaybackStateChanged(state: Int) {
@@ -116,6 +116,8 @@ class GlobalVideoViewer : VideoViewer {
 
             })
 
+            // 静音
+            player.volume = 0f
 
             startPlay(player, this, true)
 

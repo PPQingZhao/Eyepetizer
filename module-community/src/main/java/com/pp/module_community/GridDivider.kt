@@ -17,6 +17,9 @@ class GridDivider(private val space: Int = 20, private val column: Int = 2,val c
         super.getItemOffsets(outRect, view, parent, state)
         val position = parent.getChildAdapterPosition(view)
         view.setTag(position)
+        if (position == RecyclerView.NO_POSITION){
+            return
+        }
 
         if(!canDraw.invoke(position)){
             return

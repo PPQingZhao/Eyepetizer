@@ -8,7 +8,9 @@ import com.pp.library_common.model.MultiItemEntity
 import com.pp.library_common.pagingsource.Key
 import com.pp.library_common.pagingsource.MetroPagingSource
 import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.Card
+import com.pp.library_network.eyepetizer.bean.LoadMoreBean
 import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.module_community.model.SquareBannerListViewModel
 import com.pp.module_community.model.SquareVideoLargeItemViewModel
@@ -36,7 +38,7 @@ object SquareRepository {
         MetroPagingSource<MultiItemEntity>() {
         override fun getSetBannerList(
             card: Card,
-            metroList: List<Metro>?
+            metroList: List<Metro>?,
         ): List<MultiItemEntity> {
             val bannerList = mutableListOf<SquareBannerListViewModel>()
             metroList?.let {
@@ -53,12 +55,14 @@ object SquareRepository {
                 when (style) {
                     EyepetizerService2.MetroType.Style.feed_cover_small_video,
                     EyepetizerService2.MetroType.Style.waterfall_cover_small_image,
-                    EyepetizerService2.MetroType.Style.waterfall_cover_small_video -> {
+                    EyepetizerService2.MetroType.Style.waterfall_cover_small_video,
+                    -> {
                         itemModels.add(SquareVideoSmallItemViewModel(metro))
                     }
                     EyepetizerService2.MetroType.Style.feed_item_detail,
                     EyepetizerService2.MetroType.Style.feed_cover_large_video,
-                    EyepetizerService2.MetroType.Style.feed_cover_large_image -> {
+                    EyepetizerService2.MetroType.Style.feed_cover_large_image,
+                    -> {
                         itemModels.add(SquareVideoLargeItemViewModel(metro))
                     }
                     else -> {
@@ -77,12 +81,14 @@ object SquareRepository {
                 when (style) {
                     EyepetizerService2.MetroType.Style.feed_cover_small_video,
                     EyepetizerService2.MetroType.Style.waterfall_cover_small_image,
-                    EyepetizerService2.MetroType.Style.waterfall_cover_small_video -> {
+                    EyepetizerService2.MetroType.Style.waterfall_cover_small_video,
+                    -> {
                         itemModels.add(SquareVideoSmallItemViewModel(metro))
                     }
                     EyepetizerService2.MetroType.Style.feed_item_detail,
                     EyepetizerService2.MetroType.Style.feed_cover_large_video,
-                    EyepetizerService2.MetroType.Style.feed_cover_large_image -> {
+                    EyepetizerService2.MetroType.Style.feed_cover_large_image,
+                    -> {
                         itemModels.add(SquareVideoLargeItemViewModel(metro))
                     }
                     else -> {
@@ -94,5 +100,9 @@ object SquareRepository {
             return itemModels
         }
 
+        private var count = 5
+        override fun isLoadMoreCardDataEnd(loadMoreBean: BaseResponse<LoadMoreBean<Card>>): Boolean {
+            return (--count < 0) || super.isLoadMoreCardDataEnd(loadMoreBean)
+        }
     }
 }

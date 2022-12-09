@@ -1,10 +1,7 @@
 package com.pp.module_home.ui
 
 import androidx.lifecycle.lifecycleScope
-import com.pp.library_base.adapter.attachRecyclerView
-import com.pp.library_base.adapter.attachRefreshView
-import com.pp.library_base.adapter.attachStateView
-import com.pp.library_base.adapter.onErrorListener
+import com.pp.library_base.adapter.*
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_ui.utils.StateView
@@ -24,18 +21,24 @@ class DailyFragment : ThemeFragment<FragmentDailyBinding, DailyViewModel>() {
         return DailyViewModel::class.java
     }
 
-    private val dailyAdapter by lazy { MetroPagingDataAdapterType.largeVideoCardPagingDataAdapter() }
+    private val dailyAdapter by lazy {
+        val adapter =
+            MultiBindingPagingDataAdapter(MetroPagingDataAdapterType.DIFF_CALLBACK)
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_cover_large_video(layoutInflater))
+        adapter
+    }
 
     override fun onFirstResume() {
 
-        dailyAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle,mBinding.dailyRecyclerview)
+        dailyAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle,
+            mBinding.dailyRecyclerview)
         lifecycleScope.launch {
             dailyAdapter.attachRefreshView(mBinding.dailyRefresh)
         }
 
         lifecycleScope.launch {
             dailyAdapter.attachStateView(
-                StateView.DefaultBuilder(lifecycle, mBinding.dailyRecyclerview)
+                StateView.DefaultBuilder(lifecycle, mBinding.dailyRefresh)
                     .setOnErrorClickListener(dailyAdapter.onErrorListener())
                     .setThemeViewModel(requireTheme())
                     .build()
