@@ -86,6 +86,7 @@ open class VideoViewer : FrameLayout {
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         lifecycleOwner?.lifecycle?.removeObserver(observer)
+        lifecycleOwner = null
     }
 
     protected var lifecycleOwner: LifecycleOwner? = null

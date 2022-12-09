@@ -11,7 +11,7 @@
     </data>
 
 
-    <com.pp.library_ui.widget.videoviewer.GlobalVideoViewer
+    <com.pp.library_ui.widget.videoviewer.ItemVideoViewer
         android:id="@+id/iv_feed"
         setCover="@{viewModel.cover}"
         startGlobalPlay="@{viewModel.playUrl}"

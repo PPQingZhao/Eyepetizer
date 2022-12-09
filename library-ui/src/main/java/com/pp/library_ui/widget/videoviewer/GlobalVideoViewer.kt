@@ -5,13 +5,15 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.*
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.pp.library_ui.R
 
-class GlobalVideoViewer : VideoViewer {
+open class GlobalVideoViewer : VideoViewer {
 
     private var exoPlayer: Player? = null
     private val playImageView: ImageView
@@ -38,9 +40,20 @@ class GlobalVideoViewer : VideoViewer {
         layoutParams.gravity = Gravity.CENTER
         attachViewToParent(playImageView, childCount,
             layoutParams)
+
+    }
+
+    final override fun attachViewToParent(
+        child: View?,
+        index: Int,
+        params: ViewGroup.LayoutParams?,
+    ) {
+        super.attachViewToParent(child, index, params)
     }
 
     companion object {
+        private const val TAG = "GlobalVideoViewer"
+
         // 正在播放的 video
         private val sPlayingVideo = MutableLiveData<GlobalVideoViewer>()
 
@@ -60,6 +73,7 @@ class GlobalVideoViewer : VideoViewer {
         exoPlayer = null
         playImageView.visibility = View.VISIBLE
         showCover(true)
+        Log.v(TAG, "released: $playUrl")
     }
 
     override fun onAttachedToWindow() {
@@ -76,11 +90,6 @@ class GlobalVideoViewer : VideoViewer {
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         lifecycleOwner?.lifecycle?.removeObserver(observer)
-
-        val startTime = System.currentTimeMillis()
-        release()
-        val endTime = System.currentTimeMillis()
-        Log.e("TAG", "time: ${endTime - startTime}")
     }
 
     private fun startGlobalPlay() {
@@ -122,6 +131,7 @@ class GlobalVideoViewer : VideoViewer {
             startPlay(player, this, true)
 
             exoPlayer = player
+            Log.v(TAG,"start play: $playUrl")
         }
     }
 

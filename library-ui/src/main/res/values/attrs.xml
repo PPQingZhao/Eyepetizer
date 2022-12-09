@@ -14,4 +14,5 @@
         <attr name="error_layout_id" format="reference" />
         <attr name="empty_layout_id" format="reference" />
     </declare-styleable>
+
 </resources>

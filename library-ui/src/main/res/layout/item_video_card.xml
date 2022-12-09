@@ -21,7 +21,7 @@
         android:layout_marginBottom="@dimen/item_margin_bottom"
         android:onClick="@{viewModel.onVideo}">
 
-        <com.pp.library_ui.widget.videoviewer.GlobalVideoViewer
+        <com.pp.library_ui.widget.videoviewer.ItemVideoViewer
             android:id="@+id/iv_image"
             setCover="@{viewModel.imagePath}"
             startGlobalPlay="@{viewModel.playUrl}"
