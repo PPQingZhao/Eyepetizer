@@ -46,6 +46,24 @@ interface EyepetizerService {
 
         const val URL_TAG = "api/v6/tag/index"
 
+        /**
+         * udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78
+         * &vc=7051610&vn=7.5.161&size=1080X2261
+         * &first_channel=xiaomi
+         * &last_channel=xiaomi
+         * &system_version_code=29&deviceModel=RedmiK305G
+         */
+
+        var queryMap = mutableMapOf<String, String>().apply {
+            put("udid", "1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78")
+            put("vc", "7051610")
+            put("vn", "7.5.161")
+            put("size", "1080X2261")
+            put("first_channel", "xiaomi")
+            put("last_channel", "xiaomi")
+            put("system_version_code", "29")
+            put("deviceModel", "RedmiK305G")
+        }
 
         val headerJson = """
            {
@@ -59,6 +77,7 @@ interface EyepetizerService {
         private val header: Header = Gson().fromJson(headerJson, Header::class.java)
         private val retrofit = RetrofitUtil.createEyeRetrofit(
             BASE_URL,
+            queryMap,
             "X-THEFAIR-APPID" to header.xTHEFAIRAPPID,
             "X-THEFAIR-CID" to header.xTHEFAIRCID,
             "User-Agent" to header.userAgent,

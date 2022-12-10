@@ -10,6 +10,7 @@ import com.pp.library_network.eyepetizer.bean.detail.VideoBean
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.ItemAutoPlayFollowCardBinding
 import com.pp.library_ui.databinding.ItemFollowCard2Binding
+import com.pp.library_ui.databinding.ItemFollowCardBinding
 import com.pp.library_ui.databinding.ItemHeaderBinding
 import com.pp.library_ui.databinding.ItemVideoSmallCard2Binding
 
@@ -20,6 +21,7 @@ object VideoPagingDataAdapterType {
     const val type_follow_card = type_text_card + 1
     const val type_video_small_card = type_follow_card + 1
     const val type_auto_play_follow_card = type_video_small_card + 1
+    const val type_picture_follow_card = type_auto_play_follow_card + 1
 
     fun type_text_card(layoutInflater: LayoutInflater) = DefaultViewBindingItem<VideoBean.Item>(
         type_text_card,
@@ -64,6 +66,19 @@ object VideoPagingDataAdapterType {
         type_auto_play_follow_card,
         { it?.type == EyepetizerService.ItemType.autoPlayFollowCard },
         { ItemAutoPlayFollowCardBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is TagAutoPlayItemViewModel) {
+                cacheItemViewModel.videoItem = item
+                cacheItemViewModel
+            } else {
+                TagAutoPlayItemViewModel(item)
+            }
+        })
+
+    fun type_picture_follow_card(layoutInflater: LayoutInflater) = DefaultViewBindingItem<VideoBean.Item>(
+        type_picture_follow_card,
+        { it?.type == EyepetizerService.ItemType.autoPlayFollowCard },
+        { ItemFollowCardBinding.inflate(layoutInflater, it, false) },
         { binding, item, cacheItemViewModel ->
             if (cacheItemViewModel is TagAutoPlayItemViewModel) {
                 cacheItemViewModel.videoItem = item

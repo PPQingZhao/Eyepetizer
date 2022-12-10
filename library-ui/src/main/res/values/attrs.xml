@@ -15,4 +15,21 @@
         <attr name="empty_layout_id" format="reference" />
     </declare-styleable>
 
+    <!--ShapeableImageView 去圆角-->
+    <style name="Corner0Style">
+        <item name="cornerSize">0dp</item>
+    </style>
+
+    <!--ShapeableImageView 圆角-->
+    <style name="RoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 圆 -->
+    <style name="CircleStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

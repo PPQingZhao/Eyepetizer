@@ -16,7 +16,7 @@ object RetrofitUtil {
         return builder.build()
     }
 
-    fun createEyeRetrofit(baseUrl: String, vararg headers: Pair<String, String>): Retrofit {
+    fun createEyeRetrofit(baseUrl: String, querys: Map<String, String>? = null, vararg headers: Pair<String, String>): Retrofit {
 
         val gson = Gson().newBuilder()
             .registerTypeHierarchyAdapter(
@@ -29,7 +29,7 @@ object RetrofitUtil {
         val gsonConverter = GsonConverterFactory.create(gson)
 
         val builder = Retrofit.Builder()
-            .client(HttpUtil.getClient(*headers))
+            .client(HttpUtil.getClient(querys, *headers))
             .baseUrl(baseUrl)
             .addConverterFactory(gsonConverter)
 //            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -27,7 +27,7 @@ object HttpUtil {
         return builder.build();
     }
 
-    fun getClient(vararg headers: Pair<String, String>): OkHttpClient {
+    fun getClient(querys: Map<String, String>? = null, vararg headers: Pair<String, String>): OkHttpClient {
         val logger = HttpLoggingInterceptor.Logger { message ->
             Log.e(TAG, "===> $message")
         }
@@ -44,6 +44,17 @@ object HttpUtil {
                 headers.onEach {
                     builder.header(it.first, it.second)
                 }
+
+                val urlBuilder = original.url().newBuilder()
+                querys?.forEach {
+                    urlBuilder.addQueryParameter(it.key, it.value)
+                }
+
+                urlBuilder.host(original.url().host())
+                    .scheme(original.url().scheme())
+                val httpUrl = urlBuilder.build()
+
+                builder.url(httpUrl)
 
                 return chain.proceed(builder.build())
             }

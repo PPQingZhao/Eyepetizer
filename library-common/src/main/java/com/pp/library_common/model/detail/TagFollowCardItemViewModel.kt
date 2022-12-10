@@ -18,7 +18,7 @@ class TagFollowCardItemViewModel(item: VideoBean.Item?): FollowCardItem2ViewMode
 
                 it.content?.let { content ->
                     duration.set(TimeUtils.format(content.data.duration))
-                    cover.set(content.data.cover.feed)
+                    cover.set(content.data.cover?.feed)
                     title.set(content.data.title)
                 }
 

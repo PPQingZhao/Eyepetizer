@@ -94,7 +94,7 @@ data class VideoBean(
             @SerializedName("areaSet")
             val areaSet: List<Any>,
             @SerializedName("author")
-            val author: Author,
+            val author: Author?,
             @SerializedName("brandWebsiteInfo")
             val brandWebsiteInfo: Any?,
             @SerializedName("campaign")
@@ -108,7 +108,7 @@ data class VideoBean(
             @SerializedName("consumption")
             val consumption: Consumption,
             @SerializedName("cover")
-            val cover: Cover,
+            val cover: Cover?,
             @SerializedName("createTime")
             val createTime: Long,
             @SerializedName("dataType")
@@ -206,7 +206,7 @@ data class VideoBean(
             @SerializedName("webAdTrack")
             val webAdTrack: Any?,
             @SerializedName("webUrl")
-            val webUrl: WebUrl
+            val webUrl: WebUrl,
         )
 
         data class Author(

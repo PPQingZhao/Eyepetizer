@@ -83,6 +83,7 @@ interface EyepetizerService2 {
         private val header: Header = Gson().fromJson(headerJson, Header::class.java)
         private val retrofit = RetrofitUtil.createEyeRetrofit(
             BASE_URL_V1,
+            null,
             "x-api-key" to header.xApiKey,
             "X-THEFAIR-APPID" to header.xTHEFAIRAPPID,
             "X-THEFAIR-CID" to header.xTHEFAIRCID,
@@ -107,7 +108,9 @@ interface EyepetizerService2 {
             }
 
             val createEyeRetrofit = RetrofitUtil.createEyeRetrofit(
-                url, "x-api-key" to header.xApiKey,
+                url,
+                null,
+                "x-api-key" to header.xApiKey,
                 "X-THEFAIR-APPID" to header.xTHEFAIRAPPID,
                 "X-THEFAIR-CID" to header.xTHEFAIRCID,
                 "X-THEFAIR-AUTH" to header.xTHEFAIRAUTH,

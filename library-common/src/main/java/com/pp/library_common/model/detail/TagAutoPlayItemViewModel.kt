@@ -11,11 +11,11 @@ class TagAutoPlayItemViewModel(item: VideoBean.Item?): AutoPlayItemViewModel() {
 
             val bean = value
             bean?.data?.let {
-                icon.set(it.author.icon)
+                icon.set(it.content?.data?.author?.icon)
                 title.set(it.content?.data?.title)
-                name.set(it.author.name)
+                name.set(it.author?.name)
                 description.set(it.content?.data?.description)
-                it.content?.tag?.forEachIndexed { index, tag ->
+                it.content?.data?.tags?.forEachIndexed { index, tag ->
                     when (index) {
                         0 -> tag1.set(tag.name)
                         1 -> tag2.set(tag.name)
@@ -23,10 +23,16 @@ class TagAutoPlayItemViewModel(item: VideoBean.Item?): AutoPlayItemViewModel() {
                     }
                 }
 
-                publishDate.set("${it.content?.data?.date}")
-                imagePath.set(it.cover.feed)
-                playUrl.set(it.playUrl)
-                enablePlay.set(true)
+                it.content?.data?.let { dataX ->
+                    replyCount.set("${dataX.consumption.replyCount}")
+                    collectionCount.set("${dataX.consumption.collectionCount}")
+                    realCollectionCount.set("${dataX.consumption.realCollectionCount}")
+
+                    publishDate.set("${dataX.date}")
+                    imagePath.set(dataX.cover?.feed)
+                    playUrl.set(dataX.playUrl)
+                    enablePlay.set(true)
+                }
             }
 
         }
