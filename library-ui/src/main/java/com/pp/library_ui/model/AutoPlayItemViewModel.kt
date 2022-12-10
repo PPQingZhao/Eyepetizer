@@ -15,9 +15,4 @@ open class AutoPlayItemViewModel: VideoCardItemViewModel() {
     val replyCount = ObservableField<String>()
     val realCollectionCount = ObservableField<String>()
 
-    val expand: ObservableField<Boolean> = ObservableField(false)
-
-    fun onExpand(view: View) {
-        expand.set(expand.get()?.not())
-    }
 }

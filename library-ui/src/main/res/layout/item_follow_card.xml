@@ -132,37 +132,31 @@
             app:layout_constraintEnd_toEndOf="@id/viewpager"
             app:layout_constraintTop_toTopOf="@id/viewpager" />
 
-        <TextView
+        <com.pp.library_ui.widget.ExpandableTextLayout
             android:id="@+id/tv_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_small"
             android:ellipsize="end"
             android:maxLines="3"
             android:text="@{viewModel.content}"
             android:textColor="@{themeViewModel.textColor}"
             android:textSize="13sp"
+            app:closeText="@string/close"
+            app:expand="@{false}"
+            app:expandText="@string/expand"
+            app:expandedTextColor="@color/blue"
+            app:expandedTextSize="15sp"
             app:layout_constraintEnd_toEndOf="@id/iv_follow"
             app:layout_constraintStart_toStartOf="@id/fl_icon"
             app:layout_constraintTop_toBottomOf="@id/viewpager"
-            tools:maxLines="3"
             tools:text="社恐的最高境界是什么样的?
             自己跟自己下棋还有滋有味,就算受伤也不用别人帮忙，包扎、借钱、去医院，
             破了也自己搞定轮胎,提供车贷房贷及时来不到就是零零零零，二七十九世纪就，点击aadd"
-            tools:textColor="?android:textColor" />
+            tools:textColor="?android:textColor">
 
-        <TextView
-            android:id="@+id/tv_expand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_normal"
-            android:background="?selectableItemBackgroundBorderless"
-            android:onClick="@{viewModel.onExpand}"
-            android:text="@{viewModel.expand ? @string/close : @string/expand}"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintEnd_toEndOf="@id/tv_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_content"
-            tools:text="@string/expand" />
+        </com.pp.library_ui.widget.ExpandableTextLayout>
+
 
         <TextView
             android:id="@+id/tv_text_image"
@@ -176,7 +170,7 @@
             android:textSize="12sp"
             android:visibility="@{TextUtils.isEmpty(viewModel.category) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="@id/fl_icon"
-            app:layout_constraintTop_toBottomOf="@id/tv_expand" />
+            app:layout_constraintTop_toBottomOf="@id/tv_content" />
 
         <TextView
             android:id="@+id/tv_category"
@@ -217,6 +211,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:buttonTint="?android:textColorSecondary"
+                tools:ignore="TouchTargetSizeCheck"
                 tools:text="68"
                 tools:textColor="?android:textColorSecondary" />
 
@@ -235,6 +230,7 @@
                 app:layout_constraintStart_toEndOf="@id/tv_thumb"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:buttonTint="?android:textColorSecondary"
+                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck"
                 tools:text="68"
                 tools:textColor="?android:textColorSecondary" />
 
@@ -253,6 +249,7 @@
                 app:layout_constraintStart_toEndOf="@id/tv_star"
                 app:layout_constraintTop_toTopOf="@id/tv_star"
                 tools:buttonTint="?android:textColorSecondary"
+                tools:ignore="TouchTargetSizeCheck"
                 tools:text="68"
                 tools:textColor="?android:textColorSecondary" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -265,7 +262,7 @@
             android:padding="3dp"
             android:src="@drawable/ic_share"
             app:layout_constraintBottom_toBottomOf="@id/cl_bottom_bar"
-            app:layout_constraintEnd_toEndOf="@id/tv_expand"
+            app:layout_constraintEnd_toEndOf="@id/tv_content"
             app:layout_constraintTop_toTopOf="@id/cl_bottom_bar"
             tools:tint="?android:textColorSecondary" />
 

@@ -32,4 +32,18 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <declare-styleable name="ExpandableTextLayout">
+        <attr name="android:maxLines" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="android:ellipsize" />
+        <attr name="android:text" />
+        <attr name="expandText" format="reference|string" />
+        <attr name="closeText" format="reference|string" />
+        <attr name="expandedTextColor" format="reference|color" />
+        <attr name="expandedTextSize" format="dimension" />
+        <attr name="expand" format="boolean" />
+
+    </declare-styleable>
+
 </resources>

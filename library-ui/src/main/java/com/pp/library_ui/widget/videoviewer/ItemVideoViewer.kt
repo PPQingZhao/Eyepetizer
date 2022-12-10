@@ -32,10 +32,7 @@ class ItemVideoViewer : GlobalVideoViewer {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             when (newState) {
                 RecyclerView.SCROLL_STATE_IDLE -> {
-                    val controllers = updateScrollControllers()
-                    if (controllers.isNotEmpty()){
-                        release()
-                    }
+                    releaseBecauseInvalidityScrollControllers()
                 }
             }
         }
@@ -45,17 +42,20 @@ class ItemVideoViewer : GlobalVideoViewer {
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         lifecycleOwner?.lifecycle?.addObserver(observer)
-        updateScrollControllers()
+        releaseBecauseInvalidityScrollControllers()
     }
 
-    private fun updateScrollControllers(): List<RecyclerView> {
+    /**
+     * 释放视频
+     */
+    private fun releaseBecauseInvalidityScrollControllers() {
         var parent = parent
 
         // 新的 scroller controllers
         val newControllers = mutableListOf<RecyclerView>()
         while (parent != null) {
             if (parent is RecyclerView) {
-                if(!scrollControllers.contains(parent)){
+                if (!scrollControllers.contains(parent)) {
                     parent.addOnScrollListener(onScrollListener)
                 }
                 newControllers.add(parent)
@@ -70,12 +70,14 @@ class ItemVideoViewer : GlobalVideoViewer {
         scrollControllers.addAll(newControllers)
 
         // 清理无效的 scroll controller
-        val minus = tempControllers.minus(newControllers.toSet())
-        minus.onEach {
+        // 出现失效的controller，说明当前video脱离窗口,需要release
+        val invalidityControllers = tempControllers.minus(newControllers.toSet())
+        if (invalidityControllers.isNotEmpty()) {
+            release()
+        }
+        invalidityControllers.onEach {
             it.removeOnScrollListener(onScrollListener)
         }
-        return minus
-
     }
 
     override fun onDetachedFromWindow() {

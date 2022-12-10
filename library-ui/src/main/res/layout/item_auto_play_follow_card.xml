@@ -95,18 +95,22 @@
             app:layout_constraintTop_toTopOf="@id/tv_publish_date"
             tools:text="外国人少系列，「用生命」拍..." />
 
-        <TextView
+        <com.pp.library_ui.widget.ExpandableTextLayout
             android:id="@+id/tv_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginEnd="@dimen/padding_normal"
             android:ellipsize="end"
-            android:maxLines="@{viewModel.expand ? 10:2}"
+            android:maxLines="2"
             android:text="@{viewModel.description}"
             android:textColor="@{themeViewModel.textColor}"
             android:textSize="@dimen/content_sub_title"
+            app:closeText="@string/close"
+            app:expandText="@string/expand"
+            app:expandedTextColor="@color/colorAccent"
+            app:expandedTextSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_icon"
@@ -116,27 +120,14 @@
             破了也自己搞定轮胎,提供车贷房贷及时来不到就是零零零零，二七十九世纪就，点击aadd"
             tools:textColor="?android:textColor" />
 
-        <TextView
-            android:id="@+id/tv_expand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_normal"
-            android:background="?selectableItemBackgroundBorderless"
-            android:onClick="@{viewModel.onExpand}"
-            android:text="@{viewModel.expand ? @string/close : @string/expand}"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintEnd_toEndOf="@id/tv_content"
-            app:layout_constraintBottom_toBottomOf="@id/tv_content"
-            tools:text="@string/more" />
-
         <LinearLayout
             android:id="@+id/ll_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginStart="@dimen/padding_normal"
-            android:layout_marginEnd="@dimen/padding_normal"
             android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/tv_title"
@@ -146,13 +137,13 @@
                 android:id="@+id/tv_tag1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/shape_round_rectangle_btn_tag_bg"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{viewModel.tag1}"
                 android:textColor="@color/colorAccent"
                 android:textSize="13sp"
                 android:visibility="@{viewModel.tag1.empty ? View.GONE : View.VISIBLE}"
-                android:background="@drawable/shape_round_rectangle_btn_tag_bg"
                 tools:text="运动健身" />
 
             <TextView
@@ -160,13 +151,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_normal"
+                android:background="@drawable/shape_round_rectangle_btn_tag_bg"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{viewModel.tag2}"
                 android:textColor="@color/colorAccent"
                 android:textSize="13sp"
                 android:visibility="@{viewModel.tag2.empty ? View.GONE : View.VISIBLE}"
-                android:background="@drawable/shape_round_rectangle_btn_tag_bg"
                 tools:text="滑雪" />
 
             <TextView
@@ -174,13 +165,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_normal"
+                android:background="@drawable/shape_round_rectangle_btn_tag_bg"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{viewModel.tag2}"
                 android:textColor="@color/colorAccent"
                 android:textSize="13sp"
                 android:visibility="@{viewModel.tag3.empty ? View.GONE : View.VISIBLE}"
-                android:background="@drawable/shape_round_rectangle_btn_tag_bg"
                 tools:text="酷炫" />
 
         </LinearLayout>
@@ -191,8 +182,8 @@
             startGlobalPlay="@{viewModel.playUrl}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginEnd="@dimen/padding_normal"
             android:clickable="@{viewModel.enablePlay}"
             app:layout_constraintDimensionRatio="16:9"
@@ -205,13 +196,13 @@
             android:id="@+id/cl_bottom_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginEnd="@dimen/padding_normal"
             android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/iv_icon"
-            app:layout_constraintTop_toBottomOf="@+id/video_viewer"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/video_viewer">
 
             <RadioButton
                 android:id="@+id/tv_thumb"

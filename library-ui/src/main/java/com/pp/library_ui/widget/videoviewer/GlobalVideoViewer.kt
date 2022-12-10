@@ -62,9 +62,7 @@ open class GlobalVideoViewer : VideoViewer {
     private val observer = object : DefaultLifecycleObserver {
         override fun onDestroy(owner: LifecycleOwner) {
             super.onDestroy(owner)
-            if (sPlayingVideo.value == this@GlobalVideoViewer) {
-                release()
-            }
+            release()
         }
     }
 
@@ -73,6 +71,10 @@ open class GlobalVideoViewer : VideoViewer {
         exoPlayer = null
         playImageView.visibility = View.VISIBLE
         showCover(true)
+
+        if (sPlayingVideo.value == this@GlobalVideoViewer) {
+            sPlayingVideo.value = null
+        }
         Log.v(TAG, "released: $playUrl")
     }
 
@@ -131,7 +133,7 @@ open class GlobalVideoViewer : VideoViewer {
             startPlay(player, this, true)
 
             exoPlayer = player
-            Log.v(TAG,"start play: $playUrl")
+            Log.v(TAG, "start play: $playUrl")
         }
     }
 

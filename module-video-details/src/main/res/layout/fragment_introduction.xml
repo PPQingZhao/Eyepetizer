@@ -59,16 +59,23 @@
                     tools:text="#广告"
                     tools:textColor="?attr/colorSecondary" />
 
-                <TextView
+                <com.pp.library_ui.widget.ExpandableTextLayout
                     android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_normal"
+                    android:ellipsize="end"
+                    android:maxLines="3"
                     android:text="@{viewModel.content}"
                     android:textColor="@{themeViewModel.textColor}"
                     android:textSize="13sp"
-                    tools:text="复古风拼贴广告,ASICS的欲火重生,合作退出了复刻巴拿球鞋,鬼冢而而且
-                          复古风拼贴广告,ASICS的欲火重生,合作退出了复刻巴拿球鞋,鬼冢而而且 " />
+                    app:closeText="@string/close"
+                    app:expandText="@string/expand"
+                    app:expandedTextColor="@color/blue"
+                    app:expandedTextSize="15sp"
+                    tools:text="复古风拼贴广告,ASICSerewafdsfdgfgdgfdfdsferwesagsaddsg
+                    fdsfds的欲火dfsfsfsafdsfsdfdfwsfdsafsdfsgdsgsagsfdsgdsag重生,合作退出了复刻巴拿球鞋,鬼冢而而且
+                          复古风拼贴广告,ASICS的欲火重生,合作fdsfdfsdf退出了复刻巴拿球鞋,鬼冢而而且 " />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -159,7 +166,7 @@
                         app:layout_constraintTop_toTopOf="@id/tv_star"
                         tools:drawableTint="?attr/themeTint"
                         tools:text="233"
-                        tools:textColor="?attr/color" />
+                        tools:textColor="?attr/themeTint" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -20,7 +20,6 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
     var date = ObservableField<String>()
     var cover = ObservableField<String>()
     var category = ObservableField<String>()
-    val expand: ObservableField<Boolean> = ObservableField(false)
     val collectionCount = ObservableField<String>()
     val realCollectionCount = ObservableField<String>()
     val replyCount = ObservableField<String>()
@@ -33,10 +32,6 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
 
     open fun getLayoutManager(context: Context): RecyclerView.LayoutManager {
         return LinearLayoutManager(context)
-    }
-
-    fun onExpand(view: View) {
-        expand.set(expand.get()?.not())
     }
 
     open fun onVideo(view: View) {}

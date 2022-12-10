@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -12,8 +11,8 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.pp.library_ui.utils.ExpandTextWatcher
 import com.pp.library_ui.utils.load
+import com.pp.library_ui.widget.ExpandableTextLayout
 import com.pp.library_ui.widget.banner.BannerViewPager
 import com.pp.library_ui.widget.banner.BaseBannerAdapter
 import com.pp.library_ui.widget.indicator.IndicatorView
@@ -39,15 +38,6 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter("mVisibility")
     fun setVisibility(v: View, visibility: Boolean) {
         v.visibility = if (visibility) View.VISIBLE else View.GONE
-    }
-
-    @JvmStatic
-    @androidx.databinding.BindingAdapter("android:expandText")
-    fun expandText(textView: TextView, expandText: String) {
-
-        // todo
-        textView.addTextChangedListener(ExpandTextWatcher(textView, expandText, "收起"))
-
     }
 
     @JvmStatic
@@ -160,5 +150,31 @@ object BindingAdapter {
     @androidx.databinding.BindingAdapter(value = ["startGlobalPlay", "setCover"], requireAll = true)
     fun startGlobalPlay(video: ItemVideoViewer, playUrl: String?, cover: String?) {
         video.setPlayUrlAndCover(playUrl?:"", cover?:"")
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("android:text")
+    fun setExpandText(view: ExpandableTextLayout, text: String) {
+        view.setContent(text)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("android:textColor")
+    fun setExpandTextColor(view: ExpandableTextLayout, color: Int) {
+        view.setExpandTextColor(color)
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("app:expand")
+    fun setExpand(view: ExpandableTextLayout, expand: Boolean) {
+        view.isExpand = expand
+    }
+
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter(value = ["android:text", "app:expand"], requireAll = true)
+    fun setExpandTextAndExpand(view: ExpandableTextLayout, text: String, expand: Boolean) {
+        view.setContent(text)
+        view.isExpand = expand
     }
 }

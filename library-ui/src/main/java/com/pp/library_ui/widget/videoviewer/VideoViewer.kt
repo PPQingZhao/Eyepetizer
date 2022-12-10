@@ -192,8 +192,8 @@ open class VideoViewer : FrameLayout {
         playerView?.player?.apply {
             release()
             removeListener(playEventListener)
-            removeView(playerView)
         }
+        removeView(playerView)
     }
 
     open fun release() {
