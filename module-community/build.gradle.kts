@@ -47,7 +47,7 @@ android {
 
     if ("com.android.application"==(libs.plugins.android.module.get().pluginId)) {
         sourceSets["main"].java.srcDir("src/main/module")
-//        sourceSets["main"].manifest.srcFile("src/main/module/AndroidManifest.xml")
+        sourceSets["main"].manifest.srcFile("src/main/module/AndroidManifest.xml")
         sourceSets["main"].res.srcDir("src/main/res-module")
     } else {
         sourceSets["main"].resources.exclude("src/main/module/*")

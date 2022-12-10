@@ -165,14 +165,14 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @androidx.databinding.BindingAdapter("app:expand")
+    @androidx.databinding.BindingAdapter("expand")
     fun setExpand(view: ExpandableTextLayout, expand: Boolean) {
         view.isExpand = expand
     }
 
 
     @JvmStatic
-    @androidx.databinding.BindingAdapter(value = ["android:text", "app:expand"], requireAll = true)
+    @androidx.databinding.BindingAdapter(value = ["android:text", "expand"], requireAll = true)
     fun setExpandTextAndExpand(view: ExpandableTextLayout, text: String, expand: Boolean) {
         view.setContent(text)
         view.isExpand = expand
