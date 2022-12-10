@@ -1,16 +1,13 @@
 package com.pp.library_ui.model
 
-import android.content.Context
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.databinding.ObservableLong
 import com.pp.library_ui.R
 
 
-open class FollowCardItemViewModel<VH : ViewHolder>() {
+open class FollowCardItem2ViewModel {
 
     var isVideo: Boolean = true
     var area = ObservableField<String>()
@@ -27,17 +24,9 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
     val constraintDimensionRatio = ObservableField<String>()
     val drawableFollow = ObservableField<Int>(R.drawable.layer_follow)
     val indicatorCount = ObservableInt()
-    var adapter: RecyclerView.Adapter<VH>? = null
+    val duration = ObservableField<String>()
 
     var title = ObservableField<String>()
-
-    open fun getLayoutManager(context: Context): RecyclerView.LayoutManager {
-        return LinearLayoutManager(context)
-    }
-
-    fun onExpand(view: View) {
-        expand.set(expand.get()?.not())
-    }
 
     open fun onVideo(view: View) {}
 }

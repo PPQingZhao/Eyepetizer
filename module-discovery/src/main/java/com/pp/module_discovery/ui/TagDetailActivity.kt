@@ -59,20 +59,9 @@ class TagDetailActivity : ThemeActivity<ActivityTagDetailBinding, TagDetailViewM
 
     private fun initToolbar() {
         mBinding.appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val minHeight = mBinding.collapsingToolbar.height - mBinding.tagToolbar.height - mBinding.tabLayout.height
-            if (verticalOffset < 0 ) {
-                mBinding.ivBack.visibility = View.VISIBLE
-                mBinding.ivShare.visibility = View.VISIBLE
-                if (abs(verticalOffset) > minHeight) {
-                    mBinding.tvTitle.visibility = View.VISIBLE
-                } else {
-                    mBinding.tvTitle.visibility = View.GONE
-                }
-            } else {
-                mBinding.ivBack.visibility = View.GONE
-                mBinding.ivShare.visibility = View.GONE
-                mBinding.tvTitle.visibility = View.GONE
-            }
+            // toolbar 透明度跟随滚动变化
+            val offset = abs(verticalOffset)
+            mBinding.tagToolbar.alpha = offset * 1.0F / appBarLayout.totalScrollRange
         }
     }
 

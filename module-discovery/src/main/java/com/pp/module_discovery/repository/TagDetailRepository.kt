@@ -23,15 +23,16 @@ object TagDetailRepository {
 
     fun getVideoPagingData(url: String): Flow<PagingData<VideoBean.Item>> {
         return Pager(
+            initialKey = url,
             config = PagingConfig(15),
-            pagingSourceFactory = { VideoPagingSource(url) }).flow
+            pagingSourceFactory = { VideoPagingSource() }).flow
     }
 
-    class VideoPagingSource(private val firstUrl: String) : PagingSource<String, VideoBean.Item>() {
+    class VideoPagingSource() : PagingSource<String, VideoBean.Item>() {
         override suspend fun load(params: LoadParams<String>): LoadResult<String, VideoBean.Item> {
 
             return try {
-                val url = params.key ?: firstUrl
+                val url = params.key ?: return LoadResult.Page(mutableListOf(), null, null)
                 val videoBean = EyepetizerService.discoverApi.getVideos(url)
                 val value = videoBean.itemList
                 val preKey = null

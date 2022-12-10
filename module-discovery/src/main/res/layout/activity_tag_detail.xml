@@ -6,7 +6,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -19,9 +20,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
-                app:contentScrim="@color/white"
+                app:contentScrim="@color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:statusBarScrim="@color/white"
+                app:statusBarScrim="@{themeViewModel.windowBackground}"
                 app:titleEnabled="false">
 
                 <ImageView
@@ -29,6 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:bindSrc="@{viewModel.bgPicture}"
+                    app:layout_collapseMode="none"
                     tools:ignore="MissingConstraints" />
 
                 <include
@@ -39,6 +41,7 @@
                     android:id="@+id/tag_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
+                    android:background="@{themeViewModel.windowBackground}"
                     app:layout_collapseMode="pin">
 
                     <ImageView
@@ -47,7 +50,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_normal"
                         android:layout_gravity="center_vertical"
-                        android:visibility="gone"
                         android:background="@drawable/ic_arrow_left"
                         app:tint="@color/black" />
 
@@ -56,9 +58,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:visibility="gone"
                         android:text="@{viewModel.title}"
-                        android:textColor="@color/black"
+                        android:textColor="@{themeViewModel.textColor}"
                         android:textSize="15sp" />
 
                     <ImageView
@@ -67,7 +68,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/padding_normal"
                         android:layout_gravity="end|center_vertical"
-                        android:visibility="gone"
                         android:background="@drawable/ic_share_black"
                         app:tint="@color/black" />
 

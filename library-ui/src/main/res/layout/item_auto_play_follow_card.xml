@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
+            name="viewModel"
+            type="com.pp.library_ui.model.AutoPlayItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_margin_bottom"
+        android:onClick="@{viewModel.onVideo}">
+
+        <FrameLayout
+            android:id="@+id/iv_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:foreground="@drawable/shape_circle"
+            android:onClick="@{viewModel.onIcon}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.1">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:bindSrc="@{viewModel.icon}"
+                android:scaleType="centerCrop"
+                app:roundPercent="1"
+                tools:src="@drawable/ic_launcher_background" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.title}"
+            android:textColor="@{themeViewModel.textColor}"
+            android:textSize="@dimen/content_sub_title"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_icon"
+            tools:text="GoPro" />
+
+        <TextView
+            android:id="@+id/tv_publish_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.publishDate}"
+            android:textColor="@{themeViewModel.textColorHint}"
+            android:textSize="@dimen/content_sub_title"
+            app:layout_constraintEnd_toStartOf="@+id/tv_title"
+            app:layout_constraintStart_toEndOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:text="2022/11/28 发布：" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.title}"
+            android:textColor="@{themeViewModel.textColor}"
+            android:textSize="@dimen/content_sub_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_publish_date"
+            app:layout_constraintTop_toTopOf="@id/tv_publish_date"
+            tools:text="外国人少系列，「用生命」拍..." />
+
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="@{viewModel.expand ? 10:2}"
+            android:text="@{viewModel.description}"
+            android:textColor="@{themeViewModel.textColor}"
+            android:textSize="@dimen/content_sub_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+            tools:maxLines="2"
+            tools:text="运动大神 Fred 将跳伞、自由飞行和高速骑行结合起来，
+            为我们呈现了这只一无二的滑雪视频。阿尔卑斯雪山滑雪胜地汇集了阿尔卑
+            破了也自己搞定轮胎,提供车贷房贷及时来不到就是零零零零，二七十九世纪就，点击aadd"
+            tools:textColor="?android:textColor" />
+
+        <TextView
+            android:id="@+id/tv_expand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:background="?selectableItemBackgroundBorderless"
+            android:onClick="@{viewModel.onExpand}"
+            android:text="@{viewModel.expand ? @string/close : @string/expand}"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="@id/tv_content"
+            app:layout_constraintBottom_toBottomOf="@id/tv_content"
+            tools:text="@string/more" />
+
+        <LinearLayout
+            android:id="@+id/ll_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_content">
+
+            <TextView
+                android:id="@+id/tv_tag1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.tag1}"
+                android:textColor="@{themeViewModel.textColor}"
+                android:textSize="13sp"
+                android:visibility="@{viewModel.tag1.empty ? View.GONE : View.VISIBLE}"
+                android:background="@drawable/shape_round_rectangle_btn_tag_bg"
+                tools:text="运动健身" />
+
+            <TextView
+                android:id="@+id/tv_tag2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_normal"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.tag2}"
+                android:textColor="@{themeViewModel.textColor}"
+                android:textSize="13sp"
+                android:visibility="@{viewModel.tag2.empty ? View.GONE : View.VISIBLE}"
+                android:background="@drawable/shape_round_rectangle_btn_tag_bg"
+                tools:text="滑雪" />
+
+            <TextView
+                android:id="@+id/tv_tag3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_normal"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.tag2}"
+                android:textColor="@{themeViewModel.textColor}"
+                android:textSize="13sp"
+                android:visibility="@{viewModel.tag3.empty ? View.GONE : View.VISIBLE}"
+                android:background="@drawable/shape_round_rectangle_btn_tag_bg"
+                tools:text="酷炫" />
+
+        </LinearLayout>
+
+        <com.pp.library_ui.widget.videoviewer.ItemVideoViewer
+            android:id="@+id/video_viewer"
+            setCover="@{viewModel.imagePath}"
+            startGlobalPlay="@{viewModel.playUrl}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="@{viewModel.enablePlay}"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_category"
+            tools:background="@drawable/ic_launcher_background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

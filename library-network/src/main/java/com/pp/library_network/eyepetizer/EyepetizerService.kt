@@ -1,5 +1,7 @@
 package com.pp.library_network.eyepetizer
 
+import com.google.gson.Gson
+import com.pp.library_network.eyepetizer.bean.Header
 import com.pp.library_network.utils.RetrofitUtil
 
 interface EyepetizerService {
@@ -44,7 +46,27 @@ interface EyepetizerService {
 
         const val URL_TAG = "api/v6/tag/index"
 
-        val retrofit = RetrofitUtil.create(BASE_URL)
+
+        val headerJson = """
+           {
+           	"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 10; Redmi K30 5G MIUI/V12.0.7.0.QGICNXM)",
+           	"X-THEFAIR-APPID": "ahpagrcrf2p7m6rg",
+           	"X-THEFAIR-CID": "2248c7390ffd3039d84a554301e0fd73",
+           	"Cookie": "ky_auth=_V1MTg1NjYyNDg3NTE6MTY5ODgwODkyMDE4NjpmMzBhNmE0MTIwN2QwYTQyNjExYjZjZGViNjA1ODIzNQ;sdk=29",
+           	"Host": "baobab.kaiyanapp.com"
+           }
+        """.trimIndent()
+        private val header: Header = Gson().fromJson(headerJson, Header::class.java)
+        private val retrofit = RetrofitUtil.createEyeRetrofit(
+            BASE_URL,
+            "X-THEFAIR-APPID" to header.xTHEFAIRAPPID,
+            "X-THEFAIR-CID" to header.xTHEFAIRCID,
+            "User-Agent" to header.userAgent,
+            "Cookie" to header.cookie,
+            "Host" to header.host,
+        )
+
+//        val retrofit = RetrofitUtil.create(BASE_URL)
 
         val discoverApi: DiscoverApi by lazy { retrofit.create(DiscoverApi::class.java) }
     }

@@ -8,11 +8,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
 import com.pp.library_base.base.ThemeFragment
-import com.pp.library_common.model.MetroBannerItemViewModel
-import com.pp.library_network.eyepetizer.EyepetizerService
+import com.pp.library_common.adapter.VideoPagingDataAdapterType
 import com.pp.library_network.eyepetizer.bean.detail.TagDetailBean
 import com.pp.library_network.eyepetizer.bean.detail.VideoBean
-import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.module_discovery.databinding.FragmentTagRecommendBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -53,19 +51,18 @@ class TagRecommendFragment(tab: TagDetailBean.TabInfo.Tab?) : ThemeFragment<Frag
             }
         }
 
-        val type_picture_follow = 1
+        val type_text_card = 1
+        val type_follow_card = type_text_card + 1
+        val type_video_small_card = type_follow_card + 1
+        val type_auto_play_follow_card = type_video_small_card + 1
+        val type_picture_follow = type_auto_play_follow_card + 1
         val adapter = MultiBindingPagingDataAdapter(call)
 
-        /*adapter.addBindingItem(DefaultViewBindingItem<VideoBean.Item>(
-                type_picture_follow,
-                { it?.type == EyepetizerService.ItemType.pictureFollowCard },
-                { com.pp.library_ui.databinding.ItemFollowCardBinding.inflate(layoutInflater, it, false) },
-                { binding, item, cacheItemViewModel ->
-                    if (cacheItemViewModel is MetroBannerItemViewModel) {
-                        cacheItemViewModel.metroList = item?.data?.cardData?.body?.metroList
-                        cacheItemViewModel
-                    } else MetroBannerItemViewModel(metroList = item?.data?.cardData?.body?.metroList)
-                })*/
+        adapter.addBindingItem(VideoPagingDataAdapterType.type_text_card(layoutInflater))
+        adapter.addBindingItem(VideoPagingDataAdapterType.type_follow_card(layoutInflater))
+        adapter.addBindingItem(VideoPagingDataAdapterType.type_video_small_card(layoutInflater))
+        adapter.addBindingItem(VideoPagingDataAdapterType.type_auto_play_follow_card(layoutInflater))
+
         adapter
     }
 
@@ -75,7 +72,7 @@ class TagRecommendFragment(tab: TagDetailBean.TabInfo.Tab?) : ThemeFragment<Frag
         try {
             lifecycleScope.launch {
                 mViewModel.getVideoPage(url).collect {
-                    //mAdapter.submitData(it)
+                    mAdapter.submitData(it)
                 }
             }
         } catch (e : Exception) {
