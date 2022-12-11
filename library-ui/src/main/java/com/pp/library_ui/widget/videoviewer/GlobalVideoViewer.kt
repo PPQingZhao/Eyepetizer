@@ -31,7 +31,6 @@ open class GlobalVideoViewer : VideoViewer {
         playImageView = ImageView(context)
         playImageView.setImageResource(R.drawable.exo_styled_controls_play)
         playImageView.setOnClickListener {
-            playImageView.visibility = View.GONE
             startGlobalPlay()
         }
         val playWidth = 36 * context.resources.displayMetrics.density
@@ -94,7 +93,16 @@ open class GlobalVideoViewer : VideoViewer {
         lifecycleOwner?.lifecycle?.removeObserver(observer)
     }
 
-    private fun startGlobalPlay() {
+    protected fun startGlobalPlay() {
+        if (exoPlayer != null) {
+            if (exoPlayer!!.isPlaying) {
+                return
+            } else if (!exoPlayer!!.playWhenReady) {
+                exoPlayer!!.playWhenReady = true
+                return
+            }
+        }
+        playImageView.visibility = View.GONE
         playUrl?.apply {
 
             val player = SimpleExoPlayer.Builder(context).build()

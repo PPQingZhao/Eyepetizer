@@ -178,6 +178,7 @@
 
         <com.pp.library_ui.widget.videoviewer.ItemVideoViewer
             android:id="@+id/video_viewer"
+            autoPlay="@{true}"
             setCover="@{viewModel.imagePath}"
             startGlobalPlay="@{viewModel.playUrl}"
             android:layout_width="match_parent"

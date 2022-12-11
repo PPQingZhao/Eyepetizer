@@ -153,6 +153,12 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @androidx.databinding.BindingAdapter(value = ["autoPlay"], requireAll = false)
+    fun startAutoPlay(video: ItemVideoViewer, autoPlay: Boolean) {
+        video.setAutoPlay(autoPlay)
+    }
+
+    @JvmStatic
     @androidx.databinding.BindingAdapter("android:text")
     fun setExpandText(view: ExpandableTextLayout, text: String) {
         view.setContent(text)

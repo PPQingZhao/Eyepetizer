@@ -2,7 +2,10 @@ package com.pp.library_ui.widget.videoviewer
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Rect
 import android.util.AttributeSet
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +31,76 @@ class ItemVideoViewer : GlobalVideoViewer {
         }
     }
 
+    private val onAutoPlayScrollListener = object : OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            when (newState) {
+                RecyclerView.SCROLL_STATE_IDLE -> {
+                    findFirstVideoAndPlay(recyclerView)
+                }
+            }
+        }
+    }
+
+    val recyclerRect = Rect()
+    val videoViewRect = Rect()
+    val tmpVideoViews = mutableListOf<ItemVideoViewer>()
+    private fun findFirstVideoAndPlay(recyclerView: RecyclerView) {
+        tmpVideoViews.clear()
+        recyclerView.getGlobalVisibleRect(recyclerRect)
+        findVideoView(recyclerView)
+        val videoViewer = tmpVideoViews.getOrNull(0)
+        videoViewer?.startGlobalPlay()
+    }
+
+    private fun findVideoView(view: View){
+        if (view is ItemVideoViewer) {
+            view.getGlobalVisibleRect(videoViewRect)
+            if (recyclerRect.contains(videoViewRect)) {
+                tmpVideoViews.add(view)
+                return
+            }
+            return
+        }
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                findVideoView(view.getChildAt(i))
+            }
+        }
+        return
+    }
+
+    private fun addAutoPlayListener() {
+        var p = parent
+
+        var find = false
+        while (p != null) {
+            if (find) {
+                return
+            }
+            if (p is RecyclerView) {
+                find = true
+                p.addOnScrollListener(onAutoPlayScrollListener)
+            }
+            p = p.parent
+        }
+    }
+
+    private fun removeAutoPlayListener() {
+        var p = parent
+
+        var find = false
+        while (p != null) {
+            if (find) {
+                return
+            }
+            if (p is RecyclerView) {
+                find = true
+                p.removeOnScrollListener(onAutoPlayScrollListener)
+            }
+            p = p.parent
+        }
+    }
+
     private val onScrollListener = object : OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             when (newState) {
@@ -43,6 +116,9 @@ class ItemVideoViewer : GlobalVideoViewer {
         super.onAttachedToWindow()
         lifecycleOwner?.lifecycle?.addObserver(observer)
         releaseBecauseInvalidityScrollControllers()
+        if (autoPlay) {
+            addAutoPlayListener()
+        }
     }
 
     /**
@@ -83,6 +159,15 @@ class ItemVideoViewer : GlobalVideoViewer {
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         lifecycleOwner?.lifecycle?.removeObserver(observer)
+        if (autoPlay) {
+            removeAutoPlayListener()
+        }
+    }
+
+    private var autoPlay = false
+
+    fun setAutoPlay(play: Boolean) {
+        autoPlay = play
     }
 
 }
