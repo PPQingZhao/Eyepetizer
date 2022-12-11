@@ -1,3 +1,4 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("com.android.library") version (libs.versions.androidGradlePlugin)
     alias(libs.plugins.kotlin.android)

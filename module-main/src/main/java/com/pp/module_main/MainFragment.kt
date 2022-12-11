@@ -209,6 +209,8 @@ class TabImageSwitcher(
                 setBackgroundColor(curImageBackgroundColor)
             }
         }
+        setImageResource(selectedIcon)
+        setImageResource(unSelectedIcon)
     }
 
     fun setImageBackground(@ColorInt color: Int) {
@@ -241,11 +243,13 @@ class TabImageSwitcher(
         if (selected) {
             setInAnimation(context, R.anim.anim_tab_selected_in)
             setOutAnimation(context, R.anim.anim_tab_unselected_out)
-            setImageResource(selectedIcon)
+//            setImageResource(selectedIcon)
+            showNext()
         } else {
             setInAnimation(context, R.anim.anim_tab_unselected_in)
             setOutAnimation(context, R.anim.anim_tab_selected_out)
-            setImageResource(unSelectedIcon)
+//            setImageResource(unSelectedIcon)
+            showPrevious()
         }
         super.setSelected(selected)
     }

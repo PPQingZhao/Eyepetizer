@@ -13,7 +13,8 @@ import com.pp.library_network.eyepetizer.bean.LoginBean
 import com.pp.module_user.repositoy.UserModel
 import com.pp.module_user.repositoy.UserRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 
 object UserManager {
@@ -32,49 +33,62 @@ object UserManager {
         App.getInstance().baseContext.dataStore.data.first().apply {
             val userName = get(userNameKey)
             val password = get(passwordKey)
-            if (userName?.isEmpty() != false){
+            if (userName?.isEmpty() != false) {
                 return
             }
 
-            if (password?.isEmpty() != false){
+            if (password?.isEmpty() != false) {
                 return
             }
 
-            login(userName,password)
+            login(userName, password).collect()
         }
     }
 
-    suspend fun login(
+    @OptIn(FlowPreview::class)
+    fun login(
         userName: String?,
-        password: String?
-    ): BaseResponse<LoginBean> {
-        logout()
-        val loginPair = UserRepository.login(userName, password)
-        if (loginPair.second.code == EyepetizerService2.ErrorCode.SUCCESS) {
-            val model = loginPair.first
+        password: String?,
+    ): Flow<BaseResponse<LoginBean>> {
+        // 先登出
+        return logout()
+            .flatMapConcat {
+                // 登录用户
+                UserRepository.login(userName, password).onEach { loginPair ->
+                    if (loginPair.second.code == EyepetizerService2.ErrorCode.SUCCESS) {
+                        val model = loginPair.first
+                        withContext(Dispatchers.Main) {
+                            userModel.value = model
+                        }
+                        App.getInstance().baseContext.dataStore.edit {
+                            it[userNameKey] = model.getName().toString()
+                            it[passwordKey] = model.getPassword().toString()
+                        }
+                        hasUser = true
+                    }
+                }.map {
+                    it.second
+                }
+            }
+    }
+
+    fun logout(): Flow<BaseResponse<String>> {
+        return if (userModel.value == null) {
+            flow {
+                emit(BaseResponse(0, null, null))
+            }
+        } else {
+            UserRepository.logout(userModel.value!!)
+        }.onStart {
             withContext(Dispatchers.Main) {
-                userModel.value = model
+                userModel.value = null
             }
             App.getInstance().baseContext.dataStore.edit {
-                it[userNameKey] = model.getName().toString()
-                it[passwordKey] = model.getPassword().toString()
+                it[userNameKey] = ""
+                it[passwordKey] = ""
             }
+            hasUser = false
         }
-        hasUser = true
-
-        return loginPair.second
-    }
-
-    suspend fun logout() {
-        withContext(Dispatchers.Main) {
-            userModel.value = null
-        }
-        App.getInstance().baseContext.dataStore.edit {
-            it[userNameKey] = ""
-            it[passwordKey] = ""
-        }
-
-        hasUser = false
     }
 
     fun hasUser(): Boolean {

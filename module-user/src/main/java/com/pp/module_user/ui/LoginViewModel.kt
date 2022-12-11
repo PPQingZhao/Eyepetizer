@@ -6,10 +6,11 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
+import com.pp.library_base.base.ThemeViewModel
 import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.LoginBean
 import com.pp.module_user.manager.UserManager
-import com.pp.library_base.base.ThemeViewModel
+import kotlinx.coroutines.flow.Flow
 
 @Suppress("COMPATIBILITY_WARNING")
 class LoginViewModel(app: Application) : ThemeViewModel(app) {
@@ -30,7 +31,7 @@ class LoginViewModel(app: Application) : ThemeViewModel(app) {
     }
 
 
-    suspend fun login(): BaseResponse<LoginBean> {
+    suspend fun login(): Flow<BaseResponse<LoginBean>> {
         return UserManager.login(userName.value, password.value)
     }
 }
