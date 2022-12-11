@@ -59,6 +59,7 @@ class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
 
         adapter.addBindingItem(MetroPagingDataAdapterType.description_text(layoutInflater))
         adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail(layoutInflater, true))
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_cover_large_image(layoutInflater))
 
         adapter
     }

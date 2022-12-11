@@ -21,8 +21,9 @@ object MetroPagingDataAdapterType {
     const val type_feed_cover_large_video = type_feed_item_detail + 1
     const val type_feed_cover_large_video2 = type_feed_cover_large_video + 1
     const val type_feed_cover_small_video = type_feed_cover_large_video2 + 1
+    const val type_feed_cover_large_image = type_feed_cover_small_video + 1
 
-    const val type_icon_grid = type_feed_cover_small_video + 1
+    const val type_icon_grid = type_feed_cover_large_image + 1
     const val type_slide_cover_image_with_title = type_icon_grid + 1
     const val type_slide_cover_image = type_slide_cover_image_with_title + 1
     const val type_set_slide_metro_list = type_slide_cover_image + 1
@@ -298,4 +299,16 @@ object MetroPagingDataAdapterType {
             }
         })
 
+    fun feed_cover_large_image(layoutInflater: LayoutInflater) = DefaultViewBindingItem<Metro>(
+        type_feed_cover_large_image,
+        { it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_large_image },
+        { ItemLargeImageBinding.inflate(layoutInflater, it, false) },
+        { binding, item, cacheItemViewModel ->
+            if (cacheItemViewModel is MetroLargeImageCardItemViewModel) {
+                cacheItemViewModel.metro = item
+                cacheItemViewModel
+            } else {
+                MetroLargeImageCardItemViewModel(item)
+            }
+        })
 }
