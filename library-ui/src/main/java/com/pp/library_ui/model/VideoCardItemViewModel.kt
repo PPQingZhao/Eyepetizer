@@ -2,6 +2,7 @@ package com.pp.library_ui.model
 
 import android.view.View
 import androidx.databinding.ObservableField
+import java.text.SimpleDateFormat
 
 
 open class VideoCardItemViewModel() {
@@ -13,6 +14,7 @@ open class VideoCardItemViewModel() {
     val icon = ObservableField<String>()
     val duration = ObservableField<String>()
 
+    val simpleFormat by lazy { SimpleDateFormat("yyyy/MM/dd") }
 
     open fun onVideo(view: View) {}
 

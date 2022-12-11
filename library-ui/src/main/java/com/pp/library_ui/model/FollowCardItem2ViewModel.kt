@@ -3,8 +3,8 @@ package com.pp.library_ui.model
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import androidx.databinding.ObservableLong
 import com.pp.library_ui.R
+import java.text.SimpleDateFormat
 
 
 open class FollowCardItem2ViewModel {
@@ -26,7 +26,14 @@ open class FollowCardItem2ViewModel {
     val indicatorCount = ObservableInt()
     val duration = ObservableField<String>()
 
+    val urls = ObservableField<List<String>>()
+    val tag1 = ObservableField("")
+    val tag2 = ObservableField("")
+    val tag3 = ObservableField("")
+
     var title = ObservableField<String>()
+
+    val simpleFormat by lazy { SimpleDateFormat("yyyy/MM/dd") }
 
     open fun onVideo(view: View) {}
 }

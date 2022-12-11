@@ -15,6 +15,7 @@ import com.pp.library_ui.utils.load
 import com.pp.library_ui.widget.ExpandableTextLayout
 import com.pp.library_ui.widget.banner.BannerViewPager
 import com.pp.library_ui.widget.banner.BaseBannerAdapter
+import com.pp.library_ui.widget.gridlayout.CustomGridLayout
 import com.pp.library_ui.widget.indicator.IndicatorView
 import com.pp.library_ui.widget.videoviewer.ItemVideoViewer
 
@@ -182,5 +183,11 @@ object BindingAdapter {
     fun setExpandTextAndExpand(view: ExpandableTextLayout, text: String, expand: Boolean) {
         view.setContent(text)
         view.isExpand = expand
+    }
+
+    @JvmStatic
+    @androidx.databinding.BindingAdapter("setUrls", requireAll = true)
+    fun setGridUrls(view: CustomGridLayout, urls: List<String>) {
+        view.setUrls(urls)
     }
 }

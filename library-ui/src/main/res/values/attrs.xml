@@ -26,6 +26,44 @@
         <item name="cornerSize">6dp</item>
     </style>
 
+    <!--ShapeableImageView 左上圆角-->
+    <style name="LeftTopRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 左下圆角-->
+    <style name="LeftBottomRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 右上圆角-->
+    <style name="RightTopRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 右下圆角-->
+    <style name="RightBottomRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 左圆角-->
+    <style name="LeftRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">6dp</item>
+        <item name="cornerSizeBottomLeft">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 右圆角-->
+    <style name="RightRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">6dp</item>
+        <item name="cornerSizeBottomRight">6dp</item>
+    </style>
+
     <!--ShapeableImageView 圆 -->
     <style name="CircleStyle">
         <item name="cornerFamily">rounded</item>

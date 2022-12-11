@@ -2,6 +2,7 @@ package com.pp.library_network.eyepetizer.bean.detail
 
 
 import com.google.gson.annotations.SerializedName
+import java.security.acl.Owner
 
 data class VideoBean(
     @SerializedName("adExist")
@@ -76,7 +77,9 @@ data class VideoBean(
             @SerializedName("time")
             val time: Long?,
             @SerializedName("title")
-            val title: String
+            val title: String,
+            @SerializedName("issuerName")
+            val issuerName: String?,
         )
 
         data class DataX(
@@ -207,6 +210,12 @@ data class VideoBean(
             val webAdTrack: Any?,
             @SerializedName("webUrl")
             val webUrl: WebUrl,
+            @SerializedName("url")
+            val url: String?,
+            @SerializedName("urls")
+            val urls: List<String>?,
+            @SerializedName("owner")
+            val owner: OwnerBean?,
         )
 
         data class Author(

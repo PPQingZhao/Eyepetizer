@@ -10,7 +10,7 @@ import com.pp.library_network.eyepetizer.bean.detail.VideoBean
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.databinding.ItemAutoPlayFollowCardBinding
 import com.pp.library_ui.databinding.ItemFollowCard2Binding
-import com.pp.library_ui.databinding.ItemFollowCardBinding
+import com.pp.library_ui.databinding.ItemFollowCard3Binding
 import com.pp.library_ui.databinding.ItemHeaderBinding
 import com.pp.library_ui.databinding.ItemVideoSmallCard2Binding
 
@@ -77,14 +77,14 @@ object VideoPagingDataAdapterType {
 
     fun type_picture_follow_card(layoutInflater: LayoutInflater) = DefaultViewBindingItem<VideoBean.Item>(
         type_picture_follow_card,
-        { it?.type == EyepetizerService.ItemType.autoPlayFollowCard },
-        { ItemFollowCardBinding.inflate(layoutInflater, it, false) },
+        { it?.type == EyepetizerService.ItemType.pictureFollowCard },
+        { ItemFollowCard3Binding.inflate(layoutInflater, it, false) },
         { binding, item, cacheItemViewModel ->
-            if (cacheItemViewModel is TagAutoPlayItemViewModel) {
+            if (cacheItemViewModel is TagFollowCardItemViewModel) {
                 cacheItemViewModel.videoItem = item
                 cacheItemViewModel
             } else {
-                TagAutoPlayItemViewModel(item)
+                TagFollowCardItemViewModel(item)
             }
         })
 }

@@ -13,7 +13,13 @@ class TagAutoPlayItemViewModel(item: VideoBean.Item?): AutoPlayItemViewModel() {
             bean?.data?.let {
                 icon.set(it.content?.data?.author?.icon)
                 title.set(it.content?.data?.title)
-                name.set(it.author?.name)
+                if (it.content?.data?.title == null) {
+                    name.set(it.content?.data?.owner?.nickname)
+                } else if (it.content?.data?.owner?.nickname == null) {
+                    name.set(it.content?.data?.title)
+                } else {
+                    name.set(it.header?.issuerName)
+                }
                 description.set(it.content?.data?.description)
                 it.content?.data?.tags?.forEachIndexed { index, tag ->
                     when (index) {
@@ -28,7 +34,8 @@ class TagAutoPlayItemViewModel(item: VideoBean.Item?): AutoPlayItemViewModel() {
                     collectionCount.set("${dataX.consumption.collectionCount}")
                     realCollectionCount.set("${dataX.consumption.realCollectionCount}")
 
-                    publishDate.set("${dataX.date}")
+                    val createTime = simpleFormat.format(dataX.createTime)
+                    publishDate.set("$createTime 发布：")
                     imagePath.set(dataX.cover?.feed)
                     playUrl.set(dataX.playUrl)
                     enablePlay.set(true)
