@@ -18,10 +18,15 @@
         android:id="@+id/exo_progress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:contentDescription="time bar"
+        app:bar_height="2dp"
         app:layout_constraintBottom_toBottomOf="@id/exo_position"
         app:layout_constraintEnd_toStartOf="@id/exo_duration"
         app:layout_constraintStart_toEndOf="@id/exo_position"
-        app:layout_constraintTop_toTopOf="@id/exo_position" />
+        app:layout_constraintTop_toTopOf="@id/exo_position"
+        app:scrubber_disabled_size="2dp"
+        app:scrubber_dragged_size="10dp"
+        app:scrubber_enabled_size="2dp" />
 
     <TextView
         android:id="@+id/exo_duration"

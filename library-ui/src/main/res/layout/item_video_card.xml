@@ -23,11 +23,11 @@
 
         <com.pp.library_ui.widget.videoviewer.ItemVideoViewer
             android:id="@+id/iv_image"
+            style="@style/StyleItemVideo"
             setCover="@{viewModel.imagePath}"
             startGlobalPlay="@{viewModel.playUrl}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:clickable="@{viewModel.enablePlay}"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

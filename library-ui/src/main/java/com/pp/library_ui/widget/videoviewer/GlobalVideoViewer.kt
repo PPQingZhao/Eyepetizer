@@ -58,13 +58,6 @@ open class GlobalVideoViewer : VideoViewer {
 
     }
 
-    private val observer = object : DefaultLifecycleObserver {
-        override fun onDestroy(owner: LifecycleOwner) {
-            super.onDestroy(owner)
-            release()
-        }
-    }
-
     override fun release() {
         super.release()
         exoPlayer = null
@@ -77,31 +70,8 @@ open class GlobalVideoViewer : VideoViewer {
         Log.v(TAG, "released: $playUrl")
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-
-        lifecycleOwner?.lifecycle?.addObserver(observer)
-    }
-
-    override fun setClickable(clickable: Boolean) {
-        super.setClickable(clickable)
-        playImageView.isClickable = clickable
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        lifecycleOwner?.lifecycle?.removeObserver(observer)
-    }
-
     protected fun startGlobalPlay() {
-        if (exoPlayer != null) {
-            if (exoPlayer!!.isPlaying) {
-                return
-            } else if (!exoPlayer!!.playWhenReady) {
-                exoPlayer!!.playWhenReady = true
-                return
-            }
-        }
+
         playImageView.visibility = View.GONE
         playUrl?.apply {
 
@@ -121,7 +91,7 @@ open class GlobalVideoViewer : VideoViewer {
                     // 当前 video 正在播放, sPlayingVideo 记录
                     if (isPlaying) {
                         if (sPlayingVideo.value != this@GlobalVideoViewer && sPlayingVideo.value?.isPlaying() == true) {
-                            sPlayingVideo.value?.pause()
+                            sPlayingVideo.value?.release()
                         }
 
                         sPlayingVideo.value = this@GlobalVideoViewer
@@ -137,6 +107,8 @@ open class GlobalVideoViewer : VideoViewer {
 
             // 静音
             player.volume = 0f
+            // 循环播放
+            player.repeatMode = Player.REPEAT_MODE_ALL
 
             startPlay(player, this, true)
 
@@ -145,7 +117,7 @@ open class GlobalVideoViewer : VideoViewer {
         }
     }
 
-    private var playUrl: String? = ""
+    protected var playUrl: String? = ""
     fun setPlayUrlAndCover(url: String, cover: String) {
         playImageView.visibility = View.VISIBLE
         showCover(true)

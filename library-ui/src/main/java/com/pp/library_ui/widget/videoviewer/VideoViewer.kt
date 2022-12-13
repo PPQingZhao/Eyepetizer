@@ -11,26 +11,26 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.lifecycle.*
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.ui.StyledPlayerControlView
 import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.pp.library_ui.R
 import com.pp.library_ui.databinding.ViewVideoviewerBinding
 import com.pp.library_ui.utils.AppThemeViewModel
 import com.pp.library_ui.utils.load
+import kotlin.properties.Delegates
 
-open class VideoViewer : FrameLayout {
+open class VideoViewer : FrameLayout, LifecycleEventObserver {
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    private var controllerLoadingView: ProgressBar? = null
-    private var videoCoverView: ImageView? = null
+    private var controllerLoadingView: ProgressBar by Delegates.notNull()
+    private var videoCoverView: ImageView by Delegates.notNull()
 
     private var videoViewerBinding: ViewVideoviewerBinding? = null
 
@@ -46,46 +46,53 @@ open class VideoViewer : FrameLayout {
             inflater.inflate(R.layout.view_videoviewer, this, true)
 
         } else {
-            videoViewerBinding = DataBindingUtil.inflate<ViewVideoviewerBinding>(inflater,
+            videoViewerBinding = DataBindingUtil.inflate<ViewVideoviewerBinding>(
+                inflater,
                 R.layout.view_videoviewer,
                 this,
-                true)
+                true
+            )
 
-            playerView = inflater
-                .inflate(R.layout.video_styled_player_view, this, false) as StyledPlayerView
+
+
+            controllerLoadingView = findViewById<ProgressBar>(R.id.controller_loading)
+            videoCoverView = findViewById<ImageView>(R.id.video_cover)
+
+            timeBarController = findViewById<StyledPlayerControlView>(R.id.video_timebar_controller)
+            timeBarController.isEnabled = false
+            timeBarController.showTimeoutMs = Int.MAX_VALUE
+
+            playerView = StyledPlayerView(context, attrs, defStyleAttr)
+            playerView.setControllerVisibilityListener {
+                updateTimeBar()
+            }
         }
-
-        controllerLoadingView = findViewById<ProgressBar>(R.id.controller_loading)
-        videoCoverView = findViewById<ImageView>(R.id.video_cover)
-
-
     }
 
-    private var playerView: StyledPlayerView? = null
+    private var timeBarController: StyledPlayerControlView by Delegates.notNull()
+    private var playerView: StyledPlayerView by Delegates.notNull()
     var autoResume = true
-    private val observer = object : DefaultLifecycleObserver {
-        override fun onDestroy(owner: LifecycleOwner) {
-            playerView?.player?.release()
-        }
 
-        override fun onPause(owner: LifecycleOwner) {
-            playerView?.player?.pause()
-        }
-
-        override fun onStop(owner: LifecycleOwner) {
-//            playerView?.player?.stop()
-        }
-
-        override fun onResume(owner: LifecycleOwner) {
-            if (autoResume) {
-                playerView?.player?.play()
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        when (event) {
+            Lifecycle.Event.ON_PAUSE -> {
+                pause()
             }
+            Lifecycle.Event.ON_RESUME -> {
+                if (autoResume) {
+                    playerView.player?.play()
+                }
+            }
+            Lifecycle.Event.ON_DESTROY -> {
+                release()
+            }
+            else -> {}
         }
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        lifecycleOwner?.lifecycle?.removeObserver(observer)
+        lifecycleOwner?.lifecycle?.removeObserver(this)
         lifecycleOwner = null
     }
 
@@ -101,7 +108,7 @@ open class VideoViewer : FrameLayout {
             videoViewerBinding?.themeViewModel = appTheme
             lifecycleOwner?.apply {
                 videoViewerBinding?.setLifecycleOwner { this.lifecycle }
-                this.lifecycle.addObserver(observer)
+                this.lifecycle.addObserver(this@VideoViewer)
             }
         }
     }
@@ -109,7 +116,7 @@ open class VideoViewer : FrameLayout {
     private var cover: String? = null
     fun setCover(cover: String?) {
         this.cover = cover
-        videoCoverView?.load(cover)
+        videoCoverView.load(cover)
     }
 
     fun startPlayWhenReady(url: String?) {
@@ -123,6 +130,7 @@ open class VideoViewer : FrameLayout {
 
         override fun onPlayerError(error: ExoPlaybackException) {
             showLoading(false)
+            updateTimeBar()
         }
 
         override fun onPlaybackStateChanged(state: Int) {
@@ -130,8 +138,10 @@ open class VideoViewer : FrameLayout {
                 Player.STATE_READY -> {
                     showLoading(false)
                     showCover(false)
-                    if (playerView?.parent != this@VideoViewer) {
-                        playerView?.parent.apply {
+                    updateTimeBar()
+
+                    if (playerView.parent != this@VideoViewer) {
+                        playerView.parent.apply {
                             removeView(playerView)
                         }
                         addView(playerView, 0)
@@ -140,6 +150,7 @@ open class VideoViewer : FrameLayout {
 
                 Player.STATE_IDLE -> {
                     removeView(playerView)
+                    updateTimeBar()
                 }
                 Player.STATE_BUFFERING -> {
                 }
@@ -152,23 +163,45 @@ open class VideoViewer : FrameLayout {
     }
 
     fun showLoading(show: Boolean) {
-        controllerLoadingView?.visibility = if (show) View.VISIBLE else View.GONE
+        controllerLoadingView.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     fun showCover(show: Boolean) {
-        videoCoverView?.visibility = if (show) View.VISIBLE else View.GONE
+        videoCoverView.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    fun updateTimeBar() {
+        if (!isPlaying()) {
+            timeBarController.visibility = View.GONE
+            return
+        }
+
+        if (!playerView.useController) {
+            timeBarController.visibility = VISIBLE
+            return
+        }
+
+        if (playerView.isControllerFullyVisible) {
+            timeBarController.visibility = GONE
+            return
+        }
+
+
+        timeBarController.visibility = VISIBLE
+
     }
 
     fun startPlay(player: Player, url: String?, playWhenReady: Boolean = true) {
         showLoading(true)
-        internalRelease()
+        updateTimeBar()
+        releaseInner()
         try {
             url?.apply {
 
                 if (cover?.isEmpty() != false) {
                     val metadataRetriever = MediaMetadataRetriever()
                     metadataRetriever.setDataSource(this, mutableMapOf())
-                    videoCoverView?.setImageBitmap(metadataRetriever.frameAtTime)
+                    videoCoverView.setImageBitmap(metadataRetriever.frameAtTime)
                 }
 
                 val mediaItem = MediaItem.Builder()
@@ -179,7 +212,8 @@ open class VideoViewer : FrameLayout {
 
                 player.addListener(playEventListener)
 
-                playerView?.player = player
+                playerView.player = player
+                timeBarController.player = player
                 player.playWhenReady = playWhenReady
                 player.prepare()
             }
@@ -188,23 +222,35 @@ open class VideoViewer : FrameLayout {
         }
     }
 
-    private fun internalRelease() {
-        playerView?.player?.apply {
+    private fun releaseInner() {
+        playerView.player?.apply {
             release()
             removeListener(playEventListener)
         }
+        playerView.player = null
+        timeBarController.player = null
         removeView(playerView)
+        updateTimeBar()
     }
 
     open fun release() {
-        internalRelease()
+        releaseInner()
     }
 
     fun isPlaying(): Boolean {
-        return playerView?.player?.isPlaying == true
+        return playerView.player?.isPlaying == true
     }
 
-    fun pause() {
-        playerView?.player?.pause()
+    open fun pause() {
+        playerView.player?.pause()
     }
+
+    fun hasPlayer(): Boolean {
+        return playerView.player != null
+    }
+
+    fun getPlayMediaId(): String? {
+        return playerView.player?.currentMediaItem?.mediaId
+    }
+
 }

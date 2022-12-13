@@ -37,4 +37,67 @@
         <item name="boxStrokeWidthFocused">1dp</item>
         <item name="boxBackgroundColor">@color/colorWindowBackground</item>
     </style>
+
+    <style name="StyleItemVideo">
+        <item name="surface_type">texture_view</item>
+        <item name="show_timeout">36000000</item>
+        <item name="hide_on_touch">false</item>
+        <item name="use_controller">false</item>
+    </style>
+
+    <!--ShapeableImageView 去圆角-->
+    <style name="Corner0Style">
+        <item name="cornerSize">0dp</item>
+    </style>
+
+    <!--ShapeableImageView 圆角-->
+    <style name="RoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 左上圆角-->
+    <style name="LeftTopRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 左下圆角-->
+    <style name="LeftBottomRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 右上圆角-->
+    <style name="RightTopRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 右下圆角-->
+    <style name="RightBottomRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 左圆角-->
+    <style name="LeftRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">6dp</item>
+        <item name="cornerSizeBottomLeft">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 右圆角-->
+    <style name="RightRoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">6dp</item>
+        <item name="cornerSizeBottomRight">6dp</item>
+    </style>
+
+    <!--ShapeableImageView 圆 -->
+    <style name="CircleStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

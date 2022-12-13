@@ -75,9 +75,9 @@
             tint="@{themeViewModel.themeTint}"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:onClick="onFollow"
             android:layout_marginEnd="20dp"
             android:background="@drawable/shape_round_rectangle_stroke_white"
+            android:onClick="onFollow"
             android:padding="3dp"
             android:src="@drawable/ic_add_24"
             app:layout_constraintBottom_toBottomOf="@id/iv_video_icon"
@@ -93,10 +93,12 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_normal"
             android:background="@color/black"
+            app:controller_layout_id="@layout/layout_controller"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_video_icon" />
+            app:layout_constraintTop_toBottomOf="@id/iv_video_icon"
+            app:surface_type="texture_view" />
 
         <FrameLayout
             android:id="@+id/fl_container"

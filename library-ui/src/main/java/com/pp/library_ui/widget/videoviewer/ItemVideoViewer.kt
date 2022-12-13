@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -23,36 +25,81 @@ class ItemVideoViewer : GlobalVideoViewer {
         defStyleAttr
     )
 
-    private val observer = object : DefaultLifecycleObserver {
-        override fun onDestroy(owner: LifecycleOwner) {
-            scrollControllers.onEach {
-                it.removeOnScrollListener(onScrollListener)
-            }
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        if (event == Lifecycle.Event.ON_PAUSE) {
+            release()
+            return
         }
+        super.onStateChanged(source, event)
     }
 
-    private val onAutoPlayScrollListener = object : OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            when (newState) {
-                RecyclerView.SCROLL_STATE_IDLE -> {
-                    findFirstVideoAndPlay(recyclerView)
-                }
+    /**
+     * video 脱离窗口需要 release
+     */
+    private fun releaseIfDetachedFromWindow(listener: OnVideoScrollListener) {
+
+        if (!hasPlayer()) {
+            return
+        }
+
+        // 已脱离窗口
+        if (windowId == null) {
+            release()
+            return
+        }
+
+        /**
+        未脱离窗口:
+        ① item 滑出去后又滑回来 ==> 不需要release
+        ② item 被复用了 ==> 如果playUrl不一致且正在播放新的url,不需要release
+         */
+        //
+        if (listener.mediaId?.isEmpty() != false) {
+            return
+        }
+
+        // item 复用情况
+        if (listener.playUrl != playUrl) {
+            if (listener.mediaId == getPlayMediaId()) {
+                release()
+                return
             }
         }
+
+        // item 滑出去后又滑回来
+        if (listener.mediaId == getPlayMediaId()) {
+            return
+        }
+
+        release()
     }
 
-    val recyclerRect = Rect()
-    val videoViewRect = Rect()
-    val tmpVideoViews = mutableListOf<ItemVideoViewer>()
+    private fun autoPlay(recyclerView: RecyclerView) {
+        if (!autoPlay) {
+            return
+        }
+        findFirstVideoAndPlay(recyclerView)
+    }
+
+    private val recyclerRect = Rect()
+    private val videoViewRect = Rect()
+    private val tmpVideoViews = mutableListOf<ItemVideoViewer>()
     private fun findFirstVideoAndPlay(recyclerView: RecyclerView) {
         tmpVideoViews.clear()
         recyclerView.getGlobalVisibleRect(recyclerRect)
         findVideoView(recyclerView)
         val videoViewer = tmpVideoViews.getOrNull(0)
-        videoViewer?.startGlobalPlay()
+        videoViewer?.startAutoPlay()
     }
 
-    private fun findVideoView(view: View){
+    private fun startAutoPlay() {
+        if (isPlaying()) {
+            return
+        }
+        startGlobalPlay()
+    }
+
+    private fun findVideoView(view: View) {
         if (view is ItemVideoViewer) {
             view.getGlobalVisibleRect(videoViewRect)
             if (recyclerRect.contains(videoViewRect)) {
@@ -69,105 +116,91 @@ class ItemVideoViewer : GlobalVideoViewer {
         return
     }
 
-    private fun addAutoPlayListener() {
+    private fun addOnVideoScrollListeners() {
         var p = parent
 
-        var find = false
         while (p != null) {
-            if (find) {
-                return
-            }
             if (p is RecyclerView) {
-                find = true
-                p.addOnScrollListener(onAutoPlayScrollListener)
+                val onVideoScrollListener = OnVideoScrollListener(lifecycleOwner!!, this, p)
+                p.addOnScrollListener(onVideoScrollListener)
             }
             p = p.parent
         }
     }
 
-    private fun removeAutoPlayListener() {
-        var p = parent
-
-        var find = false
-        while (p != null) {
-            if (find) {
-                return
-            }
-            if (p is RecyclerView) {
-                find = true
-                p.removeOnScrollListener(onAutoPlayScrollListener)
-            }
-            p = p.parent
-        }
-    }
-
-    private val onScrollListener = object : OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            when (newState) {
-                RecyclerView.SCROLL_STATE_IDLE -> {
-                    releaseBecauseInvalidityScrollControllers()
-                }
-            }
-        }
-    }
-
-    private val scrollControllers = mutableListOf<RecyclerView>()
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        lifecycleOwner?.lifecycle?.addObserver(observer)
-        releaseBecauseInvalidityScrollControllers()
-        if (autoPlay) {
-            addAutoPlayListener()
-        }
-    }
-
-    /**
-     * 释放视频
-     */
-    private fun releaseBecauseInvalidityScrollControllers() {
-        var parent = parent
-
-        // 新的 scroller controllers
-        val newControllers = mutableListOf<RecyclerView>()
-        while (parent != null) {
-            if (parent is RecyclerView) {
-                if (!scrollControllers.contains(parent)) {
-                    parent.addOnScrollListener(onScrollListener)
-                }
-                newControllers.add(parent)
-            }
-            parent = parent.parent
-        }
-
-        val tempControllers = scrollControllers.toMutableList()
-
-        // 更新 scrollControllers
-        scrollControllers.clear()
-        scrollControllers.addAll(newControllers)
-
-        // 清理无效的 scroll controller
-        // 出现失效的controller，说明当前video脱离窗口,需要release
-        val invalidityControllers = tempControllers.minus(newControllers.toSet())
-        if (invalidityControllers.isNotEmpty()) {
-            release()
-        }
-        invalidityControllers.onEach {
-            it.removeOnScrollListener(onScrollListener)
-        }
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        lifecycleOwner?.lifecycle?.removeObserver(observer)
-        if (autoPlay) {
-            removeAutoPlayListener()
-        }
+        addOnVideoScrollListeners()
+//        Log.v("GlobalVideoViewer", "attached url: ${playUrl}")
     }
 
     private var autoPlay = false
 
     fun setAutoPlay(play: Boolean) {
         autoPlay = play
+    }
+
+    private class OnVideoScrollListener(
+        val lifecycleOwner: LifecycleOwner,
+        val video: ItemVideoViewer,
+        val recyclerView: RecyclerView,
+    ) : OnScrollListener(), OnAttachStateChangeListener {
+
+        private val observer = object : DefaultLifecycleObserver {
+            override fun onDestroy(owner: LifecycleOwner) {
+                recyclerView.removeOnScrollListener(this@OnVideoScrollListener)
+            }
+        }
+
+        val mediaId: String?
+        val playUrl: String?
+
+        init {
+            lifecycleOwner.lifecycle.addObserver(observer)
+            video.addOnAttachStateChangeListener(this)
+            playUrl = video.playUrl
+            mediaId = video.playUrl
+        }
+
+        /**
+         * 记录当前 OnAttachStateChangeListener 状态
+         * isDetached: true 表示当前 OnAttachStateChangeListener 失效
+         */
+        private var isDetached = false
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//            Log.v("GlobalVideoViewer", "newState: ${newState} : ${playUrl}")
+            when (newState) {
+                RecyclerView.SCROLL_STATE_IDLE -> {
+                    if (isDetached) {
+//                        Log.v("GlobalVideoViewer", "detach release: ${playUrl}")
+                        releaseOnDetachedAndIdle(recyclerView)
+
+                    } else {
+                        video.autoPlay(recyclerView)
+                    }
+
+                }
+            }
+        }
+
+        private fun releaseOnDetachedAndIdle(recyclerView: RecyclerView) {
+            recyclerView.removeOnScrollListener(this)
+            video.releaseIfDetachedFromWindow(this@OnVideoScrollListener)
+        }
+
+        override fun onViewAttachedToWindow(v: View?) {
+        }
+
+        override fun onViewDetachedFromWindow(v: View?) {
+//            Log.e("GlobalVideoViewer", "detach: $playUrl")
+            lifecycleOwner.lifecycle.removeObserver(observer)
+            video.removeOnAttachStateChangeListener(this)
+            isDetached = true
+            if (recyclerView.scrollState == RecyclerView.SCROLL_STATE_IDLE) {
+                recyclerView.removeOnScrollListener(this)
+            }
+        }
+
     }
 
 }

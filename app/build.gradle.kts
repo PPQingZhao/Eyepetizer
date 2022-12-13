@@ -1,3 +1,4 @@
+@file:Suppress("UnstableApiUsage","DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin.android)
     id("com.android.application") version (libs.versions.androidGradlePlugin)

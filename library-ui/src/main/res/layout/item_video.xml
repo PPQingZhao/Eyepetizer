@@ -13,6 +13,7 @@
 
     <com.pp.library_ui.widget.videoviewer.ItemVideoViewer
         android:id="@+id/iv_feed"
+        style="@style/StyleItemVideo"
         setCover="@{viewModel.cover}"
         startGlobalPlay="@{viewModel.playUrl}"
         android:layout_width="match_parent"
@@ -20,6 +21,6 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background" />
+        tools:background="@drawable/ic_launcher_background" />
 
 </layout>
