@@ -32,17 +32,6 @@
         </FrameLayout>
 
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/padding_normal"
-            android:layout_marginTop="@dimen/padding_normal"
-            android:src="@drawable/ic_play_arrow_white"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toStartOf="@id/iv_feed"
-            app:layout_constraintTop_toTopOf="@id/iv_feed"
-            app:layout_constraintWidth_percent="0.2" />
-
-        <ImageView
             android:id="@+id/iv_feed"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -54,6 +43,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.5"
             tools:src="@drawable/ic_launcher_background" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:src="@drawable/ic_play_arrow_white"
+            android:visibility="@{viewModel.isVideo() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/iv_feed"
+            app:layout_constraintTop_toTopOf="@id/iv_feed"
+            app:layout_constraintWidth_percent="0.2" />
 
         <ImageView
             android:id="@+id/iv_like"
@@ -108,6 +109,8 @@
 
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="themeViewModel"

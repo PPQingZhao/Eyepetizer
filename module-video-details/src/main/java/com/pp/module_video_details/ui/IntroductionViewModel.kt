@@ -30,7 +30,7 @@ class IntroductionViewModel(val details: MetroDataBean?, app: Application) :
             }
 
             if (tags.isEmpty()) {
-                it.video.tags.forEach {
+                it.video?.tags?.forEach {
                     tags = "${tags}${it.title} "
                 }
             }

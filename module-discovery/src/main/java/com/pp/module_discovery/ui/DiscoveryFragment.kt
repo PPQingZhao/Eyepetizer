@@ -53,13 +53,13 @@ class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewM
 
     override fun onFirstResume() {
         mAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle, mBinding.recycler)
-        lifecycleScope.launch {
+       /* lifecycleScope.launch {
             mAdapter.attachRefreshView(mBinding.discoveryRefresh)
-        }
+        }*/
 
         lifecycleScope.launch {
             mAdapter.attachStateView(
-                StateView.DefaultBuilder(viewLifecycleOwner.lifecycle, mBinding.discoveryRefresh)
+                StateView.DefaultBuilder(viewLifecycleOwner.lifecycle, mBinding.discoveryContent)
                     .setOnErrorClickListener(mAdapter.onErrorListener())
                     .setThemeViewModel(requireTheme())
                     .build()

@@ -113,8 +113,10 @@ object BindingAdapter {
     @JvmStatic
     @androidx.databinding.BindingAdapter("loadUrl", requireAll = false)
     fun loadUrl(webView: WebView, url: String) {
-        webView.settings.javaScriptEnabled = true
-        webView.loadUrl(url)
+        if (!webView.originalUrl.equals(url)) {
+            webView.settings.javaScriptEnabled = true
+            webView.loadUrl(url)
+        }
     }
 
     @JvmStatic
@@ -150,7 +152,7 @@ object BindingAdapter {
     @JvmStatic
     @androidx.databinding.BindingAdapter(value = ["startGlobalPlay", "setCover"], requireAll = true)
     fun startGlobalPlay(video: ItemVideoViewer, playUrl: String?, cover: String?) {
-        video.setPlayUrlAndCover(playUrl?:"", cover?:"")
+        video.setPlayUrlAndCover(playUrl ?: "", cover ?: "")
     }
 
     @JvmStatic
