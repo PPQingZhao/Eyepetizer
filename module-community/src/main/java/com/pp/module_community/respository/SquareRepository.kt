@@ -100,7 +100,7 @@ object SquareRepository {
             return itemModels
         }
 
-        private var count = 5
+        private var count = 10
         override fun isLoadMoreCardDataEnd(loadMoreBean: BaseResponse<LoadMoreBean<Card>>): Boolean {
             return (--count < 0) || super.isLoadMoreCardDataEnd(loadMoreBean)
         }
