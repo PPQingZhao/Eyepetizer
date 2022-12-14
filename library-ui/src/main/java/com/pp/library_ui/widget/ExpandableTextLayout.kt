@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import com.pp.library_ui.R
+import kotlin.properties.Delegates
 
 class ExpandableTextLayout : LinearLayout {
 
@@ -27,14 +28,14 @@ class ExpandableTextLayout : LinearLayout {
             0,
             LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
 
-        val isExpand = mMaxLinesTextView!!.maxLines == Int.MAX_VALUE
-        mMaxLines = mMaxLinesTextView!!.maxLines
+        val isExpand = mMaxLinesTextView.maxLines == Int.MAX_VALUE
+        mMaxLines = mMaxLinesTextView.maxLines
 
         mExpandTextView = TextView(context)
 
+        mExpandTextView.setPadding(10,10,10,10)
         val layoutParams =
             LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-        layoutParams.setMargins(0, 10, 10, 0)
         layoutParams.gravity = Gravity.END
         attachViewToParent(mExpandTextView,
             1,
@@ -51,7 +52,7 @@ class ExpandableTextLayout : LinearLayout {
         this.isExpand = typedArray.getBoolean(R.styleable.ExpandableTextLayout_expand, isExpand)
         typedArray.recycle()
 
-        mExpandTextView?.apply {
+        mExpandTextView.apply {
 
             setTextSize(TypedValue.COMPLEX_UNIT_PX, expandTextSize.toFloat())
             setTextColor(expandTextColor)
@@ -65,8 +66,8 @@ class ExpandableTextLayout : LinearLayout {
     private var mMaxLines = Int.MAX_VALUE
     var expandText: String?
     var closeText: String?
-    private var mMaxLinesTextView: TextView? = null
-    private var mExpandTextView: TextView? = null
+    private var mMaxLinesTextView: TextView by Delegates.notNull()
+    private var mExpandTextView: TextView by Delegates.notNull()
 
     fun isExpandable(): Boolean {
         return mMaxLines != Int.MAX_VALUE
@@ -120,8 +121,8 @@ class ExpandableTextLayout : LinearLayout {
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        updateExpandTextVisibility()
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        updateExpandTextVisibility()
     }
 
 

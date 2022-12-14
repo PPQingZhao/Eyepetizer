@@ -54,16 +54,16 @@ class ItemVideoViewer : GlobalVideoViewer {
         ② item 被复用了 ==> 如果playUrl不一致且正在播放新的url,不需要release
          */
         //
-        if (listener.mediaId?.isEmpty() != false) {
+        if (listener.playUrl?.isEmpty() != false) {
             return
         }
 
         // item 复用情况
         if (listener.playUrl != playUrl) {
-            if (listener.mediaId == getPlayMediaId()) {
+            if (listener.playUrl == getPlayMediaId()) {
                 release()
-                return
             }
+            return
         }
 
         // item 滑出去后又滑回来

@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.pp.library_ui.adapter.MultiBindingAdapter
 import com.pp.library_ui.utils.load
 import com.pp.library_ui.widget.ExpandableTextLayout
 import com.pp.library_ui.widget.banner.BannerViewPager
@@ -89,6 +90,23 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @androidx.databinding.BindingAdapter(value = ["singleAdapter", "dataList"], requireAll = true)
+  fun  setSingleAdapter(
+        vp2: ViewPager2,
+        adapter: MultiBindingAdapter<*>,
+        dataList: List<*>,
+    ) {
+        if (vp2.adapter !is MultiBindingAdapter<*>) {
+            vp2.adapter = adapter
+        }
+
+        if (vp2.adapter is MultiBindingAdapter<*>) {
+            (vp2.adapter as MultiBindingAdapter<*>).setDataList(dataList as List<Nothing>)
+        }
+
+    }
+
+    @JvmStatic
     @androidx.databinding.BindingAdapter("setBannerAdapter", requireAll = false)
     fun <T, VH : RecyclerView.ViewHolder> setBannerAdapter(
         bannerViewPager: BannerViewPager<T>,
@@ -163,13 +181,13 @@ object BindingAdapter {
 
     @JvmStatic
     @androidx.databinding.BindingAdapter("android:text")
-    fun setExpandText(view: ExpandableTextLayout, text: String) {
+    fun setExpandText(view: ExpandableTextLayout, text: String?) {
         view.setContent(text)
     }
 
     @JvmStatic
     @androidx.databinding.BindingAdapter("android:textColor")
-    fun setExpandTextColor(view: ExpandableTextLayout, color: Int) {
+    fun setExpandContentColor(view: ExpandableTextLayout, color: Int) {
         view.setExpandTextColor(color)
     }
 
@@ -178,7 +196,6 @@ object BindingAdapter {
     fun setExpand(view: ExpandableTextLayout, expand: Boolean) {
         view.isExpand = expand
     }
-
 
     @JvmStatic
     @androidx.databinding.BindingAdapter(value = ["android:text", "expand"], requireAll = true)

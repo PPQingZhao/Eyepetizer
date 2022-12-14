@@ -6,11 +6,11 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.pp.library_ui.R
+import com.pp.library_ui.adapter.MultiBindingAdapter
 
 
-open class FollowCardItemViewModel<VH : ViewHolder>() {
+open class FollowCardItemViewModel<Data:Any>() {
 
     var isVideo: Boolean = true
     var area = ObservableField<String>()
@@ -26,7 +26,8 @@ open class FollowCardItemViewModel<VH : ViewHolder>() {
     val constraintDimensionRatio = ObservableField<String>()
     val drawableFollow = ObservableField<Int>(R.drawable.layer_follow)
     val indicatorCount = ObservableInt()
-    var adapter: RecyclerView.Adapter<VH>? = null
+    var adapter: MultiBindingAdapter<Data>? = null
+    val dataList = mutableListOf<Data>()
 
     var title = ObservableField<String>()
 

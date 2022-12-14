@@ -10,7 +10,6 @@ import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.R
 import com.pp.library_ui.adapter.DefaultViewBindingItem
 import com.pp.library_ui.adapter.MultiBindingAdapter
-import com.pp.library_ui.adapter.MultiItemViewHolder
 import com.pp.library_ui.databinding.ItemImageBindingImpl
 import com.pp.library_ui.databinding.ItemVideoBinding
 import com.pp.library_ui.model.FollowCardItemViewModel
@@ -19,7 +18,7 @@ import com.pp.library_ui.model.ImageVideoItemViewModel
 open class MetroFollowItemViewModel(
     item: Metro?,
     private val mine: Boolean = false,
-) : FollowCardItemViewModel<MultiItemViewHolder<ImageVideoItemViewModel>>() {
+) : FollowCardItemViewModel<ImageVideoItemViewModel>() {
 
     companion object {
         private const val TAG = "MetroFollowItem"
@@ -64,23 +63,26 @@ open class MetroFollowItemViewModel(
             this.replyCount
                 .set(metroData?.consumption?.commentCount.toString())
 
-            val coverList = mutableListOf<ImageVideoItemViewModel>()
+//            val coverList = mutableListOf<ImageVideoItemViewModel>()
+
+
+            dataList.clear()
             if (isVideo) {
                 metroData?.video?.apply {
                     val coverUrl = ObservableField(this.cover.url)
                     val playUrl = ObservableField(this.playUrl)
-                    coverList.add(ImageVideoItemViewModel.VideoItemViewModel(coverUrl, playUrl))
+                    dataList.add(ImageVideoItemViewModel.VideoItemViewModel(coverUrl, playUrl))
                 }
             } else {
                 metroData?.images?.forEach { it ->
                     it?.cover?.apply {
-                        coverList.add(ImageVideoItemViewModel.ImageItemViewModel(ObservableField(url)))
+                        dataList.add(ImageVideoItemViewModel.ImageItemViewModel(ObservableField(url)))
                     }
                 }
             }
 
-            indicatorCount.set(coverList.size)
-            mAdapter.setDataList(coverList)
+            indicatorCount.set(dataList.size)
+//            mAdapter.setDataList(coverList)
         }
 
     private val mAdapter by lazy {
