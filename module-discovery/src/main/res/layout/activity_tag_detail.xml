@@ -107,7 +107,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.module_discovery.ui.TagDetailViewModel" />
+            type="com.pp.module_discovery.ui.tag.TagDetailViewModel" />
 
         <variable
             name="themeViewModel"

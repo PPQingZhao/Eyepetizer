@@ -1,8 +1,6 @@
-package com.pp.module_discovery.ui
+package com.pp.module_discovery.ui.tag
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Autowired

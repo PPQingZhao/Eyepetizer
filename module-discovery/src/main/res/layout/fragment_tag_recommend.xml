@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.pp.module_discovery.ui.TagRecommendViewModel" />
+            type="com.pp.module_discovery.ui.tag.TagRecommendViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

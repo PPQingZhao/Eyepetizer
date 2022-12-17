@@ -1,4 +1,4 @@
-package com.pp.module_discovery.ui
+package com.pp.module_discovery.ui.tag
 
 import android.app.Application
 import androidx.paging.PagingData
