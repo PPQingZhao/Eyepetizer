@@ -94,11 +94,11 @@ class ImageDetailsActivity : ThemeActivity<ActivityImageDetailsBinding, ImageDet
         })
         mBinding.llComment.visibility = View.VISIBLE
         mBinding.include.tvComment.setOnClickListener {
-            mBinding.llComment.translationY(true)
+            mBinding.llComment.startTranslationY(true)
         }
 
         mBinding.ivCloseComment.setOnClickListener {
-            mBinding.llComment.translationY(false)
+            mBinding.llComment.startTranslationY(false)
         }
     }
 

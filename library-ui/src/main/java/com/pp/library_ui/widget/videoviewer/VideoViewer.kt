@@ -209,9 +209,9 @@ open class VideoViewer : FrameLayout, LifecycleEventObserver {
     }
 
     fun startPlay(player: Player, url: String?, playWhenReady: Boolean = true) {
+        releaseInner()
         showLoading(true)
         updateTimeBar()
-        releaseInner()
         try {
             url?.apply {
 

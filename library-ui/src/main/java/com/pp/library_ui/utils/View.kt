@@ -4,8 +4,9 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.view.View
+import android.view.animation.LinearInterpolator
 
-fun View.translationY(
+fun View.startTranslationY(
     show: Boolean,
     updateListener: ValueAnimator.AnimatorUpdateListener? = null,
     listener: Animator.AnimatorListener? = null,
@@ -21,61 +22,57 @@ fun View.translationY_show_from_bottom(
     updateListener: ValueAnimator.AnimatorUpdateListener? = null,
     listener: Animator.AnimatorListener? = null,
 ) {
-    val tanslationY_from_bottom = ValueAnimator.ofFloat(1.0f, 0f)
-    tanslationY_from_bottom.addUpdateListener {
-        if (height > 0) {
-            translationY = height * (it.animatedValue as Float)
-        }
-    }
+    val translationY_from_bottom = ObjectAnimator.ofFloat(this, "translationY", height * 1.0f, 0f)
+    translationY_from_bottom.interpolator = LinearInterpolator()
 
     updateListener?.apply {
-        tanslationY_from_bottom.addUpdateListener(this)
+        translationY_from_bottom.addUpdateListener(this)
     }
 
-    tanslationY_from_bottom.addListener(DefaultAnimatorListener(onAnimationStart = {
+    translationY_from_bottom.addListener(DefaultAnimatorListener(onAnimationStart = {
         translationY = height.toFloat()
         visibility = View.VISIBLE
     }))
 
 
     listener?.apply {
-        tanslationY_from_bottom.addListener(this)
+        translationY_from_bottom.addListener(this)
     }
-    tanslationY_from_bottom.setTarget(this)
-    tanslationY_from_bottom.duration = 500
-    tanslationY_from_bottom.start()
+    translationY_from_bottom.setTarget(this)
+    translationY_from_bottom.duration = 500
+    translationY_from_bottom.start()
 }
 
 fun View.translationY_dismiss_to_bottom(
     updateListener: ValueAnimator.AnimatorUpdateListener? = null,
     listener: Animator.AnimatorListener? = null,
 ) {
-    val tanslationY_to_bottom = ValueAnimator.ofFloat(0f, 1.0f)
-    tanslationY_to_bottom.addUpdateListener {
-        translationY = height * (it.animatedValue as Float)
-    }
+    val translationY_to_bottom = ObjectAnimator.ofFloat(this, "translationY", 0f, height * 1.0f)
+    translationY_to_bottom.interpolator = LinearInterpolator()
+
     updateListener?.apply {
-        tanslationY_to_bottom.addUpdateListener(this)
+        translationY_to_bottom.addUpdateListener(this)
     }
 
-    tanslationY_to_bottom.addListener(DefaultAnimatorListener(onAnimationEnd = {
+    translationY_to_bottom.addListener(DefaultAnimatorListener(onAnimationEnd = {
         visibility = View.GONE
     }))
 
     listener?.apply {
-        tanslationY_to_bottom.addListener(this)
+        translationY_to_bottom.addListener(this)
     }
-    tanslationY_to_bottom.setTarget(this)
-    tanslationY_to_bottom.duration = 500
-    tanslationY_to_bottom.start()
+    translationY_to_bottom.setTarget(this)
+    translationY_to_bottom.duration = 500
+    translationY_to_bottom.start()
 }
 
-fun View.heightAnimator(
+fun View.startHeightAnimator(
     vararg value: Int,
     updateListener: ValueAnimator.AnimatorUpdateListener? = null,
     listener: Animator.AnimatorListener? = null,
 ) {
     val heightAnimator = ValueAnimator.ofInt(*value)
+    heightAnimator.interpolator = LinearInterpolator()
     heightAnimator.addUpdateListener {
         layoutParams.height = it.animatedValue as Int
         requestLayout()
@@ -92,7 +89,7 @@ fun View.heightAnimator(
     heightAnimator.start()
 }
 
-fun View.alpha(
+fun View.startAlphaAnimator(
     vararg value: Float,
     updateListener: ValueAnimator.AnimatorUpdateListener? = null,
     listener: Animator.AnimatorListener? = null,

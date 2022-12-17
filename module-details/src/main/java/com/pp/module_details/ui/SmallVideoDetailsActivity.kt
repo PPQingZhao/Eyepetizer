@@ -12,9 +12,9 @@ import com.pp.library_base.base.ThemeActivity
 import com.pp.library_network.eyepetizer.bean.MetroDataBean
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.utils.DefaultAnimatorListener
-import com.pp.library_ui.utils.alpha
-import com.pp.library_ui.utils.heightAnimator
-import com.pp.library_ui.utils.translationY
+import com.pp.library_ui.utils.startAlphaAnimator
+import com.pp.library_ui.utils.startHeightAnimator
+import com.pp.library_ui.utils.startTranslationY
 import com.pp.module_details.R
 import com.pp.module_details.databinding.ActivitySmallVideoDetailsBinding
 import kotlinx.coroutines.launch
@@ -71,11 +71,12 @@ class SmallVideoDetailsActivity :
     private fun showDetails() {
         mBinding.includeDetail.parent.visibility = View.VISIBLE
         mBinding.playerController.visibility = View.VISIBLE
-        mBinding.includeDetail.parent.alpha(0f, 0.3f, 0.6f, 1.0f)
-        mBinding.playerController.alpha(0f, 0.3f, 0.6f, 1.0f)
+        mBinding.includeDetail.parent.startAlphaAnimator(0f, 0.3f, 0.6f, 1.0f)
+        mBinding.playerController.startAlphaAnimator(0f, 0.3f, 0.6f, 1.0f)
     }
 
-
+    private var maxVideoHeight = 0
+    private var minVideoHeight = 0
     private fun initView() {
         mBinding.includeDetail.tvContent.movementMethod = ScrollingMovementMethod()
         mBinding.llComment.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
@@ -90,8 +91,10 @@ class SmallVideoDetailsActivity :
                 oldRight: Int,
                 oldBottom: Int,
             ) {
-                mBinding.llComment.visibility = View.GONE
                 mBinding.llComment.removeOnLayoutChangeListener(this)
+                mBinding.llComment.visibility = View.GONE
+                maxVideoHeight = mBinding.video.height
+                minVideoHeight = mBinding.video.height - mBinding.llComment.height
             }
         })
         mBinding.llComment.visibility = View.VISIBLE
@@ -106,42 +109,40 @@ class SmallVideoDetailsActivity :
     }
 
     private fun startScaleVideoHeightAnimator1() {
-        val maxHeight = resources.displayMetrics.heightPixels
-        val minHeight =
-            resources.displayMetrics.heightPixels - mBinding.llComment.height
-        mBinding.video.heightAnimator(
-            maxHeight,
-            minHeight,
+        mBinding.video.startHeightAnimator(
+            maxVideoHeight,
+            minVideoHeight,
             listener = DefaultAnimatorListener(onAnimationStart = {
                 mBinding.titleBar.visibility = View.GONE
             }, onAnimationEnd = {
-                mBinding.video.layoutParams.height = minHeight
+                mBinding.video.layoutParams.height = minVideoHeight
             })
         )
     }
 
     private fun startScaleVideoHeightAnimator2() {
-        val maxHeight = resources.displayMetrics.heightPixels
-        val minHeight =
-            resources.displayMetrics.heightPixels - mBinding.llComment.height
-        mBinding.video.heightAnimator(
-            minHeight,
-            maxHeight,
+        mBinding.video.startHeightAnimator(
+            minVideoHeight,
+            maxVideoHeight,
             listener = DefaultAnimatorListener(onAnimationEnd = {
                 mBinding.titleBar.visibility = View.VISIBLE
-                mBinding.video.layoutParams.height = maxHeight
+                mBinding.video.layoutParams.height = maxVideoHeight
             })
         )
     }
 
     private fun showComment() {
         startScaleVideoHeightAnimator1()
-        mBinding.llComment.translationY(true)
+        mBinding.includeDetail.parent.startAlphaAnimator(1.0f, 0.0f)
+        mBinding.playerController.startAlphaAnimator(1.0f, 0.0f)
+        mBinding.llComment.startTranslationY(true)
     }
 
     private fun dismissComment() {
         startScaleVideoHeightAnimator2()
-        mBinding.llComment.translationY(false)
+        mBinding.includeDetail.parent.startAlphaAnimator(0.0f, 0.3f, 1.0f)
+        mBinding.playerController.startAlphaAnimator(0.0f, 0.3f, 1.0f)
+        mBinding.llComment.startTranslationY(false)
     }
 
     private fun initComment() {
