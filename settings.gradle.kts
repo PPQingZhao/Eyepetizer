@@ -42,7 +42,7 @@ include(
     ":module-main",
     ":module-home",
     ":module-community",
-    ":module-video-details",
+    ":module-details",
     ":module-comments",
     ":module-search",
     ":module-user",

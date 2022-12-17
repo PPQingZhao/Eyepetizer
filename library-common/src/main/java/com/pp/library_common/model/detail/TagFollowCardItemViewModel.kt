@@ -63,7 +63,7 @@ class TagFollowCardItemViewModel(item: VideoBean.Item?) : FollowCardItem2ViewMod
     override fun onVideo(view: View) {
 
         videoItem?.data?.content?.apply {
-            if (type.equals("video")) {
+            if (type == "video") {
                 intentToVideoDetails(resourceId ?: 0, resourceType)
             } else {
                 intentToImageDetails(resourceId ?: 0, resourceType)

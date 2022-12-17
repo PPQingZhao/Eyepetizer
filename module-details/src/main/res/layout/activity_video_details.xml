@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
+            name="viewModel"
+            type="com.pp.module_details.ui.VideoDetailsVideoModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.VideoDetailsActivity">
+
+        <ImageView
+            android:id="@+id/iv_video_back"
+            tint="@{themeViewModel.themeTint}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:onClick="onBack"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="@id/iv_video_icon"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_video_icon"
+            tools:ignore="UseAppTint"
+            tools:tint="?attr/themeTint" />
+
+        <FrameLayout
+            android:id="@+id/iv_video_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:foreground="@drawable/shape_circle"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/iv_video_back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.08">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:bindSrc="@{viewModel.icon}"
+                app:roundPercent="1"
+                tools:src="@drawable/ic_launcher_background" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.nick}"
+            android:textColor="@{themeViewModel.textColor}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_video_icon"
+            app:layout_constraintStart_toEndOf="@id/iv_video_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_video_icon"
+            tools:text="小猴肚子疼" />
+
+        <ImageView
+            tint="@{themeViewModel.themeTint}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/shape_round_rectangle_stroke_white"
+            android:onClick="onFollow"
+            android:padding="3dp"
+            android:src="@drawable/ic_add_24"
+            app:layout_constraintBottom_toBottomOf="@id/iv_video_icon"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_video_icon"
+            app:layout_constraintWidth_percent="0.06"
+            tools:tint="?attr/themeTint" />
+
+        <com.pp.library_ui.widget.videoviewer.VideoViewer
+            android:id="@+id/video"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:background="@color/black"
+            app:controller_layout_id="@layout/layout_controller"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_video_icon"
+            app:surface_type="texture_view" />
+
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/video" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -248,6 +248,7 @@ open class VideoViewer : FrameLayout, LifecycleEventObserver {
         timeBarController.player = null
         removeView(playerView)
         updateTimeBar()
+        showLoading(false)
     }
 
     open fun release() {

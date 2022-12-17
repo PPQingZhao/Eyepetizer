@@ -49,7 +49,7 @@ dependencies {
     if ("com.android.library" == (libs.plugins.android.module.get().pluginId)) {
         implementation(projects.moduleHome)
         implementation(projects.moduleCommunity)
-        implementation(projects.moduleVideoDetails)
+        implementation(projects.moduleDetails)
         implementation(projects.moduleComments)
         implementation(projects.moduleSearch)
         implementation(projects.moduleUser)
