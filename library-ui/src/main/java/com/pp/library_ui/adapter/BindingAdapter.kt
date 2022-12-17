@@ -1,5 +1,6 @@
 package com.pp.library_ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -9,9 +10,11 @@ abstract class BindingAdapter<VB : ViewDataBinding, VM : Any, T : Any> :
 
     private val dataList by lazy { mutableListOf<T>() }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setDataList(list: List<T>) {
         dataList.clear()
         dataList.addAll(list)
+        notifyDataSetChanged()
     }
 
     private val bindingHelper: AdapterBindingHelper<VB, VM, T> by lazy {

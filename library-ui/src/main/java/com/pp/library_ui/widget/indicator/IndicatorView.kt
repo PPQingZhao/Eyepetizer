@@ -18,7 +18,7 @@ abstract class IndicatorView : View {
 
     var selectedPos = 0
 
-    var indicationOffset = 0f
+    protected var indicationOffset = 0f
     fun getIndicatorCount(): Int {
         return mIndicatorCount
     }
@@ -58,7 +58,7 @@ abstract class IndicatorView : View {
     @ColorInt
     var normalColor = Color.GRAY
     var indicatorSpace = 0f
-    val mPaint by lazy {
+    protected val mPaint by lazy {
         val paint = Paint()
         paint.isAntiAlias = true
         paint
@@ -84,7 +84,7 @@ abstract class IndicatorView : View {
         override fun onPageScrolled(
             position: Int,
             positionOffset: Float,
-            positionOffsetPixels: Int
+            positionOffsetPixels: Int,
         ) {
             selectedPos = position
             indicationOffset = positionOffset

@@ -22,6 +22,7 @@ material = "com.google.android.material:material:1.5.0"
 flexbox = "com.google.android:flexbox:2.0.1"
 exoplayer = "com.google.android.exoplayer:exoplayer:2.13.2"
 swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+photoView = "com.github.chrisbanes:PhotoView:2.1.4"
 
 #DataStore
 datastore = "androidx.datastore:datastore-preferences:1.0.0"

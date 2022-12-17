@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_normal"
-        >
+        tools:background="@drawable/ic_launcher_background">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -23,8 +23,8 @@
             android:id="@+id/iv_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/padding_normal"
             android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
             android:background="@drawable/ic_share"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -73,13 +73,13 @@
             android:id="@+id/tv_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_normal"
             android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginBottom="@dimen/padding_normal"
             android:background="@drawable/shape_round_rectangle_stroke_white"
-            android:paddingBottom="@dimen/padding_small"
-            android:paddingEnd="@dimen/padding_normal"
             android:paddingStart="@dimen/padding_normal"
             android:paddingTop="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_normal"
+            android:paddingBottom="@dimen/padding_small"
             android:text="@string/add_follow"
             android:textColor="@color/white"
             android:textSize="14sp"

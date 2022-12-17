@@ -18,6 +18,7 @@ import com.pp.library_ui.widget.banner.BannerViewPager
 import com.pp.library_ui.widget.banner.BaseBannerAdapter
 import com.pp.library_ui.widget.gridlayout.CustomGridLayout
 import com.pp.library_ui.widget.indicator.IndicatorView
+import com.pp.library_ui.widget.videoviewer.GlobalVideoViewer
 import com.pp.library_ui.widget.videoviewer.ItemVideoViewer
 
 object BindingAdapter {
@@ -30,7 +31,7 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @androidx.databinding.BindingAdapter("android:bindSrc", requireAll = false)
+    @androidx.databinding.BindingAdapter("android:bindSrc")
     fun setImageResource(imageView: ImageView, path: String?) {
 //        Log.e("TAG","path: $path")
         imageView.load(path)
@@ -43,7 +44,7 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @androidx.databinding.BindingAdapter("onPageCallback", requireAll = false)
+    @androidx.databinding.BindingAdapter("onPageCallback")
     fun <T> setOnPageCallback(
         bannerViewPager: BannerViewPager<T>,
         callback: ViewPager2.OnPageChangeCallback,
@@ -169,7 +170,7 @@ object BindingAdapter {
 
     @JvmStatic
     @androidx.databinding.BindingAdapter(value = ["startGlobalPlay", "setCover"], requireAll = true)
-    fun startGlobalPlay(video: ItemVideoViewer, playUrl: String?, cover: String?) {
+    fun startGlobalPlay(video: GlobalVideoViewer, playUrl: String?, cover: String?) {
         video.setPlayUrlAndCover(playUrl ?: "", cover ?: "")
     }
 

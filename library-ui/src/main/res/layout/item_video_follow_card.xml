@@ -15,7 +15,7 @@
 
         <variable
             name="viewModel"
-            type="com.pp.library_ui.model.FollowCardItemViewModel" />
+            type="com.pp.library_ui.model.FollowCardItemViewModel.VideoFollowCardItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_normal"
-        android:onClick="@{viewModel.onVideo}">
+        android:onClick="@{viewModel.onItemClick}">
 
         <FrameLayout
             android:id="@+id/fl_icon"
@@ -101,37 +101,19 @@
             app:layout_constraintTop_toTopOf="@id/fl_icon"
             tools:src="@drawable/layer_follow" />
 
-        <androidx.viewpager2.widget.ViewPager2
+        <com.pp.library_ui.widget.videoviewer.ItemVideoViewer
             android:id="@+id/viewpager"
-            constraintLayout="@{parent}"
-            dimensionRatio='@{viewModel.video ? "16:9" : "1:1"}'
-            nestedScrollingEnabled="@{false}"
-            setInitIndicator="@{indicator}"
+            style="@style/StyleItemVideo"
+            setCover="@{viewModel.cover}"
+            startGlobalPlay="@{viewModel.playUrl}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_normal"
-            android:orientation="horizontal"
-            app:dataList="@{viewModel.dataList}"
+            app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_icon"
-            app:singleAdapter="@{viewModel.adapter}"
-            tools:background="@drawable/ic_launcher_background"
-            tools:itemCount="1"
-            tools:layout_constraintDimensionRatio="16:9"
-            tools:listitem="@layout/item_image" />
-
-        <com.pp.library_ui.widget.indicator.RoundIndicatorView
-            android:id="@+id/indicator"
-            autoVisibility="@{true}"
-            initIndicator="@{viewModel.indicatorCount}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            app:indicatorNormalColor="@color/indicatorNormalColor"
-            app:indicatorSelectedColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/viewpager"
-            app:layout_constraintTop_toTopOf="@id/viewpager" />
+            tools:background="@drawable/ic_launcher_background" />
 
         <com.pp.library_ui.widget.ExpandableTextLayout
             android:id="@+id/tv_content"

@@ -1,10 +1,8 @@
 package com.pp.library_ui.widget.videoviewer
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -13,12 +11,17 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 
+/**
+ * 用于recyclerview item播放视频
+ * ①继承自GlobalVideoViewer,实现同一时间只有一个item 播放视频
+ * ②item滚动结束,如果item脱离窗口则自动停止播放 OnVideoScrollListener
+ * ③item滚动结束,当 autoPlay = true时,会自动播放屏幕中第一条视频
+ */
 class ItemVideoViewer : GlobalVideoViewer {
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    @SuppressLint("Recycle")
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
@@ -53,7 +56,6 @@ class ItemVideoViewer : GlobalVideoViewer {
         ① item 滑出去后又滑回来 ==> 不需要release
         ② item 被复用了 ==> 如果playUrl不一致且正在播放新的url,不需要release
          */
-        //
         if (listener.playUrl?.isEmpty() != false) {
             return
         }

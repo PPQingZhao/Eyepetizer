@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
+            name="viewModel"
+            type="com.pp.library_ui.model.DetailsInfoViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#55000000"
+        android:paddingBottom="8dp">
+
+        <FrameLayout
+            android:id="@+id/fl_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:foreground="@drawable/shape_circle"
+            android:onClick="@{viewModel.onIcon}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.12">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:bindSrc="@{viewModel.icon}"
+                android:scaleType="centerCrop"
+                app:roundPercent="1"
+                tools:src="@drawable/ic_launcher_background" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.author}"
+            android:textColor="@{themeViewModel.textColor}"
+            android:textSize="@dimen/content_sub_title"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@id/tv_direct_message"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/fl_icon"
+            app:layout_constraintTop_toTopOf="@id/fl_icon"
+            tools:text="阿紫1111111111111111111111111111" />
+
+        <TextView
+            android:id="@+id/tv_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_small"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.publish}"
+            android:textColor="@{themeViewModel.textColorSecondary}"
+            android:textSize="@dimen/content_sub_title"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@id/tv_direct_message"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/fl_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:text="发布于 福建"
+            tools:textColor="?android:textColorSecondary" />
+
+        <TextView
+            android:id="@+id/tv_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:background="@drawable/shape_round_rectangle_stroke_white"
+            android:gravity="center"
+            android:onClick="@{viewModel.onFollow}"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_normal"
+            android:paddingBottom="@dimen/padding_small"
+            android:text="@string/add_follow"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/fl_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fl_icon" />
+
+        <TextView
+            android:id="@+id/tv_direct_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:background="@drawable/shape_round_rectangle_solid_blue"
+            android:gravity="center"
+            android:onClick="@{viewModel.onMessage}"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_normal"
+            android:paddingBottom="@dimen/padding_small"
+            android:text="@string/direct_message"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/fl_icon"
+            app:layout_constraintEnd_toStartOf="@id/tv_follow"
+            app:layout_constraintTop_toTopOf="@id/fl_icon" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:maxHeight="90dp"
+            android:text="@{viewModel.content}"
+            android:textSize="13sp"
+            android:visibility="@{TextUtils.isEmpty(viewModel.content) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/fl_icon"
+            tools:text="你上单的付款时间i哦加哦i发动机送健康的就是快来解放昆仑山点击上方空间和看JFK的时间风口浪尖上的看来九分电视剧 开始的尽快付款
+                粉丝嘉陵江端口看看佛山看饭都快看放声大哭佛空旷地方看疯狂送快递发开发票萨科看方式空旷地方开发科夫斯克
+                    二分十六咖啡碱撒了 看看疯狂打破时空；考虑方式；开发；扣税的贫困；恐怕防空炮的可怕" />
+
+        <TextView
+            android:id="@+id/tv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:background="@drawable/shape_round_rectangle_solid_gray"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="@dimen/padding_small"
+            android:text="@{viewModel.tag}"
+            android:textSize="11sp"
+            android:visibility="@{TextUtils.isEmpty(viewModel.tag) ? View.GONE : View.VISIBLE}"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="@id/tv_follow"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/fl_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_content"
+            tools:text="#你顶dsfjklaj经济大家快来世界多极化覅接送机饿哦接送i就敖少几分哦涉及到了附件算了JFK解放螺丝扣决定离开房间" />
+
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:background="@color/dividerColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tag" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bottom_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_divider"
+            app:layout_constraintWidth_percent="0.55">
+
+            <RadioButton
+                android:id="@+id/tv_thumb"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:button="@drawable/selector_thumb_up"
+                android:buttonTint="@{themeViewModel.textColor}"
+                android:onClick="@{viewModel.onCollection}"
+                android:paddingLeft="5dp"
+                android:text="@{viewModel.collectionCount}"
+                android:textColor="@{themeViewModel.textColor}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_star"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:buttonTint="?android:textColor"
+                tools:ignore="TouchTargetSizeCheck"
+                tools:text="68"
+                tools:textColor="?android:textColor" />
+
+            <RadioButton
+                android:id="@+id/tv_star"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:button="@drawable/selector_star"
+                android:buttonTint="@{themeViewModel.textColor}"
+                android:gravity="center"
+                android:onClick="@{viewModel.onRealCollection}"
+                android:paddingLeft="5dp"
+                android:text="@{viewModel.realCollectionCount}"
+                android:textColor="@{themeViewModel.textColor}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_comment"
+                app:layout_constraintStart_toEndOf="@id/tv_thumb"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:buttonTint="?android:textColor"
+                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck"
+                tools:text="68"
+                tools:textColor="?android:textColor" />
+
+            <RadioButton
+                android:id="@+id/tv_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:button="@drawable/ic_comment_24"
+                android:buttonTint="@{themeViewModel.textColor}"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text="@{viewModel.replyCount}"
+                android:textColor="@{themeViewModel.textColor}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_star"
+                app:layout_constraintTop_toTopOf="@id/tv_star"
+                tools:buttonTint="?android:textColor"
+                tools:ignore="TouchTargetSizeCheck"
+                tools:text="68"
+                tools:textColor="?android:textColor" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:onClick="@{viewModel.onShare}"
+            android:src="@drawable/ic_share"
+            app:layout_constraintBottom_toBottomOf="@id/cl_bottom_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cl_bottom_bar"
+            app:tint="@{themeViewModel.textColor}"
+            tools:tint="?android:textColor" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

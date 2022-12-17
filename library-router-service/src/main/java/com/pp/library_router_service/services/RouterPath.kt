@@ -9,8 +9,10 @@ object RouterPath {
         const val fragment_community = "/community/fragment_community"
     }
 
-    object VideoDetails {
-        const val activity_video_details = "/video_details/activity_video_details"
+    object ItemDetails {
+        const val activity_video_details = "/details/activity_video_details"
+        const val activity_image_details = "/details/activity_image_details"
+        const val activity_small_video_details = "/details/activity_small_video_details"
     }
 
     object Comments {

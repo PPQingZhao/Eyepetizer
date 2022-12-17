@@ -129,7 +129,7 @@ data class VideoBean(
             @SerializedName("favoriteAdTrack")
             val favoriteAdTrack: Any?,
             @SerializedName("id")
-            val id: Int,
+            val id: Long,
             @SerializedName("idx")
             val idx: Int,
             @SerializedName("ifLimitVideo")

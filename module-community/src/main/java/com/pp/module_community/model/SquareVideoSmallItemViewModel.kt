@@ -1,11 +1,11 @@
 package com.pp.module_community.model
 
 import android.view.View
-import com.alibaba.android.arouter.launcher.ARouter
+import com.pp.library_common.extension.intentToImageDetails
+import com.pp.library_common.extension.intentToVideoDetails
 import com.pp.library_common.extension.isVideo
 import com.pp.library_common.model.MultiItemEntity
 import com.pp.library_network.eyepetizer.bean.Metro
-import com.pp.library_router_service.services.RouterPath
 import com.pp.module_community.respository.SquareType.TYPE_VIDEO_SMALL
 
 class SquareVideoSmallItemViewModel(m: Metro?) :
@@ -44,11 +44,9 @@ class SquareVideoSmallItemViewModel(m: Metro?) :
 
     override fun onVideo(view: View) {
         if (isVideo.get()) {
-            ARouter.getInstance()
-                .build(RouterPath.VideoDetails.activity_video_details)
-                .withLong("resourceId", resourceId ?: 0)
-                .withString("resourceType", resourceType)
-                .navigation()
+            intentToVideoDetails(resourceId, resourceType)
+        } else {
+            intentToImageDetails(resourceId, resourceType)
         }
     }
 

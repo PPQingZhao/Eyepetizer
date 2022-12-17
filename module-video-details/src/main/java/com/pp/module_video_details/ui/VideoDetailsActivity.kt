@@ -14,7 +14,7 @@ import com.pp.library_router_service.services.RouterPath
 import com.pp.module_video_details.R
 import com.pp.module_video_details.databinding.ActivityVideoDetailsBinding
 
-@Route(path = RouterPath.VideoDetails.activity_video_details)
+@Route(path = RouterPath.ItemDetails.activity_video_details)
 class VideoDetailsActivity :
     ThemeActivity<ActivityVideoDetailsBinding, VideoDetailsVideoModel>() {
     override val mBinding by lazy { ActivityVideoDetailsBinding.inflate(layoutInflater) }
@@ -34,7 +34,7 @@ class VideoDetailsActivity :
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        requireLightStatsBar(false)
+        requireLightStatusBar(false)
     }
 
     override fun onNewIntent(intent: Intent?) {

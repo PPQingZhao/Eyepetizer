@@ -1,14 +1,19 @@
 package com.pp.library_common.model.detail
 
+import android.view.View
+import com.pp.library_common.extension.intentToVideoDetails
 import com.pp.library_network.eyepetizer.bean.detail.VideoBean
 import com.pp.library_ui.model.AutoPlayItemViewModel
 
-class TagAutoPlayItemViewModel(item: VideoBean.Item?): AutoPlayItemViewModel() {
-
+class TagAutoPlayItemViewModel(item: VideoBean.Item?) : AutoPlayItemViewModel() {
+    private var resourceId: Long? = null
+    private var resourceType: String? = null
     var videoItem: VideoBean.Item? = null
         set(value) {
             field = value
 
+            resourceId = value?.data?.content?.data?.id
+            resourceType = value?.data?.content?.data?.resourceType
             val bean = value
             bean?.data?.let {
                 icon.set(it.content?.data?.author?.icon)
@@ -43,7 +48,13 @@ class TagAutoPlayItemViewModel(item: VideoBean.Item?): AutoPlayItemViewModel() {
             }
 
         }
+
     init {
         videoItem = item
+    }
+
+    override fun onVideo(view: View) {
+
+        intentToVideoDetails(resourceId ?: 0, resourceType)
     }
 }

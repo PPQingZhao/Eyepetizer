@@ -53,6 +53,6 @@ dependencies {
     implementation(projects.libraryTheme)
     api(libs.exoplayer)
     api(libs.swiperefreshlayout)
-
+    api(libs.photoView)
 
 }

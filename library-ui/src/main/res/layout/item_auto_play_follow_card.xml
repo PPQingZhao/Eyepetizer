@@ -187,7 +187,6 @@
             android:layout_marginStart="@dimen/padding_normal"
             android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginEnd="@dimen/padding_normal"
-            android:clickable="@{viewModel.enablePlay}"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -13,6 +13,24 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity
+            android:name=".ui.ImageDetailsActivity"
+            android:configChanges="keyboardHidden|locale|keyboard|screenSize|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Night">
+
+        </activity>
+
+        <activity
+            android:name=".ui.SmallVideoDetailsActivity"
+            android:configChanges="keyboardHidden|locale|keyboard|screenSize|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Night">
+
+        </activity>
     </application>
 
 </manifest>

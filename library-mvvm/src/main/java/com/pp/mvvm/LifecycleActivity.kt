@@ -21,9 +21,12 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
     AppCompatActivity() {
     abstract val mBinding: VB
 
-    val mViewModel by lazy { ViewModelProvider(this)[(getModelClazz())] }
+    val mViewModel by lazy { ViewModelProvider(this,getModelFactory())[(getModelClazz())] }
 
     abstract fun getModelClazz(): Class<VM>
+
+    open fun getModelFactory(): ViewModelProvider.Factory =
+        ViewModelProvider.AndroidViewModelFactory(application!!)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +61,7 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
             return
 
         setTranslucent()
-        requireLightStatsBar(true)
+        requireLightStatusBar(true)
         /*
             windowInsets分发:拦截WindowInsets, 将windowInsets分发给每个fragment
             沉浸式状态栏: window flags = LayoutParams.FLAG_TRANSLUCENT_STATUS 配合布局中 android:fitsSystemWindows="true"进行实现
@@ -112,7 +115,7 @@ abstract class LifecycleActivity<VB : ViewDataBinding, VM : LifecycleViewModel> 
      * 设置状态栏字体颜色
      * TODO 未做设配
      */
-    fun requireLightStatsBar(light: Boolean) {
+    fun requireLightStatusBar(light: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
                 if (light) WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS else 0,

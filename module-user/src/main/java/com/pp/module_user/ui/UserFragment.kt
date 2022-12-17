@@ -15,6 +15,7 @@ import com.pp.library_ui.utils.StateView
 import com.pp.module_user.databinding.FragmentUserBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 @Route(path = RouterPath.User.fragment_user)
 class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
@@ -38,7 +39,7 @@ class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
             mBinding.userToolbar.dispatchApplyWindowInsets(insets)
         }
         mBinding.userAbl.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val offset = Math.abs(verticalOffset)
+            val offset = abs(verticalOffset)
 
             // toolbar 透明度跟随滚动变化
             mBinding.userToolbar.alpha = offset * 1.0F / appBarLayout.totalScrollRange
@@ -58,7 +59,8 @@ class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
         val adapter = MultiBindingPagingDataAdapter(MetroPagingDataAdapterType.DIFF_CALLBACK)
 
         adapter.addBindingItem(MetroPagingDataAdapterType.description_text(layoutInflater))
-        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail(layoutInflater, true))
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail_image(layoutInflater, true))
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail_video(layoutInflater, true))
         adapter.addBindingItem(MetroPagingDataAdapterType.feed_cover_large_image(layoutInflater))
 
         adapter
@@ -84,8 +86,8 @@ class UserFragment : ThemeFragment<FragmentUserBinding, UserViewModel>() {
             lifecycleScope.launch {
                 mViewModel.getNvaTabData(
                     it.uid,
-                    it.navTabs.navList.get(0).pageType,
-                    it.navTabs.navList.get(0).pageLabel,
+                    it.navTabs.navList[0].pageType,
+                    it.navTabs.navList[0].pageLabel,
                 ).collect {
                     mAdapter.submitData(it)
                 }

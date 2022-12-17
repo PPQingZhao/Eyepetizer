@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pp.library_base.adapter.DefaultBindingPagingDataAdapter
+import com.pp.library_common.extension.isVideo
 import com.pp.library_common.model.*
 import com.pp.library_network.eyepetizer.EyepetizerService2
 import com.pp.library_network.eyepetizer.bean.Card
@@ -17,8 +18,9 @@ import com.pp.library_ui.databinding.*
 object MetroPagingDataAdapterType {
     const val type_load_more = 0
     const val type_description_text = type_load_more + 1
-    const val type_feed_item_detail = type_description_text + 1
-    const val type_feed_cover_large_video = type_feed_item_detail + 1
+    const val type_feed_item_detail_image = type_description_text + 1
+    const val type_feed_item_detail_video = type_feed_item_detail_image + 1
+    const val type_feed_cover_large_video = type_feed_item_detail_video + 1
     const val type_feed_cover_large_video2 = type_feed_cover_large_video + 1
     const val type_feed_cover_small_video = type_feed_cover_large_video2 + 1
     const val type_feed_cover_large_image = type_feed_cover_small_video + 1
@@ -134,21 +136,41 @@ object MetroPagingDataAdapterType {
                 item?.metroData?.text
             })
 
-    fun feed_item_detail(layoutInflater: LayoutInflater, mine: Boolean = false) =
+    fun feed_item_detail_image(layoutInflater: LayoutInflater, mine: Boolean = false) =
         DefaultViewBindingItem<Metro>(
-            type_feed_item_detail,
+            type_feed_item_detail_image,
             {
                 it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_item_detail
+                        && it.metroData?.isVideo() != true
             },
             {
-                ItemFollowCardBindingImpl.inflate(layoutInflater, it, false)
+                ItemImageFollowCardBinding.inflate(layoutInflater, it, false)
             },
             { binding, item, cacheItemViewModel ->
-                if (cacheItemViewModel is MetroFollowItemViewModel) {
+                if (cacheItemViewModel is MetroImageFollowItemViewModel) {
                     cacheItemViewModel.metro = item
                     cacheItemViewModel
                 } else {
-                    MetroFollowItemViewModel(item, mine)
+                    MetroImageFollowItemViewModel(item, mine)
+                }
+            })
+
+    fun feed_item_detail_video(layoutInflater: LayoutInflater, mine: Boolean = false) =
+        DefaultViewBindingItem<Metro>(
+            type_feed_item_detail_video,
+            {
+                it?.style?.tplLabel == EyepetizerService2.MetroType.Style.feed_item_detail
+                        && it.metroData?.isVideo() != false
+            },
+            {
+                ItemVideoFollowCardBindingImpl.inflate(layoutInflater, it, false)
+            },
+            { binding, item, cacheItemViewModel ->
+                if (cacheItemViewModel is MetroVideoFollowItemViewModel) {
+                    cacheItemViewModel.metro = item
+                    cacheItemViewModel
+                } else {
+                    MetroVideoFollowItemViewModel(item, mine)
                 }
             })
 

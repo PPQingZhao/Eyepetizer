@@ -88,7 +88,7 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
                     curThemeId =
                         if (curThemeId == R.style.Theme_Night) R.style.AppTheme else R.style.Theme_Night
 
-                    (requireActivity() as ThemeActivity<*, *>).requireLightStatsBar(curThemeId == R.style.AppTheme)
+                    (requireActivity() as ThemeActivity<*, *>).requireLightStatusBar(curThemeId == R.style.AppTheme)
                     requireActivity().setTheme(curThemeId)
                 }
 
@@ -127,9 +127,8 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
             if (it.resultCode != Activity.RESULT_OK) {
                 return@registerForActivityResult
             }
-            mBinding.mainViewpager.currentItem = 3
+            mBinding.mainViewpager.setCurrentItem(3, false)
         }
-
 
     override fun onFirstResume() {
         mHelper.attach(getPager(), false)
@@ -189,7 +188,7 @@ class MainFragment : TabPagerFragment<FragmentMainBinding, MainViewModel>() {
 class TabImageSwitcher(
     context: Context,
     @DrawableRes val unSelectedIcon: Int,
-    @DrawableRes val selectedIcon: Int
+    @DrawableRes val selectedIcon: Int,
 ) : ImageSwitcher(context) {
 
     var imageTintList = ColorStateList.valueOf(Color.TRANSPARENT)

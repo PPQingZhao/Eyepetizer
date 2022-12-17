@@ -23,8 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/padding_small"
-        android:paddingBottom="@dimen/padding_small"
-        android:onClick="@{viewModel.onVideo}">
+        android:onClick="@{viewModel.onVideo}"
+        android:paddingBottom="@dimen/padding_small">
 
         <FrameLayout
             android:id="@+id/fl_icon"
@@ -57,7 +57,6 @@
             android:textColor="@{themeViewModel.textColor}"
             android:textSize="@dimen/content_title"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toStartOf="@id/iv_share"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/fl_icon"
             app:layout_constraintTop_toTopOf="@id/fl_icon"
@@ -148,21 +147,21 @@
         <com.pp.library_ui.widget.gridlayout.CustomGridLayout
             android:id="@+id/iv_cover"
             constraintLayout="@{parent}"
-            nestedScrollingEnabled="@{false}"
             dimensionRatio='@{viewModel.video ? "16:9" : "1:1"}'
+            nestedScrollingEnabled="@{false}"
+            setUrls="@{viewModel.urls}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginEnd="@dimen/padding_small"
             android:scaleType="fitXY"
-            setUrls="@{viewModel.urls}"
-            app:shapeAppearance="@style/RoundedStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_category"
+            app:shapeAppearance="@style/RoundedStyle"
             tools:background="@drawable/ic_launcher_background"
-            tools:layout_constraintDimensionRatio="16:9"  />
+            tools:layout_constraintDimensionRatio="16:9" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_bottom_bar"

@@ -29,4 +29,5 @@ interface DiscoverApi {
 
     @GET
     suspend fun getVideos(@Url url: String): VideoBean
+
 }

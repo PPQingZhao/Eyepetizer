@@ -30,12 +30,13 @@
     </declare-styleable>
 
     <declare-styleable name="VideoViewer">
-        <attr name="surface_type"/>
+        <attr name="surface_type" />
         <attr name="controller_layout_id" />
         <attr name="hide_on_touch" />
-        <attr name="auto_show"/>
-        <attr name="show_timeout"/>
-        <attr name="use_controller"/>
+        <attr name="auto_show" />
+        <attr name="show_timeout" />
+        <attr name="use_controller" />
+        <attr name="use_bottom_timeBar" format="boolean" />
     </declare-styleable>
 
 </resources>

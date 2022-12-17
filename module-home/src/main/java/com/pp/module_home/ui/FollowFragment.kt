@@ -22,7 +22,8 @@ class FollowFragment : ThemeFragment<FragmentFollowBinding, FollowViewModel>() {
 
     private val followAdapter by lazy {
         val adapter = MultiBindingPagingDataAdapter(MetroPagingDataAdapterType.DIFF_CALLBACK)
-        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail(layoutInflater))
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail_image(layoutInflater))
+        adapter.addBindingItem(MetroPagingDataAdapterType.feed_item_detail_video(layoutInflater))
 
         adapter
     }

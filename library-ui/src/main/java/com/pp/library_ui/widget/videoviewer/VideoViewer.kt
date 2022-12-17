@@ -33,8 +33,13 @@ open class VideoViewer : FrameLayout, LifecycleEventObserver {
     private var videoCoverView: ImageView by Delegates.notNull()
 
     private var videoViewerBinding: ViewVideoviewerBinding? = null
+    var useBottomTimeBar = false
+        set(value) {
+            field = value
+            updateTimeBar()
+        }
 
-    @SuppressLint("WrongViewCast")
+    @SuppressLint("WrongViewCast", "Recycle")
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
@@ -44,29 +49,36 @@ open class VideoViewer : FrameLayout, LifecycleEventObserver {
         val inflater = LayoutInflater.from(context)
         if (isInEditMode) {
             inflater.inflate(R.layout.view_videoviewer, this, true)
-
-        } else {
-            videoViewerBinding = DataBindingUtil.inflate<ViewVideoviewerBinding>(
-                inflater,
-                R.layout.view_videoviewer,
-                this,
-                true
-            )
-
-
-
-            controllerLoadingView = findViewById<ProgressBar>(R.id.controller_loading)
-            videoCoverView = findViewById<ImageView>(R.id.video_cover)
-
-            timeBarController = findViewById<StyledPlayerControlView>(R.id.video_timebar_controller)
-            timeBarController.isEnabled = false
-            timeBarController.showTimeoutMs = Int.MAX_VALUE
-
-            playerView = StyledPlayerView(context, attrs, defStyleAttr)
-            playerView.setControllerVisibilityListener {
-                updateTimeBar()
-            }
+            return
         }
+
+        videoViewerBinding = DataBindingUtil.inflate<ViewVideoviewerBinding>(
+            inflater,
+            R.layout.view_videoviewer,
+            this,
+            true
+        )
+
+        controllerLoadingView = findViewById<ProgressBar>(R.id.controller_loading)
+        videoCoverView = findViewById<ImageView>(R.id.video_cover)
+
+        timeBarController = findViewById<StyledPlayerControlView>(R.id.video_timebar_controller)
+        timeBarController.isEnabled = false
+        timeBarController.showTimeoutMs = Int.MAX_VALUE
+
+        playerView = StyledPlayerView(context, attrs, defStyleAttr)
+        playerView.setControllerVisibilityListener {
+            updateTimeBar()
+        }
+
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.VideoViewer)
+
+        useBottomTimeBar =
+            typedArray.getBoolean(R.styleable.VideoViewer_use_bottom_timeBar, useBottomTimeBar)
+
+        typedArray.recycle()
+
+
     }
 
     private var timeBarController: StyledPlayerControlView by Delegates.notNull()
@@ -114,16 +126,21 @@ open class VideoViewer : FrameLayout, LifecycleEventObserver {
     }
 
     private var cover: String? = null
+    var isShowCover = true
+
+
     fun setCover(cover: String?) {
         this.cover = cover
         videoCoverView.load(cover)
     }
 
-    fun startPlayWhenReady(url: String?) {
+    fun startPlayWhenReady(url: String?): Player {
+        val player = SimpleExoPlayer.Builder(context)
+            .build()
         startPlay(
-            SimpleExoPlayer.Builder(context)
-                .build(), url, true
+            player, url, true
         )
+        return player
     }
 
     private val playEventListener = object : Player.EventListener {
@@ -167,11 +184,11 @@ open class VideoViewer : FrameLayout, LifecycleEventObserver {
     }
 
     fun showCover(show: Boolean) {
-        videoCoverView.visibility = if (show) View.VISIBLE else View.GONE
+        videoCoverView.visibility = if (isShowCover && show) View.VISIBLE else View.GONE
     }
 
     fun updateTimeBar() {
-        if (!isPlaying()) {
+        if (!useBottomTimeBar || !isPlaying()) {
             timeBarController.visibility = View.GONE
             return
         }
@@ -198,7 +215,7 @@ open class VideoViewer : FrameLayout, LifecycleEventObserver {
         try {
             url?.apply {
 
-                if (cover?.isEmpty() != false) {
+                if (isShowCover && cover?.isEmpty() != false) {
                     val metadataRetriever = MediaMetadataRetriever()
                     metadataRetriever.setDataSource(this, mutableMapOf())
                     videoCoverView.setImageBitmap(metadataRetriever.frameAtTime)

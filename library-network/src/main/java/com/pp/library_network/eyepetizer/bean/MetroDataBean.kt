@@ -18,7 +18,7 @@ data class MetroDataBean(
     @SerializedName("consumption")
     val consumption: Consumption,
     @SerializedName("images")
-    val images: List<ImageBean?>,
+    val images: List<ImageBean>,
     @SerializedName("is_mine")
     val isMine: Boolean,
     @SerializedName("item_id")
