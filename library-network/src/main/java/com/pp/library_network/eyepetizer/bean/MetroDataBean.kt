@@ -77,6 +77,8 @@ data class MetroDataBean(
     val playUrl: String,
     @SerializedName("play_ctrl")
     val playCtrl: PlayCtrl,
+    @SerializedName("description")
+    val description: String?,
 ) : Serializable {
 
     data class Tag(

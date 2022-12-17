@@ -1,6 +1,7 @@
 package com.pp.library_network.eyepetizer
 
 import com.pp.library_network.eyepetizer.bean.*
+import com.pp.library_network.eyepetizer.bean.nav.NavDataBean
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -69,5 +70,10 @@ interface EyepetizerApi {
         @FieldMap map: Map<String, String?>?
     ): BaseResponse<PageDataBean>
 
-
+    @FormUrlEncoded
+    @POST
+    suspend fun getNavData(
+        @Url url: String,
+        @FieldMap map: Map<String, String?>?
+    ): BaseResponse<NavDataBean>
 }

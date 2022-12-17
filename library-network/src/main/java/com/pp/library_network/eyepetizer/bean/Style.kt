@@ -58,13 +58,13 @@ data class Style(
 
         data class Margin(
             @SerializedName("bottom")
-            val bottom: Int,
+            val bottom: Float,
             @SerializedName("left")
-            val left: Int,
+            val left: Float,
             @SerializedName("right")
-            val right: Int,
+            val right: Float,
             @SerializedName("top")
-            val top: Int
+            val top: Float
         )
     }
 }

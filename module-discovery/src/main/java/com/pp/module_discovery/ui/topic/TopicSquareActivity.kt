@@ -1,30 +1,20 @@
 package com.pp.module_discovery.ui.topic
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
-import com.pp.library_base.adapter.attachStateView
-import com.pp.library_base.adapter.onErrorListener
+import com.google.android.material.tabs.TabLayout
+import com.pp.library_base.base.Pager
+import com.pp.library_base.base.TabPager
 import com.pp.library_base.base.ThemeActivity
-import com.pp.library_common.adapter.MetroPagingDataAdapterType
-import com.pp.library_common.adapter.VideoPagingDataAdapterType
-import com.pp.library_common.model.ItemModel
-import com.pp.library_network.eyepetizer.EyepetizerService
-import com.pp.library_network.eyepetizer.bean.Card
-import com.pp.library_network.eyepetizer.bean.Metro
-import com.pp.library_network.eyepetizer.bean.detail.Item
+import com.pp.library_base.base.helper.TabPagerFragmentHelper
+import com.pp.library_network.eyepetizer.bean.nav.Nav
 import com.pp.library_router_service.services.RouterPath
-import com.pp.library_ui.utils.StateView
-import com.pp.module_discovery.databinding.ActivityTopicBinding
 import com.pp.module_discovery.databinding.ActivityTopicSquareBinding
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Discovery.activity_topic_square)
 class TopicSquareActivity : ThemeActivity<ActivityTopicSquareBinding, TopicSquareViewModel>() {
@@ -39,77 +29,33 @@ class TopicSquareActivity : ThemeActivity<ActivityTopicSquareBinding, TopicSquar
         return TopicSquareViewModel::class.java
     }
 
+    val mHelper: TabPagerFragmentHelper by lazy {
+        TabPagerFragmentHelper(
+            this,
+            getTabLayout(),
+            getViewPager()
+        )
+    }
+
+    private fun getViewPager(): ViewPager2 {
+        return mBinding.vp2
+    }
+
+    private fun getTabLayout(): TabLayout {
+        return mBinding.tabLayout
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ARouter.getInstance().inject(this)
 
         initToolbar()
-        initRecycler()
         initData(type)
         addObserver()
     }
 
-    private val mAdapter by lazy {
-        val call = object : DiffUtil.ItemCallback<Any>() {
-            override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-                val result =
-                    if (oldItem is Metro && newItem is Metro) {
-                        oldItem.metroId == newItem.metroId
-                    } else if (oldItem is ItemModel<*> && newItem is ItemModel<*>) {
-                        (oldItem.data as Card).cardUniqueId == (newItem.data as Card).cardUniqueId
-                    } else {
-                        oldItem == newItem
-                    }
-
-                return result
-            }
-
-            @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-                val result =
-                    if (oldItem is Metro && newItem is Metro) {
-                        oldItem.metroData?.resourceId == newItem.metroData?.resourceId
-                    } else if (oldItem is ItemModel<*> && newItem is ItemModel<*>) {
-                        (oldItem.data as Card).cardUniqueId == (newItem.data as Card).cardUniqueId
-                    } else {
-                        oldItem == newItem
-                    }
-                return result
-            }
-        }
-        val adapter = MultiBindingPagingDataAdapter<Any>(call)
-        // item type (唯一)
-        // feed_cover_large_video 类型
-        adapter.addBindingItem(MetroPagingDataAdapterType.feed_cover_large_video(layoutInflater))
-
-        // feed_cover_small_video 类型
-        adapter.addBindingItem(MetroPagingDataAdapterType.feed_cover_small_video(layoutInflater))
-
-        val type_small_slide_image = MetroPagingDataAdapterType.type_end_value + 1
-
-        adapter
-    }
-
-    private fun initRecycler() {
-        mBinding.recycler.layoutManager = LinearLayoutManager(this)
-
-        mBinding.recycler.adapter = mAdapter
-    }
-
     private fun initData(type: String) {
-        lifecycleScope.launch {
-            mAdapter.attachStateView(
-                StateView.DefaultBuilder(lifecycle, mBinding.topicRefresh)
-                    .setOnErrorClickListener(mAdapter.onErrorListener())
-                    .setThemeViewModel(mThemeViewModel)
-                    .build()
-            )
-        }
-        lifecycleScope.launch {
-            mViewModel.getPagingData(type).collectLatest {
-                mAdapter.submitData(it)
-            }
-        }
+        mViewModel.getTopicNav(type)
     }
 
     private fun initToolbar() {
@@ -117,7 +63,34 @@ class TopicSquareActivity : ThemeActivity<ActivityTopicSquareBinding, TopicSquar
     }
 
     private fun addObserver() {
+        mViewModel.navTabList.observe(this) {
+            mHelper.attach(getPager(it))
+        }
+    }
 
+    private fun getPager(navList: List<Nav>): TabPager {
+        val fragments = mutableListOf<Fragment>()
+        val tabResources = mutableListOf<String>()
+        navList.forEach {
+            val url = it.url
+            Log.e("TAG", "nav url: $url")
+            val fragment = TopicSquareFragment.newInstance(it.pageLabel, it.pageType)
+            fragments.add(fragment)
+
+            tabResources.add(it.title)
+        }
+        val factory = object : Pager.FragmentFactory {
+            override fun create(position: Int): Fragment {
+                return fragments[position]
+            }
+        }
+
+        val tabPager = TabPager(tabResources.size, factory)
+        tabPager.initTabs { position ->
+            val tab = TabPager.Tab(null, 0, 0, tabResources[position])
+            tab
+        }
+        return tabPager;
     }
 
 }

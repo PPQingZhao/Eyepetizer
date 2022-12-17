@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+    </data>
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:id="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_arrow_left"
+                android:scaleType="center"
+                android:paddingStart="@dimen/padding_normal"
+                android:paddingEnd="@dimen/padding_normal"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/logo_eyepeziter_black"
+                android:scaleType="center"
+                tint="@{themeViewModel.themeTint}"
+                android:paddingStart="@dimen/padding_normal"
+                android:paddingEnd="@dimen/padding_normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+</layout>

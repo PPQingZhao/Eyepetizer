@@ -21,5 +21,10 @@ class TabPager(
         return mTabs.get(position)
     }
 
-    class Tab(val tab: View?, @DrawableRes val icon: Int = 0, @StringRes val text: Int = 0)
+    class Tab(
+        val tab: View?,
+        @DrawableRes val icon: Int = 0,
+        @StringRes val text: Int = 0,
+        val title: String = "",
+    )
 }

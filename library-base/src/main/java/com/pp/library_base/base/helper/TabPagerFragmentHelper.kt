@@ -55,6 +55,9 @@ class TabPagerFragmentHelper(
                 if (pTab.text > 0) {
                     tab.setText(pTab.text)
                 }
+                if (pTab.title.isNotEmpty()) {
+                    tab.text = pTab.title
+                }
 
             }).attach()
     }

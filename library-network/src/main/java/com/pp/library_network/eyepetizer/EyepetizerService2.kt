@@ -39,7 +39,7 @@ interface EyepetizerService2 {
         private const val BASE_URL_V1 = "http://api.eyepetizer.net/"
         const val BASE_URL_GET_PAGE = "${BASE_URL_V1}v1/card/page/get_page"
         const val URL_GET_PAGE = "/v1/card/page/get_page"
-        const val BASE_URL_TOPIC_HOT = "${URL_GET_PAGE}?page_type=card"
+        const val BASE_URL_TOPIC_HOT = "${BASE_URL_GET_PAGE}?page_type=card"
         const val BASE_URL_GET_NAV = "${BASE_URL_V1}v1/card/page/get_nav"
 
         /*

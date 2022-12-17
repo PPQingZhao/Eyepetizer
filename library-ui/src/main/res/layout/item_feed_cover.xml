@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
+
+        <variable
+            name="viewModel"
+            type="com.pp.library_ui.model.FeedCoverViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{v -> viewModel.onItem()}"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:layout_marginBottom="@dimen/padding_normal">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/padding_normal"
+            android:bindSrc="@{viewModel.cover}"
+            android:scaleType="fitXY"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintDimensionRatio="1.2:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:minLines="1"
+            android:text="@{viewModel.title}"
+            android:textColor="@{themeViewModel.textColor}"
+            android:textSize="14sp"
+            app:layout_constraintTop_toTopOf="@+id/iv_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_cover"
+            tools:text="开眼世界杯投票时刻"
+            tools:textColor="?android:textColor" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:minLines="2"
+            android:text="@{viewModel.description}"
+            android:textColor="@{themeViewModel.textColorSecondary}"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/iv_cover"
+            tools:text="融入冰天雪地,「哈」出你的冬日啊日啊方法日啊方法日啊方法日啊方法日啊方法日啊方法日啊方法方法发到计划"
+            tools:textColor="?android:textColor" />
+
+        <TextView
+            android:id="@+id/tv_tags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.tagCount}"
+            android:textColor="@{themeViewModel.textColorSecondary}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/iv_cover"
+            tools:text="10 人参与"
+            tools:textColor="?android:textColor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

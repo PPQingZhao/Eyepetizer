@@ -8,29 +8,39 @@ import com.pp.library_common.model.ItemModel
 import com.pp.library_common.pagingsource.Key
 import com.pp.library_common.pagingsource.MetroPagingSource
 import com.pp.library_network.eyepetizer.EyepetizerService2
+import com.pp.library_network.eyepetizer.bean.BaseResponse
 import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.Metro
+import com.pp.library_network.eyepetizer.bean.nav.NavDataBean
 import kotlinx.coroutines.flow.Flow
 
 object TopicSquareRepository {
 
     const val TAG = "TopicListRepository"
 
-    fun getTopicNav(type: String): Flow<PagingData<Any>> {
+    suspend fun getTopicNav(type: String): BaseResponse<NavDataBean> {
 
         val map = mutableMapOf<String, String>()
         map["tab_label"] = type
 
+        return EyepetizerService2.api.getNavData(EyepetizerService2.BASE_URL_GET_NAV, map)
+    }
+
+    fun getPagingData(pageLabel: String, pageType: String): Flow<PagingData<Any>> {
+        val map = HashMap<String, String>()
+        map["page_type"] = pageType
+        map["page_label"] = pageLabel
         val key = Key<Any>()
-        key.url = EyepetizerService2.BASE_URL_GET_NAV
+        key.url = EyepetizerService2.BASE_URL_GET_PAGE
         key.paramMap = map
+
         return Pager(
             initialKey = key,
             config = PagingConfig(15),
-            pagingSourceFactory = { TopicNavPagingSource() }).flow
+            pagingSourceFactory = { TopicPagingSource() }).flow
     }
 
-    private class TopicNavPagingSource : MetroPagingSource<Any>() {
+    private class TopicPagingSource : MetroPagingSource<Any>() {
 
         override fun getSetBannerList(card: Card, metroList: List<Metro>?): List<Any> {
             val itemModels = mutableListOf<Any>()
@@ -48,6 +58,8 @@ object TopicSquareRepository {
                     itemModels.add(it)
                 } else if (it.style.tplLabel == EyepetizerService2.MetroType.Style.description_text) {
                     itemModels.add(it)
+                } else if (it.style.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_detail_topic) {
+                    itemModels.add(it)
                 }
 
             }
@@ -62,6 +74,10 @@ object TopicSquareRepository {
                 if (it.style.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_large_video) {
                     itemModels.add(it)
                 } else if (it.style.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_small_video) {
+                    itemModels.add(it)
+                } else if (it.style.tplLabel == EyepetizerService2.MetroType.Style.description_text) {
+                    itemModels.add(it)
+                } else if (it.style.tplLabel == EyepetizerService2.MetroType.Style.feed_cover_detail_topic) {
                     itemModels.add(it)
                 }
             }
