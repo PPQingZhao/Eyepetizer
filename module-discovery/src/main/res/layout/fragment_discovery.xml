@@ -10,6 +10,7 @@
         <include
             android:id="@+id/include_appbar"
             layout="@layout/layout_discovery_appbar"
+            app:themeViewModel="@{themeViewModel}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.core.widget.NestedScrollView
@@ -30,6 +31,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
+
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
 
         <variable
             name="viewModel"

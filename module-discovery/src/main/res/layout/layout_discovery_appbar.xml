@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="themeViewModel"
+            type="com.pp.library_ui.utils.AppTheme" />
     </data>
 
     <androidx.appcompat.widget.Toolbar
@@ -34,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_bell"
+                tint="@{themeViewModel.themeTint}"
                 android:scaleType="center"
                 android:paddingStart="@dimen/padding_normal"
                 android:paddingEnd="@dimen/padding_normal" />
