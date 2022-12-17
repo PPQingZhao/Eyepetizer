@@ -4,6 +4,12 @@
     <application>
         <activity android:name=".ui.TagDetailActivity"
             android:exported="false" />
+        <activity android:name=".ui.topic.TopicActivity"
+            android:exported="false" />
+        <activity android:name=".ui.topic.TopicListActivity"
+            android:exported="false" />
+        <activity android:name=".ui.topic.TopicSquareActivity"
+            android:exported="false" />
 
     </application>
 </manifest>

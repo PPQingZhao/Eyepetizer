@@ -128,8 +128,7 @@ object MetroPagingDataAdapterType {
                 it?.style?.tplLabel == EyepetizerService2.MetroType.Style.description_text
             },
             {
-                val binding = ItemToBeDevelopedBindingImpl.inflate(layoutInflater, it, false)
-                binding.root.visibility = View.GONE
+                val binding = ItemDescriptionBinding.inflate(layoutInflater, it, false)
                 binding
             },
             { binding, item, cacheItemViewModel ->

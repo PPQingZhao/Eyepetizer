@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/padding_normal"
             android:src="@drawable/ic_arrow_right"
+            android:onClick="@{v -> viewModel.onMore()}"
             android:visibility="@{viewModel.showMoreIcon ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

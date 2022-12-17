@@ -2,13 +2,13 @@ package com.pp.library_common.model.detail
 
 import android.view.View
 import com.pp.library_common.extension.intentToVideoDetails
-import com.pp.library_network.eyepetizer.bean.detail.VideoBean
+import com.pp.library_network.eyepetizer.bean.detail.Item
 import com.pp.library_ui.model.AutoPlayItemViewModel
 
-class TagAutoPlayItemViewModel(item: VideoBean.Item?) : AutoPlayItemViewModel() {
+class TagAutoPlayItemViewModel(item: Item?): AutoPlayItemViewModel() {
     private var resourceId: Long? = null
     private var resourceType: String? = null
-    var videoItem: VideoBean.Item? = null
+    var videoItem: Item? = null
         set(value) {
             field = value
 
@@ -35,9 +35,11 @@ class TagAutoPlayItemViewModel(item: VideoBean.Item?) : AutoPlayItemViewModel() 
                 }
 
                 it.content?.data?.let { dataX ->
-                    replyCount.set("${dataX.consumption.replyCount}")
-                    collectionCount.set("${dataX.consumption.collectionCount}")
-                    realCollectionCount.set("${dataX.consumption.realCollectionCount}")
+                    dataX.consumption?.let { consumption ->
+                        replyCount.set("${consumption.replyCount}")
+                        collectionCount.set("${consumption.collectionCount}")
+                        realCollectionCount.set("${consumption.realCollectionCount}")
+                    }
 
                     val createTime = simpleFormat.format(dataX.createTime)
                     publishDate.set("$createTime 发布：")

@@ -42,35 +42,7 @@ data class Card(
             val apiRequest: ApiRequest?,
             @SerializedName("metro_list")
             val metroList: List<Metro>?
-        ) {
-            data class ApiRequest(
-                @SerializedName("params")
-                val params: Map<String, String>,
-                @SerializedName("url")
-                val url: String
-            ) {
-                /*data class Params(
-                    @SerializedName("card")
-                    val card: String,
-                    @SerializedName("card_index")
-                    val cardIndex: Int,
-                    @SerializedName("data_source")
-                    val dataSource: String,
-                    @SerializedName("last_item_id")
-                    val lastItemId: Int,
-                    @SerializedName("material")
-                    val material: String,
-                    @SerializedName("material_index")
-                    val materialIndex: Int,
-                    @SerializedName("material_relative_index")
-                    val materialRelativeIndex: Int,
-                    @SerializedName("page_label")
-                    val pageLabel: String,
-                    @SerializedName("page_params")
-                    val pageParams: String
-                )*/
-            }
-        }
+        )
 
         data class Footer(
             @SerializedName("center")

@@ -1,9 +1,9 @@
 package com.pp.library_common.extension
 
 import com.pp.library_common.data.DetailsData
-import com.pp.library_network.eyepetizer.bean.detail.VideoBean
+import com.pp.library_network.eyepetizer.bean.detail.Item
 
-fun VideoBean.Item.createDetailsData(): DetailsData? {
+fun Item.createDetailsData(): DetailsData? {
     return this.data.content?.data?.run {
         DetailsData(
             playUrl = playUrl,
@@ -12,9 +12,9 @@ fun VideoBean.Item.createDetailsData(): DetailsData? {
             nickName = this.author?.name,
             publish = "",
             tag = "",
-            collectionCount = this.consumption.collectionCount.toString(),
-            realCollectionCount = this.consumption.realCollectionCount.toString(),
-            replyCount = this.consumption.replyCount.toString()
+            collectionCount = this.consumption?.collectionCount.toString(),
+            realCollectionCount = this.consumption?.realCollectionCount.toString(),
+            replyCount = this.consumption?.replyCount.toString()
         )
     }
 }

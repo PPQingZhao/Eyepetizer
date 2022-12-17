@@ -45,6 +45,8 @@ interface EyepetizerService {
         const val URL_COMMUNITY_REC = "${BASE_URL}api/v7/community/tab/rec"
 
         const val URL_TAG = "api/v6/tag/index"
+        const val URL_V3 = "${BASE_URL}api/v3"
+        const val URL_TOPIC_INTERNAL = "${BASE_URL}api/v3/lightTopics/internal/"
 
         /**
          * udid=1e91ce09fe7f44d1bbeb483ffc1ab25fd5170d78

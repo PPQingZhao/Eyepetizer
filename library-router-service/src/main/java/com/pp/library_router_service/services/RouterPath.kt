@@ -31,5 +31,8 @@ object RouterPath {
     object Discovery {
         const val fragment_discovery = "/discovery/fragment_discovery"
         const val activity_tag_detail = "/discovery/tag_detail"
+        const val activity_topic = "/discovery/topic"
+        const val activity_topic_list = "/discovery/topic_list"
+        const val activity_topic_square = "/discovery/topic_square"
     }
 }

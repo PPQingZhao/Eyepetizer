@@ -3,14 +3,14 @@ package com.pp.library_common.model.detail
 import android.view.View
 import com.pp.library_common.extension.intentToImageDetails
 import com.pp.library_common.extension.intentToVideoDetails
-import com.pp.library_network.eyepetizer.bean.detail.VideoBean
+import com.pp.library_network.eyepetizer.bean.detail.Item
 import com.pp.library_ui.model.FollowCardItem2ViewModel
 import com.pp.library_ui.utils.TimeUtils
 
-class TagFollowCardItemViewModel(item: VideoBean.Item?) : FollowCardItem2ViewModel() {
+class TagFollowCardItemViewModel(item: Item?): FollowCardItem2ViewModel() {
     private var resourceId: Long? = null
     private var resourceType: String? = null
-    var videoItem: VideoBean.Item? = null
+    var videoItem: Item? = null
         set(value) {
             field = value
 
@@ -41,9 +41,12 @@ class TagFollowCardItemViewModel(item: VideoBean.Item?) : FollowCardItem2ViewMod
                         }
                     }
 
-                    replyCount.set("${content1.data.consumption.replyCount}")
-                    collectionCount.set("${content1.data.consumption.collectionCount}")
-                    realCollectionCount.set("${content1.data.consumption.realCollectionCount}")
+                    content1.data.consumption?.let { consumption ->
+                        replyCount.set("${consumption.replyCount}")
+                        collectionCount.set("${consumption.collectionCount}")
+                        realCollectionCount.set("${consumption.realCollectionCount}")
+                    }
+
                 }
 
                 it.content?.data?.tags?.forEachIndexed { index, tag ->

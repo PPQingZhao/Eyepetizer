@@ -40,6 +40,7 @@ interface EyepetizerService2 {
         const val BASE_URL_GET_PAGE = "${BASE_URL_V1}v1/card/page/get_page"
         const val URL_GET_PAGE = "/v1/card/page/get_page"
         const val BASE_URL_TOPIC_HOT = "${URL_GET_PAGE}?page_type=card"
+        const val BASE_URL_GET_NAV = "${BASE_URL_V1}v1/card/page/get_nav"
 
         /*
           用户密码登录
@@ -55,6 +56,10 @@ interface EyepetizerService2 {
         const val URL_FOLLOW = "${URL_GET_PAGE}?page_type=card&page_label=follow"
         const val URL_DISCOVERY = "${URL_GET_PAGE}?page_type=card&page_label=/discover_v2"
         const val URL_HOT_QUERIES = "/v1/recommend/search/get_hot_queries?"
+
+        /**
+         * http://api.eyepetizer.net/v1/card/page/get_page
+         */
 
 
         /*
@@ -198,6 +203,12 @@ interface EyepetizerService2 {
             const val default_web = "default_web"
             const val stacked_slide_cover_image = "stacked_slide_cover_image"
             const val slide_cover_image = "slide_cover_image"
+
+            const val feed_cover_detail_topic = "feed_cover_detail_topic"
+            // const val description_text = "description_text"
+            // feed_cover_small_video
+            // card_title
+
         }
     }
 

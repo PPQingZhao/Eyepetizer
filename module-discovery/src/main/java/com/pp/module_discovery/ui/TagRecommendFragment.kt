@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.MultiBindingPagingDataAdapter
 import com.pp.library_base.base.ThemeFragment
 import com.pp.library_common.adapter.VideoPagingDataAdapterType
+import com.pp.library_network.eyepetizer.bean.detail.Item
 import com.pp.library_network.eyepetizer.bean.detail.TagDetailBean
 import com.pp.library_network.eyepetizer.bean.detail.VideoBean
 import com.pp.module_discovery.databinding.FragmentTagRecommendBinding
@@ -37,15 +38,15 @@ class TagRecommendFragment(tab: TagDetailBean.TabInfo.Tab?) : ThemeFragment<Frag
         mBinding.recycler.adapter = mAdapter
     }
 
-    private val mAdapter: MultiBindingPagingDataAdapter<VideoBean.Item> by lazy {
-        val call = object : DiffUtil.ItemCallback<VideoBean.Item>() {
-            override fun areItemsTheSame(oldItem: VideoBean.Item, newItem: VideoBean.Item): Boolean {
+    private val mAdapter: MultiBindingPagingDataAdapter<Item> by lazy {
+        val call = object : DiffUtil.ItemCallback<Item>() {
+            override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
                 val result = oldItem.id == newItem.id
                 return result
             }
 
             @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: VideoBean.Item, newItem: VideoBean.Item): Boolean {
+            override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
                 val result = oldItem.id == newItem.id
                 return result
             }

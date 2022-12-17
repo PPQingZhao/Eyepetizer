@@ -2,15 +2,15 @@ package com.pp.library_common.model.detail
 
 import android.view.View
 import com.pp.library_common.extension.intentToVideoDetails
-import com.pp.library_network.eyepetizer.bean.detail.VideoBean
+import com.pp.library_network.eyepetizer.bean.detail.Item
 import com.pp.library_ui.model.VideoSmallCardItemViewModel
 import com.pp.library_ui.utils.TimeUtils
 
-open class TagSmallVideoCardItem2ViewModel(item: VideoBean.Item?) :
+open class TagSmallVideoCardItem2ViewModel(item: Item?) :
     VideoSmallCardItemViewModel() {
     private var resourceId: Long? = null
     private var resourceType: String? = null
-    var videoItem: VideoBean.Item? = null
+    var videoItem: Item? = null
         set(value) {
             field = value
             val data = value?.data

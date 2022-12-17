@@ -17,6 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:onClick="@{v -> viewModel.onItem()}"
         android:layout_marginHorizontal="4dp"
         android:layout_marginTop="@dimen/padding_normal"
         android:layout_marginBottom="@dimen/padding_normal">
