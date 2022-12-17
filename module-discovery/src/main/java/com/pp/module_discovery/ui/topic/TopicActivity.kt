@@ -68,7 +68,6 @@ class TopicActivity : ThemeActivity<ActivityTopicBinding, TopicViewModel>() {
         adapter.addBindingItem(VideoPagingDataAdapterType.type_video_small_card(layoutInflater))
         adapter.addBindingItem(VideoPagingDataAdapterType.type_auto_play_follow_card(layoutInflater))
         adapter.addBindingItem(VideoPagingDataAdapterType.type_picture_follow_card(layoutInflater))
-        adapter.addBindingItem(VideoPagingDataAdapterType.type_picture_follow_card(layoutInflater))
 
         adapter
     }
