@@ -20,7 +20,7 @@ import com.google.android.exoplayer2.ui.StyledPlayerControlView
 import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.pp.library_ui.R
 import com.pp.library_ui.databinding.ViewVideoviewerBinding
-import com.pp.library_ui.utils.AppThemeViewModel
+import com.pp.library_ui.utils.ViewTreeAppThemeViewModel
 import com.pp.library_ui.utils.load
 import kotlin.properties.Delegates
 
@@ -116,7 +116,7 @@ open class VideoViewer : FrameLayout, LifecycleEventObserver {
             lifecycleOwner = ViewTreeLifecycleOwner.get(this)
                 ?: throw RuntimeException("you should call ViewTreeLifecycleOwner.set() at first")
 
-            val appTheme = AppThemeViewModel[this]
+            val appTheme = ViewTreeAppThemeViewModel[this]
             videoViewerBinding?.themeViewModel = appTheme
             lifecycleOwner?.apply {
                 videoViewerBinding?.setLifecycleOwner { this.lifecycle }

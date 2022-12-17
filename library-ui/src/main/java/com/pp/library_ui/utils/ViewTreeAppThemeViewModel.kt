@@ -3,7 +3,7 @@ package com.pp.library_ui.utils
 import android.view.View
 import com.pp.library_ui.R
 
-object AppThemeViewModel {
+object ViewTreeAppThemeViewModel {
     operator fun set(view: View, theme: AppTheme?) {
         view.setTag(R.id.view_tree_app_theme_view_model, theme)
     }

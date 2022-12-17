@@ -11,7 +11,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.pp.library_ui.utils.AppTheme
-import com.pp.library_ui.utils.AppThemeViewModel
+import com.pp.library_ui.utils.ViewTreeAppThemeViewModel
 import com.pp.library_ui.utils.Theme
 import com.pp.mvvm.BR
 import com.pp.mvvm.LifecycleActivity
@@ -46,7 +46,7 @@ abstract class ThemeActivity<VB : ViewDataBinding, VM : ThemeViewModel> :
             window.setBackgroundDrawable(ColorDrawable(it ?: Color.TRANSPARENT))
         }
 
-        AppThemeViewModel.set(mBinding.root,mThemeViewModel)
+        ViewTreeAppThemeViewModel.set(mBinding.root,mThemeViewModel)
     }
 
     @CallSuper

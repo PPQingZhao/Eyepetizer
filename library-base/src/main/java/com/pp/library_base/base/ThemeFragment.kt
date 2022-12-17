@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import com.pp.library_ui.utils.AppTheme
-import com.pp.library_ui.utils.AppThemeViewModel
+import com.pp.library_ui.utils.ViewTreeAppThemeViewModel
 import com.pp.mvvm.*
 
 /**
@@ -32,7 +32,7 @@ abstract class ThemeFragment<VB : ViewDataBinding, VM : ThemeViewModel> :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        AppThemeViewModel[mBinding.root] = requireTheme()
+        ViewTreeAppThemeViewModel[mBinding.root] = requireTheme()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

@@ -94,7 +94,7 @@ class DefaultLoadMoreStateAdapter(
         val lifecycleOwner = ViewTreeLifecycleOwner.get(holder.binding.root)
         holder.binding.lifecycleOwner = lifecycleOwner
 
-        val appTheme = AppThemeViewModel.get(holder.binding.root)
+        val appTheme = ViewTreeAppThemeViewModel.get(holder.binding.root)
         holder.binding.setVariable(BR.themeViewModel, appTheme)
     }
 

@@ -102,6 +102,14 @@ class ImageDetailsActivity : ThemeActivity<ActivityImageDetailsBinding, ImageDet
         }
     }
 
+    override fun onBackPressed() {
+        if (mBinding.llComment.visibility == View.VISIBLE) {
+            mBinding.llComment.startTranslationY(false)
+            return
+        }
+        super.onBackPressed()
+    }
+
     private val mAdapter = ImageAdapter()
     private fun initViewPager() {
         mBinding.viewpager2.adapter = mAdapter

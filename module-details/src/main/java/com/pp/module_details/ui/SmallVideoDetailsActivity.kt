@@ -112,9 +112,7 @@ class SmallVideoDetailsActivity :
         mBinding.video.startHeightAnimator(
             maxVideoHeight,
             minVideoHeight,
-            listener = DefaultAnimatorListener(onAnimationStart = {
-                mBinding.titleBar.visibility = View.GONE
-            }, onAnimationEnd = {
+            listener = DefaultAnimatorListener( onAnimationEnd = {
                 mBinding.video.layoutParams.height = minVideoHeight
             })
         )
@@ -125,7 +123,6 @@ class SmallVideoDetailsActivity :
             minVideoHeight,
             maxVideoHeight,
             listener = DefaultAnimatorListener(onAnimationEnd = {
-                mBinding.titleBar.visibility = View.VISIBLE
                 mBinding.video.layoutParams.height = maxVideoHeight
             })
         )
@@ -135,6 +132,7 @@ class SmallVideoDetailsActivity :
         startScaleVideoHeightAnimator1()
         mBinding.includeDetail.parent.startAlphaAnimator(1.0f, 0.0f)
         mBinding.playerController.startAlphaAnimator(1.0f, 0.0f)
+        mBinding.titleBar.startAlphaAnimator(1.0f,0.0f)
         mBinding.llComment.startTranslationY(true)
     }
 
@@ -142,6 +140,7 @@ class SmallVideoDetailsActivity :
         startScaleVideoHeightAnimator2()
         mBinding.includeDetail.parent.startAlphaAnimator(0.0f, 0.3f, 1.0f)
         mBinding.playerController.startAlphaAnimator(0.0f, 0.3f, 1.0f)
+        mBinding.titleBar.startAlphaAnimator(0.0f, 0.3f, 1.0f)
         mBinding.llComment.startTranslationY(false)
     }
 

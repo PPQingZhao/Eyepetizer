@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.pp.library_ui.BR
-import com.pp.library_ui.utils.AppThemeViewModel
+import com.pp.library_ui.utils.ViewTreeAppThemeViewModel
 
 abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any?> {
     private val itemViewModelCaches by lazy { mutableMapOf<Int, VM?>() }
@@ -47,7 +47,7 @@ abstract class AdapterBindingHelper<VB : ViewDataBinding, VM : Any, T : Any?> {
         val lifecycleOwner = ViewTreeLifecycleOwner.get(holder.binding.root)
         holder.binding.lifecycleOwner = lifecycleOwner
 
-        val appTheme = AppThemeViewModel.get(holder.binding.root)
+        val appTheme = ViewTreeAppThemeViewModel.get(holder.binding.root)
         holder.binding.setVariable(BR.themeViewModel, appTheme)
     }
 
