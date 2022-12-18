@@ -29,7 +29,7 @@ class TopicSquareActivity : ThemeActivity<ActivityTopicSquareBinding, TopicSquar
         return TopicSquareViewModel::class.java
     }
 
-    val mHelper: TabPagerFragmentHelper by lazy {
+    private val mHelper: TabPagerFragmentHelper by lazy {
         TabPagerFragmentHelper(
             this,
             getTabLayout(),
@@ -69,19 +69,16 @@ class TopicSquareActivity : ThemeActivity<ActivityTopicSquareBinding, TopicSquar
     }
 
     private fun getPager(navList: List<Nav>): TabPager {
-        val fragments = mutableListOf<Fragment>()
         val tabResources = mutableListOf<String>()
         navList.forEach {
-            val url = it.url
-            Log.e("TAG", "nav url: $url")
-            val fragment = TopicSquareFragment.newInstance(it.pageLabel, it.pageType)
-            fragments.add(fragment)
-
             tabResources.add(it.title)
         }
         val factory = object : Pager.FragmentFactory {
             override fun create(position: Int): Fragment {
-                return fragments[position]
+                val nav = navList.getOrNull(position)
+                val pageLabel = nav?.pageLabel ?: ""
+                val pageType = nav?.pageType ?: ""
+                return TopicSquareFragment.newInstance(pageLabel, pageType)
             }
         }
 

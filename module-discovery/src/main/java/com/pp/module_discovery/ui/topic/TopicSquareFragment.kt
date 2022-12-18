@@ -17,6 +17,7 @@ import com.pp.library_network.eyepetizer.bean.Card
 import com.pp.library_network.eyepetizer.bean.Metro
 import com.pp.library_ui.utils.StateView
 import com.pp.module_discovery.databinding.FragmentTopicSquareBinding
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -106,6 +107,7 @@ class TopicSquareFragment : ThemeFragment<FragmentTopicSquareBinding, TopicSquar
         )
     }
 
+    private var job: Job? = null
     private fun initData() {
         lifecycleScope.launch {
             mAdapter.attachStateView(
@@ -115,11 +117,16 @@ class TopicSquareFragment : ThemeFragment<FragmentTopicSquareBinding, TopicSquar
                     .build()
             )
         }
-        lifecycleScope.launch {
+        job = lifecycleScope.launch {
             mViewModel.getPagingData(pageLabel, pageType).collectLatest {
                 mAdapter.submitData(lifecycle, it)
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        job?.cancel()
     }
 
 }
