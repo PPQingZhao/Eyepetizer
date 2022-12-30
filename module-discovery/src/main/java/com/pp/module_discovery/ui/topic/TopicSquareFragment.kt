@@ -3,7 +3,9 @@ package com.pp.module_discovery.ui.topic
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pp.library_base.adapter.DefaultLoadMoreStateAdapter
@@ -107,9 +109,8 @@ class TopicSquareFragment : ThemeFragment<FragmentTopicSquareBinding, TopicSquar
         )
     }
 
-    private var job: Job? = null
     private fun initData() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             mAdapter.attachStateView(
                 StateView.DefaultBuilder(lifecycle, mBinding.topicRefresh)
                     .setOnErrorClickListener(mAdapter.onErrorListener())
@@ -117,16 +118,13 @@ class TopicSquareFragment : ThemeFragment<FragmentTopicSquareBinding, TopicSquar
                     .build()
             )
         }
-        job = lifecycleScope.launch {
-            mViewModel.getPagingData(pageLabel, pageType).collectLatest {
-                mAdapter.submitData(lifecycle, it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mViewModel.getPagingData(pageLabel, pageType).collectLatest {
+                    mAdapter.submitData(lifecycle, it)
+                }
             }
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        job?.cancel()
     }
 
 }

@@ -3,7 +3,9 @@ package com.pp.module_discovery.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DiffUtil
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -13,7 +15,7 @@ import com.pp.library_common.adapter.MetroPagingDataAdapterType
 import com.pp.library_router_service.services.RouterPath
 import com.pp.library_ui.utils.StateView
 import com.pp.module_discovery.databinding.FragmentDiscoveryBinding
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Route(path = RouterPath.Discovery.fragment_discovery)
@@ -53,11 +55,11 @@ class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewM
 
     override fun onFirstResume() {
         mAdapter.attachRecyclerView(viewLifecycleOwner.lifecycle, mBinding.recycler)
-       /* lifecycleScope.launch {
-            mAdapter.attachRefreshView(mBinding.discoveryRefresh)
-        }*/
+        /* lifecycleScope.launch {
+             mAdapter.attachRefreshView(mBinding.discoveryRefresh)
+         }*/
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             mAdapter.attachStateView(
                 StateView.DefaultBuilder(viewLifecycleOwner.lifecycle, mBinding.discoveryContent)
                     .setOnErrorClickListener(mAdapter.onErrorListener())
@@ -65,9 +67,11 @@ class DiscoveryFragment : ThemeFragment<FragmentDiscoveryBinding, DiscoveryViewM
                     .build()
             )
         }
-        lifecycleScope.launch {
-            mViewModel.getPagingData().collectLatest {
-                mAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mViewModel.getPagingData().collect {
+                    mAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                }
             }
         }
     }
